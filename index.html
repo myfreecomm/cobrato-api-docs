@@ -13,7 +13,7 @@
 
       <script>
         $(function() {
-          setupLanguages(["shell"]);
+          setupLanguages(["Shell"]);
         });
       </script>
   </head>
@@ -28,7 +28,7 @@
     <div class="tocify-wrapper">
       <img src="images/logo.png" />
         <div class="lang-selector">
-              <a href="#" data-language-name="shell">shell</a>
+              <a href="#" data-language-name="Shell">cURL</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -45,36 +45,36 @@
       <div class="dark-box"></div>
       <div class="content">
         
-          <h1 id="autentica��o">Autenticação</h1>
+          <h1 id="autenticação">Autenticação</h1>
 
 <p>Autenticação</p>
 
 <p>Antes de acessar o Cobrato, você deve criar uma conta em: Cobrato. Se você já tiver uma, você precisa ter o seu API token, você pode conseguí-lo nas configurações de sua conta, o token é requerido em todas as requisições via API, o token é usado para identificá-lo.</p>
 
 <p>Autenticação na API do Cobrato é realizada utilizando HTTP Basic, Porem você não vai usar sua senha e login como de costume, você terá que usar o token da API como sendo seu login e a senha em branco, (se o seu cliente HTTP requer uma senha, você pode digitar X).</p>
-<pre class="highlight plaintext"><code>Formato JSON
+<pre class="highlight shell"><code>    Formato JSON
 
-EXEMPLO DE REQUISIÇÃO
+    EXEMPLO DE REQUISIÇÃO
 
-  $ curl -i -u $YOUR_API_TOKEN:X
-    -H 'User-Agent: My App 1.0' \
-    -H 'Accept: application/json' \
-    -H 'Content-type: application/json' \
-    -X GET https://app.cobrato.com/api/v1
+      <span class="nv">$ </span>curl -i -u <span class="nv">$YOUR_API_TOKEN</span>:X
+        -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+        -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+        -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
+        -X GET https://app.cobrato.com/api/v1
 
-EXEMPLO DE RESPOSTA
+    EXEMPLO DE RESPOSTA
 
-{
-  "chave": "valor"
-}
+    <span class="o">{</span>
+      <span class="s2">"chave"</span>: <span class="s2">"valor"</span>
+    <span class="o">}</span>
 
 </code></pre>
 
-<h2 id="formatos-de-requisi��o-e-resposta">Formatos de requisição e resposta</h2>
+<h2 id="formatos-de-requisição-e-resposta">Formatos de requisição e resposta</h2>
 
 <p>O único formato disponível para requisições e respostas é JSON.</p>
 
-<h2 id="fuso-hor�rio">Fuso horário</h2>
+<h2 id="fuso-horário">Fuso horário</h2>
 
 <p>Todos os dados recebidos e enviados através da API do Cobrato é baseado no fuso horário UTC. No entanto um usuário pode ter uma preferência por outro. Este fuso horário vai ser utilizado para apresentar a resposta, isso não afeta o resultado da resposta da API</p>
 
@@ -103,34 +103,34 @@ EXEMPLO DE RESPOSTA
 </tr>
 </tbody></table>
 
-<h2 id="formato-num�rico">Formato numérico</h2>
+<h2 id="formato-numérico">Formato numérico</h2>
 
 <p>Todos os números são fornecidos tanto com números inteiros, ponto flutuante nativos para JSON.</p>
 
           <h1 id="cedente">Cedente</h1>
-<pre class="highlight plaintext"><code>Cedente
+<pre class="highlight shell"><code>Cedente
 
 EXEMPLO
 
-  {
-    "id":1,
-    "national_identifier_type":"cpf",
-    "national_identifier":"38031171513",
-    "name":"João Silveira",
-    "zipcode":"99000-750",
-    "city":"Carapebus",
-    "state":"RJ",
-    "neighbourhood":"Centro",
-    "street":"Rua Julio de Castilhos",
-    "number":"100",
-    "complement": "Ao lado da lotérica.",
-    "_links":
-      [
-        {"rel":"self","method":"GET","href":"https://app.cobrato.com/api/v1/payees/1"},
-        {"rel":"update","method":"PUT","href":"https://app.cobrato.com/api/v1/payees/1"},
-        {"rel":"destroy","method":"DELETE","href":"https://app.cobrato.com/api/v1/payees/1"}
-      ]
-  }
+  <span class="o">{</span>
+    <span class="s2">"id"</span>:1,
+    <span class="s2">"national_identifier_type"</span>:<span class="s2">"cpf"</span>,
+    <span class="s2">"national_identifier"</span>:<span class="s2">"38031171513"</span>,
+    <span class="s2">"name"</span>:<span class="s2">"João Silveira"</span>,
+    <span class="s2">"zipcode"</span>:<span class="s2">"99000-750"</span>,
+    <span class="s2">"city"</span>:<span class="s2">"Carapebus"</span>,
+    <span class="s2">"state"</span>:<span class="s2">"RJ"</span>,
+    <span class="s2">"neighbourhood"</span>:<span class="s2">"Centro"</span>,
+    <span class="s2">"street"</span>:<span class="s2">"Rua Julio de Castilhos"</span>,
+    <span class="s2">"number"</span>:<span class="s2">"100"</span>,
+    <span class="s2">"complement"</span>: <span class="s2">"Ao lado da lotérica."</span>,
+    <span class="s2">"_links"</span>:
+      <span class="o">[</span>
+        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"self"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/payees/1"</span><span class="o">}</span>,
+        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"update"</span>,<span class="s2">"method"</span>:<span class="s2">"PUT"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/payees/1"</span><span class="o">}</span>,
+        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"destroy"</span>,<span class="s2">"method"</span>:<span class="s2">"DELETE"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/payees/1"</span><span class="o">}</span>
+      <span class="o">]</span>
+  <span class="o">}</span>
 </code></pre>
 
 <p>É possível ter indeterminados cedentes, e a eles que pertencem as contas bancárias, contas de cobrança, e as próprias cobranças do sistema. Podem ser tanto pessoas físicas como pessoas jurídicas.</p>
@@ -209,18 +209,16 @@ EXEMPLO
 <h2 id="lista-de-todos-os-cedentes">Lista de Todos os Cedentes</h2>
 
 <p>Retorna uma lista em JSON contendo todos os cedentes pertencentes a sua Conta de Serviço.</p>
-<pre class="highlight plaintext"><code>Listar Cedentes
-
-DEFINIÇÃO
+<pre class="highlight shell"><code>DEFINIÇÃO
 
   GET https://app.cobrato.com/api/v1/payees
 
 EXEMPLO DE REQUISIÇÃO
 
-  $ curl -i -u $API_TOKEN:X
-    -H 'User-Agent: My App 1.0' \
-    -H 'Accept: application/json' \
-    -H 'Content-type: application/json' \
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
     -X GET https://app.cobrato.com/api/v1/payees
 
 EXEMPLO DE ESTADO DA RESPOSTA
@@ -229,33 +227,31 @@ EXEMPLO DE ESTADO DA RESPOSTA
 
 EXEMPLO DE CORPO DA RESPOSTA
 
-  {
-    "payees":
-      [
-        {
+  <span class="o">{</span>
+    <span class="s2">"payees"</span>:
+      <span class="o">[</span>
+        <span class="o">{</span>
           //informações cedente 1
-        },
-        {
+        <span class="o">}</span>,
+        <span class="o">{</span>
           //informações cedente 2
-        },
+        <span class="o">}</span>,
         ...
-      ]
-  }
+      <span class="o">]</span>
+  <span class="o">}</span>
 </code></pre>
 
-<h2 id="informa��es-do-cedente">Informações do Cedente</h2>
-<pre class="highlight plaintext"><code>Mostra Cedente
-
-DEFINIÇÃO
+<h2 id="informações-do-cedente">Informações do Cedente</h2>
+<pre class="highlight shell"><code>DEFINIÇÃO
 
   GET https://app.cobrato.com/api/v1/payees/:payee_id
 
 EXEMPLO DE REQUISIÇÃO
 
-  $ curl -i -u $API_TOKEN:X
-    -H 'User-Agent: My App 1.0' \
-    -H 'Accept: application/json' \
-    -H 'Content-type: application/json' \
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
     -X GET https://app.cobrato.com/api/v1/payees/:payee_id
 
 EXEMPLO DE ESTADO DA RESPOSTA
@@ -264,44 +260,42 @@ EXEMPLO DE ESTADO DA RESPOSTA
 
 EXEMPLO DE CORPO DA RESPOSTA
 
-  {
-    "id":1,
-    "national_identifier_type":"cpf",
-    "national_identifier":"38031171513",
-    "name":"João Silveira",
-    "zipcode":"99000-750",
-    "city":"Carapebus",
-    "state":"RJ",
-    "neighbourhood":"Centro",
-    "street":"Rua Julio de Castilhos",
-    "number":"100",
-    "complement": "Ao lado da lotérica.",
-    "_links":
-      [
-        {"rel":"self","method":"GET","href":"https://app.cobrato.com/api/v1/payees/1"},
-        {"rel":"update","method":"PUT","href":"https://app.cobrato.com/api/v1/payees/1"},
-        {"rel":"destroy","method":"DELETE","href":"https://app.cobrato.com/api/v1/payees/1"}
-      ]
-  }
+  <span class="o">{</span>
+    <span class="s2">"id"</span>:1,
+    <span class="s2">"national_identifier_type"</span>:<span class="s2">"cpf"</span>,
+    <span class="s2">"national_identifier"</span>:<span class="s2">"38031171513"</span>,
+    <span class="s2">"name"</span>:<span class="s2">"João Silveira"</span>,
+    <span class="s2">"zipcode"</span>:<span class="s2">"99000-750"</span>,
+    <span class="s2">"city"</span>:<span class="s2">"Carapebus"</span>,
+    <span class="s2">"state"</span>:<span class="s2">"RJ"</span>,
+    <span class="s2">"neighbourhood"</span>:<span class="s2">"Centro"</span>,
+    <span class="s2">"street"</span>:<span class="s2">"Rua Julio de Castilhos"</span>,
+    <span class="s2">"number"</span>:<span class="s2">"100"</span>,
+    <span class="s2">"complement"</span>: <span class="s2">"Ao lado da lotérica."</span>,
+    <span class="s2">"_links"</span>:
+      <span class="o">[</span>
+        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"self"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/payees/1"</span><span class="o">}</span>,
+        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"update"</span>,<span class="s2">"method"</span>:<span class="s2">"PUT"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/payees/1"</span><span class="o">}</span>,
+        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"destroy"</span>,<span class="s2">"method"</span>:<span class="s2">"DELETE"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/payees/1"</span><span class="o">}</span>
+      <span class="o">]</span>
+  <span class="o">}</span>
 </code></pre>
 
 <p>Retorna as informações detalhadas do cedente informado em JSON.</p>
 
-<h2 id="cria��o-de-cedente">Criação de Cedente</h2>
-<pre class="highlight plaintext"><code>Criar Cedente
-
-DEFINIÇÃO
+<h2 id="criação-de-cedente">Criação de Cedente</h2>
+<pre class="highlight shell"><code>DEFINIÇÃO
 
   POST https://app.cobrato.com/api/v1/payees
 
 EXEMPLO DE REQUISIÇÃO
 
-  $ curl -i -u $API_TOKEN:X
-    -H 'User-Agent: My App 1.0' \
-    -H 'Accept: application/json' \
-    -H 'Content-type: application/json' \
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
     -X POST https://app.cobrato.com/api/v1/payees
-    -D '{
+    -D <span class="s1">'{
         "name": "João Silva",
         "city": "Caxias do Sul",
         "national_identifier_type": "cpf",
@@ -311,7 +305,7 @@ EXEMPLO DE REQUISIÇÃO
         "neighbourhood": "Centro",
         "number": "174",
         "zipcode": "95055-777"
-      }'
+      }'</span>
 
 EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
 
@@ -323,18 +317,18 @@ EXEMPLO DE ESTADO DA RESPOSTA COM INSUCESSO
 
 EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
-  {
-    "errors":{
-      "name": ["não pode ficar em branco"],
-      "city": ["não pode ficar em branco"],
-      "national_identifier_type": ["não pode ficar em branco","não está incluído na lista"],
-      "state":["não pode ficar em branco","não possui o tamanho esperado (2 caracteres)"],
-      "neighbourhood": ["não pode ficar em branco"],
-      "street": ["não pode ficar em branco"],
-      "number": ["não pode ficar em branco"],
-      "zipcode": ["não pode ficar em branco"]
-    }
-  }
+  <span class="o">{</span>
+    <span class="s2">"errors"</span>:<span class="o">{</span>
+      <span class="s2">"name"</span>: <span class="o">[</span><span class="s2">"não pode ficar em branco"</span><span class="o">]</span>,
+      <span class="s2">"city"</span>: <span class="o">[</span><span class="s2">"não pode ficar em branco"</span><span class="o">]</span>,
+      <span class="s2">"national_identifier_type"</span>: <span class="o">[</span><span class="s2">"não pode ficar em branco"</span>,<span class="s2">"não está incluído na lista"</span><span class="o">]</span>,
+      <span class="s2">"state"</span>:[<span class="s2">"não pode ficar em branco"</span>,<span class="s2">"não possui o tamanho esperado (2 caracteres)"</span><span class="o">]</span>,
+      <span class="s2">"neighbourhood"</span>: <span class="o">[</span><span class="s2">"não pode ficar em branco"</span><span class="o">]</span>,
+      <span class="s2">"street"</span>: <span class="o">[</span><span class="s2">"não pode ficar em branco"</span><span class="o">]</span>,
+      <span class="s2">"number"</span>: <span class="o">[</span><span class="s2">"não pode ficar em branco"</span><span class="o">]</span>,
+      <span class="s2">"zipcode"</span>: <span class="o">[</span><span class="s2">"não pode ficar em branco"</span><span class="o">]</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
 
 </code></pre>
 
@@ -401,25 +395,23 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 </tr>
 </tbody></table>
 
-<h2 id="atualiza��o-de-cedente">Atualização de Cedente</h2>
-<pre class="highlight plaintext"><code>Atualizar Cedente
-
-DEFINIÇÃO
+<h2 id="atualização-de-cedente">Atualização de Cedente</h2>
+<pre class="highlight shell"><code>DEFINIÇÃO
 
   PUT https://app.cobrato.com/api/v1/payees/:payee_id
   PATCH https://app.cobrato.com/api/v1/payees/:payee_id
 
 EXEMPLO DE REQUISIÇÃO
 
-  $ curl -i -u $API_TOKEN:X
-    -H 'User-Agent: My App 1.0' \
-    -H 'Accept: application/json' \
-    -H 'Content-type: application/json' \
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
     -X PATCH https://app.cobrato.com/api/v1/payees/:payee_id
-    -D '{
+    -D <span class="s1">'{
         "city": "Farroupilha",
         "state": "RS"
-      }'
+      }'</span>
 
 EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
 
@@ -435,11 +427,11 @@ EXEMPLO DE ESTADO DA RESPOSTA COM INSUCESSO
 
 EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
-    {
-      "errors":{
-        "national_identifier_type":["não está incluído na lista"]
-      }
-    }
+    <span class="o">{</span>
+      <span class="s2">"errors"</span>:<span class="o">{</span>
+        <span class="s2">"national_identifier_type"</span>:[<span class="s2">"não está incluído na lista"</span><span class="o">]</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
 
 </code></pre>
 
@@ -506,19 +498,17 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 </tr>
 </tbody></table>
 
-<h2 id="exclus�o-de-cedente">Exclusão de Cedente</h2>
-<pre class="highlight plaintext"><code>Excluir Cedente
-
-DEFINIÇÃO
+<h2 id="exclusão-de-cedente">Exclusão de Cedente</h2>
+<pre class="highlight shell"><code>DEFINIÇÃO
 
   DELETE https://app.cobrato.com/api/v1/payees/:payee_id
 
 EXEMPLO DE REQUISIÇÃO
 
-  $ curl -i -u $API_TOKEN:X
-    -H 'User-Agent: My App 1.0' \
-    -H 'Accept: application/json' \
-    -H 'Content-type: application/json' \
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
     -X DELETE https://app.cobrato.com/api/v1/payees/:payee_id
 
 EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
@@ -532,60 +522,91 @@ EXEMPLO DE ESTADO DA RESPOSTA COM CEDENTE INEXISTENTE
 
 <p>Exclui determinado cedente e junto a ele todas suas contas de cobrança, contas bancárias e as cobranças. As mudanças são irreversíveis.</p>
 
-          <h1 id="contas-banc�rias">Contas Bancárias</h1>
-<pre class="highlight plaintext"><code>Conta Bancária
+          <h1 id="contas-bancárias">Contas Bancárias</h1>
+<pre class="highlight shell"><code>EXEMPLO
 
-EXEMPLO
-
-  {
-    "id":1,
-    "payee_id":"1",
-    "bank_code":"001",
-    "agency":"1606",
-    "agency_digit":"3",
-    "account":"91000",
-    "account_digit":"7",
-    "_links":
-      [
-        {"rel":"self","method":"GET","href":"https://app.cobrato.com/api/v1/bank_accounts/1"},
-        {"rel":"update","method":"PUT","href":"https://app.cobrato.com/api/v1/bank_accounts/1"},
-        {"rel":"destroy","method":"DELETE","href":"https://app.cobrato.com/api/v1/bank_accounts/1"},
-        {"rel":"payee","method":"GET","href":"https://app.cobrato.com/api/v1/payees/1"}
-      ]
-  }
+  <span class="o">{</span>
+    <span class="s2">"id"</span>:1,
+    <span class="s2">"payee_id"</span>:<span class="s2">"1"</span>,
+    <span class="s2">"bank_code"</span>:<span class="s2">"001"</span>,
+    <span class="s2">"agency"</span>:<span class="s2">"1606"</span>,
+    <span class="s2">"agency_digit"</span>:<span class="s2">"3"</span>,
+    <span class="s2">"account"</span>:<span class="s2">"91000"</span>,
+    <span class="s2">"account_digit"</span>:<span class="s2">"7"</span>,
+    <span class="s2">"_links"</span>:
+      <span class="o">[</span>
+        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"self"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/bank_accounts/1"</span><span class="o">}</span>,
+        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"update"</span>,<span class="s2">"method"</span>:<span class="s2">"PUT"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/bank_accounts/1"</span><span class="o">}</span>,
+        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"destroy"</span>,<span class="s2">"method"</span>:<span class="s2">"DELETE"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/bank_accounts/1"</span><span class="o">}</span>,
+        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"payee"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/payees/1"</span><span class="o">}</span>
+      <span class="o">]</span>
+  <span class="o">}</span>
 </code></pre>
 
 <p>As Contas Bancárias, pertencem aos seus cedentes, sendo assim é necessário que sempre haja ao menos um cedente para criação de conta bancária.</p>
 
 <p>Parâmetros</p>
 
-<p>id: integer
-payee_id: integer
-identificador do cedento no Cobrato
-bank_code:  string
-código do banco no Febraban
-agency: string
-agency_digit: string
-Apenas utilizado pelo Banco do Brasil(001)
-account:  string
-account_digit:  string
-Apenas não utilizado pelo HSBC(399)
-_links: array of object
-links da conta bancária e de seu cedente</p>
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>integer</td>
+<td></td>
+</tr>
+<tr>
+<td>payee_id</td>
+<td>integer</td>
+<td>identificador do cedento no Cobrato</td>
+</tr>
+<tr>
+<td>bank_code</td>
+<td>string</td>
+<td>código do banco no Febraban</td>
+</tr>
+<tr>
+<td>agency</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>agency_digit</td>
+<td>string</td>
+<td>Apenas utilizado pelo Banco do Brasil(001)</td>
+</tr>
+<tr>
+<td>account</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>account_digit</td>
+<td>string</td>
+<td>Apenas não utilizado pelo HSBC(399)</td>
+</tr>
+<tr>
+<td>_links</td>
+<td>array of object</td>
+<td>links da conta bancária e de seu cedente</td>
+</tr>
+</tbody></table>
 
-<h2 id="lista-de-todos-as-contas-banc�rias">Lista de Todos as Contas Bancárias</h2>
-<pre class="highlight plaintext"><code>Listar Conta Bancária
-
-DEFINIÇÃO
+<h2 id="lista-de-todos-as-contas-bancárias">Lista de Todos as Contas Bancárias</h2>
+<pre class="highlight shell"><code>DEFINIÇÃO
 
   GET https://app.cobrato.com/api/v1/bank_accounts
 
 EXEMPLO DE REQUISIÇÃO
 
-  $ curl -i -u $API_TOKEN:X
-    -H 'User-Agent: My App 1.0' \
-    -H 'Accept: application/json' \
-    -H 'Content-type: application/json' \
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
     -X GET https://app.cobrato.com/api/v1/bank_accounts
 
 EXEMPLO DE ESTADO DA RESPOSTA
@@ -594,36 +615,34 @@ EXEMPLO DE ESTADO DA RESPOSTA
 
 EXEMPLO DE CORPO DA RESPOSTA
 
-  {
-    "bank_accounts":
-      [
-        {
+  <span class="o">{</span>
+    <span class="s2">"bank_accounts"</span>:
+      <span class="o">[</span>
+        <span class="o">{</span>
           //informações conta bancária 1
-        },
-        {
+        <span class="o">}</span>,
+        <span class="o">{</span>
           //informações conta bancária 2
-        },
+        <span class="o">}</span>,
         ...
-      ]
-  }
+      <span class="o">]</span>
+  <span class="o">}</span>
 
 </code></pre>
 
 <p>Retorna uma lista em JSON contendo todos as contas bancárias em que seus cedentes pertencentes a sua Conta de Serviço.</p>
 
-<h2 id="informa��es-da-conta-banc�ria">Informações da Conta Bancária</h2>
-<pre class="highlight plaintext"><code>Mostra Conta Bancária
-
-DEFINIÇÃO
+<h2 id="informações-da-conta-bancária">Informações da Conta Bancária</h2>
+<pre class="highlight shell"><code>DEFINIÇÃO
 
   GET https://app.cobrato.com/api/v1/bank_accounts/:bank_account_id
 
 EXEMPLO DE REQUISIÇÃO
 
-  $ curl -i -u $API_TOKEN:X
-    -H 'User-Agent: My App 1.0' \
-    -H 'Accept: application/json' \
-    -H 'Content-type: application/json' \
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
     -X GET https://app.cobrato.com/api/v1/bank_accounts/:bank_account_id
 
 EXEMPLO DE ESTADO DA RESPOSTA
@@ -632,47 +651,45 @@ EXEMPLO DE ESTADO DA RESPOSTA
 
 EXEMPLO DE CORPO DA RESPOSTA
 
-  {
-    "id":1,
-    "payee_id":"1",
-    "bank_code":"001",
-    "agency":"1606",
-    "agency_digit":"3",
-    "account":"91000",
-    "account_digit":"7",
-    "_links":
-      [
-        {"rel":"self","method":"GET","href":"https://app.cobrato.com/api/v1/bank_accounts/1"},
-        {"rel":"update","method":"PUT","href":"https://app.cobrato.com/api/v1/bank_accounts/1"},
-        {"rel":"destroy","method":"DELETE","href":"https://app.cobrato.com/api/v1/bank_accounts/1"},
-        {"rel":"payee","method":"GET","href":"https://app.cobrato.com/api/v1/payees/1"}
-      ]
-  }
+  <span class="o">{</span>
+    <span class="s2">"id"</span>:1,
+    <span class="s2">"payee_id"</span>:<span class="s2">"1"</span>,
+    <span class="s2">"bank_code"</span>:<span class="s2">"001"</span>,
+    <span class="s2">"agency"</span>:<span class="s2">"1606"</span>,
+    <span class="s2">"agency_digit"</span>:<span class="s2">"3"</span>,
+    <span class="s2">"account"</span>:<span class="s2">"91000"</span>,
+    <span class="s2">"account_digit"</span>:<span class="s2">"7"</span>,
+    <span class="s2">"_links"</span>:
+      <span class="o">[</span>
+        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"self"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/bank_accounts/1"</span><span class="o">}</span>,
+        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"update"</span>,<span class="s2">"method"</span>:<span class="s2">"PUT"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/bank_accounts/1"</span><span class="o">}</span>,
+        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"destroy"</span>,<span class="s2">"method"</span>:<span class="s2">"DELETE"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/bank_accounts/1"</span><span class="o">}</span>,
+        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"payee"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/payees/1"</span><span class="o">}</span>
+      <span class="o">]</span>
+  <span class="o">}</span>
 
 </code></pre>
 
-<h2 id="retorna-as-informa��es-detalhadas-da-conta-banc�ria-informada-em-json-e-tamb�m-a-refer�ncia-ao-seu-cedente">Retorna as informações detalhadas da conta bancária informada em JSON e também a referência ao seu cedente.</h2>
-<pre class="highlight plaintext"><code>Criar Conta Bancária
-
-DEFINIÇÃO
+<p>Retorna as informações detalhadas da conta bancária informada em JSON e também a referência ao seu cedente.</p>
+<pre class="highlight shell"><code>DEFINIÇÃO
 
   POST https://app.cobrato.com/api/v1/bank_accounts
 
 EXEMPLO DE REQUISIÇÃO
 
-  $ curl -i -u $API_TOKEN:X
-    -H 'User-Agent: My App 1.0' \
-    -H 'Accept: application/json' \
-    -H 'Content-type: application/json' \
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
     -X POST https://app.cobrato.com/api/v1/bank_accounts
-    -D '{
+    -D <span class="s1">'{
           "payee_id": "1",
           "bank_code": "001",
           "agency":"1606",
           "agency_digit":"3",
           "account":"91000",
           "account_digit":"7"
-        }'
+        }'</span>
 
 EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
 
@@ -684,36 +701,66 @@ EXEMPLO DE ESTADO DA RESPOSTA COM INSUCESSO
 
 EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
-  {
-    "errors":
-      {
-        "bank_code": ["não pode ficar em branco","não possui o tamanho esperado (3 caracteres)"],
-        "agency": ["não pode ficar em branco","não é um número"],
-        "account": ["não pode ficar em branco","não é um número"],
-        "payee_id":["não pode ficar em branco"]
-      }
-  }
+  <span class="o">{</span>
+    <span class="s2">"errors"</span>:
+      <span class="o">{</span>
+        <span class="s2">"bank_code"</span>: <span class="o">[</span><span class="s2">"não pode ficar em branco"</span>,<span class="s2">"não possui o tamanho esperado (3 caracteres)"</span><span class="o">]</span>,
+        <span class="s2">"agency"</span>: <span class="o">[</span><span class="s2">"não pode ficar em branco"</span>,<span class="s2">"não é um número"</span><span class="o">]</span>,
+        <span class="s2">"account"</span>: <span class="o">[</span><span class="s2">"não pode ficar em branco"</span>,<span class="s2">"não é um número"</span><span class="o">]</span>,
+        <span class="s2">"payee_id"</span>:[<span class="s2">"não pode ficar em branco"</span><span class="o">]</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
 
 
 </code></pre>
 
-<p>Criação de Conta Bancária</p>
+<h2 id="criação-de-conta-bancária">Criação de Conta Bancária</h2>
 
 <p>Cria um nova conta bancária, retornando as informações da mesma caso haja sucesso. Se houverem erros eles serão informados no corpo da resposta.</p>
 
 <p>Parâmetros</p>
 
-<p>payee_id: integer requirido
-identificação do cedente em que a conta bancária irá pertencer
-bank_code:  string requirido
-código do banco no Febraban
-agency: string requirido
-agency_digit: string requirido apenas para o Banco do Brasil(001)
-account:  string requirido
-account_digit:  string requirido com exceção do HSBC(399)</p>
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>payee_id</td>
+<td>integer</td>
+<td>requirido identificação do cedente em que a conta bancária irá pertencer</td>
+</tr>
+<tr>
+<td>bank_code</td>
+<td>string</td>
+<td>requirido código do banco no Febraban</td>
+</tr>
+<tr>
+<td>agency</td>
+<td>string</td>
+<td>requirido</td>
+</tr>
+<tr>
+<td>agency_digit</td>
+<td>string</td>
+<td>requirido apenas para o Banco do Brasil(001)</td>
+</tr>
+<tr>
+<td>account</td>
+<td>string</td>
+<td>requirido</td>
+</tr>
+<tr>
+<td>account_digit</td>
+<td>string</td>
+<td>requirido com exceção do HSBC(399)</td>
+</tr>
+</tbody></table>
 
-<h2 id="atualiza��o-de-conta-banc�ria">Atualização de Conta Bancária</h2>
-<pre class="highlight plaintext"><code>Atualizar Conta Bancária
+<h2 id="atualização-de-conta-bancária">Atualização de Conta Bancária</h2>
+<pre class="highlight shell"><code>Atualizar Conta Bancária
 
 DEFINIÇÃO
 
@@ -722,15 +769,15 @@ DEFINIÇÃO
 
 EXEMPLO DE REQUISIÇÃO
 
-  $ curl -i -u $API_TOKEN:X
-    -H 'User-Agent: My App 1.0' \
-    -H 'Accept: application/json' \
-    -H 'Content-type: application/json' \
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
     -X PATCH https://app.cobrato.com/api/v1/bank_accounts/:bank_account_id
-    -D '{
+    -D <span class="s1">'{
           "agency":"1606",
           "agency_digit":"3"
-        }'
+        }'</span>
 
 EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
 
@@ -746,14 +793,14 @@ EXEMPLO DE ESTADO DA RESPOSTA COM INSUCESSO
 
 EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
-  {
-    "errors":
-      {
-        "bank_code": ["não possui o tamanho esperado (3 caracteres)"],
-        "agency": ["não é um número"],
-        "account": ["não é um número"],
-      }
-  }
+  <span class="o">{</span>
+    <span class="s2">"errors"</span>:
+      <span class="o">{</span>
+        <span class="s2">"bank_code"</span>: <span class="o">[</span><span class="s2">"não possui o tamanho esperado (3 caracteres)"</span><span class="o">]</span>,
+        <span class="s2">"agency"</span>: <span class="o">[</span><span class="s2">"não é um número"</span><span class="o">]</span>,
+        <span class="s2">"account"</span>: <span class="o">[</span><span class="s2">"não é um número"</span><span class="o">]</span>,
+      <span class="o">}</span>
+  <span class="o">}</span>
 
 </code></pre>
 
@@ -763,13 +810,37 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
 <p>Parâmetros</p>
 
-<p>agency: string
-agency_digit: string
-account:  string
-account_digit:  string</p>
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>agency</td>
+<td>string</td>
+<td>-</td>
+</tr>
+<tr>
+<td>agency_digit</td>
+<td>string</td>
+<td>-</td>
+</tr>
+<tr>
+<td>account</td>
+<td>string</td>
+<td>-</td>
+</tr>
+<tr>
+<td>account_digit</td>
+<td>string</td>
+<td>-</td>
+</tr>
+</tbody></table>
 
-<h2 id="exclus�o-de-conta-banc�ria">Exclusão de Conta Bancária</h2>
-<pre class="highlight plaintext"><code>Excluir Conta Bancária
+<h2 id="exclusão-de-conta-bancária">Exclusão de Conta Bancária</h2>
+<pre class="highlight shell"><code>Excluir Conta Bancária
 
 DEFINIÇÃO
 
@@ -777,10 +848,10 @@ DEFINIÇÃO
 
 EXEMPLO DE REQUISIÇÃO
 
-  $ curl -i -u $API_TOKEN:X
-    -H 'User-Agent: My App 1.0' \
-    -H 'Accept: application/json' \
-    -H 'Content-type: application/json' \
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
     -X DELETE https://app.cobrato.com/api/v1/bank_accounts/:bank_account_id
 
 EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
@@ -795,19 +866,17 @@ EXEMPLO DE ESTADO DA RESPOSTA COM CONTA BANCÁRIA INEXISTENTE
 
 <p>Exclui determinada conta bancária e junto a ela todas suas contas de cobrança, e cobranças. As mudanças são irreversíveis.</p>
 
-<p>Carteiras disponíveis</p>
-<pre class="highlight plaintext"><code>Carteiras disponíveis
-
-DEFINIÇÃO
+<h2 id="carteiras-disponíveis">Carteiras disponíveis</h2>
+<pre class="highlight shell"><code>DEFINIÇÃO
 
   GET https://app.cobrato.com/api/v1/bank_accounts/:bank_account_id/portfolio_codes
 
 EXEMPLO DE REQUISIÇÃO
 
-  $ curl -i -u $API_TOKEN:X
-    -H 'User-Agent: My App 1.0' \
-    -H 'Accept: application/json' \
-    -H 'Content-type: application/json' \
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
     -X GET https://app.cobrato.com/api/v1/bank_accounts/:bank_account_id/portfolio_codes
 
 EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
@@ -816,22 +885,22 @@ EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
 
 EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
-  {
-    "portfolio_codes": [
-      "11",
-      "12",
-      "16",
-      "17",
-      "18",
-      "31",
-      "51"
-    ],
-    "_links": {
-      "rel": "bank_account",
-      "method": "GET",
-      "href": "https://sandbox.cobrato.com/api/v1/charges/1"
-    }
-  }
+  <span class="o">{</span>
+    <span class="s2">"portfolio_codes"</span>: <span class="o">[</span>
+      <span class="s2">"11"</span>,
+      <span class="s2">"12"</span>,
+      <span class="s2">"16"</span>,
+      <span class="s2">"17"</span>,
+      <span class="s2">"18"</span>,
+      <span class="s2">"31"</span>,
+      <span class="s2">"51"</span>
+    <span class="o">]</span>,
+    <span class="s2">"_links"</span>: <span class="o">{</span>
+      <span class="s2">"rel"</span>: <span class="s2">"bank_account"</span>,
+      <span class="s2">"method"</span>: <span class="s2">"GET"</span>,
+      <span class="s2">"href"</span>: <span class="s2">"https://sandbox.cobrato.com/api/v1/charges/1"</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
 
 EXEMPLO DE ESTADO DA RESPOSTA COM CONTA BANCÁRIA INEXISTENTE
 
@@ -845,30 +914,28 @@ EXEMPLO DE ESTADO DA RESPOSTA COM INSUCESSO
 
 <p>Retorna todas as carteiras disponíveis de uma determinada Conta de Cobrança a partir de uma Conta Bancária.</p>
 
-          <h1 id="conta-cobran�a">Conta Cobrança</h1>
-<pre class="highlight plaintext"><code>Conta de Cobrança
+          <h1 id="conta-cobrança">Conta Cobrança</h1>
+<pre class="highlight shell"><code>EXEMPLO
 
-EXEMPLO
-
-  {
-    "id": 1,
-    "bank_account_id": 1,
-    "portfolio_code": "17",
-    "agreement_code": "12345678",
-    "agreement_code_digit": "1",
-    "name": "Conta Cobrança",
-    "initial_number": 1,
-    "current_number": 1,
-    "end_number": 1000,
-    "status": "pending",
-    "_links":
-      [
-        {"rel":"self","method":"GET","href":"https://app.cobrato.com/api/v1/charge_accounts/1"},
-        {"rel":"update","method":"PUT","href":"https://app.cobrato.com/api/v1/charge_accounts/1"},
-        {"rel":"destroy","method":"DELETE","href":"https://app.cobrato.com/api/v1/charge_accounts/1"},
-        {"rel":"bank_account","method":"GET","href":"https://app.cobrato.com/api/v1/bank_accounts/1"}
-      ]
-  }
+  <span class="o">{</span>
+    <span class="s2">"id"</span>: 1,
+    <span class="s2">"bank_account_id"</span>: 1,
+    <span class="s2">"portfolio_code"</span>: <span class="s2">"17"</span>,
+    <span class="s2">"agreement_code"</span>: <span class="s2">"12345678"</span>,
+    <span class="s2">"agreement_code_digit"</span>: <span class="s2">"1"</span>,
+    <span class="s2">"name"</span>: <span class="s2">"Conta Cobrança"</span>,
+    <span class="s2">"initial_number"</span>: 1,
+    <span class="s2">"current_number"</span>: 1,
+    <span class="s2">"end_number"</span>: 1000,
+    <span class="s2">"status"</span>: <span class="s2">"pending"</span>,
+    <span class="s2">"_links"</span>:
+      <span class="o">[</span>
+        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"self"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charge_accounts/1"</span><span class="o">}</span>,
+        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"update"</span>,<span class="s2">"method"</span>:<span class="s2">"PUT"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charge_accounts/1"</span><span class="o">}</span>,
+        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"destroy"</span>,<span class="s2">"method"</span>:<span class="s2">"DELETE"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charge_accounts/1"</span><span class="o">}</span>,
+        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"bank_account"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/bank_accounts/1"</span><span class="o">}</span>
+      <span class="o">]</span>
+  <span class="o">}</span>
 
 </code></pre>
 
@@ -876,30 +943,78 @@ EXEMPLO
 
 <p>Parâmetros</p>
 
-<p>id: integer
-bank_account_id:  integer
-identificador da conta bancária desta conta de cobrança no Cobrato
-portfolio_code: string
-código de portfólio
-agreement_code: string
-código de convênio ou do cedente, de acordo com o banco. No caso do Itaú deve ser igual ao campo &lsquo;account&rsquo; da conta bancária
-agreement_code_digit: string
-verificador do código de convênio, de acordo com o banco, no caso do Itaú deve ser igual ao campo &#39;account_digit&rsquo; da conta bancária e no HSBC deve permanecer em branco
-name: string
-initial_number: integer
-número inicial do nosso número, sendo atribuído automaticamente e sequencialmente as cobranças
-current_number: integer
-nosso número atribuído a última cobrança criada a partir desta conta de cobrança
-end_number: integer
-número final do nosso número, sendo o último número a ser atribuído, após isso a sequência é reiniciada
-status: string
-caso for &#39;pending&rsquo; a conta ainda não está homologada
-caso for &#39;ok&rsquo; a conta já consta como homologada
-_links: array of object
-links da conta de cobrança e de sua conta bancária</p>
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>integer</td>
+<td>-</td>
+</tr>
+<tr>
+<td>bank_account_id</td>
+<td>integer</td>
+<td>identificador da conta bancária desta conta de cobrança no Cobrato</td>
+</tr>
+<tr>
+<td>portfolio_code</td>
+<td>string</td>
+<td>código de portfólio</td>
+</tr>
+<tr>
+<td>agreement_code</td>
+<td>string</td>
+<td>código de convênio ou do cedente, de acordo com o banco. No caso do Itaú deve ser igual ao campo &lsquo;account&rsquo; da conta bancária</td>
+</tr>
+<tr>
+<td>agreement_code_digit</td>
+<td>string</td>
+<td>verificador do código de convênio, de acordo com o banco, no caso do Itaú</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>initial_number</td>
+<td>integer</td>
+<td>número inicial do nosso número, sendo atribuído automaticamente e sequencialmente as cobranças</td>
+</tr>
+<tr>
+<td>current_number</td>
+<td>integer</td>
+<td>nosso número atribuído a última cobrança criada a partir desta conta de cobrança</td>
+</tr>
+<tr>
+<td>end_number</td>
+<td>integer</td>
+<td>número final do nosso número, sendo o último número a ser atribuído, após isso a sequência é reiniciada</td>
+</tr>
+<tr>
+<td>status</td>
+<td>string</td>
+<td>caso for &#39;pending&rsquo; a conta ainda não está homologada</td>
+</tr>
+<tr>
+<td>caso for &#39;ok&rsquo; a conta já consta como homologada</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>_links</td>
+<td>array of object</td>
+<td>links da conta de cobrança e de sua conta bancária</td>
+</tr>
+</tbody></table>
 
-<h2 id="lista-de-todos-as-contas-de-cobran�a">Lista de Todos as Contas de Cobrança</h2>
-<pre class="highlight plaintext"><code>Listar Conta de Cobrança
+<h2 id="lista-de-todos-as-contas-de-cobrança">Lista de Todos as Contas de Cobrança</h2>
+<pre class="highlight shell"><code>
+Listar Conta de Cobrança
 
 DEFINIÇÃO
 
@@ -907,10 +1022,10 @@ DEFINIÇÃO
 
 EXEMPLO DE REQUISIÇÃO
 
-  $ curl -i -u $API_TOKEN:X
-    -H 'User-Agent: My App 1.0' \
-    -H 'Accept: application/json' \
-    -H 'Content-type: application/json' \
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
     -X GET https://app.cobrato.com/api/v1/charge_accounts
 
 EXEMPLO DE ESTADO DA RESPOSTA
@@ -919,36 +1034,34 @@ EXEMPLO DE ESTADO DA RESPOSTA
 
 EXEMPLO DE CORPO DA RESPOSTA
 
-  {
-    "charge_accounts":
-      [
-        {
+  <span class="o">{</span>
+    <span class="s2">"charge_accounts"</span>:
+      <span class="o">[</span>
+        <span class="o">{</span>
           //informações conta de cobrança 1
-        },
-        {
+        <span class="o">}</span>,
+        <span class="o">{</span>
           //informações conta de cobrança 2
-        },
+        <span class="o">}</span>,
         ...
-      ]
-  }
+      <span class="o">]</span>
+  <span class="o">}</span>
 
 </code></pre>
 
 <p>Retorna uma lista em JSON contendo todos as contas de cobranças que pertencem a sua Conta de Serviço.</p>
 
-<h3 id="informa��es-da-conta-de-cobran�a">Informações da Conta de Cobrança</h3>
-<pre class="highlight plaintext"><code>Mostra Conta de Cobrança
-
-DEFINIÇÃO
+<h2 id="informações-da-conta-de-cobrança">Informações da Conta de Cobrança</h2>
+<pre class="highlight shell"><code>DEFINIÇÃO
 
   GET https://app.cobrato.com/api/v1/charge_accounts/:charge_account_id
 
 EXEMPLO DE REQUISIÇÃO
 
-  $ curl -i -u $API_TOKEN:X
-    -H 'User-Agent: My App 1.0' \
-    -H 'Accept: application/json' \
-    -H 'Content-type: application/json' \
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
     -X GET https://app.cobrato.com/api/v1/charge_accounts/:charge_account_id
 
 EXEMPLO DE ESTADO DA RESPOSTA
@@ -957,75 +1070,30 @@ EXEMPLO DE ESTADO DA RESPOSTA
 
 EXEMPLO DE CORPO DA RESPOSTA
 
-  {
-    "id": 1,
-    "bank_account_id": 1,
-    "portfolio_code": "17",
-    "agreement_code": "12345678",
-    "agreement_code_digit": "1",
-    "name": "Conta Cobrança",
-    "initial_number": 1,
-    "current_number": 1,
-    "end_number": 1000,
-    "status": "pending",
-    "_links":
-      [
-        {"rel":"self","method":"GET","href":"https://app.cobrato.com/api/v1/charge_accounts/1"},
-        {"rel":"update","method":"PUT","href":"https://app.cobrato.com/api/v1/charge_accounts/1"},
-        {"rel":"destroy","method":"DELETE","href":"https://app.cobrato.com/api/v1/charge_accounts/1"},
-        {"rel":"bank_account","method":"GET","href":"https://app.cobrato.com/api/v1/bank_accounts/1"}
-      ]
-  }
+  <span class="o">{</span>
+    <span class="s2">"id"</span>: 1,
+    <span class="s2">"bank_account_id"</span>: 1,
+    <span class="s2">"portfolio_code"</span>: <span class="s2">"17"</span>,
+    <span class="s2">"agreement_code"</span>: <span class="s2">"12345678"</span>,
+    <span class="s2">"agreement_code_digit"</span>: <span class="s2">"1"</span>,
+    <span class="s2">"name"</span>: <span class="s2">"Conta Cobrança"</span>,
+    <span class="s2">"initial_number"</span>: 1,
+    <span class="s2">"current_number"</span>: 1,
+    <span class="s2">"end_number"</span>: 1000,
+    <span class="s2">"status"</span>: <span class="s2">"pending"</span>,
+    <span class="s2">"_links"</span>:
+      <span class="o">[</span>
+        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"self"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charge_accounts/1"</span><span class="o">}</span>,
+        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"update"</span>,<span class="s2">"method"</span>:<span class="s2">"PUT"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charge_accounts/1"</span><span class="o">}</span>,
+        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"destroy"</span>,<span class="s2">"method"</span>:<span class="s2">"DELETE"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charge_accounts/1"</span><span class="o">}</span>,
+        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"bank_account"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/bank_accounts/1"</span><span class="o">}</span>
+      <span class="o">]</span>
+  <span class="o">}</span>
 
 </code></pre>
 
 <p>Retorna as informações detalhadas da conta de cobrança informada em JSON e também a referência a sua conta bancária.</p>
-
-<h2 id="informa��es-da-conta-de-cobran�a">Informações da Conta de Cobrança</h2>
-<pre class="highlight plaintext"><code>Mostra Conta de Cobrança
-
-DEFINIÇÃO
-
-  GET https://app.cobrato.com/api/v1/charge_accounts/:charge_account_id
-
-EXEMPLO DE REQUISIÇÃO
-
-  $ curl -i -u $API_TOKEN:X
-    -H 'User-Agent: My App 1.0' \
-    -H 'Accept: application/json' \
-    -H 'Content-type: application/json' \
-    -X GET https://app.cobrato.com/api/v1/charge_accounts/:charge_account_id
-
-EXEMPLO DE ESTADO DA RESPOSTA
-
-    200 OK
-
-EXEMPLO DE CORPO DA RESPOSTA
-
-  {
-    "id": 1,
-    "bank_account_id": 1,
-    "portfolio_code": "17",
-    "agreement_code": "12345678",
-    "agreement_code_digit": "1",
-    "name": "Conta Cobrança",
-    "initial_number": 1,
-    "current_number": 1,
-    "end_number": 1000,
-    "status": "pending",
-    "_links":
-      [
-        {"rel":"self","method":"GET","href":"https://app.cobrato.com/api/v1/charge_accounts/1"},
-        {"rel":"update","method":"PUT","href":"https://app.cobrato.com/api/v1/charge_accounts/1"},
-        {"rel":"destroy","method":"DELETE","href":"https://app.cobrato.com/api/v1/charge_accounts/1"},
-        {"rel":"bank_account","method":"GET","href":"https://app.cobrato.com/api/v1/bank_accounts/1"}
-      ]
-  }
-
-</code></pre>
-
-<h2 id="retorna-as-informa��es-detalhadas-da-conta-de-cobran�a-informada-em-json-e-tamb�m-a-refer�ncia-a-sua-conta-banc�ria">Retorna as informações detalhadas da conta de cobrança informada em JSON e também a referência a sua conta bancária.</h2>
-<pre class="highlight plaintext"><code>Criar Conta de Cobrança
+<pre class="highlight shell"><code>Criar Conta de Cobrança
 
 DEFINIÇÃO
 
@@ -1033,12 +1101,12 @@ DEFINIÇÃO
 
 EXEMPLO DE REQUISIÇÃO
 
-  $ curl -i -u $API_TOKEN:X
-    -H 'User-Agent: My App 1.0' \
-    -H 'Accept: application/json' \
-    -H 'Content-type: application/json' \
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
     -X POST https://app.cobrato.com/api/v1/charge_accounts
-    -D '{
+    -D <span class="s1">'{
           "bank_account_id": "1",
           "portfolio_code": "17",
           "agreement_code": "12345678",
@@ -1046,7 +1114,7 @@ EXEMPLO DE REQUISIÇÃO
           "name": "Conta Cobrança",
           "initial_number": "1",
           "end_number": "1000"
-        }'
+        }'</span>
 
 EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
 
@@ -1058,33 +1126,32 @@ EXEMPLO DE ESTADO DA RESPOSTA COM INSUCESSO
 
 EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
-  {
-    "errors":
-      {
-        "name":["não pode ficar em branco"],
-        "portfolio_code":["não pode ficar em branco"],
-        "agreement_code":["não pode ficar em branco"],
-        "agreement_code_digit":["não pode ficar em branco"]
-      }
-  }
+  <span class="o">{</span>
+    <span class="s2">"errors"</span>:
+      <span class="o">{</span>
+        <span class="s2">"name"</span>:[<span class="s2">"não pode ficar em branco"</span><span class="o">]</span>,
+        <span class="s2">"portfolio_code"</span>:[<span class="s2">"não pode ficar em branco"</span><span class="o">]</span>,
+        <span class="s2">"agreement_code"</span>:[<span class="s2">"não pode ficar em branco"</span><span class="o">]</span>,
+        <span class="s2">"agreement_code_digit"</span>:[<span class="s2">"não pode ficar em branco"</span><span class="o">]</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
 
 </code></pre>
 
-<p>Criação de Conta de Cobrança</p>
-<pre class="highlight plaintext"><code>Criar Conta de Cobrança
-
+<h2 id="criação-de-conta-de-cobrança">Criação de Conta de Cobrança</h2>
+<pre class="highlight shell"><code>
 DEFINIÇÃO
 
   POST https://app.cobrato.com/api/v1/charge_accounts
 
 EXEMPLO DE REQUISIÇÃO
 
-  $ curl -i -u $API_TOKEN:X
-    -H 'User-Agent: My App 1.0' \
-    -H 'Accept: application/json' \
-    -H 'Content-type: application/json' \
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
     -X POST https://app.cobrato.com/api/v1/charge_accounts
-    -D '{
+    -D <span class="s1">'{
           "bank_account_id": "1",
           "portfolio_code": "17",
           "agreement_code": "12345678",
@@ -1092,7 +1159,7 @@ EXEMPLO DE REQUISIÇÃO
           "name": "Conta Cobrança",
           "initial_number": "1",
           "end_number": "1000"
-        }'
+        }'</span>
 
 EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
 
@@ -1104,15 +1171,15 @@ EXEMPLO DE ESTADO DA RESPOSTA COM INSUCESSO
 
 EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
-  {
-    "errors":
-      {
-        "name":["não pode ficar em branco"],
-        "portfolio_code":["não pode ficar em branco"],
-        "agreement_code":["não pode ficar em branco"],
-        "agreement_code_digit":["não pode ficar em branco"]
-      }
-  }
+  <span class="o">{</span>
+    <span class="s2">"errors"</span>:
+      <span class="o">{</span>
+        <span class="s2">"name"</span>:[<span class="s2">"não pode ficar em branco"</span><span class="o">]</span>,
+        <span class="s2">"portfolio_code"</span>:[<span class="s2">"não pode ficar em branco"</span><span class="o">]</span>,
+        <span class="s2">"agreement_code"</span>:[<span class="s2">"não pode ficar em branco"</span><span class="o">]</span>,
+        <span class="s2">"agreement_code_digit"</span>:[<span class="s2">"não pode ficar em branco"</span><span class="o">]</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
 
 </code></pre>
 
@@ -1164,22 +1231,52 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
 <p>Parâmetros</p>
 
-<p>bank_account_id:  integer requirido
-código de identificação da conta bancária em que a conta de cobrança irá pertencer
-portfolio_code: string requirido
-código de portfólio, validação conforme o banco determinado através
-agreement_code: string
-requirido, com exceção do Itaú onde é preenchido automaticamente
-agreement_code_digit: string
-requirido, com exceção do HSBC e Itaú, sendo preenchido automaticamente para o último
-name: string requirido
-initial_number: integer requirido
-número inicial do nosso número, sendo atribuído automaticamente e sequencialmente às cobranças
-end_number: integer
-número final do nosso número, sendo o último número a ser atribuído, após isso a sequência é reiniciada</p>
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>bank_account_id</td>
+<td>integer</td>
+<td>requirido código de identificação da conta bancária em que a conta de cobrança irá pertencer</td>
+</tr>
+<tr>
+<td>portfolio_code</td>
+<td>string</td>
+<td>requirido código de portfólio, validação conforme o banco determinado através</td>
+</tr>
+<tr>
+<td>agreement_code</td>
+<td>string</td>
+<td>requirido, com exceção do Itaú onde é preenchido automaticamente</td>
+</tr>
+<tr>
+<td>agreement_code_digit</td>
+<td>string</td>
+<td>requirido, com exceção do HSBC e Itaú, sendo preenchido automaticamente para o último</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>requirido</td>
+</tr>
+<tr>
+<td>initial_number</td>
+<td>integer</td>
+<td>requirido  número inicial do nosso número, sendo atribuído automaticamente e sequencialmente às cobranças</td>
+</tr>
+<tr>
+<td>end_number</td>
+<td>integer</td>
+<td>número final do nosso número, sendo o último número a ser atribuído, após isso a sequência é reiniciada</td>
+</tr>
+</tbody></table>
 
-<h2 id="atualiza��o-de-conta-de-cobran�a">Atualização de Conta de Cobrança</h2>
-<pre class="highlight plaintext"><code>Atualizar Conta de Cobrança
+<h2 id="atualização-de-conta-de-cobrança">Atualização de Conta de Cobrança</h2>
+<pre class="highlight shell"><code>Atualizar Conta de Cobrança
 
 DEFINIÇÃO
 
@@ -1188,17 +1285,17 @@ DEFINIÇÃO
 
 EXEMPLO DE REQUISIÇÃO
 
-  $ curl -i -u $API_TOKEN:X
-    -H 'User-Agent: My App 1.0' \
-    -H 'Accept: application/json' \
-    -H 'Content-type: application/json' \
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
     -X PATCH https://app.cobrato.com/api/v1/charge_accounts/:charge_account_id
-    -D '{
+    -D <span class="s1">'{
           "portfolio_code": "17",
           "agreement_code": "12345678",
           "agreement_code_digit": "1",
           "name": "Novo Nome"
-        }'
+        }'</span>
 
 EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
 
@@ -1214,19 +1311,19 @@ EXEMPLO DE ESTADO DA RESPOSTA COM INSUCESSO
 
 EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
-  {
-    "errors":
-      {
-        "bank_code": ["não possui o tamanho esperado (3 caracteres)"],
-        "agency": ["não é um número"],
-        "account": ["não é um número"],
-      }
-  }
+  <span class="o">{</span>
+    <span class="s2">"errors"</span>:
+      <span class="o">{</span>
+        <span class="s2">"bank_code"</span>: <span class="o">[</span><span class="s2">"não possui o tamanho esperado (3 caracteres)"</span><span class="o">]</span>,
+        <span class="s2">"agency"</span>: <span class="o">[</span><span class="s2">"não é um número"</span><span class="o">]</span>,
+        <span class="s2">"account"</span>: <span class="o">[</span><span class="s2">"não é um número"</span><span class="o">]</span>,
+      <span class="o">}</span>
+  <span class="o">}</span>
 
 </code></pre>
 
 <p>Atualiza a conta de cobrança determinada, retornando as informações da mesma caso haja sucesso. Se houverem erros eles serão informados no corpo da resposta. A requisição não diferencia a utilização dos verbos PUT e PATCH.</p>
-<pre class="highlight plaintext"><code>Atualizar Conta de Cobrança
+<pre class="highlight shell"><code>Atualizar Conta de Cobrança
 
 DEFINIÇÃO
 
@@ -1235,17 +1332,17 @@ DEFINIÇÃO
 
 EXEMPLO DE REQUISIÇÃO
 
-  $ curl -i -u $API_TOKEN:X
-    -H 'User-Agent: My App 1.0' \
-    -H 'Accept: application/json' \
-    -H 'Content-type: application/json' \
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
     -X PATCH https://app.cobrato.com/api/v1/charge_accounts/:charge_account_id
-    -D '{
+    -D <span class="s1">'{
           "portfolio_code": "17",
           "agreement_code": "12345678",
           "agreement_code_digit": "1",
           "name": "Novo Nome"
-        }'
+        }'</span>
 
 EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
 
@@ -1261,31 +1358,60 @@ EXEMPLO DE ESTADO DA RESPOSTA COM INSUCESSO
 
 EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
-  {
-    "errors":
-      {
-        "bank_code": ["não possui o tamanho esperado (3 caracteres)"],
-        "agency": ["não é um número"],
-        "account": ["não é um número"],
-      }
-  }
+  <span class="o">{</span>
+    <span class="s2">"errors"</span>:
+      <span class="o">{</span>
+        <span class="s2">"bank_code"</span>: <span class="o">[</span><span class="s2">"não possui o tamanho esperado (3 caracteres)"</span><span class="o">]</span>,
+        <span class="s2">"agency"</span>: <span class="o">[</span><span class="s2">"não é um número"</span><span class="o">]</span>,
+        <span class="s2">"account"</span>: <span class="o">[</span><span class="s2">"não é um número"</span><span class="o">]</span>,
+      <span class="o">}</span>
+  <span class="o">}</span>
 
 </code></pre>
 
 <p>Parâmetros</p>
 
-<p>portfolio_code: string
-código de portfólio, validação conforme o banco determinado através
-agreement_code: string
-agreement_code_digit: string
-name: string
-initial_number: integer requirido
-número inicial do nosso número, sendo atribuído automaticamente e sequencialmente as cobranças
-end_number: integer
-número final do nosso número, sendo o último número a ser atribuído, após isso a sequência é reiniciada</p>
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>portfolio_code</td>
+<td>string</td>
+<td>código de portfólio, validação conforme o banco determinado através</td>
+</tr>
+<tr>
+<td>agreement_code</td>
+<td>string</td>
+<td>-</td>
+</tr>
+<tr>
+<td>agreement_code_digit</td>
+<td>string</td>
+<td>-</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>-</td>
+</tr>
+<tr>
+<td>initial_number</td>
+<td>integer</td>
+<td>requirido número inicial do nosso número, sendo atribuído automaticamente e sequencialmente as cobranças</td>
+</tr>
+<tr>
+<td>end_number</td>
+<td>integer</td>
+<td>número final do nosso número, sendo o último número a ser atribuído, após sso a sequência é reiniciada</td>
+</tr>
+</tbody></table>
 
-<h2 id="exclus�o-de-conta-de-cobran�a">Exclusão de Conta de Cobrança</h2>
-<pre class="highlight plaintext"><code>Excluir Conta de Cobrança
+<h2 id="exclusão-de-conta-de-cobrança">Exclusão de Conta de Cobrança</h2>
+<pre class="highlight shell"><code>Excluir Conta de Cobrança
 
 DEFINIÇÃO
 
@@ -1293,10 +1419,10 @@ DEFINIÇÃO
 
 EXEMPLO DE REQUISIÇÃO
 
-  $ curl -i -u $API_TOKEN:X
-    -H 'User-Agent: My App 1.0' \
-    -H 'Accept: application/json' \
-    -H 'Content-type: application/json' \
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
     -X DELETE https://app.cobrato.com/api/v1/charge_accounts/:charge_account_id
 
 EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
@@ -1311,7 +1437,7 @@ EXEMPLO DE ESTADO DA RESPOSTA COM CONTA DE COBRANÇA INEXISTENTE
 
 <p>Exclui determinada conta de cobrança e junto a ela todas suas cobranças. As mudanças são irreversíveis.</p>
 
-          <h1 id="cobran�a">Cobrança</h1>
+          <h1 id="cobrança">Cobrança</h1>
 
 <p>As Cobranças, pertencem as suas contas de cobrança, sendo assim é necessário que sempre haja ao menos uma conta de cobrança homologada para a criação de cobranças. Ao criar uma conta de cobrança é automaticamente gerada uma cobrança para homologar a conta.</p>
 
@@ -1426,10 +1552,10 @@ EXEMPLO DE ESTADO DA RESPOSTA COM CONTA DE COBRANÇA INEXISTENTE
 </tr>
 </tbody></table>
 
-<h2 id="lista-de-todos-as-cobran�a">Lista de Todos as Cobrança</h2>
+<h2 id="lista-de-todos-as-cobrança">Lista de Todos as Cobrança</h2>
 
 <p>Retorna uma lista em JSON contendo todos as cobranças que pertencem a sua Conta de Serviço.</p>
-<pre class="highlight plaintext"><code>Listar Cobrança
+<pre class="highlight shell"><code>Listar Cobrança
 
 DEFINIÇÃO
 
@@ -1437,10 +1563,10 @@ DEFINIÇÃO
 
 EXEMPLO DE REQUISIÇÃO
 
-  $ curl -i -u $API_TOKEN:X
-    -H 'User-Agent: My App 1.0' \
-    -H 'Accept: application/json' \
-    -H 'Content-type: application/json' \
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
     -X GET https://app.cobrato.com/api/v1/charges
 
 EXEMPLO DE ESTADO DA RESPOSTA
@@ -1449,23 +1575,23 @@ EXEMPLO DE ESTADO DA RESPOSTA
 
 EXEMPLO DE CORPO DA RESPOSTA
 
-  {
-    "charges":
-      [
-        {
+  <span class="o">{</span>
+    <span class="s2">"charges"</span>:
+      <span class="o">[</span>
+        <span class="o">{</span>
           //informações cobrança 1
-        },
-        {
+        <span class="o">}</span>,
+        <span class="o">{</span>
           //informações cobrança 2
-        },
+        <span class="o">}</span>,
         ...
-      ]
-  }
+      <span class="o">]</span>
+  <span class="o">}</span>
 
 </code></pre>
 
-<h2 id="informa��es-da-cobran�a">Informações da Cobrança</h2>
-<pre class="highlight plaintext"><code>Informar Cobrança
+<h2 id="informações-da-cobrança">Informações da Cobrança</h2>
+<pre class="highlight shell"><code>Informar Cobrança
 
 DEFINIÇÃO
 
@@ -1473,10 +1599,10 @@ DEFINIÇÃO
 
 EXEMPLO DE REQUISIÇÃO
 
-  $ curl -i -u $API_TOKEN:X
-    -H 'User-Agent: My App 1.0' \
-    -H 'Accept: application/json' \
-    -H 'Content-type: application/json' \
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
     -X GET https://app.cobrato.com/api/v1/charges/:charge_id
 
 EXEMPLO DE ESTADO DA RESPOSTA
@@ -1485,42 +1611,42 @@ EXEMPLO DE ESTADO DA RESPOSTA
 
 EXEMPLO DE CORPO DA RESPOSTA
 
-  {
-    "id":1,
-    "charge_account_id": 1,
-    "due_date":"2015-02-14",
-    "document_kind":"DV",
-    "document_date":null,
-    "document_number":null,
-    "custom_our_number": "true",
-    "our_number":"0",
-    "our_number_digit":null,
-    "total_amount":"10.07",
-    "instructions":"Pagável em qualquer agência até data do vencimento",
-    "demonstrative":"Demonstrativo",
-    "payer_emails":["myemail@gmail.com"],
-    "received":true,
-    "received_amount":"10.07",
-    "received_at":"2015-01-30",
-    "processing_date":"2015-01-30",
-    "for_homologation":true,
-    "billet":"https://cobrato-billet-storage.s3.amazonaws.com/billets/1/0269_0008961_1422621964.pdf?AWSAccessKeyId=AKIAJZYRPE7LUTTBNALQ\u0026Expires=1422650715\u0026Signature=JXdko57tCsKRWSy473zQXYUxVfg%3D",
-    "_links":
-      [
-        {"rel":"self","method":"GET","href":"https://app.cobrato.com/api/v1/charges/1"},
-        {"rel":"update","method":"PUT","href":"https://app.cobrato.com/api/v1/charges/1"},
-        {"rel":"destroy","method":"DELETE","href":"https://app.cobrato.com/api/v1/charges/1"},
-        {"rel":"receive","method":"POST","href":"https://app.cobrato.com/api/v1/charges/1/receive"},
-        {"rel":"deliver","method":"POST","href":"https://app.cobrato.com/api/v1/charges/1/deliver_billet"},
-        {"rel":"charge_account","method":"GET","href":"https://app.cobrato.com/api/v1/charge_accounts/1"}
-      ]
-  }
+  <span class="o">{</span>
+    <span class="s2">"id"</span>:1,
+    <span class="s2">"charge_account_id"</span>: 1,
+    <span class="s2">"due_date"</span>:<span class="s2">"2015-02-14"</span>,
+    <span class="s2">"document_kind"</span>:<span class="s2">"DV"</span>,
+    <span class="s2">"document_date"</span>:null,
+    <span class="s2">"document_number"</span>:null,
+    <span class="s2">"custom_our_number"</span>: <span class="s2">"true"</span>,
+    <span class="s2">"our_number"</span>:<span class="s2">"0"</span>,
+    <span class="s2">"our_number_digit"</span>:null,
+    <span class="s2">"total_amount"</span>:<span class="s2">"10.07"</span>,
+    <span class="s2">"instructions"</span>:<span class="s2">"Pagável em qualquer agência até data do vencimento"</span>,
+    <span class="s2">"demonstrative"</span>:<span class="s2">"Demonstrativo"</span>,
+    <span class="s2">"payer_emails"</span>:[<span class="s2">"myemail@gmail.com"</span><span class="o">]</span>,
+    <span class="s2">"received"</span>:true,
+    <span class="s2">"received_amount"</span>:<span class="s2">"10.07"</span>,
+    <span class="s2">"received_at"</span>:<span class="s2">"2015-01-30"</span>,
+    <span class="s2">"processing_date"</span>:<span class="s2">"2015-01-30"</span>,
+    <span class="s2">"for_homologation"</span>:true,
+    <span class="s2">"billet"</span>:<span class="s2">"https://cobrato-billet-storage.s3.amazonaws.com/billets/1/0269_0008961_1422621964.pdf?AWSAccessKeyId=AKIAJZYRPE7LUTTBNALQ</span><span class="se">\u</span><span class="s2">0026Expires=1422650715</span><span class="se">\u</span><span class="s2">0026Signature=JXdko57tCsKRWSy473zQXYUxVfg%3D"</span>,
+    <span class="s2">"_links"</span>:
+      <span class="o">[</span>
+        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"self"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charges/1"</span><span class="o">}</span>,
+        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"update"</span>,<span class="s2">"method"</span>:<span class="s2">"PUT"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charges/1"</span><span class="o">}</span>,
+        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"destroy"</span>,<span class="s2">"method"</span>:<span class="s2">"DELETE"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charges/1"</span><span class="o">}</span>,
+        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"receive"</span>,<span class="s2">"method"</span>:<span class="s2">"POST"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charges/1/receive"</span><span class="o">}</span>,
+        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"deliver"</span>,<span class="s2">"method"</span>:<span class="s2">"POST"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charges/1/deliver_billet"</span><span class="o">}</span>,
+        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"charge_account"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charge_accounts/1"</span><span class="o">}</span>
+      <span class="o">]</span>
+  <span class="o">}</span>
 
 
 </code></pre>
 
 <p>Retorna as informações detalhadas da cobrança informada em JSON e também a referência a sua conta de cobrança.</p>
-<pre class="highlight plaintext"><code>Criar Cobrança
+<pre class="highlight shell"><code>Criar Cobrança
 
 DEFINIÇÃO
 
@@ -1528,19 +1654,19 @@ DEFINIÇÃO
 
 EXEMPLO DE REQUISIÇÃO
 
-  $ curl -i -u $API_TOKEN:X
-    -H 'User-Agent: My App 1.0' \
-    -H 'Accept: application/json' \
-    -H 'Content-type: application/json' \
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
     -X POST https://app.cobrato.com/api/v1/charges
-    -D '{
+    -D <span class="s1">'{
           "charge_account_id": 1,
           "due_date":"2015-02-14",
           "document_kind":"DV",
           "our_number":"12345678",
           "total_amount":"10.07",
           "payer_emails":["myemail@gmail.com"]
-        }'
+        }'</span>
 
 EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
 
@@ -1552,20 +1678,20 @@ EXEMPLO DE ESTADO DA RESPOSTA COM INSUCESSO
 
 EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
-  {
-    "errors":
-      {
-        "charge_account_id":["não pode ficar em branco"],
-        "our_number":["não pode ficar em branco"],
-        "total_amount":["não pode ficar em branco"],
-        "document_kind":["não pode ficar em branco","não está incluído na lista"],
-        "due_date":["não pode ficar em branco"]
-      }
-  }
+  <span class="o">{</span>
+    <span class="s2">"errors"</span>:
+      <span class="o">{</span>
+        <span class="s2">"charge_account_id"</span>:[<span class="s2">"não pode ficar em branco"</span><span class="o">]</span>,
+        <span class="s2">"our_number"</span>:[<span class="s2">"não pode ficar em branco"</span><span class="o">]</span>,
+        <span class="s2">"total_amount"</span>:[<span class="s2">"não pode ficar em branco"</span><span class="o">]</span>,
+        <span class="s2">"document_kind"</span>:[<span class="s2">"não pode ficar em branco"</span>,<span class="s2">"não está incluído na lista"</span><span class="o">]</span>,
+        <span class="s2">"due_date"</span>:[<span class="s2">"não pode ficar em branco"</span><span class="o">]</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
 
 </code></pre>
 
-<h2 id="cria��o-de-cobran�a">Criação de Cobrança</h2>
+<h2 id="criação-de-cobrança">Criação de Cobrança</h2>
 
 <p>Cria um nova cobrança, caso haja sucesso retornará as informações da mesma e será gerado seu boleto. Se houverem erros eles serão informados no corpo da resposta.</p>
 
@@ -1640,8 +1766,8 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 </tr>
 </tbody></table>
 
-<h2 id="atualiza��o-de-cobran�a">Atualização de Cobrança</h2>
-<pre class="highlight plaintext"><code>Atualizar Cobrança
+<h2 id="atualização-de-cobrança">Atualização de Cobrança</h2>
+<pre class="highlight shell"><code>Atualizar Cobrança
 
 DEFINIÇÃO
 
@@ -1650,16 +1776,16 @@ DEFINIÇÃO
 
 EXEMPLO DE REQUISIÇÃO
 
-  $ curl -i -u $API_TOKEN:X
-    -H 'User-Agent: My App 1.0' \
-    -H 'Accept: application/json' \
-    -H 'Content-type: application/json' \
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
     -X PATCH https://app.cobrato.com/api/v1/charges/:charge_id
-    -D '{
+    -D <span class="s1">'{
           "document_date":"2015-02-02",
           "document_number":"123456789",
           "payer_emails":["myemail@gmail.com"]
-        }'
+        }'</span>
 
 EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
 
@@ -1675,10 +1801,10 @@ EXEMPLO DE ESTADO DA RESPOSTA COM INSUCESSO
 
 EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
-  {
-    "errors":
-      {"document_kind":["não está incluído na lista"]}
-  }
+  <span class="o">{</span>
+    <span class="s2">"errors"</span>:
+      <span class="o">{</span><span class="s2">"document_kind"</span>:[<span class="s2">"não está incluído na lista"</span><span class="o">]}</span>
+  <span class="o">}</span>
 
 Exclusão de Cobrança
 
@@ -1759,8 +1885,8 @@ Exclui determinada cobrança. As mudanças são irreversíveis, e não será mai
 </tr>
 </tbody></table>
 
-<h2 id="exclus�o-de-cobran�a">Exclusão de Cobrança</h2>
-<pre class="highlight plaintext"><code>Excluir Conta de Cobrança
+<h2 id="exclusão-de-cobrança">Exclusão de Cobrança</h2>
+<pre class="highlight shell"><code>Excluir Conta de Cobrança
 
 DEFINIÇÃO
 
@@ -1768,10 +1894,10 @@ DEFINIÇÃO
 
 EXEMPLO DE REQUISIÇÃO
 
-  $ curl -i -u $API_TOKEN:X
-    -H 'User-Agent: My App 1.0' \
-    -H 'Accept: application/json' \
-    -H 'Content-type: application/json' \
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
     -X DELETE https://app.cobrato.com/api/v1/charges/:charge_id
 
 EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
@@ -1789,7 +1915,8 @@ EXEMPLO DE ESTADO DA RESPOSTA COM CONTA DE COBRANÇA INEXISTENTE
           <h1 id="webhooks">Webhooks</h1>
 
 <h2 id="lista-de-todos-os-webhooks">Lista de Todos os Webhooks</h2>
-<pre class="highlight plaintext"><code>Listar Webhooks
+<pre class="highlight shell"><code>
+Listar Webhooks
 
 DEFINIÇÃO
 
@@ -1797,10 +1924,10 @@ DEFINIÇÃO
 
 EXEMPLO DE REQUISIÇÃO
 
-  $ curl -i -u $API_TOKEN:X
-    -H 'User-Agent: My App 1.0' \
-    -H 'Accept: application/json' \
-    -H 'Content-type: application/json' \
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
     -X GET https://app.cobrato.com/api/v1/webhooks
 
 EXEMPLO DE ESTADO DA RESPOSTA
@@ -1809,24 +1936,24 @@ EXEMPLO DE ESTADO DA RESPOSTA
 
 EXEMPLO DE CORPO DA RESPOSTA
 
-  {
-    "webhooks":
-      [
-        {
+  <span class="o">{</span>
+    <span class="s2">"webhooks"</span>:
+      <span class="o">[</span>
+        <span class="o">{</span>
           //informações webhook 1
-        },
-        {
+        <span class="o">}</span>,
+        <span class="o">{</span>
           //informações webhook 2
-        },
+        <span class="o">}</span>,
         ...
-      ]
-  }
+      <span class="o">]</span>
+  <span class="o">}</span>
 </code></pre>
 
 <p>Retorna uma lista em JSON contendo todos os webhooks pertencentes a sua Conta de Serviço.</p>
 
-<h2 id="informa��es-do-webhook">Informações do Webhook</h2>
-<pre class="highlight plaintext"><code>Mostra Webhook
+<h2 id="informações-do-webhook">Informações do Webhook</h2>
+<pre class="highlight shell"><code>Mostra Webhook
 
 DEFINIÇÃO
 
@@ -1834,10 +1961,10 @@ DEFINIÇÃO
 
 EXEMPLO DE REQUISIÇÃO
 
-  $ curl -i -u $API_TOKEN:X
-    -H 'User-Agent: My App 1.0' \
-    -H 'Accept: application/json' \
-    -H 'Content-type: application/json' \
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
     -X GET https://app.cobrato.com/api/v1/webhooks/:webhook_id
 
 EXEMPLO DE ESTADO DA RESPOSTA
@@ -1846,21 +1973,21 @@ EXEMPLO DE ESTADO DA RESPOSTA
 
 EXEMPLO DE CORPO DA RESPOSTA
 
-  {
-    "id": 1,
-    "url": "http://www.seusitema.com/cobrato",
-    "description": "teste",
-    "_links": [
-      {"rel":"self","method":"GET","href":"http://localhost:3000/api/v1/webhooks/1"},
-      {"rel":"update","method":"PUT","href":"http://localhost:3000/api/v1/webhooks/1"},
-      {"rel":"destroy","method":"DELETE","href":"http://localhost:3000/api/v1/webhooks/1"}
-    ]
-  }
+  <span class="o">{</span>
+    <span class="s2">"id"</span>: 1,
+    <span class="s2">"url"</span>: <span class="s2">"http://www.seusitema.com/cobrato"</span>,
+    <span class="s2">"description"</span>: <span class="s2">"teste"</span>,
+    <span class="s2">"_links"</span>: <span class="o">[</span>
+      <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"self"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"http://localhost:3000/api/v1/webhooks/1"</span><span class="o">}</span>,
+      <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"update"</span>,<span class="s2">"method"</span>:<span class="s2">"PUT"</span>,<span class="s2">"href"</span>:<span class="s2">"http://localhost:3000/api/v1/webhooks/1"</span><span class="o">}</span>,
+      <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"destroy"</span>,<span class="s2">"method"</span>:<span class="s2">"DELETE"</span>,<span class="s2">"href"</span>:<span class="s2">"http://localhost:3000/api/v1/webhooks/1"</span><span class="o">}</span>
+    <span class="o">]</span>
+  <span class="o">}</span>
 
 </code></pre>
 
 <p>Retorna as informações detalhadas do webhook em formato JSON.</p>
-<pre class="highlight plaintext"><code>Criar Webhook
+<pre class="highlight shell"><code>Criar Webhook
 
 DEFINIÇÃO
 
@@ -1868,15 +1995,15 @@ DEFINIÇÃO
 
 EXEMPLO DE REQUISIÇÃO
 
-  $ curl -i -u $API_TOKEN:X
-    -H 'User-Agent: My App 1.0' \
-    -H 'Accept: application/json' \
-    -H 'Content-type: application/json' \
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
     -X POST https://app.cobrato.com/api/v1/webhooks
-    -D '{
+    -D <span class="s1">'{
         "url": "http://www.seusitema.com/cobrato",
         "description": "Webhook teste"
-      }'
+      }'</span>
 
 EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
 
@@ -1888,31 +2015,45 @@ EXEMPLO DE ESTADO DA RESPOSTA COM INSUCESSO
 
 EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
-  {
-    "errors": {
-      "url": [
-        "não é válida",
-        "não pode ficar em branco",
-        "não é válido"
-      ]
-    }
-  }
+  <span class="o">{</span>
+    <span class="s2">"errors"</span>: <span class="o">{</span>
+      <span class="s2">"url"</span>: <span class="o">[</span>
+        <span class="s2">"não é válida"</span>,
+        <span class="s2">"não pode ficar em branco"</span>,
+        <span class="s2">"não é válido"</span>
+      <span class="o">]</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
 
 </code></pre>
 
-<h2 id="cria��o-de-webhook">Criação de Webhook</h2>
+<h2 id="criação-de-webhook">Criação de Webhook</h2>
 
 <p>Cria um novo webhook, retornando as informações do mesmo caso haja sucesso. Para realizar o cadastro é necessária que a URL informa aceite as requisições POST e GET, respondendo sempre com HTTP 200. Afim de verificação da URL, o Cobrato fará requisições testes a mesma</p>
 
 <p>Parâmetros</p>
 
-<p>url:  string requirido
-URL na qual serão feitas as requisições GET e POST, esperando HTTP 200 como retorno
-description:  string
-Descrição opcional do Webhook</p>
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>url</td>
+<td>string</td>
+<td>requirido URL na qual serão feitas as requisições GET e POST, esperando HTTP 200 como retorno</td>
+</tr>
+<tr>
+<td>description</td>
+<td>string</td>
+<td>Descrição opcional do Webhook</td>
+</tr>
+</tbody></table>
 
-<h2 id="atualiza��o-de-webhook">Atualização de Webhook</h2>
-<pre class="highlight plaintext"><code>Atualizar Webhook
+<h2 id="atualização-de-webhook">Atualização de Webhook</h2>
+<pre class="highlight shell"><code>Atualizar Webhook
 
 DEFINIÇÃO
 
@@ -1921,15 +2062,15 @@ DEFINIÇÃO
 
 EXEMPLO DE REQUISIÇÃO
 
-  $ curl -i -u $API_TOKEN:X
-    -H 'User-Agent: My App 1.0' \
-    -H 'Accept: application/json' \
-    -H 'Content-type: application/json' \
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
     -X PATCH https://app.cobrato.com/api/v1/webhooks/:webhook_id
-    -D '{
+    -D <span class="s1">'{
         "city": "Farroupilha",
         "state": "RS"
-      }'
+      }'</span>
 
 EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
 
@@ -1949,11 +2090,22 @@ EXEMPLO DE ESTADO DA RESPOSTA COM INSUCESSO
 
 <p>Parâmetros</p>
 
-<p>description:  string
-Descrição opcional do Webhook</p>
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>description</td>
+<td>string</td>
+<td>Descrição opcional do Webhook</td>
+</tr>
+</tbody></table>
 
-<h2 id="exclus�o-de-webhook">Exclusão de Webhook</h2>
-<pre class="highlight plaintext"><code>Excluir Webhook
+<h2 id="exclusão-de-webhook">Exclusão de Webhook</h2>
+<pre class="highlight shell"><code>Excluir Webhook
 
 DEFINIÇÃO
 
@@ -1961,10 +2113,10 @@ DEFINIÇÃO
 
 EXEMPLO DE REQUISIÇÃO
 
-  $ curl -i -u $API_TOKEN:X
-    -H 'User-Agent: My App 1.0' \
-    -H 'Accept: application/json' \
-    -H 'Content-type: application/json' \
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
     -X DELETE https://app.cobrato.com/api/v1/webhooks/:webhook_id
 
 EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
@@ -2039,129 +2191,129 @@ EXEMPLO DE ESTADO DA RESPOSTA COM WEBHOOK INEXISTENTE
 </tr>
 </tbody></table>
 
-          <h1 id="webhook-cobran�a">Webhook - Cobrança</h1>
+          <h1 id="webhook-cobrança">Webhook - Cobrança</h1>
 
-<h2 id="cobran�a-atualizada">Cobrança Atualizada</h2>
-<pre class="highlight plaintext"><code>Cobrança Atualizada
+<h2 id="cobrança-atualizada">Cobrança Atualizada</h2>
+<pre class="highlight shell"><code>Cobrança Atualizada
 
 EXEMPLO DE PAYLOAD
 
-        {
-          "created_at":"2015-05-21T16:13:33Z",
-          "action":"updated",
-          "object_type":"charge",
-          "object_id":12,
-          "_links":[{
-            "rel":"self",
-            "method":"GET",
-            "url":"https://app.cobrato.com/api/v1/charges/12"
-          }]
-        }
+        <span class="o">{</span>
+          <span class="s2">"created_at"</span>:<span class="s2">"2015-05-21T16:13:33Z"</span>,
+          <span class="s2">"action"</span>:<span class="s2">"updated"</span>,
+          <span class="s2">"object_type"</span>:<span class="s2">"charge"</span>,
+          <span class="s2">"object_id"</span>:12,
+          <span class="s2">"_links"</span>:[<span class="o">{</span>
+            <span class="s2">"rel"</span>:<span class="s2">"self"</span>,
+            <span class="s2">"method"</span>:<span class="s2">"GET"</span>,
+            <span class="s2">"url"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charges/12"</span>
+          <span class="o">}]</span>
+        <span class="o">}</span>
 
 </code></pre>
 
 <p>Informações enviadas quando uma Cobrança é atualizada.</p>
 
-<h2 id="cobran�a-criada">Cobrança criada</h2>
-<pre class="highlight plaintext"><code>Cobrança Criada
+<h2 id="cobrança-criada">Cobrança criada</h2>
+<pre class="highlight shell"><code>Cobrança Criada
 
 EXEMPLO DE PAYLOAD
 
-        {
-          "created_at":"2015-05-21T16:13:33Z",
-          "action":"created",
-          "object_type":"charge",
-          "object_id":12,
-          "_links":[{
-            "rel":"self",
-            "method":"GET",
-            "url":"https://app.cobrato.com/api/v1/charges/12"
-          }]
-        }
+        <span class="o">{</span>
+          <span class="s2">"created_at"</span>:<span class="s2">"2015-05-21T16:13:33Z"</span>,
+          <span class="s2">"action"</span>:<span class="s2">"created"</span>,
+          <span class="s2">"object_type"</span>:<span class="s2">"charge"</span>,
+          <span class="s2">"object_id"</span>:12,
+          <span class="s2">"_links"</span>:[<span class="o">{</span>
+            <span class="s2">"rel"</span>:<span class="s2">"self"</span>,
+            <span class="s2">"method"</span>:<span class="s2">"GET"</span>,
+            <span class="s2">"url"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charges/12"</span>
+          <span class="o">}]</span>
+        <span class="o">}</span>
 
 </code></pre>
 
 <p>Informações enviadas quando uma Cobrança é criada.</p>
 
-<h2 id="cobran�a-recebida">Cobrança Recebida</h2>
-<pre class="highlight plaintext"><code>Cobrança Recebida
+<h2 id="cobrança-recebida">Cobrança Recebida</h2>
+<pre class="highlight shell"><code>Cobrança Recebida
 
 EXEMPLO DE PAYLOAD
 
-        {
-          "created_at":"2015-05-21T16:13:33Z",
-          "action":"received",
-          "object_type":"charge",
-          "object_id":12,
-          "_links":[{
-            "rel":"self",
-            "method":"GET",
-            "url":"https://app.cobrato.com/api/v1/charges/12"
-          }]
-        }
+        <span class="o">{</span>
+          <span class="s2">"created_at"</span>:<span class="s2">"2015-05-21T16:13:33Z"</span>,
+          <span class="s2">"action"</span>:<span class="s2">"received"</span>,
+          <span class="s2">"object_type"</span>:<span class="s2">"charge"</span>,
+          <span class="s2">"object_id"</span>:12,
+          <span class="s2">"_links"</span>:[<span class="o">{</span>
+            <span class="s2">"rel"</span>:<span class="s2">"self"</span>,
+            <span class="s2">"method"</span>:<span class="s2">"GET"</span>,
+            <span class="s2">"url"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charges/12"</span>
+          <span class="o">}]</span>
+        <span class="o">}</span>
 
 </code></pre>
 
 <p>Informações enviadas quando uma Cobrança é recebida.</p>
 
-<h2 id="cobran�a-excluida">Cobrança Excluida</h2>
-<pre class="highlight plaintext"><code>Cobrança Excluida
+<h2 id="cobrança-excluida">Cobrança Excluida</h2>
+<pre class="highlight shell"><code>Cobrança Excluida
 
 EXEMPLO DE PAYLOAD
 
-        {
-          "created_at":"2015-05-21T16:13:33Z",
-          "action":"destroyed",
-          "object_type":"charge",
-          "object_id":12,
-          "_links":[{
-            "rel":"self",
-            "method":"GET",
-            "url":"https://app.cobrato.com/api/v1/charges/12"
-          }]
-        }
+        <span class="o">{</span>
+          <span class="s2">"created_at"</span>:<span class="s2">"2015-05-21T16:13:33Z"</span>,
+          <span class="s2">"action"</span>:<span class="s2">"destroyed"</span>,
+          <span class="s2">"object_type"</span>:<span class="s2">"charge"</span>,
+          <span class="s2">"object_id"</span>:12,
+          <span class="s2">"_links"</span>:[<span class="o">{</span>
+            <span class="s2">"rel"</span>:<span class="s2">"self"</span>,
+            <span class="s2">"method"</span>:<span class="s2">"GET"</span>,
+            <span class="s2">"url"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charges/12"</span>
+          <span class="o">}]</span>
+        <span class="o">}</span>
 
 </code></pre>
 
 <p>Informações enviadas quando uma Cobrança é excluida.</p>
 
-<h2 id="desfazer-recebimento-de-cobran�a">Desfazer Recebimento de Cobrança</h2>
-<pre class="highlight plaintext"><code>Desfazer Recebimento de Cobrança
+<h2 id="desfazer-recebimento-de-cobrança">Desfazer Recebimento de Cobrança</h2>
+<pre class="highlight shell"><code>Desfazer Recebimento de Cobrança
 
 EXEMPLO DE PAYLOAD
 
-        {
-          "created_at":"2015-05-21T16:13:33Z",
-          "action":"undone_receivement",
-          "object_type":"charge",
-          "object_id":12,
-          "_links":[{
-            "rel":"self",
-            "method":"GET",
-            "url":"https://app.cobrato.com/api/v1/charges/12"
-          }]
-        }
+        <span class="o">{</span>
+          <span class="s2">"created_at"</span>:<span class="s2">"2015-05-21T16:13:33Z"</span>,
+          <span class="s2">"action"</span>:<span class="s2">"undone_receivement"</span>,
+          <span class="s2">"object_type"</span>:<span class="s2">"charge"</span>,
+          <span class="s2">"object_id"</span>:12,
+          <span class="s2">"_links"</span>:[<span class="o">{</span>
+            <span class="s2">"rel"</span>:<span class="s2">"self"</span>,
+            <span class="s2">"method"</span>:<span class="s2">"GET"</span>,
+            <span class="s2">"url"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charges/12"</span>
+          <span class="o">}]</span>
+        <span class="o">}</span>
 
 </code></pre>
 
 <p>Informações enviadas quando uma Cobrança tem seu recebimento desfeito.</p>
 
-          <h2 id="cobran�a-atualizada">Cobrança Atualizada</h2>
-<pre class="highlight plaintext"><code>Cobrança Atualizada
+          <h2 id="cobrança-atualizada">Cobrança Atualizada</h2>
+<pre class="highlight shell"><code>Cobrança Atualizada
 
 EXEMPLO DE PAYLOAD
 
-        {
-          "created_at":"2015-05-21T16:13:33Z",
-          "action":"updated",
-          "object_type":"charge",
-          "object_id":12,
-          "_links":[{
-            "rel":"self",
-            "method":"GET",
-            "url":"https://app.cobrato.com/api/v1/charges/12"
-          }]
-        }
+        <span class="o">{</span>
+          <span class="s2">"created_at"</span>:<span class="s2">"2015-05-21T16:13:33Z"</span>,
+          <span class="s2">"action"</span>:<span class="s2">"updated"</span>,
+          <span class="s2">"object_type"</span>:<span class="s2">"charge"</span>,
+          <span class="s2">"object_id"</span>:12,
+          <span class="s2">"_links"</span>:[<span class="o">{</span>
+            <span class="s2">"rel"</span>:<span class="s2">"self"</span>,
+            <span class="s2">"method"</span>:<span class="s2">"GET"</span>,
+            <span class="s2">"url"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charges/12"</span>
+          <span class="o">}]</span>
+        <span class="o">}</span>
 
 </code></pre>
 
@@ -2169,69 +2321,69 @@ EXEMPLO DE PAYLOAD
 
           <h1 id="webhook-conta-cobranca">Webhook Conta Cobranca</h1>
 
-<h2 id="conta-de-cobran�a-atualizada">Conta de Cobrança Atualizada</h2>
-<pre class="highlight plaintext"><code>Conta de Cobrança Atualizada
+<h2 id="conta-de-cobrança-atualizada">Conta de Cobrança Atualizada</h2>
+<pre class="highlight shell"><code>Conta de Cobrança Atualizada
 
 EXEMPLO DE PAYLOAD
 
-        {
-          "created_at":"2015-05-21T16:13:33Z",
-          "action":"updated",
-          "object_type":"charge_account",
-          "object_id":7,
-          "_links":[{
-            "rel":"self",
-            "method":"GET",
-            "url":"https://app.cobrato.com/api/v1/charge_accounts/7"
-          }]
-        }
+        <span class="o">{</span>
+          <span class="s2">"created_at"</span>:<span class="s2">"2015-05-21T16:13:33Z"</span>,
+          <span class="s2">"action"</span>:<span class="s2">"updated"</span>,
+          <span class="s2">"object_type"</span>:<span class="s2">"charge_account"</span>,
+          <span class="s2">"object_id"</span>:7,
+          <span class="s2">"_links"</span>:[<span class="o">{</span>
+            <span class="s2">"rel"</span>:<span class="s2">"self"</span>,
+            <span class="s2">"method"</span>:<span class="s2">"GET"</span>,
+            <span class="s2">"url"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charge_accounts/7"</span>
+          <span class="o">}]</span>
+        <span class="o">}</span>
 </code></pre>
 
 <p>Informações enviadas quando uma Conta de Cobrança é atualizada.</p>
 
-<h2 id="conta-de-cobran�a-criada">Conta de Cobrança criada</h2>
-<pre class="highlight plaintext"><code>Conta de Cobrança Criada
+<h2 id="conta-de-cobrança-criada">Conta de Cobrança criada</h2>
+<pre class="highlight shell"><code>Conta de Cobrança Criada
 
 EXEMPLO DE PAYLOAD
 
-        {
-          "created_at":"2015-05-21T16:13:33Z",
-          "action":"created",
-          "object_type":"charge_account",
-          "object_id":7,
-          "_links":[{
-            "rel":"self",
-            "method":"GET",
-            "url":"https://app.cobrato.com/api/v1/charges_accounts/7"
-          }]
-        }
+        <span class="o">{</span>
+          <span class="s2">"created_at"</span>:<span class="s2">"2015-05-21T16:13:33Z"</span>,
+          <span class="s2">"action"</span>:<span class="s2">"created"</span>,
+          <span class="s2">"object_type"</span>:<span class="s2">"charge_account"</span>,
+          <span class="s2">"object_id"</span>:7,
+          <span class="s2">"_links"</span>:[<span class="o">{</span>
+            <span class="s2">"rel"</span>:<span class="s2">"self"</span>,
+            <span class="s2">"method"</span>:<span class="s2">"GET"</span>,
+            <span class="s2">"url"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charges_accounts/7"</span>
+          <span class="o">}]</span>
+        <span class="o">}</span>
 
 </code></pre>
 
-<p>Informações enviadas quando uma Conta de Cobrança é criada.</p>
+<p>Informações enviadas quando uma Conta de Cobrança é Criada.</p>
 
-<h2 id="conta-de-cobran�a-excluida">Conta de Cobrança Excluida</h2>
-<pre class="highlight plaintext"><code>Conta de Cobrança Excluida
+<h2 id="conta-de-cobrança-excluida">Conta de Cobrança Excluida</h2>
+<pre class="highlight shell"><code>Conta de Cobrança Excluida
 
 EXEMPLO DE PAYLOAD
 
-        {
-          "created_at":"2015-05-21T16:13:33Z",
-          "action":"destroyed",
-          "object_type":"charge_account",
-          "object_id":7,
-          "_links":[{
-            "rel":"self",
-            "method":"GET",
-            "url":"https://app.cobrato.com/api/v1/charge_accounts/7"
-          }]
-        }
+        <span class="o">{</span>
+          <span class="s2">"created_at"</span>:<span class="s2">"2015-05-21T16:13:33Z"</span>,
+          <span class="s2">"action"</span>:<span class="s2">"destroyed"</span>,
+          <span class="s2">"object_type"</span>:<span class="s2">"charge_account"</span>,
+          <span class="s2">"object_id"</span>:7,
+          <span class="s2">"_links"</span>:[<span class="o">{</span>
+            <span class="s2">"rel"</span>:<span class="s2">"self"</span>,
+            <span class="s2">"method"</span>:<span class="s2">"GET"</span>,
+            <span class="s2">"url"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charge_accounts/7"</span>
+          <span class="o">}]</span>
+        <span class="o">}</span>
 
 </code></pre>
 
 <p>Informações enviadas quando uma Conta de Cobrança é excluida.</p>
 
-          <h1 id="tipos-de-cobran�a">Tipos de cobrança</h1>
+          <h1 id="tipos-de-cobrança">Tipos de cobrança</h1>
 
 <p>Os tipos de cobrança implementados pelo Cobrato. Não é necessária autenticação.</p>
 
@@ -2249,7 +2401,7 @@ EXEMPLO DE PAYLOAD
 </ul></li>
 </ul>
 
-<h2 id="lista-de-todos-os-tipos-de-cobran�a">Lista de Todos os Tipos de Cobrança</h2>
+<h2 id="lista-de-todos-os-tipos-de-cobrança">Lista de Todos os Tipos de Cobrança</h2>
 <pre class="highlight plaintext"><code>Listar Tipos de Cobrança
 
 DEFINIÇÃO
@@ -2294,7 +2446,7 @@ EXEMPLO DE CORPO DA RESPOSTA
       </div>
       <div class="dark-box">
           <div class="lang-selector">
-                <a href="#" data-language-name="shell">shell</a>
+                <a href="#" data-language-name="Shell">cURL</a>
           </div>
       </div>
     </div>
