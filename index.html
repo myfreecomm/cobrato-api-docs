@@ -72,7 +72,7 @@
 
 <h2 id="formatos-de-requisição-e-resposta">Formatos de requisição e resposta</h2>
 
-<p>O único formato disponível para requisições e respostas é JSON.</p>
+<aside class="notice">O único formato disponível para requisições e respostas é JSON.</aside>
 
 <h2 id="fuso-horário">Fuso horário</h2>
 
@@ -105,7 +105,7 @@
 
 <h2 id="formato-numérico">Formato numérico</h2>
 
-<p>Todos os números são fornecidos tanto com números inteiros, ponto flutuante nativos para JSON.</p>
+<aside class="notice">Todos os números são fornecidos tanto com números inteiros, ponto flutuante nativos para JSON.</aside>
 
           <h1 id="cedente">Cedente</h1>
 <pre class="highlight shell"><code>Cedente
@@ -133,7 +133,9 @@ EXEMPLO
   <span class="o">}</span>
 </code></pre>
 
-<p>É possível ter indeterminados cedentes, e a eles que pertencem as contas bancárias, contas de cobrança, e as próprias cobranças do sistema. Podem ser tanto pessoas físicas como pessoas jurídicas.</p>
+<aside class="notice">
+É possível ter indeterminados cedentes, e a eles que pertencem as contas bancárias, contas de cobrança, e as próprias cobranças do sistema. Podem ser tanto pessoas físicas como pessoas jurídicas.
+</aside>
 
 <p>Parâmetros</p>
 
@@ -543,7 +545,9 @@ EXEMPLO DE ESTADO DA RESPOSTA COM CEDENTE INEXISTENTE
   <span class="o">}</span>
 </code></pre>
 
-<p>As Contas Bancárias, pertencem aos seus cedentes, sendo assim é necessário que sempre haja ao menos um cedente para criação de conta bancária.</p>
+<aside class="notice">
+As Contas Bancárias, pertencem aos seus cedentes, sendo assim é necessário que sempre haja ao menos um cedente para criação de conta bancária.
+</aside>
 
 <p>Parâmetros</p>
 
@@ -939,7 +943,9 @@ EXEMPLO DE ESTADO DA RESPOSTA COM INSUCESSO
 
 </code></pre>
 
-<p>As Contas de Cobranças, pertencem as suas contas bancárias, sendo assim é necessário que sempre haja ao menos uma conta bancária para criação de conta de cobrança. As validações nas contas de cobranças são de acordo com o banco, de sua conta bancária.</p>
+<aside class="notice">
+As Contas de Cobranças, pertencem as suas contas bancárias, sendo assim é necessário que sempre haja ao menos uma conta bancária para criação de conta de cobrança. As validações nas contas de cobranças são de acordo com o banco, de sua conta bancária.
+</aside>
 
 <p>Parâmetros</p>
 
@@ -1439,7 +1445,9 @@ EXEMPLO DE ESTADO DA RESPOSTA COM CONTA DE COBRANÇA INEXISTENTE
 
           <h1 id="cobrança">Cobrança</h1>
 
-<p>As Cobranças, pertencem as suas contas de cobrança, sendo assim é necessário que sempre haja ao menos uma conta de cobrança homologada para a criação de cobranças. Ao criar uma conta de cobrança é automaticamente gerada uma cobrança para homologar a conta.</p>
+<aside class="notice">
+As Cobranças, pertencem as suas contas de cobrança, sendo assim é necessário que sempre haja ao menos uma conta de cobrança homologada para a criação de cobranças. Ao criar uma conta de cobrança é automaticamente gerada uma cobrança para homologar a conta.
+</aside>
 
 <p>Parâmetros</p>
 
@@ -1950,7 +1958,9 @@ EXEMPLO DE CORPO DA RESPOSTA
   <span class="o">}</span>
 </code></pre>
 
-<p>Retorna uma lista em JSON contendo todos os webhooks pertencentes a sua Conta de Serviço.</p>
+<aside class="notice">
+Retorna uma lista em JSON contendo todos os webhooks pertencentes a sua Conta de Serviço.
+</aside>
 
 <h2 id="informações-do-webhook">Informações do Webhook</h2>
 <pre class="highlight shell"><code>Mostra Webhook
@@ -2200,7 +2210,7 @@ EXEMPLO DE PAYLOAD
 
         <span class="o">{</span>
           <span class="s2">"created_at"</span>:<span class="s2">"2015-05-21T16:13:33Z"</span>,
-          <span class="s2">"action"</span>:<span class="s2">"updated"</span>,
+          <span class="s2">"event"</span>:<span class="s2">"updated"</span>,
           <span class="s2">"object_type"</span>:<span class="s2">"charge"</span>,
           <span class="s2">"object_id"</span>:12,
           <span class="s2">"_links"</span>:[<span class="o">{</span>
@@ -2221,7 +2231,7 @@ EXEMPLO DE PAYLOAD
 
         <span class="o">{</span>
           <span class="s2">"created_at"</span>:<span class="s2">"2015-05-21T16:13:33Z"</span>,
-          <span class="s2">"action"</span>:<span class="s2">"created"</span>,
+          <span class="s2">"event"</span>:<span class="s2">"created"</span>,
           <span class="s2">"object_type"</span>:<span class="s2">"charge"</span>,
           <span class="s2">"object_id"</span>:12,
           <span class="s2">"_links"</span>:[<span class="o">{</span>
@@ -2242,7 +2252,7 @@ EXEMPLO DE PAYLOAD
 
         <span class="o">{</span>
           <span class="s2">"created_at"</span>:<span class="s2">"2015-05-21T16:13:33Z"</span>,
-          <span class="s2">"action"</span>:<span class="s2">"received"</span>,
+          <span class="s2">"event"</span>:<span class="s2">"received"</span>,
           <span class="s2">"object_type"</span>:<span class="s2">"charge"</span>,
           <span class="s2">"object_id"</span>:12,
           <span class="s2">"_links"</span>:[<span class="o">{</span>
@@ -2263,7 +2273,7 @@ EXEMPLO DE PAYLOAD
 
         <span class="o">{</span>
           <span class="s2">"created_at"</span>:<span class="s2">"2015-05-21T16:13:33Z"</span>,
-          <span class="s2">"action"</span>:<span class="s2">"destroyed"</span>,
+          <span class="s2">"event"</span>:<span class="s2">"destroyed"</span>,
           <span class="s2">"object_type"</span>:<span class="s2">"charge"</span>,
           <span class="s2">"object_id"</span>:12,
           <span class="s2">"_links"</span>:[<span class="o">{</span>
@@ -2284,7 +2294,7 @@ EXEMPLO DE PAYLOAD
 
         <span class="o">{</span>
           <span class="s2">"created_at"</span>:<span class="s2">"2015-05-21T16:13:33Z"</span>,
-          <span class="s2">"action"</span>:<span class="s2">"undone_receivement"</span>,
+          <span class="s2">"event"</span>:<span class="s2">"undone_receivement"</span>,
           <span class="s2">"object_type"</span>:<span class="s2">"charge"</span>,
           <span class="s2">"object_id"</span>:12,
           <span class="s2">"_links"</span>:[<span class="o">{</span>
@@ -2305,7 +2315,7 @@ EXEMPLO DE PAYLOAD
 
         <span class="o">{</span>
           <span class="s2">"created_at"</span>:<span class="s2">"2015-05-21T16:13:33Z"</span>,
-          <span class="s2">"action"</span>:<span class="s2">"updated"</span>,
+          <span class="s2">"event"</span>:<span class="s2">"updated"</span>,
           <span class="s2">"object_type"</span>:<span class="s2">"charge"</span>,
           <span class="s2">"object_id"</span>:12,
           <span class="s2">"_links"</span>:[<span class="o">{</span>
@@ -2317,7 +2327,9 @@ EXEMPLO DE PAYLOAD
 
 </code></pre>
 
-<p>Informações enviadas quando uma Cobrança é atualizada.</p>
+<aside class="notice">
+Informações enviadas quando uma Cobrança é atualizada.
+</aside>
 
           <h1 id="webhook-conta-cobranca">Webhook Conta Cobranca</h1>
 
@@ -2328,7 +2340,7 @@ EXEMPLO DE PAYLOAD
 
         <span class="o">{</span>
           <span class="s2">"created_at"</span>:<span class="s2">"2015-05-21T16:13:33Z"</span>,
-          <span class="s2">"action"</span>:<span class="s2">"updated"</span>,
+          <span class="s2">"event"</span>:<span class="s2">"updated"</span>,
           <span class="s2">"object_type"</span>:<span class="s2">"charge_account"</span>,
           <span class="s2">"object_id"</span>:7,
           <span class="s2">"_links"</span>:[<span class="o">{</span>
@@ -2348,7 +2360,7 @@ EXEMPLO DE PAYLOAD
 
         <span class="o">{</span>
           <span class="s2">"created_at"</span>:<span class="s2">"2015-05-21T16:13:33Z"</span>,
-          <span class="s2">"action"</span>:<span class="s2">"created"</span>,
+          <span class="s2">"event"</span>:<span class="s2">"created"</span>,
           <span class="s2">"object_type"</span>:<span class="s2">"charge_account"</span>,
           <span class="s2">"object_id"</span>:7,
           <span class="s2">"_links"</span>:[<span class="o">{</span>
@@ -2369,7 +2381,7 @@ EXEMPLO DE PAYLOAD
 
         <span class="o">{</span>
           <span class="s2">"created_at"</span>:<span class="s2">"2015-05-21T16:13:33Z"</span>,
-          <span class="s2">"action"</span>:<span class="s2">"destroyed"</span>,
+          <span class="s2">"event"</span>:<span class="s2">"destroyed"</span>,
           <span class="s2">"object_type"</span>:<span class="s2">"charge_account"</span>,
           <span class="s2">"object_id"</span>:7,
           <span class="s2">"_links"</span>:[<span class="o">{</span>
@@ -2389,20 +2401,47 @@ EXEMPLO DE PAYLOAD
 
 <p>Parâmetros</p>
 
-<ul>
-<li>bank_billets (array): lista de boletos bancários implementados
-
-<ul>
-<li>bank_code (string): código do banco</li>
-<li>bank_name (string): nome do banco</li>
-<li>portfolio_codes (array): lista de códigos de portfólio do banco</li>
-<li>regress (boolean): indica se para este banco é aceito ou não arquivo de retorno</li>
-<li>remittance (boolean): indica se para este banco é aceito ou não arquivo de remessa</li>
-</ul></li>
-</ul>
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>bank_billets</td>
+<td>array</td>
+<td>lista de boletos bancários implementados</td>
+</tr>
+<tr>
+<td>bank_code</td>
+<td>string</td>
+<td>código do banco</td>
+</tr>
+<tr>
+<td>bank_name</td>
+<td>string</td>
+<td>nome do banco</td>
+</tr>
+<tr>
+<td>portfolio_codes</td>
+<td>array</td>
+<td>lista de códigos de portfólio do banco</td>
+</tr>
+<tr>
+<td>regress</td>
+<td>boolean</td>
+<td>indica se para este banco é aceito ou não arquivo de retorno</td>
+</tr>
+<tr>
+<td>remittance</td>
+<td>boolean</td>
+<td>indica se para este banco é aceito ou não arquivo de remessa</td>
+</tr>
+</tbody></table>
 
 <h2 id="lista-de-todos-os-tipos-de-cobrança">Lista de Todos os Tipos de Cobrança</h2>
-<pre class="highlight plaintext"><code>Listar Tipos de Cobrança
+<pre class="highlight shell"><code>Listar Tipos de Cobrança
 
 DEFINIÇÃO
 
@@ -2410,10 +2449,10 @@ DEFINIÇÃO
 
 EXEMPLO DE REQUISIÇÃO
 
-  $ curl -i \
-    -H 'User-Agent: My App 1.0' \
-    -H 'Accept: application/json' \
-    -H 'Content-type: application/json' \
+  <span class="nv">$ </span>curl -i <span class="se">\</span>
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
     -X GET https://app.cobrato.com/api/v1/charging_types
 
 EXEMPLO DE ESTADO DA RESPOSTA
@@ -2422,23 +2461,23 @@ EXEMPLO DE ESTADO DA RESPOSTA
 
 EXEMPLO DE CORPO DA RESPOSTA
 
-  {
-    "charging_types": {
-      "bank_billets": [
-        {
-          "bank_code": "001",
-          "bank_name": "BancoDoBrasil",
-          "portfolio_codes": [ "11", "12", "16", "17", "18", "31", "51" ],
-          "regress": true,
-          "remittance": false
-        },
-        {
+  <span class="o">{</span>
+    <span class="s2">"charging_types"</span>: <span class="o">{</span>
+      <span class="s2">"bank_billets"</span>: <span class="o">[</span>
+        <span class="o">{</span>
+          <span class="s2">"bank_code"</span>: <span class="s2">"001"</span>,
+          <span class="s2">"bank_name"</span>: <span class="s2">"BancoDoBrasil"</span>,
+          <span class="s2">"portfolio_codes"</span>: <span class="o">[</span> <span class="s2">"11"</span>, <span class="s2">"12"</span>, <span class="s2">"16"</span>, <span class="s2">"17"</span>, <span class="s2">"18"</span>, <span class="s2">"31"</span>, <span class="s2">"51"</span> <span class="o">]</span>,
+          <span class="s2">"regress"</span>: <span class="nb">true</span>,
+          <span class="s2">"remittance"</span>: <span class="nb">false</span>
+        <span class="o">}</span>,
+        <span class="o">{</span>
           // informações de outro banco
-        }
+        <span class="o">}</span>
         ...
-      ]
-    }
-  }
+      <span class="o">]</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
 </code></pre>
 
 <p>Retorna um objeto JSON contendo todos os tipos de cobraça implementados pelo Cobrato.</p>
