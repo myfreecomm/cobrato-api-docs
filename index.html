@@ -111,8 +111,8 @@
 
 <aside class="notice">Todos os números são fornecidos tanto com números inteiros, ponto flutuante nativos para JSON.</aside>
 
-          <h1 id="cedente">Cedente</h1>
-<pre class="highlight shell"><code>Cedente
+          <h1 id="beneficiário">Beneficiário</h1>
+<pre class="highlight shell"><code>Beneficiário
 
 EXEMPLO
 
@@ -210,8 +210,8 @@ EXEMPLO
 </tr>
 </tbody></table>
 
-<h2 id="informações-do-cedente">Informações do Cedente</h2>
-<pre class="highlight shell"><code>Mostrar Cedente
+<h2 id="informações-do-beneficiário">Informações do Beneficiário</h2>
+<pre class="highlight shell"><code>Mostrar Beneficiário
 
 DEFINIÇÃO
 
@@ -254,8 +254,8 @@ EXEMPLO DE CORPO DA RESPOSTA
 
 <p>Retorna as informações detalhadas do cedente informado em JSON.</p>
 
-<h2 id="lista-de-todos-os-cedentes">Lista de Todos os Cedentes</h2>
-<pre class="highlight shell"><code>Listar Cedentes
+<h2 id="lista-de-todos-os-beneficiários">Lista de Todos os Beneficiários</h2>
+<pre class="highlight shell"><code>Listar Beneficiários
 
 DEFINIÇÃO
 
@@ -291,8 +291,8 @@ EXEMPLO DE CORPO DA RESPOSTA
 
 <p>Retorna uma lista em JSON contendo todos os cedentes pertencentes a sua Conta de Serviço.</p>
 
-<h2 id="criação-de-cedente">Criação de Cedente</h2>
-<pre class="highlight shell"><code>Criar Cedente
+<h2 id="criação-de-beneficiário">Criação de Beneficiário</h2>
+<pre class="highlight shell"><code>Criar Beneficiário
 
 DEFINIÇÃO
 
@@ -405,8 +405,8 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 </tr>
 </tbody></table>
 
-<h2 id="atualização-de-cedente">Atualização de Cedente</h2>
-<pre class="highlight shell"><code>Atualizar Cedente
+<h2 id="atualização-de-beneficiário">Atualização de Beneficiário</h2>
+<pre class="highlight shell"><code>Atualizar Beneficiário
 
 DEFINIÇÃO
 
@@ -510,8 +510,8 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 </tr>
 </tbody></table>
 
-<h2 id="exclusão-de-cedente">Exclusão de Cedente</h2>
-<pre class="highlight shell"><code>Excluir Cedente
+<h2 id="exclusão-de-beneficiário">Exclusão de Beneficiário</h2>
+<pre class="highlight shell"><code>Excluir Beneficiário
 
 DEFINIÇÃO
 
@@ -559,7 +559,7 @@ EXEMPLO
   <span class="o">}</span>
 </code></pre>
 
-<p>As Contas Bancárias, pertencem aos seus cedentes, sendo assim é necessário que sempre haja ao menos um cedente para criação de conta bancária.</p>
+<p>As Contas Bancárias, pertencem aos seus beneficiários, sendo assim é necessário que sempre haja ao menos um cedente para criação de conta bancária.</p>
 
 <p><strong>Parâmetros</strong></p>
 
@@ -578,7 +578,7 @@ EXEMPLO
 <tr>
 <td>payee_id</td>
 <td>integer</td>
-<td>identificador do cedente no Cobrato</td>
+<td>identificador do beneficiários no Cobrato</td>
 </tr>
 <tr>
 <td>bank_code</td>
@@ -608,7 +608,7 @@ EXEMPLO
 <tr>
 <td>_links</td>
 <td>array of object</td>
-<td>links da conta bancária e de seu cedente</td>
+<td>links da conta bancária e de seu beneficiários</td>
 </tr>
 </tbody></table>
 
@@ -652,7 +652,7 @@ EXEMPLO DE CORPO DA RESPOSTA
 
 </code></pre>
 
-<p>Retorna as informações detalhadas da conta bancária informada em JSON e também a referência ao seu cedente.</p>
+<p>Retorna as informações detalhadas da conta bancária informada em JSON e também a referência ao seu beneficiário.</p>
 
 <h2 id="lista-de-todos-as-contas-bancárias">Lista de Todos as Contas Bancárias</h2>
 <pre class="highlight shell"><code>Listar Contas Bancárias
@@ -690,7 +690,7 @@ EXEMPLO DE CORPO DA RESPOSTA
 
 </code></pre>
 
-<p>Retorna uma lista em JSON contendo todos as contas bancárias em que seus cedentes pertencentes a sua Conta de Serviço.</p>
+<p>Retorna uma lista em JSON contendo todos as contas bancárias em que seus beneficiários pertencentes a sua Conta de Serviço.</p>
 
 <h2 id="criação-de-conta-bancária">Criação de Conta Bancária</h2>
 <pre class="highlight shell"><code>Criar Conta Bancária
@@ -752,7 +752,7 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <tr>
 <td>payee_id</td>
 <td>integer</td>
-<td><strong>(requerido)</strong> identificador do cedente no Cobrato em que a conta bancária irá pertencer</td>
+<td><strong>(requerido)</strong> identificador do beneficiário no Cobrato em que a conta bancária irá pertencer</td>
 </tr>
 <tr>
 <td>bank_code</td>
