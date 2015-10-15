@@ -137,7 +137,7 @@ EXEMPLO
   <span class="o">}</span>
 </code></pre>
 
-<p>É possível ter indeterminados cedentes, e a eles que pertencem as contas bancárias, contas de cobrança, e as próprias cobranças do sistema. Podem ser tanto pessoas físicas como pessoas jurídicas.</p>
+<p>É possível ter indeterminados beneficiários, e a eles que pertencem as contas bancárias, contas de cobrança, e as próprias cobranças do sistema. Podem ser tanto pessoas físicas como pessoas jurídicas.</p>
 
 <p><strong>Parâmetros</strong></p>
 
@@ -166,47 +166,47 @@ EXEMPLO
 <tr>
 <td>name</td>
 <td>string</td>
-<td>nome completo do cedente</td>
+<td>nome completo do beneficiário</td>
 </tr>
 <tr>
 <td>city</td>
 <td>string</td>
-<td>nome da cidade do domicílio do cedente</td>
+<td>nome da cidade do domicílio do beneficiário</td>
 </tr>
 <tr>
 <td>state</td>
 <td>string</td>
-<td>uf do estado do domicílio do cedente (duas letras, p. ex. &#39;RJ&rsquo;)</td>
+<td>uf do estado do domicílio do beneficiário (duas letras, p. ex. &#39;RJ&rsquo;)</td>
 </tr>
 <tr>
 <td>neighbourhood</td>
 <td>string</td>
-<td>bairro do domicílio do cedente</td>
+<td>bairro do domicílio do beneficiário</td>
 </tr>
 <tr>
 <td>street</td>
 <td>string</td>
-<td>rua do domicílio do cedente</td>
+<td>rua do domicílio do beneficiário</td>
 </tr>
 <tr>
 <td>number</td>
 <td>string</td>
-<td>número da rua do domicílio do cedente</td>
+<td>número da rua do domicílio do beneficiário</td>
 </tr>
 <tr>
 <td>zipcode</td>
 <td>string</td>
-<td>cep do domicílio do cedente</td>
+<td>cep do domicílio do beneficiário</td>
 </tr>
 <tr>
 <td>complement</td>
 <td>string</td>
-<td>complemento para o endereço de domicilio do cedente</td>
+<td>complemento para o endereço de domicilio do beneficiário</td>
 </tr>
 <tr>
 <td>_links</td>
 <td>array of object</td>
-<td>links do cedente</td>
+<td>links do beneficiário</td>
 </tr>
 </tbody></table>
 
@@ -252,7 +252,7 @@ EXEMPLO DE CORPO DA RESPOSTA
   <span class="o">}</span>
 </code></pre>
 
-<p>Retorna as informações detalhadas do cedente informado em JSON.</p>
+<p>Retorna as informações detalhadas do beneficiário informado em JSON.</p>
 
 <h2 id="lista-de-todos-os-beneficiários">Lista de Todos os Beneficiários</h2>
 <pre class="highlight shell"><code>Listar Beneficiários
@@ -279,17 +279,17 @@ EXEMPLO DE CORPO DA RESPOSTA
     <span class="s2">"payees"</span>:
       <span class="o">[</span>
         <span class="o">{</span>
-          // informações cedente 1
+          // informações beneficiário 1
         <span class="o">}</span>,
         <span class="o">{</span>
-          // informações cedente 2
+          // informações beneficiário 2
         <span class="o">}</span>,
         ...
       <span class="o">]</span>
   <span class="o">}</span>
 </code></pre>
 
-<p>Retorna uma lista em JSON contendo todos os cedentes pertencentes a sua Conta de Serviço.</p>
+<p>Retorna uma lista em JSON contendo todos os beneficiários pertencentes a sua Conta de Serviço.</p>
 
 <h2 id="criação-de-beneficiário">Criação de Beneficiário</h2>
 <pre class="highlight shell"><code>Criar Beneficiário
@@ -342,7 +342,7 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
 </code></pre>
 
-<p>Cria um novo cedente, retornando as informações do mesmo caso haja sucesso. Se houverem erros eles serão informados no corpo da resposta.</p>
+<p>Cria um novo beneficiário, retornando as informações do mesmo caso haja sucesso. Se houverem erros eles serão informados no corpo da resposta.</p>
 
 <p><strong>Parâmetros</strong></p>
 
@@ -366,42 +366,42 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <tr>
 <td>name</td>
 <td>string</td>
-<td><strong>(requerido)</strong> nome completo do cedente</td>
+<td><strong>(requerido)</strong> nome completo do beneficiário</td>
 </tr>
 <tr>
 <td>city</td>
 <td>string</td>
-<td><strong>(requerido)</strong> nome da cidade do domicílio do cedente</td>
+<td><strong>(requerido)</strong> nome da cidade do domicílio do beneficiário</td>
 </tr>
 <tr>
 <td>state</td>
 <td>string</td>
-<td><strong>(requerido)</strong> uf do estado do domicílio do cedente (duas letras, p. ex. &#39;RJ&rsquo;)</td>
+<td><strong>(requerido)</strong> uf do estado do domicílio do beneficiário (duas letras, p. ex. &#39;RJ&rsquo;)</td>
 </tr>
 <tr>
 <td>neighbourhood</td>
 <td>string</td>
-<td><strong>(requerido)</strong> bairro do domicílio do cedente</td>
+<td><strong>(requerido)</strong> bairro do domicílio do beneficiário</td>
 </tr>
 <tr>
 <td>street</td>
 <td>string</td>
-<td><strong>(requerido)</strong> rua do domicílio do cedente</td>
+<td><strong>(requerido)</strong> rua do domicílio do beneficiário</td>
 </tr>
 <tr>
 <td>number</td>
 <td>string</td>
-<td><strong>(requerido)</strong> número da rua do domicílio do cedente</td>
+<td><strong>(requerido)</strong> número da rua do domicílio do beneficiário</td>
 </tr>
 <tr>
 <td>zipcode</td>
 <td>string</td>
-<td><strong>(requerido)</strong> cep do domicílio do cedente</td>
+<td><strong>(requerido)</strong> cep do domicílio do beneficiário</td>
 </tr>
 <tr>
 <td>complement</td>
 <td>string</td>
-<td>(opcional)  complemento para o endereço de domicilio do cedente</td>
+<td>(opcional)  complemento para o endereço de domicilio do beneficiário</td>
 </tr>
 </tbody></table>
 
@@ -429,7 +429,7 @@ EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
 
     200 OK
 
-EXEMPLO DE ESTADO DA RESPOSTA COM CEDENTE INEXISTENTE
+EXEMPLO DE ESTADO DA RESPOSTA COM BENEFICIÁRIO INEXISTENTE
 
     404 Not Found
 
@@ -447,7 +447,7 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
 </code></pre>
 
-<p>Atualiza o cedente determinado, retornando as informações do mesmo caso haja sucesso. Se houverem erros eles serão informados no corpo da resposta. A requisição não diferencia a utilização dos verbos PUT e PATCH.</p>
+<p>Atualiza o beneficiário determinado, retornando as informações do mesmo caso haja sucesso. Se houverem erros eles serão informados no corpo da resposta. A requisição não diferencia a utilização dos verbos PUT e PATCH.</p>
 
 <p><strong>Parâmetros</strong></p>
 
@@ -471,42 +471,42 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <tr>
 <td>name</td>
 <td>string</td>
-<td><strong>(requerido)</strong> nome completo do cedente</td>
+<td><strong>(requerido)</strong> nome completo do beneficiário</td>
 </tr>
 <tr>
 <td>city</td>
 <td>string</td>
-<td><strong>(requerido)</strong> nome da cidade do domicílio do cedente</td>
+<td><strong>(requerido)</strong> nome da cidade do domicílio do beneficiário</td>
 </tr>
 <tr>
 <td>state</td>
 <td>string</td>
-<td><strong>(requerido)</strong> uf do estado do domicílio do cedente (duas letras, p. ex. &#39;RJ&rsquo;)</td>
+<td><strong>(requerido)</strong> uf do estado do domicílio do beneficiário (duas letras, p. ex. &#39;RJ&rsquo;)</td>
 </tr>
 <tr>
 <td>neighbourhood</td>
 <td>string</td>
-<td><strong>(requerido)</strong> bairro do domicílio do cedente</td>
+<td><strong>(requerido)</strong> bairro do domicílio do beneficiário</td>
 </tr>
 <tr>
 <td>street</td>
 <td>string</td>
-<td><strong>(requerido)</strong> rua do domicílio do cedente</td>
+<td><strong>(requerido)</strong> rua do domicílio do beneficiário</td>
 </tr>
 <tr>
 <td>number</td>
 <td>string</td>
-<td><strong>(requerido)</strong> número da rua do domicílio do cedente</td>
+<td><strong>(requerido)</strong> número da rua do domicílio do beneficiário</td>
 </tr>
 <tr>
 <td>zipcode</td>
 <td>string</td>
-<td><strong>(requerido)</strong> cep do domicílio do cedente</td>
+<td><strong>(requerido)</strong> cep do domicílio do beneficiário</td>
 </tr>
 <tr>
 <td>complement</td>
 <td>string</td>
-<td>(opcional)  complemento para o endereço de domicilio do cedente</td>
+<td>(opcional)  complemento para o endereço de domicilio do beneficiário</td>
 </tr>
 </tbody></table>
 
@@ -529,12 +529,12 @@ EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
 
     204 No Content
 
-EXEMPLO DE ESTADO DA RESPOSTA COM CEDENTE INEXISTENTE
+EXEMPLO DE ESTADO DA RESPOSTA COM BENEFICIÁRIO INEXISTENTE
 
     404 Not Found
 </code></pre>
 
-<p>Exclui determinado cedente e junto a ele todas suas contas de cobrança, contas bancárias e as cobranças. As mudanças são irreversíveis.</p>
+<p>Exclui determinado beneficiário e junto a ele todas suas contas de cobrança, contas bancárias e as cobranças. As mudanças são irreversíveis.</p>
 
           <h1 id="conta-bancária">Conta Bancária</h1>
 <pre class="highlight shell"><code>Conta Bancária
@@ -559,7 +559,7 @@ EXEMPLO
   <span class="o">}</span>
 </code></pre>
 
-<p>As Contas Bancárias, pertencem aos seus beneficiários, sendo assim é necessário que sempre haja ao menos um cedente para criação de conta bancária.</p>
+<p>As Contas Bancárias, pertencem aos seus beneficiários, sendo assim é necessário que sempre haja ao menos um beneficiário para criação de conta bancária.</p>
 
 <p><strong>Parâmetros</strong></p>
 
@@ -1002,7 +1002,7 @@ EXEMPLO
 <tr>
 <td>agreement_code</td>
 <td>string</td>
-<td>código de convênio ou do cedente, de acordo com o banco. No caso do Itaú deve ser igual ao campo &lsquo;account&rsquo; da conta bancária</td>
+<td>código de convênio ou do beneficiário, de acordo com o banco. No caso do Itaú deve ser igual ao campo &lsquo;account&rsquo; da conta bancária</td>
 </tr>
 <tr>
 <td>agreement_code_digit</td>
@@ -1201,7 +1201,7 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <tr>
 <td>agreement_code</td>
 <td>string</td>
-<td><strong>(requerido, com exceção do Itaú onde é preenchido automaticamente)</strong> código de convênio ou do cedente, de acordo com o banco</td>
+<td><strong>(requerido, com exceção do Itaú onde é preenchido automaticamente)</strong> código de convênio ou do beneficiário, de acordo com o banco</td>
 </tr>
 <tr>
 <td>agreement_code_digit</td>
@@ -1296,7 +1296,7 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <tr>
 <td>agreement_code</td>
 <td>string</td>
-<td><strong>(requerido, com exceção do Itaú onde é preenchido automaticamente)</strong> código de convênio ou do cedente, de acordo com o banco</td>
+<td><strong>(requerido, com exceção do Itaú onde é preenchido automaticamente)</strong> código de convênio ou do beneficiário, de acordo com o banco</td>
 </tr>
 <tr>
 <td>agreement_code_digit</td>
@@ -2122,7 +2122,7 @@ EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
 
     200 OK
 
-EXEMPLO DE ESTADO DA RESPOSTA COM CEDENTE INEXISTENTE
+EXEMPLO DE ESTADO DA RESPOSTA COM BENEFICIÁRIO INEXISTENTE
 
     404 Not Found
 
