@@ -654,7 +654,7 @@ EXEMPLO DE CORPO DA RESPOSTA
 
 <p>Retorna as informações detalhadas da conta bancária informada em JSON e também a referência ao seu beneficiário.</p>
 
-<h2 id="lista-de-todos-as-contas-bancárias">Lista de Todos as Contas Bancárias</h2>
+<h2 id="lista-de-todas-as-contas-bancárias">Lista de Todas as Contas Bancárias</h2>
 <pre class="highlight shell"><code>Listar Contas Bancárias
 
 DEFINIÇÃO
@@ -1421,7 +1421,7 @@ EXEMPLO
         <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"receive"</span>,<span class="s2">"method"</span>:<span class="s2">"POST"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charges/1/receive"</span><span class="o">}</span>,
         <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"deliver"</span>,<span class="s2">"method"</span>:<span class="s2">"POST"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charges/1/deliver_billet"</span><span class="o">}</span>,
         <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"charge_account"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charge_accounts/1"</span><span class="o">}</span>,
-        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"billet"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"http://localhost:3000/charges/1/download_billet"</span><span class="o">}</span>
+        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"billet"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charges/1/billet"</span><span class="o">}</span>
       <span class="o">]</span>
   <span class="o">}</span>
 </code></pre>
@@ -1600,7 +1600,7 @@ EXEMPLO DE CORPO DA RESPOSTA
         <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"receive"</span>,<span class="s2">"method"</span>:<span class="s2">"POST"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charges/1/receive"</span><span class="o">}</span>,
         <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"deliver"</span>,<span class="s2">"method"</span>:<span class="s2">"POST"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charges/1/deliver_billet"</span><span class="o">}</span>,
         <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"charge_account"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charge_accounts/1"</span><span class="o">}</span>,
-        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"billet"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"http://localhost:3000/charges/1/download_billet"</span><span class="o">}</span>
+        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"billet"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charges/1/billet"</span><span class="o">}</span>
       <span class="o">]</span>
   <span class="o">}</span>
 </code></pre>
@@ -1626,7 +1626,7 @@ EXEMPLO DE CORPO DA RESPOSTA
   </p>
 </aside>
 
-<h2 id="lista-de-todos-as-cobrança">Lista de Todos as Cobrança</h2>
+<h2 id="lista-de-todas-as-cobrança">Lista de Todas as Cobrança</h2>
 <pre class="highlight shell"><code>
 
 DEFINIÇÃO
@@ -1957,17 +1957,12 @@ EXEMPLO DE ESTADO DA RESPOSTA COM COBRANÇA INEXISTENTE
 
 <p>Exclui determinada cobrança. As mudanças são irreversíveis, e não será mais possível receber o boleto da cobrança excluída!</p>
 
-          <h1 id="webhook">Webhook</h1>
-
-<p>É possível ter indeterminados webhooks, que enviarão requisições para uma determinada URL quando certas ações ocorrem no Cobrato (<a href="#payloads">Payloads</a>).</p>
-
-<h2 id="lista-de-todos-os-webhooks">Lista de Todos os Webhooks</h2>
-<pre class="highlight shell"><code>
-Listar Webhooks
+<h2 id="recebimento-de-cobrança">Recebimento de Cobrança</h2>
+<pre class="highlight shell"><code>Receber Cobrança
 
 DEFINIÇÃO
 
-  GET https://app.cobrato.com/api/v1/webhooks
+  POST https://app.cobrato.com/api/v1/charges/:charge_id/receive
 
 EXEMPLO DE REQUISIÇÃO
 
@@ -1975,29 +1970,230 @@ EXEMPLO DE REQUISIÇÃO
     -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
     -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
     -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
-    -X GET https://app.cobrato.com/api/v1/webhooks
+    -X POST https://app.cobrato.com/api/v1/charges/:charge_id/receive <span class="se">\</span>
+    -d <span class="s1">'{
+         "received_at": "2015-02-06",
+         "received_amount": "9.57"
+        }'</span>
 
-EXEMPLO DE ESTADO DA RESPOSTA
+EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
 
     200 OK
 
-EXEMPLO DE CORPO DA RESPOSTA
+EXEMPLO DE ESTADO DA RESPOSTA COM CONTA DE COBRANÇA INEXISTENTE
+
+    404 Not Found
+
+EXEMPLO DE ESTADO DA RESPOSTA COM INSUCESSO
+
+    422 Unprocessable Entity
+
+EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
   <span class="o">{</span>
-    <span class="s2">"webhooks"</span>:
-      <span class="o">[</span>
-        <span class="o">{</span>
-          //informações webhook 1
-        <span class="o">}</span>,
-        <span class="o">{</span>
-          //informações webhook 2
-        <span class="o">}</span>,
-        ...
-      <span class="o">]</span>
+    <span class="s2">"errors"</span>: <span class="o">{</span>
+      <span class="s2">"received_at"</span>: <span class="o">[</span><span class="s2">"não pode ficar em branco"</span><span class="o">]</span>,
+      <span class="s2">"received_amount"</span>: <span class="o">[</span><span class="s2">"não pode ficar em branco"</span><span class="o">]</span>
+    <span class="o">}</span>
   <span class="o">}</span>
 </code></pre>
 
-<p>Retorna uma lista em JSON contendo todos os webhooks pertencentes a sua Conta de Serviço.</p>
+<p>Marca determinada cobrança como recebida, retornando JSON contendo as informações da cobrança em caso de sucesso ou os erros, caso haja algum.</p>
+
+<p><strong>Parâmetros</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>received_at</td>
+<td>date</td>
+<td><strong>(requerido)</strong> data de pagamento da cobrança</td>
+</tr>
+<tr>
+<td>received_amount</td>
+<td>decimal</td>
+<td><strong>(requerido)</strong> valor recebido da cobrança</td>
+</tr>
+</tbody></table>
+
+<h2 id="desfazer-recebimento-de-cobrança">Desfazer Recebimento de Cobrança</h2>
+<pre class="highlight shell"><code>Desfazer Recebimento de Cobrança
+
+DEFINIÇÃO
+
+  POST https://app.cobrato.com/api/v1/charges/:charge_id/undo_receive
+
+EXEMPLO DE REQUISIÇÃO
+
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X <span class="se">\</span>
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
+    -X POST https://app.cobrato.com/api/v1/charges/:charge_id/undo_receive
+
+EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
+
+    200 OK
+
+EXEMPLO DE ESTADO DA RESPOSTA COM CONTA DE COBRANÇA INEXISTENTE
+
+    404 Not Found
+
+EXEMPLO DE ESTADO DA RESPOSTA COM INSUCESSO
+
+    422 Unprocessable Entity
+
+EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
+
+  <span class="o">{</span>
+    <span class="s2">"errors"</span>: <span class="o">{</span>
+      <span class="s2">"received"</span>: <span class="o">[</span>
+        <span class="s2">"Impossível cancelar o recebimento de uma cobrança não recebida!"</span>
+      <span class="o">]</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+</code></pre>
+
+<p>Marca determinada cobrança como não recebida, retornando JSON contendo as informações da cobrança em caso de sucesso ou os erros, caso haja algum.</p>
+
+<h2 id="boleto-da-cobrança">Boleto da Cobrança</h2>
+<pre class="highlight shell"><code>Mostrar Boleto da Cobrança <span class="o">(</span>URL<span class="o">)</span>
+
+DEFINIÇÃO
+
+  GET https://app.cobrato.com/api/v1/charges/:charge_id/billet
+
+EXEMPLO DE REQUISIÇÃO
+
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X <span class="se">\</span>
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
+    -X DELETE https://app.cobrato.com/api/v1/charges/:charge_id/billet
+
+EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
+
+    200 OK
+
+EXEMPLO DE ESTADO DA RESPOSTA COM COBRANÇA INEXISTENTE
+
+    404 Not Found
+
+EXEMPLO DE CORPO DA RESPOSTA COM SUCESSO
+
+  <span class="o">{</span>
+    <span class="s2">"url"</span>:<span class="s2">"https://cobrato-uploads.s3.amazonaws.com/billets/1/6186_08033_1445001056.pdf?Expires=1445034829"</span>
+  <span class="o">}</span>
+</code></pre>
+
+<p>Mostra o link da url do boleto de determinada cobraça</p>
+
+<aside class="warning">
+As URLs disponibilizadas são válidas por apenas 60 minutos. Sendo assim, não armazene o retorno e sempre que for necessário realize uma nova chamada à API.
+</aside>
+
+<h2 id="envio-de-boleto-da-cobrança">Envio de Boleto da Cobrança</h2>
+<pre class="highlight shell"><code>Enviar Boleto da Cobrança
+
+DEFINIÇÃO
+
+  POST https://app.cobrato.com/api/v1/charges/:charge_id/deliver_billet
+
+EXEMPLO DE REQUISIÇÃO
+
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X <span class="se">\</span>
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
+    -X POST https://app.cobrato.com/api/v1/charges/:charge_id/deliver_billet <span class="se">\</span>
+    -d <span class="s1">'{
+         "to": ["email1@host.com","email1@host.com"]
+        }'</span>
+
+EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
+
+    200 OK
+
+EXEMPLO DE ESTADO DA RESPOSTA COM CONTA DE COBRANÇA INEXISTENTE
+
+    404 Not Found
+
+EXEMPLO DE ESTADO DA RESPOSTA COM EMAIL NÃO CADASTRADO E NÃO INFORMADO
+
+      422 Unprocessable Entity
+
+EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
+
+  <span class="o">{</span>
+    <span class="s2">"errors"</span>: <span class="o">{</span>
+      <span class="s2">"payer_emails"</span>: <span class="o">[</span><span class="s2">"não pode ficar em branco"</span><span class="o">]</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+</code></pre>
+
+<p>Envia o boleto da cobrança por email, gerando o mesmo caso necessário. É enviado para os emails informados, ou então os cadastrados na cobrança.</p>
+
+<p><strong>Parâmetros</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>to</td>
+<td>array of string</td>
+<td><strong>(requerido)</strong> emails que receberão o boleto ao invés dos emails cadastrados na cobrança</td>
+</tr>
+</tbody></table>
+
+          <h1 id="webhook">Webhook</h1>
+<pre class="highlight shell"><code>Webhook
+
+EXEMPLO
+
+  <span class="o">{</span>
+    <span class="s2">"id"</span>: 1,
+    <span class="s2">"url"</span>: <span class="s2">"http://www.seusitema.com/cobrato"</span>,
+    <span class="s2">"description"</span>: <span class="s2">"teste"</span>,
+    <span class="s2">"_links"</span>: <span class="o">[</span>
+      <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"self"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/webhooks/1"</span><span class="o">}</span>,
+      <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"update"</span>,<span class="s2">"method"</span>:<span class="s2">"PUT"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/webhooks/1"</span><span class="o">}</span>,
+      <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"destroy"</span>,<span class="s2">"method"</span>:<span class="s2">"DELETE"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/webhooks/1"</span><span class="o">}</span>
+    <span class="o">]</span>
+  <span class="o">}</span>
+
+</code></pre>
+
+<p>É possível ter indeterminados webhooks, que enviarão requisições para uma determinada URL quando certas ações ocorrem no Cobrato (<a href="#payloads">Payloads</a>).</p>
+
+<p><strong>Parâmetros</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>url</td>
+<td>string</td>
+<td><strong>(requerido)</strong> URL na qual serão feitas as requisições GET e POST, esperando HTTP 200 como retorno</td>
+</tr>
+<tr>
+<td>description</td>
+<td>string</td>
+<td>(opcional) descrição opcional do Webhook</td>
+</tr>
+</tbody></table>
 
 <h2 id="informações-do-webhook">Informações do Webhook</h2>
 <pre class="highlight shell"><code>Mostra Webhook
@@ -2025,15 +2221,53 @@ EXEMPLO DE CORPO DA RESPOSTA
     <span class="s2">"url"</span>: <span class="s2">"http://www.seusitema.com/cobrato"</span>,
     <span class="s2">"description"</span>: <span class="s2">"teste"</span>,
     <span class="s2">"_links"</span>: <span class="o">[</span>
-      <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"self"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"http://localhost:3000/api/v1/webhooks/1"</span><span class="o">}</span>,
-      <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"update"</span>,<span class="s2">"method"</span>:<span class="s2">"PUT"</span>,<span class="s2">"href"</span>:<span class="s2">"http://localhost:3000/api/v1/webhooks/1"</span><span class="o">}</span>,
-      <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"destroy"</span>,<span class="s2">"method"</span>:<span class="s2">"DELETE"</span>,<span class="s2">"href"</span>:<span class="s2">"http://localhost:3000/api/v1/webhooks/1"</span><span class="o">}</span>
+      <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"self"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/webhooks/1"</span><span class="o">}</span>,
+      <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"update"</span>,<span class="s2">"method"</span>:<span class="s2">"PUT"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/webhooks/1"</span><span class="o">}</span>,
+      <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"destroy"</span>,<span class="s2">"method"</span>:<span class="s2">"DELETE"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/webhooks/1"</span><span class="o">}</span>
     <span class="o">]</span>
   <span class="o">}</span>
 
 </code></pre>
 
 <p>Retorna as informações detalhadas do webhook em formato JSON.</p>
+
+<h2 id="lista-de-todos-os-webhooks">Lista de Todos os Webhooks</h2>
+<pre class="highlight shell"><code>
+Listar Webhooks
+
+DEFINIÇÃO
+
+  GET https://app.cobrato.com/api/v1/webhooks
+
+EXEMPLO DE REQUISIÇÃO
+
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X <span class="se">\</span>
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
+    -X GET https://app.cobrato.com/api/v1/webhooks
+
+EXEMPLO DE ESTADO DA RESPOSTA
+
+    200 OK
+
+EXEMPLO DE CORPO DA RESPOSTA
+
+  <span class="o">{</span>
+    <span class="s2">"webhooks"</span>:
+      <span class="o">[</span>
+        <span class="o">{</span>
+          // informações webhook 1
+        <span class="o">}</span>,
+        <span class="o">{</span>
+          // informações webhook 2
+        <span class="o">}</span>,
+        ...
+      <span class="o">]</span>
+  <span class="o">}</span>
+</code></pre>
+
+<p>Retorna uma lista em JSON contendo todos os webhooks pertencentes a sua Conta de Serviço.</p>
 
 <h2 id="criação-de-webhook">Criação de Webhook</h2>
 <pre class="highlight shell"><code>Criar Webhook
@@ -2077,7 +2311,7 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
 <p>Cria um novo webhook, retornando as informações do mesmo caso haja sucesso. Para realizar o cadastro é necessária que a URL informa aceite as requisições POST e GET, respondendo sempre com HTTP 200. Afim de verificação da URL, o Cobrato fará requisições testes a mesma</p>
 
-<p>Parâmetros</p>
+<p><strong>Parâmetros</strong></p>
 
 <table><thead>
 <tr>
@@ -2089,12 +2323,12 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <tr>
 <td>url</td>
 <td>string</td>
-<td>requerido URL na qual serão feitas as requisições GET e POST, esperando HTTP 200 como retorno</td>
+<td><strong>(requerido)</strong> URL na qual serão feitas as requisições GET e POST, esperando HTTP 200 como retorno</td>
 </tr>
 <tr>
 <td>description</td>
 <td>string</td>
-<td>descrição opcional do Webhook</td>
+<td>(opcional) descrição opcional do Webhook</td>
 </tr>
 </tbody></table>
 
@@ -2114,8 +2348,7 @@ EXEMPLO DE REQUISIÇÃO
     -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
     -X PATCH https://app.cobrato.com/api/v1/webhooks/:webhook_id <span class="se">\</span>
     -d <span class="s1">'{
-        "city": "Farroupilha",
-        "state": "RS"
+        "descripction": "Webhook teste"
       }'</span>
 
 EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
@@ -2134,7 +2367,7 @@ EXEMPLO DE ESTADO DA RESPOSTA COM INSUCESSO
 
 <p>Atualiza a descrição do webhook. Não é possível alterar a URL de um Webhook. A requisição não diferencia a utilização dos verbos PUT e PATCH.</p>
 
-<p>Parâmetros</p>
+<p><strong>Parâmetros</strong></p>
 
 <table><thead>
 <tr>
@@ -2146,7 +2379,7 @@ EXEMPLO DE ESTADO DA RESPOSTA COM INSUCESSO
 <tr>
 <td>description</td>
 <td>string</td>
-<td>Descrição opcional do Webhook</td>
+<td>(opcional) descrição opcional do Webhook</td>
 </tr>
 </tbody></table>
 
