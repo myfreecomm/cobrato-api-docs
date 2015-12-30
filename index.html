@@ -961,7 +961,10 @@ EXEMPLO
     <span class="s2">"current_number"</span>: 1,
     <span class="s2">"end_number"</span>: 1000,
     <span class="s2">"status"</span>: <span class="s2">"pending"</span>,
-    <span class="s2">"payment_methods"</span>: <span class="o">[</span><span class="s2">"billet"</span>, <span class="s2">"cnab"</span><span class="o">]</span>,
+    <span class="s2">"registered_charges"</span>: <span class="nb">true</span>,
+    <span class="s2">"agreement_number"</span>: 4576361,
+    <span class="s2">"remittance_cnab_pattern"</span>: 400,
+    <span class="s2">"initial_remittance_number"</span>: 1,
     <span class="s2">"_links"</span>:
       <span class="o">[</span>
         <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"self"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charge_accounts/1"</span><span class="o">}</span>,
@@ -1035,9 +1038,24 @@ EXEMPLO
 <td>caso for &#39;pending&rsquo; a conta ainda não está homologada caso for &#39;ok&rsquo; a conta já consta como homologada</td>
 </tr>
 <tr>
-<td>payment_methods</td>
-<td>array of strings</td>
-<td>métodos de pagamentos disponíveis para pagamentos de cobranças criadas a partir desta conta</td>
+<td>registered_charges</td>
+<td>boolean</td>
+<td>informa se a conta de cobrança utiliza boletos registrados ou não, sendo false por padrão</td>
+</tr>
+<tr>
+<td>agreement_number</td>
+<td>integer</td>
+<td>número do convênio com o banco (apenas para o Bradesco)</td>
+</tr>
+<tr>
+<td>remittance_cnab_pattern</td>
+<td>integer</td>
+<td>padrão utilizado no arquivo CNAB de remessa</td>
+</tr>
+<tr>
+<td>initial_remittance_number</td>
+<td>integer</td>
+<td>número inicial de remessa, ou seja, qual foi o último número sequencial de remessa enviado para o banco (apenas para o Bradesco)</td>
 </tr>
 <tr>
 <td>_links</td>
@@ -1078,7 +1096,10 @@ EXEMPLO DE CORPO DA RESPOSTA
     <span class="s2">"current_number"</span>: 1,
     <span class="s2">"end_number"</span>: 1000,
     <span class="s2">"status"</span>: <span class="s2">"pending"</span>,
-    <span class="s2">"payment_methods"</span>: <span class="o">[</span><span class="s2">"billet"</span>, <span class="s2">"cnab"</span><span class="o">]</span>,
+    <span class="s2">"registered_charges"</span>: <span class="nb">true</span>,
+    <span class="s2">"agreement_number"</span>: 4576361,
+    <span class="s2">"remittance_cnab_pattern"</span>: 400,
+    <span class="s2">"initial_remittance_number"</span>: 1,
     <span class="s2">"_links"</span>:
       <span class="o">[</span>
         <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"self"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charge_accounts/1"</span><span class="o">}</span>,
@@ -1152,7 +1173,10 @@ EXEMPLO DE REQUISIÇÃO
           "name": "Conta Cobrança",
           "initial_number": "1",
           "end_number": "1000",
-          "payment_methods": ["billet"],
+          "registered_charges": "true",
+          "agreement_number": "4576361",
+          "remittance_cnab_pattern": "400",
+          "initial_remittance_number": "1"
         }'</span>
 
 EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
@@ -1224,9 +1248,24 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <td>(opcional) número final do nosso número, sendo o último número a ser atribuído, após isso a sequência é reiniciada</td>
 </tr>
 <tr>
-<td>payment_methods</td>
-<td>array of strings</td>
-<td>(opcional) métodos de pagamentos disponíveis para pagamentos de cobranças criadas a partir desta conta, por padrão [&ldquo;billet&rdquo;, &ldquo;cnab&rdquo;]. <a href="#métodos-de-pagamentos-disponíveis">verificar api</a></td>
+<td>registered_charges</td>
+<td>boolean</td>
+<td>(opcional) informa se a conta de cobrança utiliza boletos registrados ou não, sendo false por padrão</td>
+</tr>
+<tr>
+<td>agreement_number</td>
+<td>integer</td>
+<td>(opcional, requerido apenas se registered_charges for <code class="prettyprint">true</code>) número do convênio com o banco (apenas para o Bradesco)</td>
+</tr>
+<tr>
+<td>remittance_cnab_pattern</td>
+<td>integer</td>
+<td>(opcional, requerido apenas se registered_charges for <code class="prettyprint">true</code>) padrão utilizado no arquivo CNAB de remessa. Os valores permitidos são 240 ou 400</td>
+</tr>
+<tr>
+<td>initial_remittance_number</td>
+<td>integer</td>
+<td>(opcional) número inicial de remessa, ou seja, qual foi o último número sequencial de remessa enviado para o banco (apenas para o Bradesco). Por padrão o valor é 1</td>
 </tr>
 </tbody></table>
 
@@ -1319,9 +1358,24 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <td>(opcional) número final do nosso número, sendo o último número a ser atribuído, após isso a sequência é reiniciada</td>
 </tr>
 <tr>
-<td>payment_methods</td>
-<td>array of strings</td>
-<td>(opcional) métodos de pagamentos disponíveis para pagamentos de cobranças criadas a partir desta conta, por padrão [&ldquo;billet&rdquo;, &ldquo;cnab&rdquo;]. <a href="#métodos-de-pagamentos-disponíveis">verificar api</a></td>
+<td>registered_charges</td>
+<td>boolean</td>
+<td>(opcional) informa se a conta de cobrança utiliza boletos registrados ou não, sendo false por padrão</td>
+</tr>
+<tr>
+<td>agreement_number</td>
+<td>integer</td>
+<td>(opcional, requerido apenas se registered_charges for <code class="prettyprint">true</code>) número do convênio com o banco (apenas para o Bradesco)</td>
+</tr>
+<tr>
+<td>remittance_cnab_pattern</td>
+<td>integer</td>
+<td>(opcional, requerido apenas se registered_charges for <code class="prettyprint">true</code>) padrão utilizado no arquivo CNAB de remessa. Os valores permitidos são 240 ou 400</td>
+</tr>
+<tr>
+<td>initial_remittance_number</td>
+<td>integer</td>
+<td>(opcional) número inicial de remessa, ou seja, qual foi o último número sequencial de remessa enviado para o banco (apenas para o Bradesco). Por padrão o valor é 1</td>
 </tr>
 </tbody></table>
 
@@ -1411,8 +1465,19 @@ EXEMPLO
     <span class="s2">"received_at"</span>:<span class="s2">"2015-01-30"</span>,
     <span class="s2">"processing_date"</span>:<span class="s2">"2015-01-30"</span>,
     <span class="s2">"for_homologation"</span>:true,
-    <span class="s2">"payment_method"</span>:<span class="s2">"billet"</span>,
     <span class="s2">"has_cnab_remittance"</span>:false,
+    <span class="s2">"registered"</span>: <span class="nb">true</span>,
+    <span class="s2">"payer_national_identifier_type"</span>: <span class="s2">"cpf"</span>,
+    <span class="s2">"payer_national_identifier"</span>: <span class="s2">"12345678909"</span>,
+    <span class="s2">"payer_name"</span>: <span class="s2">"Jonh Doe"</span>,
+    <span class="s2">"payer_number"</span>: <span class="s2">"43"</span>,
+    <span class="s2">"payer_complement"</span>: <span class="s2">"8 andar"</span>,
+    <span class="s2">"payer_street"</span>: <span class="s2">"Rua do Carmo"</span>,
+    <span class="s2">"payer_neighbourhood"</span>: <span class="s2">"Centro"</span>,
+    <span class="s2">"payer_zipcode"</span>: <span class="s2">"22230062"</span>,
+    <span class="s2">"payer_city"</span>: <span class="s2">"Rio de Janeiro"</span>,
+    <span class="s2">"payer_state"</span>: <span class="s2">"RJ"</span>,
+    <span class="s2">"status"</span>: <span class="s2">"not_generated_remittance"</span>,
     <span class="s2">"_links"</span>:
       <span class="o">[</span>
         <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"self"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charges/1"</span><span class="o">}</span>,
@@ -1533,14 +1598,69 @@ EXEMPLO
 <td>indica se é uma cobrança gerada automaticamente pelo sistema para ser utilizada na homologação da conta de cobrança</td>
 </tr>
 <tr>
-<td>payment_method</td>
-<td>string</td>
-<td>identifica o método de pagamento da cobranças</td>
-</tr>
-<tr>
 <td>has_cnab_remittance</td>
 <td>boolean</td>
 <td>para cobranças onde o &ldquo;payment_method&rdquo; é &ldquo;cnab&rdquo;, identifica se o arquivo de remessa já foi gerado</td>
+</tr>
+<tr>
+<td>registered</td>
+<td>boolean</td>
+<td>indica se a cobrança é registrada ou não. Por padrão é <code class="prettyprint">false</code></td>
+</tr>
+<tr>
+<td>payer_national_identifier_type</td>
+<td>string</td>
+<td>tipo do documento do pagador (cpf ou cnpj)</td>
+</tr>
+<tr>
+<td>payer_national_identifier</td>
+<td>string</td>
+<td>documento do pagador</td>
+</tr>
+<tr>
+<td>payer_name</td>
+<td>string</td>
+<td>nome do pagador</td>
+</tr>
+<tr>
+<td>payer_number</td>
+<td>string</td>
+<td>número do endereço do pagador</td>
+</tr>
+<tr>
+<td>payer_complement</td>
+<td>string</td>
+<td>complemento do endereço do pagador</td>
+</tr>
+<tr>
+<td>payer_street</td>
+<td>string</td>
+<td>rua do endereço do pagador</td>
+</tr>
+<tr>
+<td>payer_neighbourhood</td>
+<td>string</td>
+<td>bairro do endereço do pagador</td>
+</tr>
+<tr>
+<td>payer_zipcode</td>
+<td>string</td>
+<td>cep do endereço do pagador</td>
+</tr>
+<tr>
+<td>payer_city</td>
+<td>string</td>
+<td>cidade do endereço do pagador</td>
+</tr>
+<tr>
+<td>payer_state</td>
+<td>string</td>
+<td>sigla do estado do endereço do pagador (&ldquo;RJ&rdquo; por exemplo)</td>
+</tr>
+<tr>
+<td>status</td>
+<td>string</td>
+<td>status em que a cobrança se encontra (not_generated_remittance, generated_remittance, registered)</td>
 </tr>
 <tr>
 <td>_links</td>
@@ -1590,8 +1710,19 @@ EXEMPLO DE CORPO DA RESPOSTA
     <span class="s2">"received_at"</span>:<span class="s2">"2015-01-30"</span>,
     <span class="s2">"processing_date"</span>:<span class="s2">"2015-01-30"</span>,
     <span class="s2">"for_homologation"</span>:true,
-    <span class="s2">"payment_method"</span>:<span class="s2">"billet"</span>,
     <span class="s2">"has_cnab_remittance"</span>:false,
+    <span class="s2">"registered"</span>: <span class="nb">true</span>,
+    <span class="s2">"payer_national_identifier_type"</span>: <span class="s2">"cpf"</span>,
+    <span class="s2">"payer_national_identifier"</span>: <span class="s2">"12345678909"</span>,
+    <span class="s2">"payer_name"</span>: <span class="s2">"Jonh Doe"</span>,
+    <span class="s2">"payer_number"</span>: <span class="s2">"43"</span>,
+    <span class="s2">"payer_complement"</span>: <span class="s2">"8 andar"</span>,
+    <span class="s2">"payer_street"</span>: <span class="s2">"Rua do Carmo"</span>,
+    <span class="s2">"payer_neighbourhood"</span>: <span class="s2">"Centro"</span>,
+    <span class="s2">"payer_zipcode"</span>: <span class="s2">"22230062"</span>,
+    <span class="s2">"payer_city"</span>: <span class="s2">"Rio de Janeiro"</span>,
+    <span class="s2">"payer_state"</span>: <span class="s2">"RJ"</span>,
+    <span class="s2">"status"</span>: <span class="s2">"not_generated_remittance"</span>,
     <span class="s2">"_links"</span>:
       <span class="o">[</span>
         <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"self"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charges/1"</span><span class="o">}</span>,
@@ -1787,9 +1918,59 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <td>(opcional) demonstrativo do Boleto, por padrão &ldquo;Não receber após o vencimento.&rdquo; (pode ser linhas separadas por &ldquo;\n&rdquo;)</td>
 </tr>
 <tr>
-<td>payment_method</td>
+<td>registered</td>
+<td>boolean</td>
+<td>(opcional) indica se a cobrança é registrada ou não. Por padrão é <code class="prettyprint">false</code></td>
+</tr>
+<tr>
+<td>payer_national_identifier_type</td>
 <td>string</td>
-<td>(opcional) identifica o método de pagamento da cobranças, por padrão &ldquo;billet&rdquo;</td>
+<td><strong>(requerido)</strong> tipo do documento do pagador (cpf ou cnpj)</td>
+</tr>
+<tr>
+<td>payer_national_identifier</td>
+<td>string</td>
+<td><strong>(requerido)</strong> documento do pagador</td>
+</tr>
+<tr>
+<td>payer_name</td>
+<td>string</td>
+<td><strong>(requerido)</strong> nome do pagador</td>
+</tr>
+<tr>
+<td>payer_number</td>
+<td>string</td>
+<td>(opcional, requerido se registered for <code class="prettyprint">true</code>) número do endereço do pagador</td>
+</tr>
+<tr>
+<td>payer_complement</td>
+<td>string</td>
+<td>(opcional, requerido se registered for <code class="prettyprint">true</code>) complemento do endereço do pagador</td>
+</tr>
+<tr>
+<td>payer_street</td>
+<td>string</td>
+<td>(opcional, requerido se registered for <code class="prettyprint">true</code>) rua do endereço do pagador</td>
+</tr>
+<tr>
+<td>payer_neighbourhood</td>
+<td>string</td>
+<td>(opcional, requerido se registered for <code class="prettyprint">true</code>) bairro do endereço do pagador</td>
+</tr>
+<tr>
+<td>payer_zipcode</td>
+<td>string</td>
+<td>(opcional, requerido se registered for <code class="prettyprint">true</code>) cep do endereço do pagador</td>
+</tr>
+<tr>
+<td>payer_city</td>
+<td>string</td>
+<td>(opcional, requerido se registered for <code class="prettyprint">true</code>) cidade do endereço do pagador</td>
+</tr>
+<tr>
+<td>payer_state</td>
+<td>string</td>
+<td>(opcional, requerido se registered for <code class="prettyprint">true</code>) sigla do estado do endereço do pagador (&ldquo;RJ&rdquo; por exemplo)</td>
 </tr>
 </tbody></table>
 
@@ -1924,9 +2105,59 @@ O campo 'has_cnab_remittance&rsquo; é alterado, apenas em cobranças em que o '
 <td>(opcional) demonstrativo do Boleto, por padrão &ldquo;Não receber após o vencimento.&rdquo; (pode ser linhas separadas por &ldquo;\n&rdquo;)</td>
 </tr>
 <tr>
-<td>payment_method</td>
+<td>registered</td>
+<td>boolean</td>
+<td>(opcional) indica se a cobrança é registrada ou não. Por padrão é <code class="prettyprint">false</code></td>
+</tr>
+<tr>
+<td>payer_national_identifier_type</td>
 <td>string</td>
-<td>(opcional) identifica o método de pagamento da cobranças, por padrão &ldquo;billet&rdquo;</td>
+<td><strong>(requerido)</strong> tipo do documento do pagador (cpf ou cnpj)</td>
+</tr>
+<tr>
+<td>payer_national_identifier</td>
+<td>string</td>
+<td><strong>(requerido)</strong> documento do pagador</td>
+</tr>
+<tr>
+<td>payer_name</td>
+<td>string</td>
+<td><strong>(requerido)</strong> nome do pagador</td>
+</tr>
+<tr>
+<td>payer_number</td>
+<td>string</td>
+<td>(opcional, requerido se registered for <code class="prettyprint">true</code>) número do endereço do pagador</td>
+</tr>
+<tr>
+<td>payer_complement</td>
+<td>string</td>
+<td>(opcional, requerido se registered for <code class="prettyprint">true</code>) complemento do endereço do pagador</td>
+</tr>
+<tr>
+<td>payer_street</td>
+<td>string</td>
+<td>(opcional, requerido se registered for <code class="prettyprint">true</code>) rua do endereço do pagador</td>
+</tr>
+<tr>
+<td>payer_neighbourhood</td>
+<td>string</td>
+<td>(opcional, requerido se registered for <code class="prettyprint">true</code>) bairro do endereço do pagador</td>
+</tr>
+<tr>
+<td>payer_zipcode</td>
+<td>string</td>
+<td>(opcional, requerido se registered for <code class="prettyprint">true</code>) cep do endereço do pagador</td>
+</tr>
+<tr>
+<td>payer_city</td>
+<td>string</td>
+<td>(opcional, requerido se registered for <code class="prettyprint">true</code>) cidade do endereço do pagador</td>
+</tr>
+<tr>
+<td>payer_state</td>
+<td>string</td>
+<td>(opcional, requerido se registered for <code class="prettyprint">true</code>) sigla do estado do endereço do pagador (&ldquo;RJ&rdquo; por exemplo)</td>
 </tr>
 </tbody></table>
 
