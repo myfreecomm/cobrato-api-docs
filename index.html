@@ -2385,6 +2385,295 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 </tr>
 </tbody></table>
 
+          <h1 id="arquivos-cnab-de-remessa">Arquivos CNAB de Remessa</h1>
+<pre class="highlight shell"><code>CNAB de Remessa
+
+EXEMPLO
+
+  <span class="o">{</span>
+    <span class="s2">"id"</span>: 1,
+    <span class="s2">"charge_account_id"</span>: 1,
+    <span class="s2">"status"</span>: <span class="s2">"processed"</span>,
+    <span class="s2">"_links"</span>: 
+      <span class="o">[</span>
+        <span class="o">{</span><span class="s2">"rel"</span>: <span class="s2">"self"</span>, <span class="s2">"method"</span>: <span class="s2">"GET"</span>, <span class="s2">"href"</span>: <span class="s2">"https://app.cobrato.com/api/v1/remittance_cnabs/1"</span><span class="o">}</span>, 
+        <span class="o">{</span><span class="s2">"rel"</span>: <span class="s2">"destroy"</span>, <span class="s2">"method"</span>: <span class="s2">"DELETE"</span>, <span class="s2">"href"</span>: <span class="s2">"https://app.cobrato.com/api/v1/remittance_cnabs/1"</span><span class="o">}</span>, 
+        <span class="o">{</span><span class="s2">"rel"</span>: <span class="s2">"charge_account"</span>, <span class="s2">"method"</span>: <span class="s2">"GET"</span>, <span class="s2">"href"</span>: <span class="s2">"https://app.cobrato.com/api/v1/charge_accounts/1"</span><span class="o">}</span>, 
+        <span class="o">{</span><span class="s2">"rel"</span>: <span class="s2">"file"</span>, <span class="s2">"method"</span>: <span class="s2">"GET"</span>, <span class="s2">"href"</span>: <span class="s2">"https://app.cobrato.com/api/v1/remittance_cnabs/1/file"</span><span class="o">}</span>,
+        <span class="o">{</span><span class="s2">"rel"</span>: <span class="s2">"charges"</span>, <span class="s2">"method"</span>: <span class="s2">"GET"</span>, <span class="s2">"href"</span>: <span class="s2">"http://localhost:3000/api/v1/remittance_cnabs/1/charges"</span><span class="o">}</span>
+      <span class="o">]</span>
+  <span class="o">}</span>
+</code></pre>
+
+<aside class="notice">
+Os Arquivos CNAB de Remessa são arquivos enviados para o banco com o objetivo de registrar novos títulos, podendo ser gerado a partir de uma ou mais Cobranças. Se forem enviadas Cobranças de Contas de Cobranças diferentes, será gerado um CNAB de remessa para cada Conta de Cobrança.
+</aside>
+
+<p><strong>Parâmetros</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>integer</td>
+<td>identificador do CNAB de remessa</td>
+</tr>
+<tr>
+<td>charge_account_id</td>
+<td>string</td>
+<td>identificador da conta de cobrança no Cobrato</td>
+</tr>
+<tr>
+<td>status</td>
+<td>string</td>
+<td>situação da remessa, podendo ser &ldquo;processing&rdquo; (processando), &ldquo;processed&rdquo; (processado) e &ldquo;processing_error&rdquo; (erro de processamento)</td>
+</tr>
+<tr>
+<td>_links</td>
+<td>array of object</td>
+<td>links relacionado CNAB de remessa</td>
+</tr>
+</tbody></table>
+
+<h2 id="informações-do-cnab-de-remessa">Informações do CNAB de Remessa</h2>
+<pre class="highlight shell"><code>Mostrar CNAB de Remessa
+
+DEFINIÇÃO
+
+  GET https://app.cobrato.com/api/v1/remittance_cnabs/:id
+
+EXEMPLO DE REQUISIÇÃO
+
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X <span class="se">\</span>
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
+    -X GET https://app.cobrato.com/api/v1/remittance_cnabs/:id
+
+EXEMPLO DE ESTADO DA RESPOSTA 
+
+    200 OK
+
+EXEMPLO DE CORPO DA RESPOSTA
+
+  <span class="o">{</span>
+    <span class="s2">"id"</span>: 1,
+    <span class="s2">"charge_account_id"</span>: 1,
+    <span class="s2">"status"</span>: <span class="s2">"processed"</span>,
+    <span class="s2">"_links"</span>: 
+      <span class="o">[</span>
+        <span class="o">{</span><span class="s2">"rel"</span>: <span class="s2">"self"</span>, <span class="s2">"method"</span>: <span class="s2">"GET"</span>, <span class="s2">"href"</span>: <span class="s2">"https://app.cobrato.com/api/v1/remittance_cnabs/1"</span><span class="o">}</span>, 
+        <span class="o">{</span><span class="s2">"rel"</span>: <span class="s2">"destroy"</span>, <span class="s2">"method"</span>: <span class="s2">"DELETE"</span>, <span class="s2">"href"</span>: <span class="s2">"https://app.cobrato.com/api/v1/remittance_cnabs/1"</span><span class="o">}</span>, 
+        <span class="o">{</span><span class="s2">"rel"</span>: <span class="s2">"charge_account"</span>, <span class="s2">"method"</span>: <span class="s2">"GET"</span>, <span class="s2">"href"</span>: <span class="s2">"https://app.cobrato.com/api/v1/charge_accounts/1"</span><span class="o">}</span>, 
+        <span class="o">{</span><span class="s2">"rel"</span>: <span class="s2">"file"</span>, <span class="s2">"method"</span>: <span class="s2">"GET"</span>, <span class="s2">"href"</span>: <span class="s2">"https://app.cobrato.com/api/v1/remittance_cnabs/1/file"</span><span class="o">}</span>,
+        <span class="o">{</span><span class="s2">"rel"</span>: <span class="s2">"charges"</span>, <span class="s2">"method"</span>: <span class="s2">"GET"</span>, <span class="s2">"href"</span>: <span class="s2">"http://localhost:3000/api/v1/remittance_cnabs/1/charges"</span><span class="o">}</span>
+      <span class="o">]</span>
+  <span class="o">}</span>
+
+</code></pre>
+
+<p>Retorna as informações detalhadas em JSON do CNAB de remessa informado.</p>
+
+<h2 id="lista-de-todas-as-cnabs-de-remessa">Lista de Todas as CNABs de Remessa</h2>
+<pre class="highlight shell"><code>Listar CNABs de Remessa
+
+DEFINIÇÃO
+
+  GET https://app.cobrato.com/api/v1/remittance_cnabs
+
+EXEMPLO DE REQUISIÇÃO
+
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X <span class="se">\</span>
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
+    -X GET https://app.cobrato.com/api/v1/remittance_cnabs
+
+EXEMPLO DE ESTADO DA RESPOSTA
+
+    200 OK
+
+EXEMPLO DE CORPO DA RESPOSTA
+
+  <span class="o">{</span>
+    <span class="s2">"remittance_cnabs"</span>:
+      <span class="o">[</span>
+        <span class="o">{</span>
+          // informações <span class="k">do </span>CNAB de remessa 1
+        <span class="o">}</span>,
+        <span class="o">{</span>
+          // informações <span class="k">do </span>CNAB de remessa 2
+        <span class="o">}</span>,
+        ...
+      <span class="o">]</span>
+  <span class="o">}</span>
+
+</code></pre>
+
+<p>Retorna uma lista em JSON contendo todos os CNABs de remessa que pertencem a sua Conta de Serviço.</p>
+
+<h2 id="criação-de-arquivo-cnab-de-remessa">Criação de Arquivo CNAB de Remessa</h2>
+<pre class="highlight shell"><code>Criar Arquivo CNAB de Remessa
+
+DEFINIÇÃO
+
+  POST https://app.cobrato.com/api/v1/remittance_cnabs
+
+EXEMPLO DE REQUISIÇÃO
+
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X <span class="se">\</span>
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
+    -X POST https://app.cobrato.com/api/v1/remittance_cnabs <span class="se">\</span>
+    -D <span class="s1">'{
+        "charge_ids": [12, 13, 15, 18]
+      }'</span>
+
+EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
+
+    201 Criated
+
+EXEMPLO DE ESTADO DA RESPOSTA COM INSUCESSO
+
+    422 Unprocessable Entity
+
+EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
+
+  <span class="o">{</span>
+    <span class="s2">"errors"</span>:<span class="o">{</span>
+      <span class="s2">"charge_ids"</span>: <span class="o">[</span><span class="s2">"não pode ficar em branco"</span><span class="o">]</span>,
+    <span class="o">}</span>
+  <span class="o">}</span>
+
+</code></pre>
+
+<p>Cria novo(s) Arquivo(s) CNAB de Remessa, retornando as informações do mesmo caso haja sucesso. Se houverem erros, eles serão informados no corpo da resposta. Pode ser gerado a partir de uma ou mais Cobranças. Se forem enviadas Cobranças de Contas de Cobranças diferentes, será gerado um CNAB de remessa para cada Conta de Cobrança.</p>
+
+<p>Os Arquivos CNAB de Remessa podem ser criados a partir de uma ou mais cobraças que ainda não possuem boleto ou outro arquivo de remessa associado.</p>
+
+<p><strong>Parâmetros</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>charge_ids</td>
+<td>array of integers</td>
+<td><strong>(requerido)</strong> Lista com os ids das cobranças que devem ser associadas ao Arquivo CNAB de Remessa</td>
+</tr>
+</tbody></table>
+
+<h2 id="exclusão-de-cnab-de-remessa">Exclusão de CNAB de Remessa</h2>
+<pre class="highlight shell"><code>Excluir CNAB de Remessa
+
+DEFINIÇÃO
+
+  DELETE https://app.cobrato.com/api/v1/remittance_cnabs/:id
+
+EXEMPLO DE REQUISIÇÃO
+
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X <span class="se">\</span>
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
+    -X DELETE https://app.cobrato.com/api/v1/remittance_cnabs/:id
+
+EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
+
+    204 No Content
+
+EXEMPLO DE ESTADO DA RESPOSTA COM CNAB DE REMESSA INEXISTENTE
+
+    404 Not Found
+
+</code></pre>
+
+<p>Exclui determinado CNAB de remessa. A exclusão é irreversível.</p>
+
+<h2 id="arquivo-do-cnab-de-remessa">Arquivo do CNAB de Remessa</h2>
+<pre class="highlight shell"><code>Mostrar Arquivo <span class="k">do </span>CNAB de Remessa <span class="o">(</span>URL<span class="o">)</span>
+
+DEFINIÇÃO
+
+  GET https://app.cobrato.com/api/v1/remittance_cnabs/:id/file
+
+EXEMPLO DE REQUISIÇÃO
+
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X <span class="se">\</span>
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
+    -X GET https://app.cobrato.com/api/v1/remittance_cnabs/:id/file
+
+EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
+
+    200 OK
+
+EXEMPLO DE ESTADO DA RESPOSTA COM CNAB DE REMESSA INEXISTENTE
+
+    404 Not Found
+
+EXEMPLO DE CORPO DA RESPOSTA COM SUCESSO
+
+  <span class="o">{</span>
+    <span class="s2">"url"</span>:<span class="s2">"https://cobrato-uploads.s3.amazonaws.com/remittance_cnabs/cnabs/1/B425065A.RET?AWSAccessKeyId=AKIAIRJFH3YRXV5YRVTQ&amp;Expires=1452277155&amp;Signature=IJ1P%2Bc%2F9vC%2FKlBWuHGIBEl%2BAHKk%3D"</span>
+  <span class="o">}</span>
+</code></pre>
+
+<p>Mostra o link da url do arquivo de determinado CNAB de remessa.</p>
+
+<aside class="warning">
+As URLs disponibilizadas são válidas por apenas 60 minutos. Sendo assim, não armazene o remessa e sempre que for necessário realize uma nova chamada à API.
+</aside>
+
+<h2 id="lista-de-todas-as-cobrança-do-arquivo-de-remessa">Lista de Todas as Cobrança do Arquivo de Remessa</h2>
+<pre class="highlight shell"><code>
+
+DEFINIÇÃO
+
+  GET https://app.cobrato.com/api/v1/remittance_cnabs/:id/charges
+
+EXEMPLO DE REQUISIÇÃO
+
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X <span class="se">\</span>
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
+    -X GET https://app.cobrato.com/api/v1/remittance_cnabs/:id/charges
+
+EXEMPLO DE ESTADO DA RESPOSTA
+
+    200 OK
+
+EXEMPLO DE CORPO DA RESPOSTA
+
+  <span class="o">{</span>
+    <span class="s2">"charges"</span>:
+      <span class="o">[</span>
+        <span class="o">{</span>
+          // informações cobrança 1
+        <span class="o">}</span>,
+        <span class="o">{</span>
+          // informações cobrança 2
+        <span class="o">}</span>,
+        ...
+      <span class="o">]</span>
+  <span class="o">}</span>
+
+</code></pre>
+
+<p>Retorna uma lista em JSON contendo todos as cobranças que pertencem ao CNAB de remessa informado.</p>
+
           <h1 id="cnab-de-retorno">CNAB de Retorno</h1>
 <pre class="highlight shell"><code>CNAB de Retorno
 
