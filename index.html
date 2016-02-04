@@ -3497,13 +3497,13 @@ EXEMPLO DE PAYLOAD
 </tr>
 <tr>
 <td>regress</td>
-<td>boolean</td>
-<td>indica se para este banco é aceito ou não arquivo de retorno</td>
+<td>array</td>
+<td>indica quais layouts CNAB de retorno são suportados para o banco</td>
 </tr>
 <tr>
 <td>remittance</td>
-<td>boolean</td>
-<td>indica se para este banco é aceito ou não arquivo de remessa</td>
+<td>array</td>
+<td>indica quais layouts CNAB de remessa são suportados para o banco</td>
 </tr>
 </tbody></table>
 
@@ -3535,8 +3535,8 @@ EXEMPLO DE CORPO DA RESPOSTA
           <span class="s2">"bank_code"</span>: <span class="s2">"001"</span>,
           <span class="s2">"bank_name"</span>: <span class="s2">"BancoDoBrasil"</span>,
           <span class="s2">"portfolio_codes"</span>: <span class="o">[</span> <span class="s2">"11"</span>, <span class="s2">"12"</span>, <span class="s2">"16"</span>, <span class="s2">"17"</span>, <span class="s2">"18"</span>, <span class="s2">"31"</span>, <span class="s2">"51"</span> <span class="o">]</span>,
-          <span class="s2">"regress"</span>: <span class="nb">true</span>,
-          <span class="s2">"remittance"</span>: <span class="nb">false</span>
+          <span class="s2">"regress"</span>: <span class="o">[</span>240],
+          <span class="s2">"remittance"</span>: <span class="o">[]</span>
         <span class="o">}</span>,
         <span class="o">{</span>
           // informações de outro banco
