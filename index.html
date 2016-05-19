@@ -2778,7 +2778,7 @@ Para cobrançãs do tipo **Boleto** os campos 'received&rsquo;, 'received_at&rsq
 <tr>
 <td>generate_token</td>
 <td>boolean</td>
-<td>(opcional) indica se foi gerado token para utilização do cartão de crédito no pagamento recorrente (false por padrão)</td>
+<td>(opcional) indica se deve ser gerado token para utilização do cartão de crédito no pagamento recorrente (false por padrão)</td>
 </tr>
 <tr>
 <td>payer_emails</td>
@@ -3191,6 +3191,145 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 </code></pre>
 
 <p>Enfileira uma determinada cobrança para cancelamento.</p>
+
+          <h1 id="cart-o-de-cr-dito">Cartão de Crédito</h1>
+<pre class="highlight shell"><code>Cartão de Crédito
+
+EXEMPLO
+
+  <span class="o">{</span>
+    <span class="s2">"id"</span>: 8,
+    <span class="s2">"final_numbers"</span>: <span class="s2">"3005"</span>,
+    <span class="s2">"holder_name"</span>: <span class="s2">"John Doe"</span>,
+    <span class="s2">"unusable"</span>: <span class="nb">false</span>,
+    <span class="s2">"brand"</span>: <span class="s2">"amex"</span>,
+    <span class="s2">"expiration"</span>: <span class="s2">"05/18"</span>,
+    <span class="s2">"avs_address"</span>: <span class="s2">"Rua Julio de Castilhos"</span>,
+    <span class="s2">"avs_number"</span>: <span class="s2">"100"</span>,
+    <span class="s2">"avs_complement"</span>: <span class="s2">"Apto 103"</span>,
+    <span class="s2">"avs_district"</span>: <span class="s2">"Centro"</span>,
+    <span class="s2">"avs_zipcode"</span>: <span class="s2">"99000-750"</span>,
+    <span class="s2">"payer_id"</span>: 1,
+    <span class="s2">"_links"</span>: <span class="o">[</span>
+      <span class="o">{</span> <span class="s2">"rel"</span>: <span class="s2">"self"</span>, <span class="s2">"method"</span>: <span class="s2">"GET"</span>, <span class="s2">"href"</span>: <span class="s2">"https://app.cobrato.com/api/v1/credit_cards/8"</span> <span class="o">}</span>
+    <span class="o">]</span>
+  <span class="o">}</span>
+</code></pre>
+
+<p>Os Cartões de Crédito pertencem ao Pagador utilizado no momento de sua criação (primeira utilização em uma Cobrança) e, dessa forma, só pode ser reutilizado em Cobranças onde o Pagador é o mesmo.</p>
+
+<p><strong>Parâmetros</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>final_numbers</td>
+<td>string</td>
+<td>últimos números do cartão</td>
+</tr>
+<tr>
+<td>expiration</td>
+<td>string</td>
+<td>expiração do cartão, no formato &ldquo;mm/aa&rdquo;</td>
+</tr>
+<tr>
+<td>holder_name</td>
+<td>string</td>
+<td>nome do dono do cartão</td>
+</tr>
+<tr>
+<td>brand</td>
+<td>string</td>
+<td>bandeira do cartão (visa, mastercard, amex, elo, diners, discover, jcb, aura)</td>
+</tr>
+<tr>
+<td>avs_address</td>
+<td>string</td>
+<td>endereço de cobrança do cartão</td>
+</tr>
+<tr>
+<td>avs_number</td>
+<td>string</td>
+<td>número do endereço de cobrança do cartão</td>
+</tr>
+<tr>
+<td>avs_complement</td>
+<td>string</td>
+<td>complemento endereço de cobrança do cartão</td>
+</tr>
+<tr>
+<td>avs_district</td>
+<td>string</td>
+<td>bairro do endereço de cobrança do cartão</td>
+</tr>
+<tr>
+<td>avs_zipcode</td>
+<td>string</td>
+<td>cep do endereço de cobrança do cartão</td>
+</tr>
+<tr>
+<td>unusable</td>
+<td>boolean</td>
+<td>indica se o se o cartão está inutilizado</td>
+</tr>
+<tr>
+<td>payer_id</td>
+<td>integer</td>
+<td>identificador do Payer ao qual este cartão pertence</td>
+</tr>
+<tr>
+<td>_links</td>
+<td>array of object</td>
+<td>links do beneficiário</td>
+</tr>
+</tbody></table>
+
+<h2 id="informa-es-do-cart-o-de-cr-dito">Informações do Cartão de Crédito</h2>
+<pre class="highlight shell"><code>Mostrar Cartão de Crédito
+
+DEFINIÇÃO
+
+  GET https://app.cobrato.com/api/v1/credit_card/:credit_card_id
+
+EXEMPLO DE REQUISIÇÃO
+
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X <span class="se">\</span>
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
+    -X GET https://app.cobrato.com/api/v1/credit_card/:credit_card_id
+
+EXEMPLO DE ESTADO DA RESPOSTA
+
+    200 OK
+
+EXEMPLO DE CORPO DA RESPOSTA
+
+  <span class="o">{</span>
+    <span class="s2">"id"</span>: 8,
+    <span class="s2">"final_numbers"</span>: <span class="s2">"3005"</span>,
+    <span class="s2">"holder_name"</span>: <span class="s2">"John Doe"</span>,
+    <span class="s2">"unusable"</span>: <span class="nb">false</span>,
+    <span class="s2">"brand"</span>: <span class="s2">"amex"</span>,
+    <span class="s2">"expiration"</span>: <span class="s2">"05/18"</span>,
+    <span class="s2">"avs_address"</span>: <span class="s2">"Rua Julio de Castilhos"</span>,
+    <span class="s2">"avs_number"</span>: <span class="s2">"100"</span>,
+    <span class="s2">"avs_complement"</span>: <span class="s2">"Apto 103"</span>,
+    <span class="s2">"avs_district"</span>: <span class="s2">"Centro"</span>,
+    <span class="s2">"avs_zipcode"</span>: <span class="s2">"99000-750"</span>,
+    <span class="s2">"payer_id"</span>: 1,
+    <span class="s2">"_links"</span>: <span class="o">[</span>
+      <span class="o">{</span> <span class="s2">"rel"</span>: <span class="s2">"self"</span>, <span class="s2">"method"</span>: <span class="s2">"GET"</span>, <span class="s2">"href"</span>: <span class="s2">"https://app.cobrato.com/api/v1/credit_cards/8"</span> <span class="o">}</span>
+    <span class="o">]</span>
+  <span class="o">}</span>
+</code></pre>
+
+<p>Retorna as informações detalhadas do cartão de crédito informado em JSON.</p>
 
           <h1 id="cnab-de-remessa">CNAB de Remessa</h1>
 <pre class="highlight shell"><code>CNAB de Remessa
