@@ -1054,9 +1054,19 @@ EXEMPLO
 <li>Gateway de pagamento (payment_gateway)</li>
 </ul>
 
-<p><strong>Parâmetros (Boleto)</strong></p>
+<aside class="warning">
+  As Configurações de Cobrança <strong>precisam ser homologada antes de ser utilizada normalmente</strong>. Veja como homologar cada tipo de Configuração de Cobrança em suas informações específicas.
+</aside>
+
+<h3 id="boleto">Boleto</h3>
 
 <p>As Configurações de Cobrança do tipo <strong>Boleto</strong> (billet), pertencem as suas contas bancárias, sendo assim é necessário que sempre haja ao menos uma conta bancária para criação desse tipo configuração de cobrança, que também tem suas validações de acordo com o banco de sua conta bancária.</p>
+
+<aside class="info">
+  Quando uma Configuração de Cobrança do tipo Boleto é criada, é também criada, automaticamente, uma cobrança de homologação. Para a Configuração de Cobrança ser homologada, a Cobrança de homologação deve passar por todo o fluxo de cobrança do tipo boleto, ou seja, ser registrada no banco via arquivo de remessa (caso necessário), paga, o valor entrar na conta bancária e o arquivo de retorno ser enviado ao Cobrato.
+</aside>
+
+<p><strong>Parâmetros</strong></p>
 
 <table><thead>
 <tr>
@@ -1152,7 +1162,16 @@ EXEMPLO
 </tr>
 </tbody></table>
 
-<p><strong>Parâmetros (Gateway de Pagamento)</strong></p>
+<h3 id="gateway-de-pagamento">Gateway de Pagamento</h3>
+
+<aside class="info">
+  Para homologar a Configuração de Cobrança
+  <a href="#cria-o-de-cobran-a">deve-se criar uma Cobrança</a> para ela. Esta Cobrança será efetivada e automaticamente cancelada 
+  logo em seguida, apenas com o objetivo de verificar se de fato a configuração foi feita de forma correta. <strong>Até que uma Cobrança</strong> 
+  tenha fechado este ciclo com sucesso e a conta dada como homologada, todas as cobranças criadas para esta Configuração serão consideradas Cobranças para homologação, ou seja, serão feitas e em seguida automaticamente canceladas.
+</aside>
+
+<p><strong>Parâmetros</strong></p>
 
 <table><thead>
 <tr>
@@ -1351,7 +1370,9 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
 <p>Cria uma nova Configuração de Cobrança, retornando as informações da mesma em caso de sucesso. Se houverem erros eles serão informados no corpo da resposta.</p>
 
-<p><strong>Parâmetros (Boleto)</strong></p>
+<h3 id="boleto">Boleto</h3>
+
+<p><strong>Parâmetros</strong></p>
 
 <table><thead>
 <tr>
@@ -1427,7 +1448,9 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 </tr>
 </tbody></table>
 
-<p><strong>Parâmetros (Gateway de Pagamento)</strong></p>
+<h3 id="gateway-de-pagamento">Gateway de Pagamento</h3>
+
+<p><strong>Parâmetros</strong></p>
 
 <table><thead>
 <tr>
@@ -1467,14 +1490,6 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <td>(opcional) define se será feita a solicitação e a confirmação do endereço de cobrança da fatura do cartão utilizado no pagamento (<code class="prettyprint">false</code> por padrão)</td>
 </tr>
 </tbody></table>
-
-<aside class="warning">
-  A configuração de Cobrança via Gateway de Pagamento <strong>precisa ser homologada antes de ser utilizada normalmente</strong>. Para isso, 
-  <a href="#cria-o-de-cobran-a">deve-se criar uma Cobrança</a> para esta configuração. Esta Cobrança será efetivada e automaticamente cancelada 
-  logo em seguida, apenas com o objetivo de verificar se de fato a configuração foi feita de forma correta. <strong>Até que uma Cobrança</strong> 
-  tenha fechado este ciclo com sucesso e a conta dada como homologada, todas as cobranças criadas para esta Configuração serão consideradas Cobranças para homologação, 
-  ou seja, serão feitas e em seguida automatimente canceladas.
-</aside>
 
 <h2 id="atualiza-o-de-configura-o-de-cobran-a">Atualização de Configuração de Cobrança</h2>
 <pre class="highlight shell"><code>Atualizar Configuração de Cobrança
@@ -1525,7 +1540,9 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
 <p>Atualiza a Configuração de Cobrança determinada, retornando as informações da mesma em caso de sucesso. Se houverem erros, eles serão informados no corpo da resposta. A requisição não diferencia a utilização dos verbos PUT e PATCH.</p>
 
-<p><strong>Parâmetros (Boleto)</strong></p>
+<h3 id="boleto">Boleto</h3>
+
+<p><strong>Parâmetros</strong></p>
 
 <table><thead>
 <tr>
@@ -1591,7 +1608,9 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 </tr>
 </tbody></table>
 
-<p><strong>Parâmetros (Gateway de Pagamento)</strong></p>
+<h3 id="gateway-de-pagamento">Gateway de Pagamento</h3>
+
+<p><strong>Parâmetros</strong></p>
 
 <table><thead>
 <tr>
@@ -1704,11 +1723,13 @@ EXEMPLO
   <span class="o">}</span>
 </code></pre>
 
-<p>As Cobranças, pertencem as suas Configurações de Cobrança, sendo assim é necessário que sempre haja ao menos uma Configuração de Cobrança homologada para a criação de Cobranças. No caso da da Configuração de Cobrança do tipo boleto, ao ser criada, é automaticamente gerada uma Cobrança para homologar a Configuração.</p>
+<p>As Cobranças, pertencem as suas Configurações de Cobrança, sendo assim é necessário que sempre haja ao menos uma Configuração de Cobrança homologada para a criação de Cobranças.</p>
 
-<p>O tipo da Cobrança depende da sua Configuração de Cobrança. Se a Configuração de Cobrança é do tipo Boleto (billet), a cobrança será deste mesmo tipo. Sendo assim, os parâmetros, validações e algums comportamentos irão variar de acordo com o tipo.</p>
+<p>Cada uma das cobranças criadas após a homologação serão do mesmo tipo da configuração. Desta forma qualquer Cobrança criada sob uma Configuração de Cobrança do tipo Boleto será uma cobrança do tipo Boleto. Por este motivo os parâmetros, validações e alguns comportamentos serão variáveis de acordo com o tipo de cobrança.</p>
 
-<p><strong>Parâmetros (Boleto)</strong></p>
+<h3 id="boleto">Boleto</h3>
+
+<p><strong>Parâmetros</strong></p>
 
 <table><thead>
 <tr>
@@ -1884,7 +1905,11 @@ EXEMPLO
 </tr>
 </tbody></table>
 
-<p><strong>Parâmetros (Gateway de Pagamento)</strong></p>
+<h3 id="gateway-de-pagamento">Gateway de Pagamento</h3>
+
+<p>As Cobranças tem o comportamento assíncrono em relação à comunicação com o Gateway de Pagamento. Ou seja, às ações que dependem de efetivação no Gateway de Pagamento não tem resposta na mesma requisição, são feitas em um processo separado e tem suas respostas dadas em payloads via webhook.</p>
+
+<p><strong>Parâmetros</strong></p>
 
 <table><thead>
 <tr>
@@ -2344,6 +2369,10 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
 <h3 id="gateway-de-pagamento">Gateway de Pagamento</h3>
 
+<p>Após a cobrança ser criada com sucesso (sem erros de validação) é iniciado o processo assíncrono para a comunicação com o gateway. Assim que esse processo terminar, um payload de recebimento ou de erro é enviado via webhook.</p>
+
+<p>Em caso de falha da efetivação da cobrança no Gateway de Pagamento, o motivo da falha será disponibilizado no atributo &#39;payment_gateway_message&rsquo;.</p>
+
 <p><strong>Parâmetros</strong></p>
 
 <table><thead>
@@ -2361,7 +2390,7 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <tr>
 <td>total_amount</td>
 <td>decimal</td>
-<td><strong>(requerido)</strong> valor total do boleto</td>
+<td><strong>(requerido)</strong> valor total da cobrança</td>
 </tr>
 <tr>
 <td>payment_method</td>
@@ -2581,17 +2610,15 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
 <p>Atualiza a cobrança determinada, caso haja sucesso retornará as informações da mesma. Se houverem erros eles serão informados no corpo da resposta. A requisição não diferencia a utilização dos verbos PUT e PATCH.</p>
 
+<h3 id="boleto">Boleto</h3>
+
 <aside class="warning">
-Para cobrançãs do tipo **Boleto** não é possível atualizar uma cobrança após seu recebimento, para isso é necessário desfazer o recebimento da mesma! Além disso, caso seja alterado com sucesso e será gerado um novo boleto sobrescrevendo o anterior.
+Para cobranças do tipo <strong>Boleto</strong> não é possível atualizar uma cobrança após seu recebimento, para isso é necessário desfazer o recebimento da mesma! Além disso, caso seja alterado com sucesso e será gerado um novo boleto sobrescrevendo o anterior.
 </aside>
 
 <aside class="notice">
-Para cobrançãs do tipo **Boleto** os campos 'received&rsquo;, 'received_at&rsquo; e 'received_amount&rsquo;, não são alterados via atualização de cobrança, apenas no recebimento ou desfazendo o recebimento da mesma.
+Para cobranças do tipo <strong>Boleto</strong> os campos 'received&rsquo;, 'received_at&rsquo; e 'received_amount&rsquo;, não são alterados via atualização de cobrança, apenas no recebimento ou desfazendo o recebimento da mesma.
 </aside>
-
-<p><strong>Parâmetros</strong></p>
-
-<h3 id="boleto">Boleto</h3>
 
 <p><strong>Parâmetros</strong></p>
 
@@ -2615,7 +2642,7 @@ Para cobrançãs do tipo **Boleto** os campos 'received&rsquo;, 'received_at&rsq
 <tr>
 <td>total_amount</td>
 <td>decimal</td>
-<td><strong>(requerido)</strong> valor total do boleto</td>
+<td><strong>(requerido)</strong> valor total da cobrança</td>
 </tr>
 <tr>
 <td>document_number</td>
@@ -2736,6 +2763,12 @@ Para cobrançãs do tipo **Boleto** os campos 'received&rsquo;, 'received_at&rsq
 </tbody></table>
 
 <h3 id="gateway-de-pagamento">Gateway de Pagamento</h3>
+
+<aside class="notice">
+Para cobranças do tipo <strong>Gateway de Pagamento</strong>, a atualização só é permitida caso o status no gateway de pagamento (atributo 'payment_gateway_status&rsquo;) seja de erro.
+</aside>
+
+<p>Uma cobrança com o status de erro no gateway de pagamento pode ser editada com o objetivo de corrigir este error (descrito no atributo &#39;payment_gateway_message&rsquo;). Sendo atualizada com sucesso, é feita uma re-tentativa de efetivação da cobrança no gateway de pagamento.</p>
 
 <p><strong>Parâmetros</strong></p>
 
@@ -3195,7 +3228,7 @@ EXEMPLO
 
   <span class="o">{</span>
     <span class="s2">"id"</span>: 8,
-    <span class="s2">"final_numbers"</span>: <span class="s2">"3005"</span>,
+    <span class="s2">"number"</span>: <span class="s2">"545301******6167"</span>,
     <span class="s2">"holder_name"</span>: <span class="s2">"John Doe"</span>,
     <span class="s2">"unusable"</span>: <span class="nb">false</span>,
     <span class="s2">"brand"</span>: <span class="s2">"amex"</span>,
@@ -3224,7 +3257,7 @@ EXEMPLO
 </tr>
 </thead><tbody>
 <tr>
-<td>final_numbers</td>
+<td>number</td>
 <td>string</td>
 <td>últimos números do cartão</td>
 </tr>
@@ -3308,7 +3341,7 @@ EXEMPLO DE CORPO DA RESPOSTA
 
   <span class="o">{</span>
     <span class="s2">"id"</span>: 8,
-    <span class="s2">"final_numbers"</span>: <span class="s2">"3005"</span>,
+    <span class="s2">"number"</span>: <span class="s2">"545301******6167"</span>,
     <span class="s2">"holder_name"</span>: <span class="s2">"John Doe"</span>,
     <span class="s2">"unusable"</span>: <span class="nb">false</span>,
     <span class="s2">"brand"</span>: <span class="s2">"amex"</span>,
@@ -4317,8 +4350,8 @@ EXEMPLO DE PAYLOAD
 
 <p>Informações enviadas quando uma Cobrança é atualizada.</p>
 
-<h2 id="cobran-a-excluida">Cobrança Excluida</h2>
-<pre class="highlight shell"><code>Cobrança Excluida
+<h2 id="cobran-a-exclu-da">Cobrança Excluída</h2>
+<pre class="highlight shell"><code>Cobrança Excluída
 
 EXEMPLO DE PAYLOAD
 
@@ -4336,7 +4369,7 @@ EXEMPLO DE PAYLOAD
 
 </code></pre>
 
-<p>Informações enviadas quando uma Cobrança é excluida.</p>
+<p>Informações enviadas quando uma Cobrança é excluída.</p>
 
 <h2 id="cobran-a-recebida">Cobrança Recebida</h2>
 <pre class="highlight shell"><code>Cobrança Recebida
@@ -4357,7 +4390,12 @@ EXEMPLO DE PAYLOAD
 
 </code></pre>
 
-<p>Informações enviadas quando uma Cobrança é recebida.</p>
+<p>Este payload é enviado para todos os tipos de Cobrança e indica que uma Cobrança foi recebida. De acordo com seu tipo uma cobrança é dita recebida quando:</p>
+
+<ul>
+<li>Boleto: o usuário indica o recebimento de forma manual ou através de arquivo de retorno.</li>
+<li>Gateway de pagamento: o gateway de pagamento informa o recebimento.</li>
+</ul>
 
 <h2 id="recebimento-de-cobran-a-desfeito">Recebimento de Cobrança desfeito</h2>
 <pre class="highlight shell"><code>Recebimento de Cobrança desfeito
@@ -4378,7 +4416,84 @@ EXEMPLO DE PAYLOAD
 
 </code></pre>
 
-<p>Informações enviadas quando uma Cobrança tem seu recebimento desfeito.</p>
+<p>Este payload é enviado <strong>apenas para cobranças do tipo boleto</strong> e é disparado
+quando o recebimento da Cobrança é desfeito manualmente pelo usuário. Ele
+indica apenas que no Cobrato o recebimento da Cobrança foi desfeito, mas não tem
+qualquer relação com o estado do boleto no banco.</p>
+
+<h2 id="cobran-a-cancelada">Cobrança Cancelada</h2>
+<pre class="highlight shell"><code>Cobrança Cancelada
+
+EXEMPLO DE PAYLOAD
+
+  <span class="o">{</span>
+    <span class="s2">"created_at"</span>:<span class="s2">"2015-05-21T16:13:33Z"</span>,
+    <span class="s2">"event"</span>:<span class="s2">"canceled"</span>,
+    <span class="s2">"object_type"</span>:<span class="s2">"charge"</span>,
+    <span class="s2">"object_id"</span>:12,
+    <span class="s2">"_links"</span>:[<span class="o">{</span>
+      <span class="s2">"rel"</span>:<span class="s2">"self"</span>,
+      <span class="s2">"method"</span>:<span class="s2">"GET"</span>,
+      <span class="s2">"url"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charges/12"</span>
+    <span class="o">}]</span>
+  <span class="o">}</span>
+
+</code></pre>
+
+<p>Este payload é enviado <strong>apenas para cobranças do tipo gateway de pagamento</strong> e
+é disparado quando o gateway de pagamento informa sobre o cancelamento de uma
+Cobrança, que pode ter sido pedido pelo próprio usuário ou não. Ele indica que a
+Cobrança teve seu pagamento cancelado, ou seja, estornado.</p>
+
+<h2 id="erro-no-recebimento-de-uma-cobran-a">Erro no recebimento de uma cobrança</h2>
+<pre class="highlight shell"><code>Erro no recebimento de uma cobrança
+
+EXEMPLO DE PAYLOAD
+
+  <span class="o">{</span>
+    <span class="s2">"created_at"</span>:<span class="s2">"2015-05-21T16:13:33Z"</span>,
+    <span class="s2">"event"</span>:<span class="s2">"receivement_error"</span>,
+    <span class="s2">"retryable"</span>:false,
+    <span class="s2">"card_error"</span>:true,
+    <span class="s2">"object_type"</span>:<span class="s2">"charge"</span>,
+    <span class="s2">"object_id"</span>:12,
+    <span class="s2">"_links"</span>:[<span class="o">{</span>
+      <span class="s2">"rel"</span>:<span class="s2">"self"</span>,
+      <span class="s2">"method"</span>:<span class="s2">"GET"</span>,
+      <span class="s2">"url"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charges/12"</span>
+    <span class="o">}]</span>
+  <span class="o">}</span>
+
+</code></pre>
+
+<p>Este payload é enviado <strong>apenas para cobranças do tipo gateway de pagamento</strong> e
+é disparado quando o gateway de pagamento informa sobre um erro na tentativa de
+recebimnto de uma Cobrança. O parâmetro <em>retryable</em> indica se é passível ou não
+de retentativa. Já o parâmetro <em>card_error</em> indica se o erro foi oriundo de um
+problema no cartão ou não.</p>
+
+<h2 id="erro-no-cancelamento-de-uma-cobran-a">Erro no cancelamento de uma cobrança</h2>
+<pre class="highlight shell"><code>Erro no cancelamento de uma cobrança
+
+EXEMPLO DE PAYLOAD
+
+  <span class="o">{</span>
+    <span class="s2">"created_at"</span>:<span class="s2">"2015-05-21T16:13:33Z"</span>,
+    <span class="s2">"event"</span>:<span class="s2">"cancellation_error"</span>,
+    <span class="s2">"object_type"</span>:<span class="s2">"charge"</span>,
+    <span class="s2">"object_id"</span>:12,
+    <span class="s2">"_links"</span>:[<span class="o">{</span>
+      <span class="s2">"rel"</span>:<span class="s2">"self"</span>,
+      <span class="s2">"method"</span>:<span class="s2">"GET"</span>,
+      <span class="s2">"url"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charges/12"</span>
+    <span class="o">}]</span>
+  <span class="o">}</span>
+
+</code></pre>
+
+<p>Este payload é enviado <strong>apenas para cobranças do tipo gateway de pagamento</strong> e
+é disparado quando o gateway de pagamento informa sobre um erro na tentativa de
+cancelamento de uma Cobrança.</p>
 
 <h2 id="conta-de-cobran-a-criada">Conta de Cobrança criada</h2>
 <pre class="highlight shell"><code>Conta de Cobrança Criada
@@ -4421,8 +4536,8 @@ EXEMPLO DE PAYLOAD
 
 <p>Informações enviadas quando uma Conta de Cobrança é atualizada.</p>
 
-<h2 id="conta-de-cobran-a-excluida">Conta de Cobrança Excluida</h2>
-<pre class="highlight shell"><code>Conta de Cobrança Excluida
+<h2 id="conta-de-cobran-a-exclu-da">Conta de Cobrança Excluída</h2>
+<pre class="highlight shell"><code>Conta de Cobrança Excluída
 
 EXEMPLO DE PAYLOAD
 
@@ -4440,7 +4555,7 @@ EXEMPLO DE PAYLOAD
 
 </code></pre>
 
-<p>Informações enviadas quando uma Conta de Cobrança é excluida.</p>
+<p>Informações enviadas quando uma Conta de Cobrança é excluída.</p>
 
           <h1 id="tipos-de-cobran-a">Tipos de cobrança</h1>
 
