@@ -1751,7 +1751,7 @@ EXEMPLO
 <tr>
 <td>charge_config_id</td>
 <td>integer</td>
-<td>identificador da configuração de cobrança a qual esta cobraça pertece</td>
+<td>identificador da configuração de cobrança a qual esta cobrança pertence</td>
 </tr>
 <tr>
 <td>due_date</td>
@@ -1821,7 +1821,7 @@ EXEMPLO
 <tr>
 <td>received_at</td>
 <td>date</td>
-<td>dia em que a cobraça foi recebida</td>
+<td>dia em que a cobrança foi recebida</td>
 </tr>
 <tr>
 <td>processing_date</td>
@@ -1901,7 +1901,7 @@ EXEMPLO
 <tr>
 <td>_links</td>
 <td>array of object</td>
-<td>links relacionados à cobraça</td>
+<td>links relacionados à cobrança</td>
 </tr>
 </tbody></table>
 
@@ -1931,7 +1931,7 @@ EXEMPLO
 <tr>
 <td>charge_config_id</td>
 <td>integer</td>
-<td>identificador da configuração de cobrança a qual esta cobraça pertece</td>
+<td>identificador da configuração de cobrança a qual esta cobrança pertece</td>
 </tr>
 <tr>
 <td>total_amount</td>
@@ -2041,7 +2041,7 @@ EXEMPLO
 <tr>
 <td>_links</td>
 <td>array of object</td>
-<td>links relacionados à cobraça</td>
+<td>links relacionados à cobrança</td>
 </tr>
 </tbody></table>
 
@@ -2114,7 +2114,7 @@ EXEMPLO DE CORPO DA RESPOSTA <span class="o">(</span>BOLETO<span class="o">)</sp
 <p>Retorna as informações detalhadas da cobrança informada em JSON e também a referência a sua configuração de cobrança.</p>
 
 <aside class="notice">
-  O conteúdo do nó &ldquo;_links&rdquo; irá variar de acordo com o tipo e o status da cobrança. No caso da Cobrança do tipo boleto, além dos itens básicos mostrados no exemplo de resposta ao lado, se a cobraça tiver sido recebida, irá conter o seguinte link:
+  O conteúdo do nó &ldquo;_links&rdquo; irá variar de acordo com o tipo e o status da cobrança. No caso da Cobrança do tipo boleto, além dos itens básicos mostrados no exemplo de resposta ao lado, se a cobrança tiver sido recebida, irá conter o seguinte link:
 
   <br><br>
   <p>
@@ -2371,7 +2371,13 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
 <p>Após a cobrança ser criada com sucesso (sem erros de validação) é iniciado o processo assíncrono para a comunicação com o gateway. Assim que esse processo terminar, um payload de recebimento ou de erro é enviado via webhook.</p>
 
-<p>Em caso de falha da efetivação da cobrança no Gateway de Pagamento, o motivo da falha será disponibilizado no atributo &#39;payment_gateway_message&rsquo;.</p>
+<aside class="notice">
+Em caso de falha da efetivação da cobrança no Gateway de Pagamento, o motivo da falha será disponibilizado no atributo 'payment_gateway_message&rsquo;.
+</aside>
+
+<aside class="notice">
+Se for utilizado um cartão já existente (enviando o parâmetro <code>credit_card_id</code>), este deve pertencer a mesma Configuração de Cobrança (parâmetro <code>charge_config_id</code>) utilizada.
+</aside>
 
 <p><strong>Parâmetros</strong></p>
 
@@ -2435,7 +2441,7 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <tr>
 <td>credit_card_id</td>
 <td>integer</td>
-<td><strong>(requerido, se não enviar credit_card_attributes )</strong> identificador do cartão de crédito utilizado na cobrança</td>
+<td><strong>(requerido, se não enviar credit_card_attributes )</strong> identificador do cartão de crédito utilizado na cobrança, que deve pertencer ao mesmo payer e charge_config informados</td>
 </tr>
 <tr>
 <td>credit_card_attributes*</td>
@@ -2445,6 +2451,10 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 </tbody></table>
 
 <p><strong>payer_attributes</strong></p>
+
+<aside class="notice">
+Caso exista um Pagador (Payer) com o mesmo <code>national_identifier</code>, não será criado um novo, mas sim atualizado o existente.
+</aside>
 
 <table><thead>
 <tr>
@@ -2958,6 +2968,44 @@ Para cobranças do tipo <strong>Gateway de Pagamento</strong>, a atualização s
 </tr>
 </tbody></table>
 
+<h2 id="re-tentativa-de-efetivar-de-cobran-a-gateway-de-pagamento">Re-tentativa de efetivar de Cobrança (Gateway de pagamento)</h2>
+<pre class="highlight shell"><code>Re-tentativa de efetivação de Cobrança
+
+DEFINIÇÃO
+
+  PUT https://app.cobrato.com/api/v1/charges/:charge_id/retry
+  PATCH https://app.cobrato.com/api/v1/charges/:charge_id/retry
+
+EXEMPLO DE REQUISIÇÃO
+
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X <span class="se">\</span>
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
+    -X PATCH https://app.cobrato.com/api/v1/charges/:charge_id/retry
+
+EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
+
+    200 OK
+
+EXEMPLO DE ESTADO DA RESPOSTA COM INSUCESSO
+
+    422 Unprocessable Entity
+
+EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
+
+  <span class="o">{</span>
+    <span class="s2">"errors"</span>:
+      <span class="o">{</span><span class="s2">"message"</span>:[<span class="s2">"Esta Cobrança não suporta retentativa"</span><span class="o">]}</span>
+  <span class="o">}</span>
+
+EXEMPLO DE ESTADO DA RESPOSTA COM COBRANÇA INEXISTENTE
+
+    404 Not Found
+</code></pre>
+
+<p>Quando uma Cobrança do tipo Gateway de Pagamento tem um erro que não necessita correção (atualização) da mesma, é possível fazer uma re-tentativa de efetivação dessa Cobrança.</p>
+
 <h2 id="exclus-o-de-cobran-a">Exclusão de Cobrança</h2>
 <pre class="highlight shell"><code>Excluir Cobrança
 
@@ -3119,7 +3167,7 @@ EXEMPLO DE CORPO DA RESPOSTA COM SUCESSO
   <span class="o">}</span>
 </code></pre>
 
-<p>Mostra o link da url do boleto de determinada cobraça via Boleto</p>
+<p>Mostra o link da url do boleto de determinada cobrança via Boleto</p>
 
 <aside class="warning">
 As URLs disponibilizadas são válidas por apenas 60 minutos. Sendo assim, não armazene o retorno e sempre que for necessário realize uma nova chamada à API.
@@ -3239,6 +3287,7 @@ EXEMPLO
     <span class="s2">"avs_district"</span>: <span class="s2">"Centro"</span>,
     <span class="s2">"avs_zipcode"</span>: <span class="s2">"99000-750"</span>,
     <span class="s2">"payer_id"</span>: 1,
+    <span class="s2">"charge_config_id"</span>: 12,
     <span class="s2">"_links"</span>: <span class="o">[</span>
       <span class="o">{</span> <span class="s2">"rel"</span>: <span class="s2">"self"</span>, <span class="s2">"method"</span>: <span class="s2">"GET"</span>, <span class="s2">"href"</span>: <span class="s2">"https://app.cobrato.com/api/v1/credit_cards/8"</span> <span class="o">}</span>
     <span class="o">]</span>
@@ -3312,6 +3361,11 @@ EXEMPLO
 <td>identificador do Payer ao qual este cartão pertence</td>
 </tr>
 <tr>
+<td>charge_config_id</td>
+<td>integer</td>
+<td>identificador da ChargeConfig à qual este cartão pertence</td>
+</tr>
+<tr>
 <td>_links</td>
 <td>array of object</td>
 <td>links do beneficiário</td>
@@ -3352,6 +3406,7 @@ EXEMPLO DE CORPO DA RESPOSTA
     <span class="s2">"avs_district"</span>: <span class="s2">"Centro"</span>,
     <span class="s2">"avs_zipcode"</span>: <span class="s2">"99000-750"</span>,
     <span class="s2">"payer_id"</span>: 1,
+    <span class="s2">"charge_config_id"</span>: 12,
     <span class="s2">"_links"</span>: <span class="o">[</span>
       <span class="o">{</span> <span class="s2">"rel"</span>: <span class="s2">"self"</span>, <span class="s2">"method"</span>: <span class="s2">"GET"</span>, <span class="s2">"href"</span>: <span class="s2">"https://app.cobrato.com/api/v1/credit_cards/8"</span> <span class="o">}</span>
     <span class="o">]</span>
