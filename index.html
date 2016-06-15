@@ -206,7 +206,7 @@ EXEMPLO
   <span class="o">}</span>
 </code></pre>
 
-<p>É possível ter indeterminados beneficiários, e a eles que pertencem as contas bancárias, contas de cobrança, e as próprias cobranças do sistema. Podem ser tanto pessoas físicas como pessoas jurídicas.</p>
+<p>É possível ter indeterminados beneficiários, e a eles que pertencem as contas bancárias, configurações de cobrança, e as próprias cobranças do sistema. Podem ser tanto pessoas físicas como pessoas jurídicas.</p>
 
 <p><strong>Parâmetros</strong></p>
 
@@ -603,7 +603,7 @@ EXEMPLO DE ESTADO DA RESPOSTA COM BENEFICIÁRIO INEXISTENTE
     404 Not Found
 </code></pre>
 
-<p>Exclui determinado beneficiário e junto a ele todas suas contas de cobrança, contas bancárias e as cobranças. As mudanças são irreversíveis.</p>
+<p>Exclui determinado beneficiário e junto a ele todas suas configurações de cobrança, contas bancárias e as cobranças. As mudanças são irreversíveis.</p>
 
           <h1 id="conta-banc-ria">Conta Bancária</h1>
 <pre class="highlight shell"><code>Conta Bancária
@@ -899,7 +899,7 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
 <p>Ao alterar campo &lsquo;bank_code&rsquo;, caso houvesse algum campo preenchido que de acordo com o novo banco deverá ficar em branco, o Cobrato fará automaticamente. Exemplo: ao alterar uma conta bancária (&#39;bank_code&rsquo;) do Banco do Brasil (001) para o Bradesco (327), o campo &#39;agency_digit&rsquo; receberá &#39;null&rsquo; como novo valor.</p>
 
-<p>Alterações nos campos &#39;bank_code&rsquo;, &#39;agency&rsquo;, &#39;agency_digit&rsquo;, &#39;account&rsquo; ou &#39;account_digit&rsquo; colocará a conta de cobrança em homologação.</p>
+<p>Alterações nos campos &#39;bank_code&rsquo;, &#39;agency&rsquo;, &#39;agency_digit&rsquo;, &#39;account&rsquo; ou &#39;account_digit&rsquo; colocará a configuração de cobrança em homologação.</p>
 
 <p><strong>Parâmetros</strong></p>
 
@@ -962,7 +962,7 @@ EXEMPLO DE ESTADO DA RESPOSTA COM CONTA BANCÁRIA INEXISTENTE
 
 </code></pre>
 
-<p>Exclui determinada conta bancária e junto a ela todas suas contas de cobrança, e cobranças. As mudanças são irreversíveis.</p>
+<p>Exclui determinada conta bancária e junto a ela todas suas configurações de cobrança, e cobranças. As mudanças são irreversíveis.</p>
 
 <h2 id="carteiras-dispon-veis">Carteiras disponíveis</h2>
 <pre class="highlight shell"><code>Listar carteiras disponíveis para Conta Bancária
@@ -1028,7 +1028,7 @@ EXEMPLO
     <span class="s2">"agreement_code_digit"</span>: <span class="s2">"1"</span>,
     <span class="s2">"name"</span>: <span class="s2">"Configuração de Cobrança por Boleto"</span>,
     <span class="s2">"initial_number"</span>: 1,
-    <span class="s2">"current_number"</span>: 1,
+    <span class="s2">"next_number"</span>: 1,
     <span class="s2">"end_number"</span>: 1000,
     <span class="s2">"status"</span>: <span class="s2">"pending"</span>,
     <span class="s2">"registered_charges"</span>: <span class="nb">true</span>,
@@ -1121,9 +1121,9 @@ EXEMPLO
 <td>número inicial do nosso número, sendo atribuído automaticamente e sequencialmente as cobranças</td>
 </tr>
 <tr>
-<td>current_number</td>
+<td>next_number</td>
 <td>integer</td>
-<td>nosso número atribuído a última cobrança criada a partir desta configuração de cobrança</td>
+<td>próximo nosso número a ser atribuído a uma cobrança criada a partir desta configuração de cobrança</td>
 </tr>
 <tr>
 <td>end_number</td>
@@ -1166,8 +1166,8 @@ EXEMPLO
 
 <aside class="info">
   Para homologar a Configuração de Cobrança
-  <a href="#cria-o-de-cobran-a">deve-se criar uma Cobrança</a> para ela. Esta Cobrança será efetivada e automaticamente cancelada 
-  logo em seguida, apenas com o objetivo de verificar se de fato a configuração foi feita de forma correta. <strong>Até que uma Cobrança</strong> 
+  <a href="#cria-o-de-cobran-a">deve-se criar uma Cobrança</a> para ela. Esta Cobrança será efetivada e automaticamente cancelada
+  logo em seguida, apenas com o objetivo de verificar se de fato a configuração foi feita de forma correta. <strong>Até que uma Cobrança</strong>
   tenha fechado este ciclo com sucesso e a conta dada como homologada, todas as cobranças criadas para esta Configuração serão consideradas Cobranças para homologação, ou seja, serão feitas e em seguida automaticamente canceladas.
 </aside>
 
@@ -1257,7 +1257,7 @@ EXEMPLO DE CORPO DA RESPOSTA <span class="o">(</span>BOLETO<span class="o">)</sp
     <span class="s2">"agreement_code_digit"</span>: <span class="s2">"1"</span>,
     <span class="s2">"name"</span>: <span class="s2">"Configuração de Cobrança por Boleto"</span>,
     <span class="s2">"initial_number"</span>: 1,
-    <span class="s2">"current_number"</span>: 1,
+    <span class="s2">"next_number"</span>: 1,
     <span class="s2">"end_number"</span>: 1000,
     <span class="s2">"status"</span>: <span class="s2">"pending"</span>,
     <span class="s2">"registered_charges"</span>: <span class="nb">true</span>,
@@ -1300,7 +1300,7 @@ EXEMPLO DE ESTADO DA RESPOSTA
 EXEMPLO DE CORPO DA RESPOSTA
 
   <span class="o">{</span>
-    <span class="s2">"charge_accounts"</span>:
+    <span class="s2">"charge_configs"</span>:
       <span class="o">[</span>
         <span class="o">{</span>
           // informações configuração de cobrança 1
@@ -1321,7 +1321,7 @@ EXEMPLO DE CORPO DA RESPOSTA
 
 DEFINIÇÃO
 
-  POST https://app.cobrato.com/api/v1/charge_accounts
+  POST https://app.cobrato.com/api/v1/charge_configs
 
 EXEMPLO DE REQUISIÇÃO
 
@@ -1329,7 +1329,7 @@ EXEMPLO DE REQUISIÇÃO
     -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
     -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
     -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
-    -X POST https://app.cobrato.com/api/v1/charge_accounts <span class="se">\</span>
+    -X POST https://app.cobrato.com/api/v1/charge_configs <span class="se">\</span>
     -d <span class="s1">'{
           "type": "billet",
           "bank_account_id": "1",
@@ -1420,6 +1420,11 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <td>end_number</td>
 <td>integer</td>
 <td>(opcional) número final do nosso número, sendo o último número a ser atribuído, após isso a sequência é reiniciada</td>
+</tr>
+<tr>
+<td>next_number</td>
+<td>integer</td>
+<td>(opcional) próximo nosso número a ser atribuído a uma cobrança criada a partir desta configuração de cobrança (por padrão inicia com o valor de <code class="prettyprint">initial_number</code> e é incrementado automatica e sequencialmente)</td>
 </tr>
 <tr>
 <td>registered_charges</td>
@@ -1580,6 +1585,11 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <td>end_number</td>
 <td>integer</td>
 <td>(opcional) número final do nosso número, sendo o último número a ser atribuído, após isso a sequência é reiniciada</td>
+</tr>
+<tr>
+<td>next_number</td>
+<td>integer</td>
+<td>(opcional) próximo nosso número a ser atribuído a uma cobrança criada a partir desta configuração de cobrança (é incrementado automatica e sequencialmente)</td>
 </tr>
 <tr>
 <td>registered_charges</td>
@@ -3377,7 +3387,7 @@ EXEMPLO
 
 DEFINIÇÃO
 
-  GET https://app.cobrato.com/api/v1/credit_card/:credit_card_id
+  GET https://app.cobrato.com/api/v1/credit_cards/:credit_card_id
 
 EXEMPLO DE REQUISIÇÃO
 
@@ -3385,7 +3395,7 @@ EXEMPLO DE REQUISIÇÃO
     -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
     -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
     -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
-    -X GET https://app.cobrato.com/api/v1/credit_card/:credit_card_id
+    -X GET https://app.cobrato.com/api/v1/credit_cards/:credit_card_id
 
 EXEMPLO DE ESTADO DA RESPOSTA
 
@@ -3435,7 +3445,7 @@ EXEMPLO
   <span class="o">}</span>
 </code></pre>
 
-<p>Os Arquivos CNAB de Remessa são arquivos enviados para o banco com o objetivo de registrar novos títulos, podendo ser gerado a partir de uma ou mais Cobranças. Se forem enviadas Cobranças de Contas de Cobranças diferentes, será gerado um CNAB de remessa para cada Conta de Cobrança.</p>
+<p>Os Arquivos CNAB de Remessa são arquivos enviados para o banco com o objetivo de registrar novos títulos, podendo ser gerado a partir de uma ou mais Cobranças. Se forem enviadas Cobranças de Configurações de Cobranças diferentes, será gerado um CNAB de remessa para cada Configuração de Cobrança.</p>
 
 <aside class="warning">
 A utilização desta API não é autorizada a contas com o plano <strong>Gratuito</strong>, resultando na resposta com o estado <strong>403 Forbidden</strong>!
@@ -3585,7 +3595,7 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
 </code></pre>
 
-<p>Cria novo(s) Arquivo(s) CNAB de Remessa, retornando as informações do mesmo caso haja sucesso. Se houverem erros, eles serão informados no corpo da resposta. Pode ser gerado a partir de uma ou mais Cobranças. Se forem enviadas Cobranças de Contas de Cobranças diferentes, será gerado um CNAB de remessa para cada Conta de Cobrança.</p>
+<p>Cria novo(s) Arquivo(s) CNAB de Remessa, retornando as informações do mesmo caso haja sucesso. Se houverem erros, eles serão informados no corpo da resposta. Pode ser gerado a partir de uma ou mais Cobranças. Se forem enviadas Cobranças de Configurações de Cobranças diferentes, será gerado um CNAB de remessa para cada Configuração de Cobrança.</p>
 
 <p>Os Arquivos CNAB de Remessa podem ser criados a partir de uma ou mais cobraças que ainda não possuem boleto ou outro arquivo de remessa associado.</p>
 
@@ -3736,7 +3746,7 @@ EXEMPLO
   <span class="o">}</span>
 </code></pre>
 
-<p>Os arquivos CNABs de retorno, pertencem a uma determinada conta de cobrança, contendo informações de uma ou mais cobranças desta conta.</p>
+<p>Os arquivos CNABs de retorno, pertencem a uma determinada configuração de cobrança, contendo informações de uma ou mais cobranças desta conta.</p>
 
 <aside class="warning">
 A utilização desta API não é autorizada a contas com o plano <strong>Gratuito</strong>, resultando na resposta com o estado <strong>403 Forbidden</strong>!
@@ -4326,19 +4336,19 @@ EXEMPLO DE ESTADO DA RESPOSTA COM WEBHOOK INEXISTENTE
 <td>quando a cobrança tem seu recebimento desfeito</td>
 </tr>
 <tr>
-<td>charge_account</td>
+<td>charge_config</td>
 <td>created</td>
-<td>quando a conta de cobrança é criada</td>
+<td>quando a configuração de cobrança é criada</td>
 </tr>
 <tr>
-<td>charge_account</td>
+<td>charge_config</td>
 <td>updated</td>
-<td>quando a conta de cobrança é atualizada</td>
+<td>quando a configuração de cobrança é atualizada</td>
 </tr>
 <tr>
-<td>charge_account</td>
+<td>charge_config</td>
 <td>destroyed</td>
-<td>quando a conta de cobrança é excluída</td>
+<td>quando a configuração de cobrança é excluída</td>
 </tr>
 </tbody></table>
 
@@ -4550,15 +4560,15 @@ EXEMPLO DE PAYLOAD
 é disparado quando o gateway de pagamento informa sobre um erro na tentativa de
 cancelamento de uma Cobrança.</p>
 
-<h2 id="conta-de-cobran-a-criada">Conta de Cobrança criada</h2>
-<pre class="highlight shell"><code>Conta de Cobrança Criada
+<h2 id="configura-o-de-cobran-a-criada">Configuração de Cobrança criada</h2>
+<pre class="highlight shell"><code>Configuração de Cobrança Criada
 
 EXEMPLO DE PAYLOAD
 
   <span class="o">{</span>
     <span class="s2">"created_at"</span>:<span class="s2">"2015-05-21T16:13:33Z"</span>,
     <span class="s2">"event"</span>:<span class="s2">"created"</span>,
-    <span class="s2">"object_type"</span>:<span class="s2">"charge_account"</span>,
+    <span class="s2">"object_type"</span>:<span class="s2">"charge_config"</span>,
     <span class="s2">"object_id"</span>:7,
     <span class="s2">"_links"</span>:[<span class="o">{</span>
       <span class="s2">"rel"</span>:<span class="s2">"self"</span>,
@@ -4569,48 +4579,48 @@ EXEMPLO DE PAYLOAD
 
 </code></pre>
 
-<p>Informações enviadas quando uma Conta de Cobrança é Criada.</p>
+<p>Informações enviadas quando uma Configuração de Cobrança é Criada.</p>
 
-<h2 id="conta-de-cobran-a-atualizada">Conta de Cobrança Atualizada</h2>
-<pre class="highlight shell"><code>Conta de Cobrança Atualizada
+<h2 id="configura-o-de-cobran-a-atualizada">Configuração de Cobrança Atualizada</h2>
+<pre class="highlight shell"><code>Configuração de Cobrança Atualizada
 
 EXEMPLO DE PAYLOAD
 
   <span class="o">{</span>
     <span class="s2">"created_at"</span>:<span class="s2">"2015-05-21T16:13:33Z"</span>,
     <span class="s2">"event"</span>:<span class="s2">"updated"</span>,
-    <span class="s2">"object_type"</span>:<span class="s2">"charge_account"</span>,
+    <span class="s2">"object_type"</span>:<span class="s2">"charge_config"</span>,
     <span class="s2">"object_id"</span>:7,
     <span class="s2">"_links"</span>:[<span class="o">{</span>
       <span class="s2">"rel"</span>:<span class="s2">"self"</span>,
       <span class="s2">"method"</span>:<span class="s2">"GET"</span>,
-      <span class="s2">"url"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charge_accounts/7"</span>
+      <span class="s2">"url"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charge_configs/7"</span>
     <span class="o">}]</span>
   <span class="o">}</span>
 </code></pre>
 
-<p>Informações enviadas quando uma Conta de Cobrança é atualizada.</p>
+<p>Informações enviadas quando uma Configuração de Cobrança é atualizada.</p>
 
-<h2 id="conta-de-cobran-a-exclu-da">Conta de Cobrança Excluída</h2>
-<pre class="highlight shell"><code>Conta de Cobrança Excluída
+<h2 id="configura-o-de-cobran-a-exclu-da">Configuração de Cobrança Excluída</h2>
+<pre class="highlight shell"><code>Configuração de Cobrança Excluída
 
 EXEMPLO DE PAYLOAD
 
   <span class="o">{</span>
     <span class="s2">"created_at"</span>:<span class="s2">"2015-05-21T16:13:33Z"</span>,
     <span class="s2">"event"</span>:<span class="s2">"destroyed"</span>,
-    <span class="s2">"object_type"</span>:<span class="s2">"charge_account"</span>,
+    <span class="s2">"object_type"</span>:<span class="s2">"charge_config"</span>,
     <span class="s2">"object_id"</span>:7,
     <span class="s2">"_links"</span>:[<span class="o">{</span>
       <span class="s2">"rel"</span>:<span class="s2">"self"</span>,
       <span class="s2">"method"</span>:<span class="s2">"GET"</span>,
-      <span class="s2">"url"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charge_accounts/7"</span>
+      <span class="s2">"url"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charge_configs/7"</span>
     <span class="o">}]</span>
   <span class="o">}</span>
 
 </code></pre>
 
-<p>Informações enviadas quando uma Conta de Cobrança é excluída.</p>
+<p>Informações enviadas quando uma Configuração de Cobrança é excluída.</p>
 
           <h1 id="tipos-de-cobran-a">Tipos de cobrança</h1>
 
