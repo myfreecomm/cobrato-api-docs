@@ -255,12 +255,12 @@ EXEMPLO
 <tr>
 <td>street</td>
 <td>string</td>
-<td>rua do domicílio do beneficiário</td>
+<td>logradouro do beneficiário</td>
 </tr>
 <tr>
 <td>number</td>
 <td>string</td>
-<td>número da rua do domicílio do beneficiário</td>
+<td>número da logradouro do beneficiário</td>
 </tr>
 <tr>
 <td>zipcode</td>
@@ -455,12 +455,12 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <tr>
 <td>street</td>
 <td>string</td>
-<td><strong>(requerido)</strong> rua do domicílio do beneficiário</td>
+<td><strong>(requerido)</strong> logradouro do beneficiário</td>
 </tr>
 <tr>
 <td>number</td>
 <td>string</td>
-<td><strong>(requerido)</strong> número da rua do domicílio do beneficiário</td>
+<td><strong>(requerido)</strong> número da logradouro do beneficiário</td>
 </tr>
 <tr>
 <td>zipcode</td>
@@ -560,12 +560,12 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <tr>
 <td>street</td>
 <td>string</td>
-<td><strong>(requerido)</strong> rua do domicílio do beneficiário</td>
+<td><strong>(requerido)</strong> logradouro do beneficiário</td>
 </tr>
 <tr>
 <td>number</td>
 <td>string</td>
-<td><strong>(requerido)</strong> número da rua do domicílio do beneficiário</td>
+<td><strong>(requerido)</strong> número da logradouro do beneficiário</td>
 </tr>
 <tr>
 <td>zipcode</td>
@@ -604,6 +604,401 @@ EXEMPLO DE ESTADO DA RESPOSTA COM BENEFICIÁRIO INEXISTENTE
 </code></pre>
 
 <p>Exclui determinado beneficiário e junto a ele todas suas configurações de cobrança, contas bancárias e as cobranças. As mudanças são irreversíveis.</p>
+
+          <h1 id="pagador">Pagador</h1>
+<pre class="highlight shell"><code>Pagador
+
+EXEMPLO
+
+  <span class="o">{</span>
+    <span class="s2">"id"</span>:1,
+    <span class="s2">"national_identifier_type"</span>:<span class="s2">"cpf"</span>,
+    <span class="s2">"national_identifier"</span>:<span class="s2">"38031171513"</span>,
+    <span class="s2">"name"</span>:<span class="s2">"João Silveira"</span>,
+    <span class="s2">"zipcode"</span>:<span class="s2">"99000-750"</span>,
+    <span class="s2">"city"</span>:<span class="s2">"Carapebus"</span>,
+    <span class="s2">"state"</span>:<span class="s2">"RJ"</span>,
+    <span class="s2">"neighbourhood"</span>:<span class="s2">"Centro"</span>,
+    <span class="s2">"street"</span>:<span class="s2">"Rua Julio de Castilhos"</span>,
+    <span class="s2">"number"</span>:<span class="s2">"100"</span>,
+    <span class="s2">"complement"</span>: <span class="s2">"Ao lado da lotérica."</span>,
+    <span class="s2">"_links"</span>:
+      <span class="o">[</span>
+        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"self"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/payers/1"</span><span class="o">}</span>,
+        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"update"</span>,<span class="s2">"method"</span>:<span class="s2">"PUT"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/payers/1"</span><span class="o">}</span>
+      <span class="o">]</span>
+  <span class="o">}</span>
+</code></pre>
+
+<p>É possível ter indeterminados pagadores, e a eles que pertencem a uma Conta de Serviço. Podem ser tanto pessoas físicas como pessoas jurídicas.</p>
+
+<aside class="notice">
+  É importante ressaltar que, para o pagador ser utilizado em uma cobrança via boleto registrado, todos os dados devem ser preenchidos (são obrigatórios), com exceção do <code>complement</code>.
+</aside>
+
+<p><strong>Parâmetros</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>integer</td>
+<td></td>
+</tr>
+<tr>
+<td>national_identifier_type</td>
+<td>string</td>
+<td>tipo de identificação nacional (&lsquo;cpf&rsquo; ou &#39;cnpj&rsquo;)</td>
+</tr>
+<tr>
+<td>national_identifier</td>
+<td>string</td>
+<td>número válido de cnpj ou cpf, de acordo com o campo anterior</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>nome completo do pagador</td>
+</tr>
+<tr>
+<td>city</td>
+<td>string</td>
+<td>nome da cidade do domicílio do pagador</td>
+</tr>
+<tr>
+<td>state</td>
+<td>string</td>
+<td>uf do estado do domicílio do pagador (duas letras, p. ex. &#39;RJ&rsquo;)</td>
+</tr>
+<tr>
+<td>neighbourhood</td>
+<td>string</td>
+<td>bairro do domicílio do pagador</td>
+</tr>
+<tr>
+<td>street</td>
+<td>string</td>
+<td>logradouro do pagador</td>
+</tr>
+<tr>
+<td>number</td>
+<td>string</td>
+<td>número da logradouro do pagador</td>
+</tr>
+<tr>
+<td>zipcode</td>
+<td>string</td>
+<td>cep do domicílio do pagador</td>
+</tr>
+<tr>
+<td>complement</td>
+<td>string</td>
+<td>complemento para o endereço de domicilio do pagador</td>
+</tr>
+<tr>
+<td>_links</td>
+<td>array of object</td>
+<td>links do pagador</td>
+</tr>
+</tbody></table>
+
+<h2 id="informa-es-do-pagador">Informações do Pagador</h2>
+<pre class="highlight shell"><code>Mostrar Pagador
+
+DEFINIÇÃO
+
+  GET https://app.cobrato.com/api/v1/payers/:payer_id
+
+EXEMPLO DE REQUISIÇÃO
+
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X <span class="se">\</span>
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
+    -X GET https://app.cobrato.com/api/v1/payers/:payer_id
+
+EXEMPLO DE ESTADO DA RESPOSTA
+
+    200 OK
+
+EXEMPLO DE CORPO DA RESPOSTA
+
+  <span class="o">{</span>
+    <span class="s2">"id"</span>:1,
+    <span class="s2">"national_identifier_type"</span>:<span class="s2">"cpf"</span>,
+    <span class="s2">"national_identifier"</span>:<span class="s2">"38031171513"</span>,
+    <span class="s2">"name"</span>:<span class="s2">"João Silveira"</span>,
+    <span class="s2">"zipcode"</span>:<span class="s2">"99000-750"</span>,
+    <span class="s2">"city"</span>:<span class="s2">"Carapebus"</span>,
+    <span class="s2">"state"</span>:<span class="s2">"RJ"</span>,
+    <span class="s2">"neighbourhood"</span>:<span class="s2">"Centro"</span>,
+    <span class="s2">"street"</span>:<span class="s2">"Rua Julio de Castilhos"</span>,
+    <span class="s2">"number"</span>:<span class="s2">"100"</span>,
+    <span class="s2">"complement"</span>: <span class="s2">"Ao lado da lotérica."</span>,
+    <span class="s2">"_links"</span>:
+      <span class="o">[</span>
+        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"self"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/payers/1"</span><span class="o">}</span>,
+        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"update"</span>,<span class="s2">"method"</span>:<span class="s2">"PUT"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/payers/1"</span><span class="o">}</span>
+      <span class="o">]</span>
+  <span class="o">}</span>
+</code></pre>
+
+<p>Retorna as informações detalhadas do pagador em JSON.</p>
+
+<h2 id="lista-de-todos-os-pagadors">Lista de Todos os Pagadors</h2>
+<pre class="highlight shell"><code>Listar Pagadors
+
+DEFINIÇÃO
+
+  GET https://app.cobrato.com/api/v1/payers
+
+EXEMPLO DE REQUISIÇÃO
+
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X <span class="se">\</span>
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
+    -X GET https://app.cobrato.com/api/v1/payers
+
+EXEMPLO DE ESTADO DA RESPOSTA
+
+    200 OK
+
+EXEMPLO DE CORPO DA RESPOSTA
+
+  <span class="o">{</span>
+    <span class="s2">"payers"</span>:
+      <span class="o">[</span>
+        <span class="o">{</span>
+          // informações pagador 1
+        <span class="o">}</span>,
+        <span class="o">{</span>
+          // informações pagador 2
+        <span class="o">}</span>,
+        ...
+      <span class="o">]</span>
+  <span class="o">}</span>
+</code></pre>
+
+<p>Retorna uma lista em JSON contendo todos os pagadores pertencentes a sua Conta de Serviço.</p>
+
+<h2 id="cria-o-de-pagador">Criação de Pagador</h2>
+<pre class="highlight shell"><code>Criar Pagador
+
+DEFINIÇÃO
+
+  POST https://app.cobrato.com/api/v1/payers
+
+EXEMPLO DE REQUISIÇÃO
+
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X <span class="se">\</span>
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
+    -X POST https://app.cobrato.com/api/v1/payers <span class="se">\</span>
+    -d <span class="s1">'{
+        "name": "João Silva",
+        "city": "Caxias do Sul",
+        "national_identifier_type": "cpf",
+        "national_identifier": "38031171513",
+        "state": "RS",
+        "street": "Rua Principal",
+        "neighbourhood": "Centro",
+        "number": "174",
+        "zipcode": "95055-777"
+      }'</span>
+
+EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
+
+    201 Created
+
+EXEMPLO DE ESTADO DA RESPOSTA COM INSUCESSO
+
+    422 Unprocessable Entity
+
+EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
+
+  <span class="o">{</span>
+    <span class="s2">"errors"</span>:<span class="o">{</span>
+      <span class="s2">"name"</span>: <span class="o">[</span><span class="s2">"não pode ficar em branco"</span><span class="o">]</span>,
+      <span class="s2">"national_identifier_type"</span>: <span class="o">[</span><span class="s2">"não pode ficar em branco"</span>,<span class="s2">"não está incluído na lista"</span><span class="o">]</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+
+</code></pre>
+
+<p>Cria um novo pagador, retornando as informações do mesmo caso haja sucesso. Se houverem erros eles serão informados no corpo da resposta.</p>
+
+<p><strong>Parâmetros</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>national_identifier_type</td>
+<td>string</td>
+<td><strong>(requerido)</strong> tipo de identificação nacional (&#39;cpf&rsquo; ou &#39;cnpj&rsquo;)</td>
+</tr>
+<tr>
+<td>national_identifier</td>
+<td>string</td>
+<td><strong>(requerido)</strong> número válido de cnpj ou cpf, de acordo com o campo anterior</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td><strong>(requerido)</strong> nome completo do pagador</td>
+</tr>
+<tr>
+<td>city</td>
+<td>string</td>
+<td>(opcional) nome da cidade do domicílio do pagador</td>
+</tr>
+<tr>
+<td>state</td>
+<td>string</td>
+<td>(opcional) uf do estado do domicílio do pagador (duas letras, p. ex. &#39;RJ&rsquo;)</td>
+</tr>
+<tr>
+<td>neighbourhood</td>
+<td>string</td>
+<td>(opcional) bairro do domicílio do pagador</td>
+</tr>
+<tr>
+<td>street</td>
+<td>string</td>
+<td>(opcional) logradouro do pagador</td>
+</tr>
+<tr>
+<td>number</td>
+<td>string</td>
+<td>(opcional) número da logradouro do pagador</td>
+</tr>
+<tr>
+<td>zipcode</td>
+<td>string</td>
+<td>(opcional) cep do domicílio do pagador</td>
+</tr>
+<tr>
+<td>complement</td>
+<td>string</td>
+<td>(opcional) complemento para o endereço de domicilio do pagador</td>
+</tr>
+</tbody></table>
+
+<h2 id="atualiza-o-de-pagador">Atualização de Pagador</h2>
+<pre class="highlight shell"><code>Atualizar Pagador
+
+DEFINIÇÃO
+
+  PUT https://app.cobrato.com/api/v1/payers/:payer_id
+  PATCH https://app.cobrato.com/api/v1/payers/:payer_id
+
+EXEMPLO DE REQUISIÇÃO
+
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X <span class="se">\</span>
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
+    -X PATCH https://app.cobrato.com/api/v1/payers/:payer_id <span class="se">\</span>
+    -d <span class="s1">'{
+        "city": "Farroupilha",
+        "state": "RS"
+      }'</span>
+
+EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
+
+    200 OK
+
+EXEMPLO DE ESTADO DA RESPOSTA COM BENEFICIÁRIO INEXISTENTE
+
+    404 Not Found
+
+EXEMPLO DE ESTADO DA RESPOSTA COM INSUCESSO
+
+    422 Unprocessable Entity
+
+EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
+
+    <span class="o">{</span>
+      <span class="s2">"errors"</span>:<span class="o">{</span>
+        <span class="s2">"national_identifier_type"</span>:[<span class="s2">"não está incluído na lista"</span><span class="o">]</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+
+</code></pre>
+
+<p>Atualiza um determinado pagador, retornando as informações do mesmo caso haja sucesso. Se houverem erros eles serão informados no corpo da resposta. A requisição não diferencia a utilização dos verbos PUT e PATCH.</p>
+
+<p><strong>Parâmetros</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>national_identifier_type</td>
+<td>string</td>
+<td><strong>(requerido)</strong> tipo de identificação nacional (&#39;cpf&rsquo; ou &#39;cnpj&rsquo;)</td>
+</tr>
+<tr>
+<td>national_identifier</td>
+<td>string</td>
+<td><strong>(requerido)</strong> número válido de cnpj ou cpf, de acordo com o campo anterior</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td><strong>(requerido)</strong> nome completo do pagador</td>
+</tr>
+<tr>
+<td>city</td>
+<td>string</td>
+<td>(opcional) nome da cidade do domicílio do pagador</td>
+</tr>
+<tr>
+<td>state</td>
+<td>string</td>
+<td>(opcional) uf do estado do domicílio do pagador (duas letras, p. ex. &#39;RJ&rsquo;)</td>
+</tr>
+<tr>
+<td>neighbourhood</td>
+<td>string</td>
+<td>(opcional) bairro do domicílio do pagador</td>
+</tr>
+<tr>
+<td>street</td>
+<td>string</td>
+<td>(opcional) logradouro do pagador</td>
+</tr>
+<tr>
+<td>number</td>
+<td>string</td>
+<td>(opcional) número da logradouro do pagador</td>
+</tr>
+<tr>
+<td>zipcode</td>
+<td>string</td>
+<td>(opcional) cep do domicílio do pagador</td>
+</tr>
+<tr>
+<td>complement</td>
+<td>string</td>
+<td>(opcional) complemento para o endereço de domicilio do pagador</td>
+</tr>
+</tbody></table>
 
           <h1 id="conta-banc-ria">Conta Bancária</h1>
 <pre class="highlight shell"><code>Conta Bancária
