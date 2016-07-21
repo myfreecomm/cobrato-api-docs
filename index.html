@@ -180,6 +180,33 @@
 
 <aside class="notice">Todos os números são fornecidos tanto com números inteiros, como ponto flutuante nativos para JSON.</aside>
 
+<h2 id="pagina-o">Paginação</h2>
+
+<p>Todas as listagens são páginadas. Pode-se utilizar os parâmetros <code class="prettyprint">page</code> (valor padrão 1) e
+<code class="prettyprint">per_page</code> (valor padrão 25) para controlar, respectivamente, a página e a quantidade de
+itens por página.</p>
+<pre class="highlight shell"><code>    Formato JSON
+
+    EXEMPLO DE REQUISIÇÃO
+
+      <span class="nv">$ </span>curl -i -u <span class="nv">$YOUR_API_TOKEN</span>:X <span class="se">\</span>
+        -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+        -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+        -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
+        -X GET https://app.cobrato.com/api/v1/lista?page<span class="o">=</span>2&amp;per_page<span class="o">=</span>5
+
+    EXEMPLO DE RESPOSTA
+
+    <span class="o">{</span>
+      <span class="s2">"chave1"</span>: <span class="s2">"valor 1"</span>,
+      <span class="s2">"chave2"</span>: <span class="s2">"valor 2"</span>,
+      <span class="s2">"chave3"</span>: <span class="s2">"valor 3"</span>,
+      <span class="s2">"chave4"</span>: <span class="s2">"valor 4"</span>,
+      <span class="s2">"chave5"</span>: <span class="s2">"valor 5"</span>
+    <span class="o">}</span>
+
+</code></pre>
+
           <h1 id="benefici-rio">Beneficiário</h1>
 <pre class="highlight shell"><code>Beneficiário
 
@@ -1427,7 +1454,7 @@ EXEMPLO
     <span class="s2">"end_number"</span>: 1000,
     <span class="s2">"status"</span>: <span class="s2">"pending"</span>,
     <span class="s2">"registered_charges"</span>: <span class="nb">true</span>,
-    <span class="s2">"agreement_number"</span>: 4576361,
+    <span class="s2">"remittance_agreement_code"</span>: 4576361,
     <span class="s2">"remittance_cnab_pattern"</span>: 400,
     <span class="s2">"initial_remittance_number"</span>: 1,
     <span class="s2">"transmission_code"</span>: <span class="s2">"987655"</span>,
@@ -1531,7 +1558,7 @@ EXEMPLO
 <td>informa se a configuração de cobrança utiliza boletos registrados ou não, sendo false por padrão</td>
 </tr>
 <tr>
-<td>agreement_number</td>
+<td>remittance_agreement_code</td>
 <td>integer</td>
 <td>número do convênio com o banco (apenas para o Bradesco)</td>
 </tr>
@@ -1656,7 +1683,7 @@ EXEMPLO DE CORPO DA RESPOSTA <span class="o">(</span>BOLETO<span class="o">)</sp
     <span class="s2">"end_number"</span>: 1000,
     <span class="s2">"status"</span>: <span class="s2">"pending"</span>,
     <span class="s2">"registered_charges"</span>: <span class="nb">true</span>,
-    <span class="s2">"agreement_number"</span>: 4576361,
+    <span class="s2">"remittance_agreement_code"</span>: 4576361,
     <span class="s2">"remittance_cnab_pattern"</span>: 400,
     <span class="s2">"initial_remittance_number"</span>: 1,
     <span class="s2">"transmission_code"</span>: <span class="s2">"987655"</span>,
@@ -1735,7 +1762,7 @@ EXEMPLO DE REQUISIÇÃO
           "initial_number": "1",
           "end_number": "1000",
           "registered_charges": "true",
-          "agreement_number": "4576361",
+          "remittance_agreement_code": "4576361",
           "remittance_cnab_pattern": "400",
           "initial_remittance_number": "1"
           "transmission_code": "987655"
@@ -1827,7 +1854,7 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <td>(opcional) informa se a configuração de cobrança utiliza boletos registrados ou não, sendo false por padrão</td>
 </tr>
 <tr>
-<td>agreement_number</td>
+<td>remittance_agreement_code</td>
 <td>integer</td>
 <td>(opcional, requerido apenas se registered_charges for <code class="prettyprint">true</code>) número do convênio com o banco (apenas para o Bradesco)</td>
 </tr>
@@ -1992,7 +2019,7 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <td>(opcional) informa se a configuração de cobrança utiliza boletos registrados ou não, sendo false por padrão</td>
 </tr>
 <tr>
-<td>agreement_number</td>
+<td>remittance_agreement_code</td>
 <td>integer</td>
 <td>(opcional, requerido apenas se registered_charges for <code class="prettyprint">true</code>) número do convênio com o banco (apenas para o Bradesco)</td>
 </tr>
@@ -3746,7 +3773,6 @@ EXEMPLO
     <span class="s2">"avs_complement"</span>: <span class="s2">"Apto 103"</span>,
     <span class="s2">"avs_district"</span>: <span class="s2">"Centro"</span>,
     <span class="s2">"avs_zipcode"</span>: <span class="s2">"99000-750"</span>,
-    <span class="s2">"reusable"</span>: <span class="nb">false</span>,
     <span class="s2">"reusability_status"</span>: <span class="s2">"error"</span>,
     <span class="s2">"reusability_error_message"</span>: <span class="s2">"Código de segurança inválido"</span>,
     <span class="s2">"payer_id"</span>: 1,
@@ -3814,11 +3840,6 @@ EXEMPLO
 <td>cep do endereço de cobrança do cartão</td>
 </tr>
 <tr>
-<td>reusable</td>
-<td>boolean</td>
-<td>indica se o cartão é pode ser reutilizado em novas cobranças</td>
-</tr>
-<tr>
 <td>reusability_status</td>
 <td>string</td>
 <td>status da configuração para possibilitar o reuso o cartão em futuras cobranças (pending, ok, error)</td>
@@ -3842,6 +3863,34 @@ EXEMPLO
 <td>_links</td>
 <td>array of object</td>
 <td>links do beneficiário</td>
+</tr>
+</tbody></table>
+
+<p><strong>reusability_status</strong></p>
+
+<p>O atributo <code class="prettyprint">reusability_status</code> pode ter os seguintes valores:</p>
+
+<table><thead>
+<tr>
+<th>Valor</th>
+<th>Descrição</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>pending</td>
+<td>assim que é criado e ainda não foi feita verificação do cartão através de uma cobrança</td>
+</tr>
+<tr>
+<td>error</td>
+<td>quando ocorre um erro na utilização do cartão (o erro ficará descrito no atributo <code class="prettyprint">reusability_error_message</code>)</td>
+</tr>
+<tr>
+<td>reusable</td>
+<td>quando já foi feita uma cobrança com sucesso utilizando o cartão e ele foi salvo para ser reutilizado em futuras cobranças</td>
+</tr>
+<tr>
+<td>not_reusable</td>
+<td>quando o cartão não foi salvo para ser reutilizado</td>
 </tr>
 </tbody></table>
 
@@ -3877,7 +3926,6 @@ EXEMPLO DE CORPO DA RESPOSTA
     <span class="s2">"avs_complement"</span>: <span class="s2">"Apto 103"</span>,
     <span class="s2">"avs_district"</span>: <span class="s2">"Centro"</span>,
     <span class="s2">"avs_zipcode"</span>: <span class="s2">"99000-750"</span>,
-    <span class="s2">"reusable"</span>: <span class="nb">false</span>,
     <span class="s2">"reusability_status"</span>: <span class="s2">"error"</span>,
     <span class="s2">"reusability_error_message"</span>: <span class="s2">"Código de segurança inválido"</span>,
     <span class="s2">"payer_id"</span>: 1,
@@ -3928,11 +3976,7 @@ EXEMPLO DE CORPO DA RESPOSTA
 
 <p>Retorna uma lista em JSON contendo os Cartões de Crédito pertencentes à sua Conta de Serviço.</p>
 
-<p>É possível filtrar a lista através dos parâmetros: <code class="prettyprint">payer_id</code>, <code class="prettyprint">charge_config_id</code>, <code class="prettyprint">number</code>, <code class="prettyprint">holder_name</code>, <code class="prettyprint">brand</code>, <code class="prettyprint">reusable</code>, <code class="prettyprint">reusability_status</code></p>
-
-<p>A lista é paginada e pode-se utilizar os parâmetros <code class="prettyprint">page</code> (valor padrão 1) e
-<code class="prettyprint">per_page</code> (valor padrão 25) para controlar, respectivamente, a página e a
-quantidade de itens por página.</p>
+<p>É possível filtrar a lista através dos parâmetros: <code class="prettyprint">payer_id</code>, <code class="prettyprint">charge_config_id</code>, <code class="prettyprint">number</code>, <code class="prettyprint">holder_name</code>, <code class="prettyprint">brand</code>, <code class="prettyprint">reusability_status</code></p>
 
 <h2 id="cria-o-de-cart-o-de-cr-dito">Criação de Cartão de Crédito</h2>
 <pre class="highlight shell"><code>Criar Cartão de Crédito
@@ -3958,7 +4002,6 @@ EXEMPLO DE REQUISIÇÃO
         "avs_complement": "Apto 103",
         "avs_district": "Centro",
         "avs_zipcode": "99000-750",
-        "reusable": false,
         "payer_id": 1,
         "charge_config_id": 12.
         "soft_descriptor": "CompanyName"
@@ -3995,10 +4038,9 @@ ainda não estará apto para re-utilização em novas cobranças. Isto só ocorr
 quando a cobrança de homologação for concluída com sucesso. Esta informação pode
 ser obtida através do atributo <code class="prettyprint">reusability_status</code>. Caso ele tenha o valor
 &ldquo;pending&rdquo;, quer dizer que a cobrança ainda não foi feita. Caso tenha o valor
-&ldquo;ok&rdquo;, o valor do atributo <code class="prettyprint">reusable</code> será <code class="prettyprint">true</code>, o que quer dizer que o cartão
-pode ser reutilizado. Caso tenha o valor &ldquo;error&rdquo;, significa que ocorreu um erro
-na cobrança de homologação, e o motivo pode ser verificado no atributo
-<code class="prettyprint">reusability_error_message</code>.</p>
+&ldquo;reusable&rdquo; quer dizer que o cartão pode ser reutilizado. Caso tenha o valor
+&ldquo;error&rdquo;,  significa que ocorreu um erro na cobrança de homologação, e o motivo
+pode ser verificado no atributo <code class="prettyprint">reusability_error_message</code>.</p>
 
 <p><strong>Parâmetros</strong></p>
 
@@ -4009,16 +4051,6 @@ na cobrança de homologação, e o motivo pode ser verificado no atributo
 <th>Comentário</th>
 </tr>
 </thead><tbody>
-<tr>
-<td>payer_id</td>
-<td>integer</td>
-<td><strong>(requerido)</strong> identificador do Payer ao qual este cartão pertence</td>
-</tr>
-<tr>
-<td>charge_config_id</td>
-<td>integer</td>
-<td><strong>(requerido)</strong> identificador da ChargeConfig à qual este cartão pertence</td>
-</tr>
 <tr>
 <td>number</td>
 <td>string</td>
@@ -4038,6 +4070,21 @@ na cobrança de homologação, e o motivo pode ser verificado no atributo
 <td>brand</td>
 <td>string</td>
 <td><strong>(requerido)</strong> bandeira do cartão (visa, mastercard, amex, elo, diners, discover, jcb, aura)</td>
+</tr>
+<tr>
+<td>charge_config_id</td>
+<td>integer</td>
+<td><strong>(requerido)</strong> identificador da ChargeConfig à qual este cartão pertence</td>
+</tr>
+<tr>
+<td>payer_id</td>
+<td>integer</td>
+<td><strong>(requerido, se não enviar payer_attributes )</strong> identificador do pagador ao qual este cartão pertence (caso seja fornecido, o parâmetro payer_attributes será ignorado)</td>
+</tr>
+<tr>
+<td>payer_attributes*</td>
+<td>object</td>
+<td><strong>(requerido, se não enviar payer_id )</strong> atributos para a criação de um novo pagador ou atualização de um pagador existente com o mesmo documento (national_identifier)</td>
 </tr>
 <tr>
 <td>avs_address</td>
@@ -4071,12 +4118,77 @@ na cobrança de homologação, e o motivo pode ser verificado no atributo
 </tr>
 </tbody></table>
 
+<p><strong>payer_attributes</strong></p>
+
+<aside class="notice">
+Caso exista um Pagador (Payer) com o mesmo <code>national_identifier</code>, não será criado um novo, mas sim atualizado o existente.
+</aside>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>national_identifier_type</td>
+<td>string</td>
+<td><strong>(requerido)</strong> tipo do documento do pagador (cpf ou cnpj)</td>
+</tr>
+<tr>
+<td>national_identifier</td>
+<td>string</td>
+<td><strong>(requerido)</strong> documento do pagador</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td><strong>(requerido)</strong> nome do pagador</td>
+</tr>
+<tr>
+<td>number</td>
+<td>string</td>
+<td>(opcional) número do endereço do pagador</td>
+</tr>
+<tr>
+<td>complement</td>
+<td>string</td>
+<td>(opcional) complemento do endereço do pagador</td>
+</tr>
+<tr>
+<td>street</td>
+<td>string</td>
+<td>(opcional) rua do endereço do pagador</td>
+</tr>
+<tr>
+<td>neighbourhood</td>
+<td>string</td>
+<td>(opcional) bairro do endereço do pagador</td>
+</tr>
+<tr>
+<td>zipcode</td>
+<td>string</td>
+<td>(opcional) cep do endereço do pagador</td>
+</tr>
+<tr>
+<td>city</td>
+<td>string</td>
+<td>(opcional) cidade do endereço do pagador</td>
+</tr>
+<tr>
+<td>state</td>
+<td>string</td>
+<td>(opcional) sigla do estado do endereço do pagador (&ldquo;RJ&rdquo; por exemplo)</td>
+</tr>
+</tbody></table>
+
 <h2 id="lista-de-todas-as-cobran-as-feitas-com-o-cart-o-de-cr-dito">Lista de Todas as cobranças feitas com o cartão de crédito</h2>
 <pre class="highlight shell"><code>Listar as Cobranças realizadas com o Cartão de Crédito
 
 DEFINIÇÃO
 
-  GET https://app.cobrato.com/api/v1/credit_cards/:id/charges?page<span class="o">=</span>:page&amp;per_page<span class="o">=</span>:per_page
+  GET https://app.cobrato.com/api/v1/credit_cards/:id/charges
 
 EXEMPLO DE REQUISIÇÃO
 
@@ -4084,7 +4196,7 @@ EXEMPLO DE REQUISIÇÃO
     -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
     -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
     -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
-    -X GET https://app.cobrato.com/api/v1/credit_cards/12/chrages?page<span class="o">=</span>1&amp;per_page<span class="o">=</span>25
+    -X GET https://app.cobrato.com/api/v1/credit_cards/12/charges
 
 EXEMPLO DE ESTADO DA RESPOSTA
 
@@ -4108,13 +4220,9 @@ EXEMPLO DE CORPO DA RESPOSTA
 </code></pre>
 
 <p>Retorna uma lista paginada em JSON contendo todos as Cobranças realizadas com o
-Cartão de Crédito.  </p>
+Cartão de Crédito.</p>
 
-<p>É possível filtrar a lista através dos parâmetros: <code class="prettyprint">total_amount</code>, <code class="prettyprint">received</code>, <code class="prettyprint">payment_gateway_status</code></p>
-
-<p>A lista é paginada e pode-se utilizar os parâmetros <code class="prettyprint">page</code> (valor padrão 1) e
-<code class="prettyprint">per_page</code> (valor padrão 25) para controlar, respectivamente, a página e a
-quantidade de itens por página.</p>
+<p>É possível filtrar a lista através dos parâmetros: <code class="prettyprint">total_amount</code>, <code class="prettyprint">received</code>, <code class="prettyprint">payment_gateway_status</code>.</p>
 
           <h1 id="cnab-de-remessa">CNAB de Remessa</h1>
 <pre class="highlight shell"><code>CNAB de Remessa
@@ -5182,10 +5290,11 @@ EXEMPLO DE PAYLOAD
 
 </code></pre>
 
-<p>Este payload é enviado <strong>apenas para cobranças do tipo boleto</strong> e é disparado
-quando o recebimento da Cobrança é desfeito manualmente pelo usuário. Ele
-indica apenas que no Cobrato o recebimento da Cobrança foi desfeito, mas não tem
-qualquer relação com o estado do boleto no banco.</p>
+<p>Este payload é disparado quando o recebimento da Cobrança é desfeito. No caso da
+cobrança do tipo <strong>boleto</strong>, ele indica apenas que no Cobrato o recebimento da
+Cobrança foi desfeito, mas não tem qualquer relação com o estado do boleto no
+banco. Já no caso da cobrança do tipo <strong>gateway de pagamento</strong>, está cobrança
+foi cancelada.</p>
 
 <h2 id="cobran-a-cancelada">Cobrança Cancelada</h2>
 <pre class="highlight shell"><code>Cobrança Cancelada
