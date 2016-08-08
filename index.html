@@ -1485,7 +1485,7 @@ EXEMPLO
 <p>As Configurações de Cobrança do tipo <strong>Boleto</strong> (billet), pertencem as suas contas bancárias, sendo assim é necessário que sempre haja ao menos uma conta bancária para criação desse tipo configuração de cobrança, que também tem suas validações de acordo com o banco de sua conta bancária.</p>
 
 <aside class="info">
-  Quando uma Configuração de Cobrança do tipo Boleto é criada, é também criada, automaticamente, uma cobrança de homologação. Para a Configuração de Cobrança ser homologada, a Cobrança de homologação deve passar por todo o fluxo de cobrança do tipo boleto, ou seja, ser registrada no banco via arquivo de remessa (caso necessário), paga, o valor entrar na conta bancária e o arquivo de retorno ser enviado ao Cobrato.
+  Quando uma Configuração de Cobrança do tipo Boleto é criada, é também criada, automaticamente, uma cobrança de homologação. Para a Configuração de Cobrança ser homologada, a Cobrança de homologação deve passar por todo o fluxo de cobrança do tipo boleto, ou seja, ser registrada no banco via arquivo de remessa (caso necessário), paga, o valor entrar na conta bancária e o arquivo de retorno ser enviado ao Cobrato. Até que a configuração de cobrança seja homologada, todas as cobranças criadas para esta configuração deverão ser de homologação.
 </aside>
 
 <p><strong>Parâmetros</strong></p>
@@ -2286,7 +2286,7 @@ EXEMPLO
 <tr>
 <td>for_homologation</td>
 <td>boolean</td>
-<td>indica se é uma cobrança gerada automaticamente pelo sistema para ser utilizada na homologação da Configuração de cobrança</td>
+<td>indica se é uma cobrança para ser utilizada na homologação da Configuração de cobrança</td>
 </tr>
 <tr>
 <td>registrable</td>
@@ -2771,6 +2771,11 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <td>demonstrative</td>
 <td>string</td>
 <td>(opcional) demonstrativo do Boleto, por padrão &ldquo;Não receber após o vencimento.&rdquo; (pode ser linhas separadas por &ldquo;\n&rdquo;)</td>
+</tr>
+<tr>
+<td>for_homologation</td>
+<td>boolean</td>
+<td><strong>(requerido, se a configuração de cobrança não estiver homologada )</strong> indica se é uma cobrança para ser utilizada na homologação da Configuração de cobrança</td>
 </tr>
 <tr>
 <td>registrable</td>
