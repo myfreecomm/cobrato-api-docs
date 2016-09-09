@@ -1587,10 +1587,10 @@ EXEMPLO
 <h3 id="gateway-de-pagamento">Gateway de Pagamento</h3>
 
 <aside class="info">
-  Para homologar a Configuração de Cobrança
-  <a href="#cria-o-de-cobran-a">deve-se criar uma Cobrança</a> para ela. Esta Cobrança será efetivada e automaticamente cancelada
-  logo em seguida, apenas com o objetivo de verificar se de fato a configuração foi feita de forma correta. <strong>Até que uma Cobrança</strong>
-  tenha fechado este ciclo com sucesso e a conta dada como homologada, todas as cobranças criadas para esta Configuração serão consideradas Cobranças para homologação, ou seja, serão feitas e em seguida automaticamente canceladas.
+  Para homologar a Configuração de Cobrança existe uma série de passos que você encontra em
+  <a href="https://app.cobrato.com/wizard/payment_gateway/configs/new">nossa interface web</a>. Até 
+  que a Configuração tenha o status &ldquo;ok&rdquo; (Homologado), todas as cobranças criadas para esta Configuração 
+  serão consideradas Cobranças para homologação.
 </aside>
 
 <p><strong>Parâmetros</strong></p>
@@ -1620,7 +1620,7 @@ EXEMPLO
 <tr>
 <td>status</td>
 <td>string</td>
-<td>&#39;ok&rsquo; ou &#39;pending&rsquo; para indicar se configuração de cobrança está ou não homologada, respectivamente</td>
+<td>indica o status, ou etapa, de homologação em que configuração de cobrança está (&#39;pending&rsquo;, &#39;production_tests&rsquo;, &#39;ok&rsquo;)</td>
 </tr>
 <tr>
 <td>gateway_name</td>
@@ -1912,6 +1912,11 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <td><strong>(requerido)</strong> chave de acesso atribuída pelo gateway de pagamento</td>
 </tr>
 <tr>
+<td>status</td>
+<td>string</td>
+<td>(opctional, default &ldquo;pending&rdquo;) indica o status, ou etapa, de homologação em que configuração de cobrança está (&#39;pending&rsquo;, &#39;production_tests&rsquo;, &#39;ok&rsquo;)</td>
+</tr>
+<tr>
 <td>use_avs</td>
 <td>boolean</td>
 <td>(opcional) define se será feita a solicitação e a confirmação do endereço de cobrança da fatura do cartão utilizado no pagamento (<code class="prettyprint">false</code> por padrão)</td>
@@ -2158,9 +2163,7 @@ EXEMPLO
   <span class="o">}</span>
 </code></pre>
 
-<p>As Cobranças, pertencem as suas Configurações de Cobrança, sendo assim é necessário que sempre haja ao menos uma Configuração de Cobrança homologada para a criação de Cobranças.</p>
-
-<p>Cada uma das cobranças criadas após a homologação serão do mesmo tipo da configuração. Desta forma qualquer Cobrança criada sob uma Configuração de Cobrança do tipo Boleto será uma cobrança do tipo Boleto. Por este motivo os parâmetros, validações e alguns comportamentos serão variáveis de acordo com o tipo de cobrança.</p>
+<p>Cada uma das cobranças criadas serão do mesmo tipo da configuração. Desta forma qualquer Cobrança criada sob uma Configuração de Cobrança do tipo Boleto será uma cobrança do tipo Boleto. Por este motivo os parâmetros, validações e alguns comportamentos serão variáveis de acordo com o tipo de cobrança.</p>
 
 <h3 id="boleto">Boleto</h3>
 
@@ -2286,7 +2289,7 @@ EXEMPLO
 <tr>
 <td>for_homologation</td>
 <td>boolean</td>
-<td>indica se é uma cobrança para ser utilizada na homologação da Configuração de cobrança</td>
+<td>indica se é uma cobrança que foi criada com o objetivo de homologar uma Configuração de cobrança</td>
 </tr>
 <tr>
 <td>registrable</td>
