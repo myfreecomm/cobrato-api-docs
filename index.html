@@ -2150,6 +2150,7 @@ EXEMPLO
     <span class="s2">"payer_city"</span>: <span class="s2">"Rio de Janeiro"</span>,
     <span class="s2">"payer_state"</span>: <span class="s2">"RJ"</span>,
     <span class="s2">"registration_status"</span>: <span class="s2">"without_remittance"</span>,
+    <span class="s2">"canceled_at"</span>: <span class="s2">"2015-01-31T17:46:01.253Z"</span>,
     <span class="s2">"_links"</span>:
       <span class="o">[</span>
         <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"self"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charges/1"</span><span class="o">}</span>,
@@ -2158,7 +2159,8 @@ EXEMPLO
         <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"receive"</span>,<span class="s2">"method"</span>:<span class="s2">"POST"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charges/1/receive"</span><span class="o">}</span>,
         <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"deliver"</span>,<span class="s2">"method"</span>:<span class="s2">"POST"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charges/1/deliver_billet"</span><span class="o">}</span>,
         <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"charge_config"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charge_configs/1"</span><span class="o">}</span>,
-        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"billet"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charges/1/billet"</span><span class="o">}</span>
+        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"billet"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charges/1/billet"</span><span class="o">}</span>,
+        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"cancel"</span>,<span class="s2">"method"</span>:<span class="s2">"POST"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charges/1/cancel"</span><span class="o">}</span>
       <span class="o">]</span>
   <span class="o">}</span>
 </code></pre>
@@ -2354,7 +2356,12 @@ EXEMPLO
 <tr>
 <td>registration_status</td>
 <td>string</td>
-<td>status de registro em que a cobrança se encontra (without_remittance, remitted, registered, registered_with_error)</td>
+<td>status de registro em que a cobrança se encontra (without_remittance, remitted, registered, registered_with_error, cancelation_started, canceled)</td>
+</tr>
+<tr>
+<td>canceled_at</td>
+<td>datetime</td>
+<td>data e horário em que a cobrança foi cancelada, se for o caso</td>
 </tr>
 <tr>
 <td>_links</td>
@@ -2502,6 +2509,11 @@ EXEMPLO
 <td>mensagem do gateway de pagamento relacionada ao seu status</td>
 </tr>
 <tr>
+<td>canceled_at</td>
+<td>datetime</td>
+<td>data e horário em que a cobrança foi cancelada, se for o caso</td>
+</tr>
+<tr>
 <td>_links</td>
 <td>array of object</td>
 <td>links relacionados à cobrança</td>
@@ -2564,6 +2576,7 @@ EXEMPLO DE CORPO DA RESPOSTA <span class="o">(</span>BOLETO<span class="o">)</sp
     <span class="s2">"payer_city"</span>: <span class="s2">"Rio de Janeiro"</span>,
     <span class="s2">"payer_state"</span>: <span class="s2">"RJ"</span>,
     <span class="s2">"registration_status"</span>: <span class="s2">"without_remittance"</span>,
+    <span class="s2">"canceled_at"</span>: <span class="s2">"2015-01-31T17:46:01.253Z"</span>,
     <span class="s2">"_links"</span>:
       <span class="o">[</span>
         <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"self"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charges/1"</span><span class="o">}</span>,
@@ -2572,7 +2585,8 @@ EXEMPLO DE CORPO DA RESPOSTA <span class="o">(</span>BOLETO<span class="o">)</sp
         <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"receive"</span>,<span class="s2">"method"</span>:<span class="s2">"POST"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charges/1/receive"</span><span class="o">}</span>,
         <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"deliver"</span>,<span class="s2">"method"</span>:<span class="s2">"POST"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charges/1/deliver_billet"</span><span class="o">}</span>,
         <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"charge_config"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charge_configs/1"</span><span class="o">}</span>,
-        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"billet"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charges/1/billet"</span><span class="o">}</span>
+        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"billet"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charges/1/billet"</span><span class="o">}</span>,
+        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"cancel"</span>,<span class="s2">"method"</span>:<span class="s2">"POST"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charges/1/cancel"</span><span class="o">}</span>
       <span class="o">]</span>
   <span class="o">}</span>
 </code></pre>
@@ -3756,7 +3770,7 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 </tr>
 </tbody></table>
 
-<h2 id="cancelar-cobran-a-gateway-de-pagamento">Cancelar cobrança (Gateway de pagamento)</h2>
+<h2 id="cancelar-cobran-a">Cancelar cobrança</h2>
 <pre class="highlight shell"><code>Cancela Cobrança
 
 DEFINIÇÃO
