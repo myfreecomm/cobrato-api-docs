@@ -3677,6 +3677,68 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
 <p>Marca determinada cobrança via Boleto como não recebida, retornando JSON contendo as informações da cobrança em caso de sucesso ou os erros, caso haja algum.</p>
 
+<h2 id="renova-o-de-cobran-a-boleto">Renovação de Cobrança (Boleto)</h2>
+<pre class="highlight shell"><code>Renovar Cobrança <span class="o">(</span>Boleto<span class="o">)</span>
+
+DEFINIÇÃO
+
+  PUT https://app.cobrato.com/api/v1/charges/:charge_id/renew
+  PATCH https://app.cobrato.com/api/v1/charges/:charge_id/renew
+
+EXEMPLO DE REQUISIÇÃO
+
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X <span class="se">\</span>
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
+    -X PUT https://app.cobrato.com/api/v1/charges/:charge_id/renew <span class="se">\</span>
+    -d <span class="s1">'{
+         "new_due_date": "2015-02-06"
+        }'</span>
+
+EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
+
+    200 OK
+
+EXEMPLO DE ESTADO DA RESPOSTA COM COBRANÇA INEXISTENTE
+
+    404 Not Found
+
+EXEMPLO DE ESTADO DA RESPOSTA COM INSUCESSO
+
+    422 Unprocessable Entity
+
+EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
+
+  <span class="o">{</span>
+    <span class="s2">"errors"</span>: <span class="o">{</span>
+      <span class="s2">"due_date"</span>: <span class="o">[</span><span class="s2">"não pode ficar em branco"</span><span class="o">]</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+</code></pre>
+
+<p>Atualiza a data de vencimento do boleto bancário. É importante ressaltar que <strong>é necessária a criação e envio de um novo arquivo de remessa para efetivar a renovação junto ao banco</strong>.</p>
+
+<p>A renovação só será permitida caso a cobrança seja do tipo registrada e já esteja registrada junto ao banco. Caso contrário, é possível nenovar editando a data de vencimento da cobrança.</p>
+
+<p>Retorna um JSON contento informações atualizadas da cobrança em caso de sucesso ou erros caso haja algum.</p>
+
+<p><strong>Parâmetros (Boleto)</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>new_due_date</td>
+<td>date</td>
+<td><strong>(requerido)</strong> nova data de vencimento da cobrança</td>
+</tr>
+</tbody></table>
+
 <h2 id="boleto-da-cobran-a">Boleto da Cobrança</h2>
 <pre class="highlight shell"><code>Mostrar Boleto da Cobrança <span class="o">(</span>URL<span class="o">)</span>
 
