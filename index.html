@@ -4122,7 +4122,7 @@ EXEMPLO DE CORPO DA RESPOSTA
 
 DEFINIÇÃO
 
-  POST https://app.cobrato.com/api/v1/payees
+  POST https://app.cobrato.com/api/v1/credit_cards
 
 EXEMPLO DE REQUISIÇÃO
 
@@ -4130,19 +4130,20 @@ EXEMPLO DE REQUISIÇÃO
     -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
     -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
     -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
-    -X POST https://app.cobrato.com/api/v1/payees <span class="se">\</span>
+    -X POST https://app.cobrato.com/api/v1/credit_cards <span class="se">\</span>
     -d <span class="s1">'{
         "number": "5453010000066167",
         "holder_name": "John Doe",
         "brand": "mastercard",
         "expiration": "05/18",
+        "cvv": "123",
         "avs_address": "Rua Julio de Castilhos",
         "avs_number": "100",
         "avs_complement": "Apto 103",
         "avs_district": "Centro",
         "avs_zipcode": "99000-750",
         "payer_id": 1,
-        "charge_config_id": 12.
+        "charge_config_id": 12,
         "soft_descriptor": "CompanyName"
       }'</span>
 
@@ -4209,6 +4210,11 @@ pode ser verificado no atributo <code class="prettyprint">reusability_error_mess
 <td>brand</td>
 <td>string</td>
 <td><strong>(requerido)</strong> bandeira do cartão (visa, mastercard, amex, elo, diners, discover, jcb, aura)</td>
+</tr>
+<tr>
+<td>cvv</td>
+<td>string</td>
+<td><strong>(requerido)</strong> código de segurança do cartão</td>
 </tr>
 <tr>
 <td>charge_config_id</td>
