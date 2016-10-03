@@ -2151,16 +2151,19 @@ EXEMPLO
     <span class="s2">"custom_our_number"</span>: <span class="s2">"true"</span>,
     <span class="s2">"our_number"</span>:<span class="s2">"0"</span>,
     <span class="s2">"our_number_digit"</span>:null,
-    <span class="s2">"total_amount"</span>:<span class="s2">"10.07"</span>,
+    <span class="s2">"charged_amount"</span>:<span class="s2">"10.07"</span>,
     <span class="s2">"interest_amount_per_month"</span>: <span class="s2">"1.02"</span>,
     <span class="s2">"mulct_type"</span>: <span class="s2">"percentage"</span>,
     <span class="s2">"mulct_value"</span>: <span class="s2">"10.12"</span>,
     <span class="s2">"instructions"</span>:<span class="s2">"Pagável em qualquer agência até data do vencimento."</span>,
     <span class="s2">"demonstrative"</span>:<span class="s2">"Não receber após o vencimento."</span>,
     <span class="s2">"notification_emails"</span>:[<span class="s2">"myemail@gmail.com"</span><span class="o">]</span>,
-    <span class="s2">"received"</span>:true,
-    <span class="s2">"received_amount"</span>:<span class="s2">"10.07"</span>,
-    <span class="s2">"received_at"</span>:<span class="s2">"2015-01-30"</span>,
+    <span class="s2">"received"</span>:true, <span class="c"># deprecated</span>
+    <span class="s2">"received_amount"</span>:<span class="s2">"10.07"</span>, <span class="c"># deprecated</span>
+    <span class="s2">"received_at"</span>:<span class="s2">"2015-01-30"</span>, <span class="c"># deprecated</span>
+    <span class="s2">"paid_amount"</span>:<span class="s2">"10.07"</span>,
+    <span class="s2">"paid_at"</span>:<span class="s2">"2015-01-30"</span>,
+    <span class="s2">"payment_tax"</span>:<span class="s2">"2.5"</span>,
     <span class="s2">"processing_date"</span>:<span class="s2">"2015-01-30"</span>,
     <span class="s2">"for_homologation"</span>:true,
     <span class="s2">"registrable"</span>: <span class="nb">true</span>,
@@ -2236,7 +2239,7 @@ EXEMPLO
 <tr>
 <td>document_number</td>
 <td>string</td>
-<td>número do documento, também chamado de &ldquo;seu número&rdquo;, é o número utilizado e controlado pelo beneficiário para identificar o título de cobrança</td>
+<td>número do documento é o número utilizado e controlado pelo beneficiário para identificar o título de cobrança.</td>
 </tr>
 <tr>
 <td>our_number</td>
@@ -2254,9 +2257,9 @@ EXEMPLO
 <td>indica se a cobrança utiliza um &ldquo;nosso número&rdquo; customizado. O valor padrão é false, mas caso definido true, o campo &lsquo;our_number&rsquo; se torna requerido</td>
 </tr>
 <tr>
-<td>total_amount</td>
+<td>charged_amount</td>
 <td>decimal</td>
-<td>valor total do boleto</td>
+<td>valor cobrado no boleto</td>
 </tr>
 <tr>
 <td>interest_amount_per_month</td>
@@ -2296,17 +2299,32 @@ EXEMPLO
 <tr>
 <td>received</td>
 <td>boolean</td>
-<td>indica se a cobrança foi recebida</td>
+<td>(DEPRECATED: use paid_at) indica se a cobrança foi recebida</td>
 </tr>
 <tr>
 <td>received_amount</td>
 <td>decimal</td>
-<td>valor recebido</td>
+<td>(DEPRECATED: use paid_amount) valor pago</td>
 </tr>
 <tr>
 <td>received_at</td>
-<td>date</td>
-<td>dia em que a cobrança foi recebida</td>
+<td>datetime</td>
+<td>(DEPRECATED: use paid_at) date e horário em que a cobrança foi paga</td>
+</tr>
+<tr>
+<td>paid_amount</td>
+<td>decimal</td>
+<td>valor pago</td>
+</tr>
+<tr>
+<td>paid_at</td>
+<td>datetime</td>
+<td>date e horário em que a cobrança foi paga</td>
+</tr>
+<tr>
+<td>payment_tax</td>
+<td>decimal</td>
+<td>valor taxa cobrada pela instituição financeira para o processamento da cobrança</td>
 </tr>
 <tr>
 <td>processing_date</td>
@@ -2424,9 +2442,9 @@ EXEMPLO
 <td>identificador da configuração de cobrança a qual esta cobrança pertece</td>
 </tr>
 <tr>
-<td>total_amount</td>
+<td>charged_amount</td>
 <td>decimal</td>
-<td>valor total do boleto</td>
+<td>valor cobrado no boleto</td>
 </tr>
 <tr>
 <td>notification_emails</td>
@@ -2577,16 +2595,19 @@ EXEMPLO DE CORPO DA RESPOSTA <span class="o">(</span>BOLETO<span class="o">)</sp
     <span class="s2">"custom_our_number"</span>: <span class="s2">"true"</span>,
     <span class="s2">"our_number"</span>:<span class="s2">"0"</span>,
     <span class="s2">"our_number_digit"</span>:null,
-    <span class="s2">"total_amount"</span>:<span class="s2">"10.07"</span>,
+    <span class="s2">"charged_amount"</span>:<span class="s2">"10.07"</span>,
     <span class="s2">"interest_amount_per_month"</span>: <span class="s2">"1.02"</span>,
     <span class="s2">"mulct_type"</span>: <span class="s2">"percentage"</span>,
     <span class="s2">"mulct_value"</span>: <span class="s2">"10.12"</span>,
     <span class="s2">"instructions"</span>:<span class="s2">"Pagável em qualquer agência até data do vencimento."</span>,
     <span class="s2">"demonstrative"</span>:<span class="s2">"Não receber após o vencimento."</span>,
     <span class="s2">"notification_emails"</span>:[<span class="s2">"myemail@gmail.com"</span><span class="o">]</span>,
-    <span class="s2">"received"</span>:true,
-    <span class="s2">"received_amount"</span>:<span class="s2">"10.07"</span>,
-    <span class="s2">"received_at"</span>:<span class="s2">"2015-01-30"</span>,
+    <span class="s2">"received"</span>:true, <span class="c"># deprecated</span>
+    <span class="s2">"received_amount"</span>:<span class="s2">"10.07"</span>, <span class="c"># deprecated</span>
+    <span class="s2">"received_at"</span>:<span class="s2">"2015-01-30"</span>, <span class="c"># deprecated</span>
+    <span class="s2">"paid_amount"</span>:<span class="s2">"10.07"</span>,
+    <span class="s2">"paid_at"</span>:<span class="s2">"2015-01-30"</span>,
+    <span class="s2">"payment_tax"</span>:<span class="s2">"2.5"</span>,
     <span class="s2">"processing_date"</span>:<span class="s2">"2015-01-30"</span>,
     <span class="s2">"for_homologation"</span>:true,
     <span class="s2">"registrable"</span>: <span class="nb">true</span>,
@@ -2694,7 +2715,7 @@ EXEMPLO DE REQUISIÇÃO
           "due_date":"2015-02-14",
           "document_kind":"DV",
           "our_number":"12345678",
-          "total_amount":"10.07",
+          "charged_amount":"10.07",
           "notification_emails":["myemail@gmail.com"]
         }'</span>
 
@@ -2713,7 +2734,7 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
       <span class="o">{</span>
         <span class="s2">"charge_config_id"</span>:[<span class="s2">"não pode ficar em branco"</span><span class="o">]</span>,
         <span class="s2">"our_number"</span>:[<span class="s2">"não pode ficar em branco"</span><span class="o">]</span>,
-        <span class="s2">"total_amount"</span>:[<span class="s2">"não pode ficar em branco"</span><span class="o">]</span>,
+        <span class="s2">"charged_amount"</span>:[<span class="s2">"não pode ficar em branco"</span><span class="o">]</span>,
         <span class="s2">"document_kind"</span>:[<span class="s2">"não pode ficar em branco"</span>,<span class="s2">"não está incluído na lista"</span><span class="o">]</span>,
         <span class="s2">"due_date"</span>:[<span class="s2">"não pode ficar em branco"</span><span class="o">]</span>
       <span class="o">}</span>
@@ -2750,14 +2771,14 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <td><strong>(requerido)</strong> espécie do documento, podendo ser DM (Duplicata Mercantil), DS (Duplicata de Serviço), NP (Nota Promissória) ou DV (Diversos)</td>
 </tr>
 <tr>
-<td>total_amount</td>
+<td>charged_amount</td>
 <td>decimal</td>
-<td><strong>(requerido)</strong> valor total do boleto</td>
+<td><strong>(requerido)</strong> valor cobrado no boleto</td>
 </tr>
 <tr>
 <td>document_number</td>
 <td>string</td>
-<td><strong>(requerido)</strong> número do documento, também chamado de &ldquo;seu número&rdquo;, é o número utilizado e controlado pelo beneficiário para identificar o título de cobrança</td>
+<td>(opcional) número do documento é o número utilizado e controlado pelo beneficiário para identificar o título de cobrança. Caso não seja informado é atribído automaticamente o nosso número. Este valor deve ser único para cobranças feitas pelo Banco Bradesco de mesmo valor cobrado, data de vencimento e configuração de cobrança</td>
 </tr>
 <tr>
 <td>notification_emails</td>
@@ -2924,9 +2945,9 @@ Se for utilizado um cartão já existente (enviando o parâmetro <code>credit_ca
 <td><strong>(requerido)</strong> código de identificação da configuração de cobrança da qual a cobrança irá pertencer</td>
 </tr>
 <tr>
-<td>total_amount</td>
+<td>charged_amount</td>
 <td>decimal</td>
-<td><strong>(requerido)</strong> valor total da cobrança</td>
+<td><strong>(requerido)</strong> valor cobrado</td>
 </tr>
 <tr>
 <td>payment_method</td>
@@ -3162,7 +3183,7 @@ Para cobranças do tipo <strong>Boleto</strong> não é possível atualizar uma 
 </aside>
 
 <aside class="notice">
-Para cobranças do tipo <strong>Boleto</strong> os campos 'received&rsquo;, 'received_at&rsquo; e 'received_amount&rsquo;, não são alterados via atualização de cobrança, apenas no recebimento ou desfazendo o recebimento da mesma.
+Para cobranças do tipo <strong>Boleto</strong> os campos 'paid_at&rsquo;, 'paid_amount&rsquo; e 'payment_tax&rsquo;, não são alterados via atualização de cobrança, apenas no recebimento ou desfazendo o recebimento da mesma.
 </aside>
 
 <p><strong>Parâmetros</strong></p>
@@ -3185,14 +3206,14 @@ Para cobranças do tipo <strong>Boleto</strong> os campos 'received&rsquo;, 'rec
 <td><strong>(requerido)</strong> espécie do documento, podendo ser DM (Duplicata Mercantil), DS (Duplicata de Serviço), NP (Nota Promissória) ou DV (Diversos)</td>
 </tr>
 <tr>
-<td>total_amount</td>
+<td>charged_amount</td>
 <td>decimal</td>
-<td><strong>(requerido)</strong> valor total da cobrança</td>
+<td><strong>(requerido)</strong> valor cobrado no boleto</td>
 </tr>
 <tr>
 <td>document_number</td>
 <td>string</td>
-<td><strong>(requerido)</strong> número do documento, também chamado de &ldquo;seu número&rdquo;, é o número utilizado e controlado pelo beneficiário para identificar o título de cobrança</td>
+<td>(opcional) número do documento é o número utilizado e controlado pelo beneficiário para identificar o título de cobrança. Caso não seja informado é atribído automaticamente o nosso número. Este valor deve ser único para cobranças feitas pelo Banco Bradesco de mesmo valor cobrado, data de vencimento e configuração de cobrança</td>
 </tr>
 <tr>
 <td>notification_emails</td>
@@ -3345,9 +3366,9 @@ Para cobranças do tipo <strong>Gateway de Pagamento</strong>, a atualização s
 </tr>
 </thead><tbody>
 <tr>
-<td>total_amount</td>
+<td>charged_amount</td>
 <td>decimal</td>
-<td><strong>(requerido)</strong> valor total do boleto</td>
+<td><strong>(requerido)</strong> valor cobrado no boleto</td>
 </tr>
 <tr>
 <td>payment_method</td>
@@ -3613,8 +3634,9 @@ EXEMPLO DE REQUISIÇÃO
     -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
     -X POST https://app.cobrato.com/api/v1/charges/:charge_id/receive <span class="se">\</span>
     -d <span class="s1">'{
-         "received_at": "2015-02-06",
-         "received_amount": "9.57"
+         "paid_at": "2015-02-06",
+         "paid_amount": "9.57",
+         "payment_tax": "2.5"
         }'</span>
 
 EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
@@ -3633,8 +3655,8 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
   <span class="o">{</span>
     <span class="s2">"errors"</span>: <span class="o">{</span>
-      <span class="s2">"received_at"</span>: <span class="o">[</span><span class="s2">"não pode ficar em branco"</span><span class="o">]</span>,
-      <span class="s2">"received_amount"</span>: <span class="o">[</span><span class="s2">"não pode ficar em branco"</span><span class="o">]</span>
+      <span class="s2">"paid_at"</span>: <span class="o">[</span><span class="s2">"não pode ficar em branco"</span><span class="o">]</span>,
+      <span class="s2">"paid_amount"</span>: <span class="o">[</span><span class="s2">"não pode ficar em branco"</span><span class="o">]</span>
     <span class="o">}</span>
   <span class="o">}</span>
 </code></pre>
@@ -3651,14 +3673,29 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 </tr>
 </thead><tbody>
 <tr>
-<td>received_at</td>
-<td>date</td>
-<td><strong>(requerido)</strong> data de pagamento da cobrança</td>
-</tr>
-<tr>
 <td>received_amount</td>
 <td>decimal</td>
-<td><strong>(requerido)</strong> valor recebido da cobrança</td>
+<td><strong>(requerido)</strong> (DEPRECATED: use paid_amount) valor pago</td>
+</tr>
+<tr>
+<td>received_at</td>
+<td>datetime</td>
+<td><strong>(requerido)</strong> (DEPRECATED: use paid_at) date e horário em que a cobrança foi paga</td>
+</tr>
+<tr>
+<td>paid_amount</td>
+<td>decimal</td>
+<td><strong>(requerido)</strong> valor pago</td>
+</tr>
+<tr>
+<td>paid_at</td>
+<td>datetime</td>
+<td><strong>(requerido)</strong> date e horário em que a cobrança foi paga</td>
+</tr>
+<tr>
+<td>payment_tax</td>
+<td>decimal</td>
+<td>(opcional) valor taxa cobrada pela instituição financeira para o processamento da cobrança</td>
 </tr>
 </tbody></table>
 
@@ -3693,7 +3730,7 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
   <span class="o">{</span>
     <span class="s2">"errors"</span>: <span class="o">{</span>
-      <span class="s2">"received"</span>: <span class="o">[</span>
+      <span class="s2">"paid_amount"</span>: <span class="o">[</span>
         <span class="s2">"Impossível cancelar o recebimento de uma cobrança não recebida!"</span>
       <span class="o">]</span>
     <span class="o">}</span>
