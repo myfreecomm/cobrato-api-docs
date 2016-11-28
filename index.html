@@ -2143,9 +2143,9 @@ EXEMPLO
   <span class="o">{</span>
     <span class="s2">"id"</span>: 1,
     <span class="s2">"name"</span>: <span class="s2">"Nome do Modelo"</span>,
+    <span class="s2">"charge_config_id"</span>: 1,
     <span class="s2">"charged_amount"</span>: 1,
     <span class="s2">"document_kind"</span>: <span class="s2">"DM"</span>,
-    <span class="s2">"charge_config_id"</span>: 1,
     <span class="s2">"instructions"</span>: <span class="s2">""</span>,
     <span class="s2">"demonstrative"</span>: <span class="s2">""</span>,
     <span class="s2">"registrable"</span>: <span class="nb">false</span>,
@@ -2179,6 +2179,11 @@ EXEMPLO
 <td><strong>(requerido)</strong> Nome identificador do modelo de cobrança</td>
 </tr>
 <tr>
+<td>charge_config_id</td>
+<td>integer</td>
+<td><strong>(requerido)</strong> id da configuração de cobrança</td>
+</tr>
+<tr>
 <td>charged_amount</td>
 <td>decimal</td>
 <td>(opcional) valor cobrado no boleto</td>
@@ -2187,11 +2192,6 @@ EXEMPLO
 <td>document_kind</td>
 <td>string</td>
 <td>(opcional) espécie do documento, podendo ser DM (Duplicata Mercantil), DS (Duplicata de Serviço), NP (Nota Promissória) ou DV (Diversos)</td>
-</tr>
-<tr>
-<td>charge_config_id</td>
-<td>integer</td>
-<td><strong>(requerido)</strong> id da configuração de cobrança</td>
 </tr>
 <tr>
 <td>instructions</td>
@@ -2205,12 +2205,12 @@ EXEMPLO
 </tr>
 <tr>
 <td>registrable</td>
-<td>boolan</td>
+<td>boolean</td>
 <td>(opcional) indica se a cobrança é registrável (do tipo que deve ser registrada no banco). Por padrão é o que está definido na Configuração de Cobrança</td>
 </tr>
 <tr>
 <td>auto_send_billet</td>
-<td>boolan</td>
+<td>boolean</td>
 <td>(opcional) Padrão &ldquo;false&rdquo;. Envio ou não de boleto por email</td>
 </tr>
 <tr>
@@ -2254,9 +2254,9 @@ EXEMPLO DE CORPO DA RESPOSTA
   <span class="o">{</span>
     <span class="s2">"id"</span>: 1,
     <span class="s2">"name"</span>: <span class="s2">"Nome do Modelo"</span>,
+    <span class="s2">"charge_config_id"</span>: 1,
     <span class="s2">"charged_amount"</span>: 1,
     <span class="s2">"document_kind"</span>: <span class="s2">"DM"</span>,
-    <span class="s2">"charge_config_id"</span>: 1,
     <span class="s2">"instructions"</span>: <span class="s2">""</span>,
     <span class="s2">"demonstrative"</span>: <span class="s2">""</span>,
     <span class="s2">"registrable"</span>: <span class="nb">false</span>,
@@ -2329,9 +2329,9 @@ EXEMPLO DE REQUISIÇÃO
     -X POST https://app.cobrato.com/api/v1/charge_templates <span class="se">\</span>
     -d <span class="s1">'{
         "name": "Nome do Modelo",
+        "charge_config_id": 1,
         "charged_amount": 1,
         "document_kind": "DM",
-        "charge_config_id": 1,
         "instructions": "",
         "demonstrative": "",
         "registrable": false,
@@ -2379,6 +2379,11 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <td><strong>(requerido)</strong> Nome identificador do modelo de cobrança</td>
 </tr>
 <tr>
+<td>charge_config_id</td>
+<td>integer</td>
+<td><strong>(requerido)</strong> id da configuração de cobrança</td>
+</tr>
+<tr>
 <td>charged_amount</td>
 <td>decimal</td>
 <td>(opcional) valor cobrado no boleto</td>
@@ -2387,11 +2392,6 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <td>document_kind</td>
 <td>string</td>
 <td>(opcional) espécie do documento, podendo ser DM (Duplicata Mercantil), DS (Duplicata de Serviço), NP (Nota Promissória) ou DV (Diversos)</td>
-</tr>
-<tr>
-<td>charge_config_id</td>
-<td>integer</td>
-<td><strong>(requerido)</strong> id da configuração de cobrança</td>
 </tr>
 <tr>
 <td>instructions</td>
@@ -2405,12 +2405,12 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 </tr>
 <tr>
 <td>registrable</td>
-<td>boolan</td>
+<td>boolean</td>
 <td>(opcional) indica se a cobrança é registrável (do tipo que deve ser registrada no banco). Por padrão é o que está definido na Configuração de Cobrança</td>
 </tr>
 <tr>
 <td>auto_send_billet</td>
-<td>boolan</td>
+<td>boolean</td>
 <td>(opcional) Padrão &ldquo;false&rdquo;. Envio ou não de boleto por email</td>
 </tr>
 <tr>
@@ -2491,6 +2491,11 @@ EXEMPLO DE ESTADO DA RESPOSTA COM INSUCESSO
 <td><strong>(requerido)</strong> Nome identificador do modelo de cobrança</td>
 </tr>
 <tr>
+<td>charge_config_id</td>
+<td>integer</td>
+<td><strong>(requerido)</strong> id da configuração de cobrança</td>
+</tr>
+<tr>
 <td>charged_amount</td>
 <td>decimal</td>
 <td>(opcional) valor cobrado no boleto</td>
@@ -2499,11 +2504,6 @@ EXEMPLO DE ESTADO DA RESPOSTA COM INSUCESSO
 <td>document_kind</td>
 <td>string</td>
 <td>(opcional) espécie do documento, podendo ser DM (Duplicata Mercantil), DS (Duplicata de Serviço), NP (Nota Promissória) ou DV (Diversos)</td>
-</tr>
-<tr>
-<td>charge_config_id</td>
-<td>integer</td>
-<td><strong>(requerido)</strong> id da configuração de cobrança</td>
 </tr>
 <tr>
 <td>instructions</td>
@@ -2517,12 +2517,12 @@ EXEMPLO DE ESTADO DA RESPOSTA COM INSUCESSO
 </tr>
 <tr>
 <td>registrable</td>
-<td>boolan</td>
+<td>boolean</td>
 <td>(opcional) indica se a cobrança é registrável (do tipo que deve ser registrada no banco). Por padrão é o que está definido na Configuração de Cobrança</td>
 </tr>
 <tr>
 <td>auto_send_billet</td>
-<td>boolan</td>
+<td>boolean</td>
 <td>(opcional) Padrão &ldquo;false&rdquo;. Envio ou não de boleto por email</td>
 </tr>
 <tr>
@@ -3272,7 +3272,7 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <tr>
 <td>charge_template_id</td>
 <td>integer</td>
-<td>(opcional) número do modelo de cobrança a ser utilizado. A cobrança será criada com base nos atributos preestabelecidos do modelo, porém caso seja passado por parâmetro outro valor este terá preferência.</td>
+<td>(opcional) número do modelo de cobrança a ser utilizado. A cobrança será criada com base nos atributos preestabelecidos do modelo. Contudo, os valores enviados na criação terão preferência</td>
 </tr>
 <tr>
 <td>for_homologation</td>
