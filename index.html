@@ -1631,7 +1631,7 @@ EXEMPLO
 <tr>
 <td>gateway_name</td>
 <td>string</td>
-<td>nome do gateway de pagamento (cielo)</td>
+<td>nome do gateway de pagamento (&#39;cielo-ws15&rsquo;, &#39;cielo-api30&rsquo;)</td>
 </tr>
 <tr>
 <td>gateway_id</td>
@@ -1915,7 +1915,7 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <tr>
 <td>gateway_name</td>
 <td>string</td>
-<td><strong>(requerido)</strong> nome do gateway de pagamento (cielo)</td>
+<td><strong>(requerido)</strong> nome do gateway de pagamento (&#39;cielo-ws15&rsquo;, &#39;cielo-api30&rsquo;)*</td>
 </tr>
 <tr>
 <td>gateway_id</td>
@@ -1938,6 +1938,18 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <td>(opcional) define se será feita a solicitação e a confirmação do endereço de cobrança da fatura do cartão utilizado no pagamento (<code class="prettyprint">false</code> por padrão)</td>
 </tr>
 </tbody></table>
+
+<p><strong>*</strong> Os possíveis valores para o <code>gateway_name</code> são os seguintes:</p></p>
+
+<dl>
+  <dt>cielo-api30</dt>
+  <dd>Cielo API 3.0</dd>
+</dl>
+
+<dl>
+  <dt>cielo-ws15</dt>
+  <dd>Cielo Webservice 1.5</dd>
+</dl>
 
 <h2 id="atualiza-o-de-configura-o-de-cobran-a">Atualização de Configuração de Cobrança</h2>
 <pre class="highlight shell"><code>Atualizar Configuração de Cobrança
@@ -2085,11 +2097,6 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <td>name</td>
 <td>string</td>
 <td><strong>(requerido)</strong> nome que identifica esta configuração de cobrança</td>
-</tr>
-<tr>
-<td>gateway_name</td>
-<td>string</td>
-<td><strong>(requerido)</strong> nome do gateway de pagamento (cielo)</td>
 </tr>
 <tr>
 <td>gateway_id</td>
@@ -2615,7 +2622,11 @@ EXEMPLO
     <span class="s2">"received_at"</span>:<span class="s2">"2015-01-30"</span>, <span class="c"># deprecated</span>
     <span class="s2">"paid_amount"</span>:<span class="s2">"10.07"</span>,
     <span class="s2">"paid_at"</span>:<span class="s2">"2015-01-30"</span>,
+    <span class="s2">"paid_discount"</span>:<span class="s2">"4.56"</span>,
+    <span class="s2">"paid_additions"</span>:<span class="s2">"0.50"</span>,
+    <span class="s2">"paid_rebate"</span>:<span class="s2">"0.30"</span>,
     <span class="s2">"payment_tax"</span>:<span class="s2">"2.5"</span>,
+    <span class="s2">"paid_difference"</span>:<span class="s2">"0"</span>,
     <span class="s2">"processing_date"</span>:<span class="s2">"2015-01-30"</span>,
     <span class="s2">"for_homologation"</span>:true,
     <span class="s2">"registrable"</span>: <span class="nb">true</span>,
@@ -2774,9 +2785,29 @@ EXEMPLO
 <td>date e horário em que a cobrança foi paga</td>
 </tr>
 <tr>
+<td>paid_discount</td>
+<td>decimal</td>
+<td>valor do desconto no momento do pagamento</td>
+</tr>
+<tr>
+<td>paid_additions</td>
+<td>decimal</td>
+<td>valor do juros, multas e encargos no momento do pagamento</td>
+</tr>
+<tr>
+<td>paid_rebate</td>
+<td>decimal</td>
+<td>valor do abatimento no momento do pagamento</td>
+</tr>
+<tr>
 <td>payment_tax</td>
 <td>decimal</td>
 <td>valor taxa cobrada pela instituição financeira para o processamento da cobrança</td>
+</tr>
+<tr>
+<td>paid_difference</td>
+<td>decimal</td>
+<td>diferença entre valor pago e valor cobrando</td>
 </tr>
 <tr>
 <td>processing_date</td>
@@ -3059,7 +3090,11 @@ EXEMPLO DE CORPO DA RESPOSTA <span class="o">(</span>BOLETO<span class="o">)</sp
     <span class="s2">"received_at"</span>:<span class="s2">"2015-01-30"</span>, <span class="c"># deprecated</span>
     <span class="s2">"paid_amount"</span>:<span class="s2">"10.07"</span>,
     <span class="s2">"paid_at"</span>:<span class="s2">"2015-01-30"</span>,
+    <span class="s2">"paid_discount"</span>:<span class="s2">"4.56"</span>,
+    <span class="s2">"paid_additions"</span>:<span class="s2">"0.50"</span>,
+    <span class="s2">"paid_rebate"</span>:<span class="s2">"0.30"</span>,
     <span class="s2">"payment_tax"</span>:<span class="s2">"2.5"</span>,
+    <span class="s2">"paid_difference"</span>:<span class="s2">"0"</span>,
     <span class="s2">"processing_date"</span>:<span class="s2">"2015-01-30"</span>,
     <span class="s2">"for_homologation"</span>:true,
     <span class="s2">"registrable"</span>: <span class="nb">true</span>,
@@ -4113,6 +4148,9 @@ EXEMPLO DE REQUISIÇÃO
     -d <span class="s1">'{
          "paid_at": "2015-02-06",
          "paid_amount": "9.57",
+         "paid_discount": "4.56",
+         "paid_additions": "0.50",
+         "paid_rebate":  "0.30",
          "payment_tax": "2.5"
         }'</span>
 
@@ -4168,6 +4206,21 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <td>paid_at</td>
 <td>datetime</td>
 <td><strong>(requerido)</strong> date e horário em que a cobrança foi paga</td>
+</tr>
+<tr>
+<td>paid_discount</td>
+<td>decimal</td>
+<td>(optional) valor do desconto</td>
+</tr>
+<tr>
+<td>paid_additions</td>
+<td>decimal</td>
+<td>(optional) valor do juros, multa e encargos</td>
+</tr>
+<tr>
+<td>paid_rebate</td>
+<td>decimal</td>
+<td>(optional) valor do abatimento</td>
 </tr>
 <tr>
 <td>payment_tax</td>
