@@ -4131,6 +4131,18 @@ EXEMPLO DE ESTADO DA RESPOSTA COM COBRANÇA INEXISTENTE
 
 <p>Exclui determinada cobrança. As mudanças são irreversíveis, e não será mais possível receber o boleto da cobrança excluída!</p>
 
+<p>Uma cobrança poderá ser excluída nos seguintes casos:</p>
+
+<h3 id="gateway-de-pagamento">Gateway de Pagamento</h3>
+
+<p>Somente quando a cobrança estiver com erro de autorização (<code class="prettyprint">payment_gateway_status</code> tiver o valor &ldquo;authorize_error&rdquo;).</p>
+
+<h3 id="boleto">Boleto</h3>
+
+<p>Para boletos <strong>sem registro</strong> a cobrança pode ser excluída enquanto não tiver sido recebida.</p>
+
+<p>Para boletos <strong>com registro</strong>, por sua vez, enquanto não tiver sido recebida e enquanto não tiver sido registrada (<code class="prettyprint">registration_status</code> diferente de &ldquo;registered&rdquo;).</p>
+
 <h2 id="recebimento-de-cobran-a-boleto">Recebimento de Cobrança (Boleto)</h2>
 <pre class="highlight shell"><code>Receber Cobrança <span class="o">(</span>Boleto<span class="o">)</span>
 
@@ -4441,7 +4453,7 @@ EXEMPLO DE REQUISIÇÃO
 
 EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
 
-    204 No Content
+    200 OK
 
 EXEMPLO DE ESTADO DA RESPOSTA COM COBRANÇA INEXISTENTE
 
@@ -4461,7 +4473,62 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
 </code></pre>
 
-<p>Enfileira uma determinada cobrança para cancelamento.</p>
+<p>Cancela determinada cobrança.</p>
+
+<h3 id="gateway-de-pagamento">Gateway de Pagamento</h3>
+
+<p>Neste caso o cancelamento irá <strong>estornar</strong> o valor cobrado para o cliente.</p>
+
+<p>A cobrança poderá ser cancelada somente quando tiver sido autorizada, capturada ou com erro no cancelamento (<code class="prettyprint">payment_gateway_status</code> tiver um dos seguintes valores: &ldquo;authorized&rdquo;, &ldquo;captured&rdquo;, ou &ldquo;cancel_error&rdquo;).</p>
+
+<h3 id="boleto">Boleto</h3>
+
+<p>Para boletos <strong>sem registro</strong>, a cobrança pode ser cancelada enquanto não tiver sido recebida.</p>
+
+<p>Para boletos <strong>com registro</strong>, por sua vez, enquanto não tiver sido recebida e tiver sido registrada ou não tiver arquivo de remessa (<code class="prettyprint">registration_status</code> com um dos valores: &ldquo;registered&rdquo; ou &ldquo;without_remittance&rdquo;). Após ser cancelada no cobrato será necessário criar um arquivo de remessa para notificar o Banco do cancelamento da cobrança.</p>
+
+<h2 id="revogar-cobran-a">Revogar Cobrança</h2>
+<pre class="highlight shell"><code>Revogar Cobrança
+
+DEFINIÇÃO
+
+  POST https://app.cobrato.com/api/v1/charges/:charge_id/destroy_or_cancel
+
+EXEMPLO DE REQUISIÇÃO
+
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X <span class="se">\</span>
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
+    -X POST https://app.cobrato.com/api/v1/charges/:charge_id/destroy_or_cancel
+
+EXEMPLO DE ESTADO DA RESPOSTA EXCLUÍDA COM SUCESSO
+
+    204 No Content
+
+EXEMPLO DE ESTADO DA RESPOSTA CANCELADA COM SUCESSO
+
+    200 OK
+
+EXEMPLO DE ESTADO DA RESPOSTA COM COBRANÇA INEXISTENTE
+
+    404 Not Found
+
+EXEMPLO DE ESTADO DA RESPOSTA COM INSUCESSO
+
+    422 Unprocessable Entity
+
+EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
+
+  <span class="o">{</span>
+    <span class="s2">"errors"</span>: <span class="o">{</span>
+      <span class="s2">"message"</span>: <span class="s2">"Esta Cobrança não pode ser excluída nem cancelada"</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+
+</code></pre>
+
+<p>Primeiro tenta excluir a cobrança. Caso não seja possível, tenta cancelá-la. Caso também não seja possível, retorna a resposta de insucesso.</p>
 
           <h1 id="cart-o-de-cr-dito">Cartão de Crédito</h1>
 <pre class="highlight shell"><code>Cartão de Crédito
@@ -5108,7 +5175,7 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
 <p>Cria novo(s) Arquivo(s) CNAB de Remessa, retornando as informações do mesmo caso haja sucesso. Se houverem erros, eles serão informados no corpo da resposta. Pode ser gerado a partir de uma ou mais Cobranças. Se forem enviadas Cobranças de Configurações de Cobranças diferentes, será gerado um CNAB de remessa para cada Configuração de Cobrança.</p>
 
-<p>Os Arquivos CNAB de Remessa podem ser criados a partir de uma ou mais cobraças que ainda não possuem boleto ou outro arquivo de remessa associado.</p>
+<p>Os Arquivos CNAB de Remessa podem ser criados a partir de uma ou mais cobraças que ainda não possuem boleto ou outro arquivo de remessa associado. Eles podem também ser criados a partir de uma ou mais configurações de cobrança. Nesse caso, os arquivos serão criados para todas as cobranças passíveis de remessa, seja para registrar a entrada da cobrança, cancelamento ou alteração.</p>
 
 <p><strong>Parâmetros</strong></p>
 
@@ -5122,7 +5189,12 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <tr>
 <td>charge_ids</td>
 <td>array of integers</td>
-<td><strong>(requerido)</strong> Lista com os ids das cobranças que devem ser associadas ao Arquivo CNAB de Remessa</td>
+<td><strong>(requerido, caso não seja informado o charge_config_ids)</strong> Lista com os ids das cobranças que devem ser associadas ao Arquivo CNAB de Remessa</td>
+</tr>
+<tr>
+<td>charge_config_ids</td>
+<td>array of integers</td>
+<td><strong>(requerido, caso não seja informado o charge_ids)</strong> Lista com os ids das configurações de cobranças para as quais devem ser criados os Arquivos CNAB de Remessa</td>
 </tr>
 </tbody></table>
 
