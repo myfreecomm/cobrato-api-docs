@@ -4492,7 +4492,7 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
 DEFINIÇÃO
 
-  POST https://app.cobrato.com/api/v1/charges/:charge_id/destroy_or_cancel
+  POST https://app.cobrato.com/api/v1/charges/:charge_id/revoke
 
 EXEMPLO DE REQUISIÇÃO
 
@@ -4500,7 +4500,7 @@ EXEMPLO DE REQUISIÇÃO
     -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
     -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
     -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
-    -X POST https://app.cobrato.com/api/v1/charges/:charge_id/destroy_or_cancel
+    -X POST https://app.cobrato.com/api/v1/charges/:charge_id/revoke
 
 EXEMPLO DE ESTADO DA RESPOSTA EXCLUÍDA COM SUCESSO
 
