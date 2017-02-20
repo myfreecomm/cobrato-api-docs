@@ -2156,13 +2156,14 @@ EXEMPLO
     <span class="s2">"instructions"</span>: <span class="s2">""</span>,
     <span class="s2">"demonstrative"</span>: <span class="s2">""</span>,
     <span class="s2">"registrable"</span>: <span class="nb">false</span>,
-    <span class="s2">"auto_send_billet"</span>: <span class="nb">false</span>,
     <span class="s2">"interest_amount_per_month"</span>: <span class="s2">"4.56"</span>,
     <span class="s2">"mulct_type"</span>: 1,
     <span class="s2">"mulct_value"</span>: <span class="s2">""</span>,
-    <span class="s2">"email_sender_name"</span>: <span class="s2">""</span>,
-    <span class="s2">"email_subject"</span>: <span class="s2">""</span>,
+    <span class="s2">"auto_send_billet"</span>: <span class="nb">false</span>,
+    <span class="s2">"email_sender_name"</span>: <span class="s2">"Nome da Empresa"</span>,
+    <span class="s2">"email_subject"</span>: <span class="s2">"Boleto de cobrança"</span>,
     <span class="s2">"email_text"</span>: <span class="s2">""</span>,
+    <span class="s2">"email_reply_to"</span>: <span class="s2">"name@company.com"</span>,
     <span class="s2">"_links"</span>: <span class="o">[</span>
       <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"self"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charge_templates/1"</span><span class="o">}</span>,
       <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"update"</span>,<span class="s2">"method"</span>:<span class="s2">"PUT"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charge_templates/1"</span><span class="o">}</span>,
@@ -2241,17 +2242,22 @@ EXEMPLO
 <tr>
 <td>email_sender_name</td>
 <td>string</td>
-<td>(opcional) Nome do remetente do email de notificação a ser enviado caso a opção auto_send_billet estiver com valor &lsquo;true&rsquo;</td>
+<td>(opcional) Nome do remetente do email de notificação de cobrança</td>
 </tr>
 <tr>
 <td>email_subject</td>
 <td>string</td>
-<td>(opcional) Assunto do email a ser enviado caso a opção auto_send_billet estiver com valor &#39;true&rsquo;</td>
+<td>(opcional) Assunto do email de notificação de cobrança</td>
 </tr>
 <tr>
 <td>email_text</td>
 <td>string</td>
-<td>(opcional) Texto do email a ser enviado caso a opção auto_send_billet estiver com valor &#39;true&rsquo;</td>
+<td>(opcional) Texto do email de notificação de cobrança</td>
+</tr>
+<tr>
+<td>email_reply_to</td>
+<td>string</td>
+<td>(opcional) Endereço de email a ser utilizado na respsta ao email de notificação de cobrança</td>
 </tr>
 </tbody></table>
 
@@ -2285,10 +2291,14 @@ EXEMPLO DE CORPO DA RESPOSTA
     <span class="s2">"instructions"</span>: <span class="s2">""</span>,
     <span class="s2">"demonstrative"</span>: <span class="s2">""</span>,
     <span class="s2">"registrable"</span>: <span class="nb">false</span>,
-    <span class="s2">"auto_send_billet"</span>: <span class="nb">false</span>,
     <span class="s2">"interest_amount_per_month"</span>: <span class="s2">"4.56"</span>,
     <span class="s2">"mulct_type"</span>: 1,
     <span class="s2">"mulct_value"</span>: <span class="s2">""</span>,
+    <span class="s2">"auto_send_billet"</span>: <span class="nb">true</span>,
+    <span class="s2">"email_sender_name"</span>: <span class="s2">"Nome da Empresa"</span>,
+    <span class="s2">"email_subject"</span>: <span class="s2">"Boleto de cobrança"</span>,
+    <span class="s2">"email_text"</span>: <span class="s2">""</span>,
+    <span class="s2">"email_reply_to"</span>: <span class="s2">"name@company.com"</span>,
     <span class="s2">"_links"</span>: <span class="o">[</span>
       <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"self"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charge_templates/1"</span><span class="o">}</span>,
       <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"update"</span>,<span class="s2">"method"</span>:<span class="s2">"PUT"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charge_templates/1"</span><span class="o">}</span>,
@@ -2360,10 +2370,14 @@ EXEMPLO DE REQUISIÇÃO
         "instructions": "",
         "demonstrative": "",
         "registrable": false,
-        "auto_send_billet": false,
         "interest_amount_per_month": "4.56",
         "mulct_type": 1,
-        "mulct_value": ""
+        "mulct_value": "",
+        "auto_send_billet": true,
+        "email_sender_name": "Nome da Empresa",
+        "email_subject": "Boleto de cobrança",
+        "email_text": "",
+        "email_reply_to": "name@company.com"
       }'</span>
 
 EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
@@ -2434,11 +2448,6 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <td>(opcional) indica se a cobrança é registrável (do tipo que deve ser registrada no banco). Por padrão é o que está definido na Configuração de Cobrança</td>
 </tr>
 <tr>
-<td>auto_send_billet</td>
-<td>boolean</td>
-<td>(opcional) Padrão &ldquo;false&rdquo;. Envio ou não de boleto por email</td>
-</tr>
-<tr>
 <td>interest_amount_per_month</td>
 <td>decimal</td>
 <td>(opcional) porcentagem de juros mensal que deve ser aplicado em caso de atraso. No boleto será mostrado o valor diário de juros que será calculado</td>
@@ -2452,6 +2461,31 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <td>mulct_value</td>
 <td>decimal</td>
 <td>(opcional) valor da multa que deve ser aplicada em caso de atraso, com base em seu tipo</td>
+</tr>
+<tr>
+<td>auto_send_billet</td>
+<td>boolean</td>
+<td>(opcional) Padrão &ldquo;false&rdquo;. Envio ou não de boleto por email</td>
+</tr>
+<tr>
+<td>email_sender_name</td>
+<td>string</td>
+<td>(opcional) Nome do remetente do email de notificação de cobrança</td>
+</tr>
+<tr>
+<td>email_subject</td>
+<td>string</td>
+<td>(opcional) Assunto do email de notificação de cobrança</td>
+</tr>
+<tr>
+<td>email_text</td>
+<td>string</td>
+<td>(opcional) Texto do email de notificação de cobrança</td>
+</tr>
+<tr>
+<td>email_reply_to</td>
+<td>string</td>
+<td>(opcional) Endereço de email a ser utilizado na respsta ao email de notificação de cobrança</td>
 </tr>
 </tbody></table>
 
@@ -2479,10 +2513,14 @@ EXEMPLO DE REQUISIÇÃO
         "instructions": "",
         "demonstrative": "",
         "registrable": false,
-        "auto_send_billet": false,
         "interest_amount_per_month": "4.56",
         "mulct_type": 1,
-        "mulct_value": ""
+        "mulct_value": "",
+        "auto_send_billet": false,
+        "email_sender_name": "Nome da Empresa",
+        "email_subject": "Boleto de cobrança",
+        "email_text": "",
+        "email_reply_to": "name@company.com"
       }'</span>
 
 EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
@@ -2546,11 +2584,6 @@ EXEMPLO DE ESTADO DA RESPOSTA COM INSUCESSO
 <td>(opcional) indica se a cobrança é registrável (do tipo que deve ser registrada no banco). Por padrão é o que está definido na Configuração de Cobrança</td>
 </tr>
 <tr>
-<td>auto_send_billet</td>
-<td>boolean</td>
-<td>(opcional) Padrão &ldquo;false&rdquo;. Envio ou não de boleto por email</td>
-</tr>
-<tr>
 <td>interest_amount_per_month</td>
 <td>decimal</td>
 <td>(opcional) porcentagem de juros mensal que deve ser aplicado em caso de atraso. No boleto será mostrado o valor diário de juros que será calculado</td>
@@ -2564,6 +2597,31 @@ EXEMPLO DE ESTADO DA RESPOSTA COM INSUCESSO
 <td>mulct_value</td>
 <td>decimal</td>
 <td>(opcional) valor da multa que deve ser aplicada em caso de atraso, com base em seu tipo</td>
+</tr>
+<tr>
+<td>auto_send_billet</td>
+<td>boolean</td>
+<td>(opcional) Padrão &ldquo;false&rdquo;. Envio ou não de boleto por email</td>
+</tr>
+<tr>
+<td>email_sender_name</td>
+<td>string</td>
+<td>(opcional) Nome do remetente do email de notificação de cobrança</td>
+</tr>
+<tr>
+<td>email_subject</td>
+<td>string</td>
+<td>(opcional) Assunto do email de notificação de cobrança</td>
+</tr>
+<tr>
+<td>email_text</td>
+<td>string</td>
+<td>(opcional) Texto do email de notificação de cobrança</td>
+</tr>
+<tr>
+<td>email_reply_to</td>
+<td>string</td>
+<td>(opcional) Endereço de email a ser utilizado na respsta ao email de notificação de cobrança</td>
 </tr>
 </tbody></table>
 
@@ -3355,17 +3413,22 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <tr>
 <td>email_sender_name</td>
 <td>string</td>
-<td>(opcional) Nome do remetente do email de notificação a ser enviado caso a opção auto_send_billet estiver com valor &#39;true&rsquo;</td>
+<td>(opcional) Nome do remetente do email de notificação de cobrança, caso a opção auto_send_billet estiver com valor &#39;true&rsquo;</td>
 </tr>
 <tr>
 <td>email_subject</td>
 <td>string</td>
-<td>(opcional) Assunto do email a ser enviado caso a opção auto_send_billet estiver com valor &#39;true&rsquo;</td>
+<td>(opcional) Assunto do email de notificação de cobrança, caso a opção auto_send_billet estiver com valor &#39;true&rsquo;</td>
 </tr>
 <tr>
 <td>email_text</td>
 <td>string</td>
-<td>(opcional) Texto do email a ser enviado caso a opção auto_send_billet estiver com valor &#39;true&rsquo;</td>
+<td>(opcional) Texto do email de notificação de cobrança, caso a opção auto_send_billet estiver com valor &#39;true&rsquo;</td>
+</tr>
+<tr>
+<td>email_reply_to</td>
+<td>string</td>
+<td>(opcional) Endereço de email a ser utilizado na respsta ao email de notificação de cobrança, caso a opção auto_send_billet estiver com valor &#39;true&rsquo;</td>
 </tr>
 </tbody></table>
 
