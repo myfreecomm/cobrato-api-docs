@@ -6021,6 +6021,21 @@ EXEMPLO DE ESTADO DA RESPOSTA COM WEBHOOK INEXISTENTE
 <td>destroyed</td>
 <td>quando o modelo de cobrança é excluído</td>
 </tr>
+<tr>
+<td>payer</td>
+<td>created</td>
+<td>quando o pagador é criado</td>
+</tr>
+<tr>
+<td>payer</td>
+<td>updated</td>
+<td>quando o pagador é atualizado</td>
+</tr>
+<tr>
+<td>payer</td>
+<td>destroyed</td>
+<td>quando o pagador é excluído</td>
+</tr>
 </tbody></table>
 
 <h3 id="assinatura-do-payload">Assinatura do Payload</h3>
@@ -6396,6 +6411,69 @@ EXEMPLO DE PAYLOAD
 </code></pre>
 
 <p>Informações enviadas quando um Modelo de cobrança é excluído.</p>
+
+<h2 id="pagador-criado">Pagador criado</h2>
+<pre class="highlight shell"><code>Pagador Criado
+
+EXEMPLO DE PAYLOAD
+
+  <span class="o">{</span>
+    <span class="s2">"created_at"</span>:<span class="s2">"2015-05-21T16:13:33Z"</span>,
+    <span class="s2">"event"</span>:<span class="s2">"created"</span>,
+    <span class="s2">"object_type"</span>:<span class="s2">"payer"</span>,
+    <span class="s2">"object_id"</span>:12,
+    <span class="s2">"_links"</span>:[<span class="o">{</span>
+      <span class="s2">"rel"</span>:<span class="s2">"self"</span>,
+      <span class="s2">"method"</span>:<span class="s2">"GET"</span>,
+      <span class="s2">"url"</span>:<span class="s2">"https://app.cobrato.com/api/v1/payers/12"</span>
+    <span class="o">}]</span>
+  <span class="o">}</span>
+
+</code></pre>
+
+<p>Informações enviadas quando uma Pagador é criado.</p>
+
+<h2 id="pagador-atualizado">Pagador Atualizado</h2>
+<pre class="highlight shell"><code>Pagador Atualizado
+
+EXEMPLO DE PAYLOAD
+
+  <span class="o">{</span>
+    <span class="s2">"created_at"</span>:<span class="s2">"2015-05-21T16:13:33Z"</span>,
+    <span class="s2">"event"</span>:<span class="s2">"updated"</span>,
+    <span class="s2">"object_type"</span>:<span class="s2">"payer"</span>,
+    <span class="s2">"object_id"</span>:12,
+    <span class="s2">"_links"</span>:[<span class="o">{</span>
+      <span class="s2">"rel"</span>:<span class="s2">"self"</span>,
+      <span class="s2">"method"</span>:<span class="s2">"GET"</span>,
+      <span class="s2">"url"</span>:<span class="s2">"https://app.cobrato.com/api/v1/payers/12"</span>
+    <span class="o">}]</span>
+  <span class="o">}</span>
+
+</code></pre>
+
+<p>Informações enviadas quando uma Pagador é atualizado.</p>
+
+<h2 id="pagador-exclu-do">Pagador Excluído</h2>
+<pre class="highlight shell"><code>Pagador Excluído
+
+EXEMPLO DE PAYLOAD
+
+  <span class="o">{</span>
+    <span class="s2">"created_at"</span>:<span class="s2">"2015-05-21T16:13:33Z"</span>,
+    <span class="s2">"event"</span>:<span class="s2">"destroyed"</span>,
+    <span class="s2">"object_type"</span>:<span class="s2">"payer"</span>,
+    <span class="s2">"object_id"</span>:12,
+    <span class="s2">"_links"</span>:[<span class="o">{</span>
+      <span class="s2">"rel"</span>:<span class="s2">"self"</span>,
+      <span class="s2">"method"</span>:<span class="s2">"GET"</span>,
+      <span class="s2">"url"</span>:<span class="s2">"https://app.cobrato.com/api/v1/payers/12"</span>
+    <span class="o">}]</span>
+  <span class="o">}</span>
+
+</code></pre>
+
+<p>Informações enviadas quando uma Pagador é excluído.</p>
 
           <h1 id="tipos-de-cobran-a">Tipos de cobrança</h1>
 
