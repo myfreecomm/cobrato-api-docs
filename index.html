@@ -3388,7 +3388,7 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <tr>
 <td>for_homologation</td>
 <td>boolean</td>
-<td><strong>(requerido, se a configuração de cobrança não estiver homologada )</strong> indica se é uma cobrança para ser utilizada na homologação da Configuração de cobrança</td>
+<td><strong>(requerido, se a configuração de cobrança não estiver homologada)</strong> indica se é uma cobrança para ser utilizada na homologação da Configuração de cobrança</td>
 </tr>
 <tr>
 <td>registrable</td>
@@ -3398,12 +3398,12 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <tr>
 <td>payer_id</td>
 <td>integer</td>
-<td><strong>(requerido, se não enviar payer_attributes )</strong> identificador do pagador (caso seja fornecido, o parâmetro payer_attributes será ignorado)</td>
+<td><strong>(requerido, se não enviar payer_attributes)</strong> identificador do pagador (caso seja fornecido, o parâmetro payer_attributes será ignorado)</td>
 </tr>
 <tr>
 <td>payer_attributes*</td>
 <td>object</td>
-<td><strong>(requerido, se não enviar payer_id )</strong> atributos para a criação de um novo pagador ou atualização de um pagador existente com o mesmo documento (national_identifier)</td>
+<td><strong>(requerido, se não enviar payer_id)</strong> atributos para a criação de um novo pagador ou atualização de um pagador existente com o mesmo documento (national_identifier)</td>
 </tr>
 <tr>
 <td>auto_send_billet</td>
@@ -3545,6 +3545,11 @@ Se for utilizado um cartão já existente (enviando o parâmetro <code>credit_ca
 <td>(opcional) número de parcelas (1 por padrão)</td>
 </tr>
 <tr>
+<td>generate_token</td>
+<td>boolean</td>
+<td>(opcional) indica se deve ser gerado token para utilização do cartão de crédito no pagamento recorrente (false por padrão)</td>
+</tr>
+<tr>
 <td>notification_emails</td>
 <td>array of strings</td>
 <td>(opcional) emails que receberão notificações sobre a cobrança</td>
@@ -3557,22 +3562,27 @@ Se for utilizado um cartão já existente (enviando o parâmetro <code>credit_ca
 <tr>
 <td>payer_id</td>
 <td>integer</td>
-<td><strong>(requerido, se não enviar payer_attributes )</strong> identificador do pagador (caso seja fornecido, o parâmetro payer_attributes será ignorado)</td>
+<td><strong>(requerido, se não enviar payer_attributes)</strong> identificador do pagador (caso seja fornecido, o parâmetro payer_attributes será ignorado)</td>
 </tr>
 <tr>
 <td>payer_attributes*</td>
 <td>object</td>
-<td><strong>(requerido, se não enviar payer_id )</strong> atributos para a criação de um novo pagador ou atualização de um pagador existente com o mesmo documento (national_identifier)</td>
+<td><strong>(requerido, se não enviar payer_id)</strong> atributos para a criação de um novo pagador ou atualização de um pagador existente com o mesmo documento (national_identifier)</td>
 </tr>
 <tr>
 <td>credit_card_id</td>
 <td>integer</td>
-<td><strong>(requerido, se não enviar credit_card_attributes )</strong> identificador do cartão de crédito utilizado na cobrança, que deve pertencer ao mesmo payer e charge_config informados</td>
+<td><strong>(requerido, se não enviar credit_card_attributes)</strong> identificador do cartão de crédito utilizado na cobrança, que deve pertencer ao mesmo payer e charge_config informados</td>
 </tr>
 <tr>
 <td>credit_card_attributes*</td>
 <td>object</td>
-<td><strong>(requerido, se não enviar credit_card_id )</strong>  atributos para a criação de um novo cartão de crédito que será ligado ao pagador</td>
+<td><strong>(requerido, se não enviar credit_card_id)</strong>  atributos para a criação de um novo cartão de crédito que será ligado ao pagador</td>
+</tr>
+<tr>
+<td>overwrite_card_payer</td>
+<td>boolean</td>
+<td>(opcional) indica se o pagador dono do cartão deve ser alterado para o pagador informado</td>
 </tr>
 </tbody></table>
 
@@ -3853,12 +3863,12 @@ Para cobranças do tipo <strong>Boleto</strong> os campos 'paid_at&rsquo;, 'paid
 <tr>
 <td>payer_id</td>
 <td>integer</td>
-<td><strong>(requerido, se não enviar payer_attributes )</strong> identificador do pagador (caso seja fornecido, o parâmetro payer_attributes será ignorado)</td>
+<td><strong>(requerido, se não enviar payer_attributes)</strong> identificador do pagador (caso seja fornecido, o parâmetro payer_attributes será ignorado)</td>
 </tr>
 <tr>
 <td>payer_attributes*</td>
 <td>object</td>
-<td><strong>(requerido, se não enviar payer_id )</strong> atributos para a criação de um novo pagador ou atualização de um pagador existente com o mesmo documento (national_identifier)</td>
+<td><strong>(requerido, se não enviar payer_id)</strong> atributos para a criação de um novo pagador ou atualização de um pagador existente com o mesmo documento (national_identifier)</td>
 </tr>
 </tbody></table>
 
@@ -3983,22 +3993,27 @@ Para cobranças do tipo <strong>Gateway de Pagamento</strong>, a atualização s
 <tr>
 <td>payer_id</td>
 <td>integer</td>
-<td><strong>(requerido, se não enviar payer_attributes )</strong> identificador do pagador (caso seja fornecido, o parâmetro payer_attributes será ignorado)</td>
+<td><strong>(requerido, se não enviar payer_attributes)</strong> identificador do pagador (caso seja fornecido, o parâmetro payer_attributes será ignorado)</td>
 </tr>
 <tr>
 <td>payer_attributes*</td>
 <td>object</td>
-<td><strong>(requerido, se não enviar payer_id )</strong> atributos para a criação de um novo pagador ou atualização de um pagador existente com o mesmo documento (national_identifier)</td>
+<td><strong>(requerido, se não enviar payer_id)</strong> atributos para a criação de um novo pagador ou atualização de um pagador existente com o mesmo documento (national_identifier)</td>
 </tr>
 <tr>
 <td>credit_card_id</td>
 <td>integer</td>
-<td><strong>(requerido, se não enviar credit_card_attributes )</strong> identificador do cartão de crédito utilizado na cobrança</td>
+<td><strong>(requerido, se não enviar credit_card_attributes)</strong> identificador do cartão de crédito utilizado na cobrança</td>
 </tr>
 <tr>
 <td>credit_card_attributes*</td>
 <td>object</td>
-<td><strong>(requerido, se não enviar credit_card_id )</strong>  atributos para a criação de um novo cartão de crédito que será ligado ao pagador</td>
+<td><strong>(requerido, se não enviar credit_card_id)</strong>  atributos para a criação de um novo cartão de crédito que será ligado ao pagador</td>
+</tr>
+<tr>
+<td>overwrite_card_payer</td>
+<td>boolean</td>
+<td>(opcional) indica se o pagador dono do cartão deve ser alterado para o pagador informado</td>
 </tr>
 </tbody></table>
 
@@ -5236,11 +5251,15 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
 </code></pre>
 
-<p>Cria novo(s) Arquivo(s) CNAB de Remessa, retornando as informações do mesmo caso haja sucesso. Se houverem erros, eles serão informados no corpo da resposta. Pode ser gerado a partir de uma ou mais Cobranças. Se forem enviadas Cobranças de Configurações de Cobranças diferentes, será gerado um CNAB de remessa para cada Configuração de Cobrança.</p>
+<p>Cria novo(s) Arquivo(s) CNAB de Remessa, retornando as informações do mesmo caso haja sucesso. Se houverem erros, eles serão informados no corpo da resposta. </p>
 
-<p>Os Arquivos CNAB de Remessa podem ser criados a partir de uma ou mais cobraças que ainda não possuem boleto ou outro arquivo de remessa associado. Eles podem também ser criados a partir de uma ou mais configurações de cobrança. Nesse caso, os arquivos serão criados para todas as cobranças passíveis de remessa, seja para registrar a entrada da cobrança, cancelamento ou alteração.</p>
+<p>Um Arquivo de remessa sempre está associado à uma Configuração de Cobrança. Sendo assim, será gerado um CNAB de remessa para cada Configuração de Cobrança envolvida na solicitação de criação, e esse arquivo irá incluir todas as cobranças passíveis de remessa, seja para registrar a entrada da cobrança, cancelamento ou alteração.</p>
 
 <p><strong>Parâmetros</strong></p>
+
+<aside class="warning">
+  Ao menos um dos parâmetros abaixo é requerido. Se mais de um for enviado, será considerado apenas um deles, sendo a ordem de precedência a mesma em que aparecem na lista abaixo.
+</aside>
 
 <table><thead>
 <tr>
@@ -5252,12 +5271,22 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <tr>
 <td>charge_ids</td>
 <td>array of integers</td>
-<td><strong>(requerido, caso não seja informado o charge_config_ids)</strong> Lista com os ids das cobranças que devem ser associadas ao Arquivo CNAB de Remessa</td>
+<td><strong>(requerido, veja a nota acima)</strong> Lista com os ids das cobranças que devem estar incluídas no(s) arquivo(s) CNAB de Remessa</td>
 </tr>
 <tr>
 <td>charge_config_ids</td>
 <td>array of integers</td>
-<td><strong>(requerido, caso não seja informado o charge_ids)</strong> Lista com os ids das configurações de cobranças para as quais devem ser criados os Arquivos CNAB de Remessa</td>
+<td><strong>(requerido, veja a nota acima)</strong> Lista com os ids das configurações de cobranças para as quais devem ser criados os Arquivos CNAB de Remessa</td>
+</tr>
+<tr>
+<td>payee_ids</td>
+<td>array of integers</td>
+<td><strong>(requerido, veja a nota acima)</strong> Lista com os ids dos beneficiários das configurações de cobrança para as quais devem ser criados os Arquivos CNAB de Remessa</td>
+</tr>
+<tr>
+<td>payee_national_identifiers</td>
+<td>array of strings</td>
+<td><strong>(requerido, veja a nota acima)</strong> Lista com os números de documento dos beneficiários das configurações de cobrança para as quais devem ser criados os Arquivos CNAB de Remessa</td>
 </tr>
 </tbody></table>
 
