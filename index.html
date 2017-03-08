@@ -1444,6 +1444,7 @@ EXEMPLO
   <span class="o">{</span>
     <span class="s2">"id"</span>: 1,
     <span class="s2">"type"</span>: <span class="s2">"billet"</span>,
+    <span class="s2">"payee_id"</span>: 1,
     <span class="s2">"bank_account_id"</span>: 1,
     <span class="s2">"portfolio_code"</span>: <span class="s2">"17"</span>,
     <span class="s2">"agreement_code"</span>: <span class="s2">"12345678"</span>,
@@ -1464,7 +1465,8 @@ EXEMPLO
         <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"self"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charge_configs/1"</span><span class="o">}</span>,
         <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"update"</span>,<span class="s2">"method"</span>:<span class="s2">"PUT"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charge_configs/1"</span><span class="o">}</span>,
         <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"destroy"</span>,<span class="s2">"method"</span>:<span class="s2">"DELETE"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charge_configs/1"</span><span class="o">}</span>,
-        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"bank_account"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/bank_accounts/1"</span><span class="o">}</span>
+        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"bank_account"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/bank_accounts/1"</span><span class="o">}</span>,
+        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"payee"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/payee/1"</span><span class="o">}</span>
       <span class="o">]</span>
   <span class="o">}</span>
 
@@ -1517,6 +1519,11 @@ EXEMPLO
 <td>status</td>
 <td>string</td>
 <td>&#39;ok&rsquo; ou &#39;pending&rsquo; para indicar se configuração de cobrança está ou não homologada, respectivamente</td>
+</tr>
+<tr>
+<td>payee_id</td>
+<td>integer</td>
+<td>identificador do beneficiário desta configuração de cobrança no Cobrato</td>
 </tr>
 <tr>
 <td>bank_account_id</td>
@@ -1629,6 +1636,11 @@ EXEMPLO
 <td>indica o status, ou etapa, de homologação em que configuração de cobrança está (&#39;pending&rsquo;, &#39;production_tests&rsquo;, &#39;ok&rsquo;)</td>
 </tr>
 <tr>
+<td>payee_id</td>
+<td>integer</td>
+<td>identificador do beneficiário desta configuração de cobrança no Cobrato</td>
+</tr>
+<tr>
 <td>gateway_name</td>
 <td>string</td>
 <td>nome do gateway de pagamento (&#39;cielo-ws15&rsquo;, &#39;cielo-api30&rsquo;)</td>
@@ -1679,6 +1691,7 @@ EXEMPLO DE CORPO DA RESPOSTA <span class="o">(</span>BOLETO<span class="o">)</sp
   <span class="o">{</span>
     <span class="s2">"id"</span>: 1,
     <span class="s2">"type"</span>: <span class="s2">"billet"</span>,
+    <span class="s2">"payee_id"</span>: 1,
     <span class="s2">"bank_account_id"</span>: 1,
     <span class="s2">"portfolio_code"</span>: <span class="s2">"17"</span>,
     <span class="s2">"agreement_code"</span>: <span class="s2">"12345678"</span>,
@@ -1699,7 +1712,8 @@ EXEMPLO DE CORPO DA RESPOSTA <span class="o">(</span>BOLETO<span class="o">)</sp
         <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"self"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charge_configs/1"</span><span class="o">}</span>,
         <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"update"</span>,<span class="s2">"method"</span>:<span class="s2">"PUT"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charge_configs/1"</span><span class="o">}</span>,
         <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"destroy"</span>,<span class="s2">"method"</span>:<span class="s2">"DELETE"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charge_configs/1"</span><span class="o">}</span>,
-        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"bank_account"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/bank_accounts/1"</span><span class="o">}</span>
+        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"bank_account"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/bank_accounts/1"</span><span class="o">}</span>,
+        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"payee"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/payees/1"</span><span class="o">}</span>
       <span class="o">]</span>
   <span class="o">}</span>
 
@@ -1745,6 +1759,16 @@ EXEMPLO DE CORPO DA RESPOSTA
 
 <p>Retorna uma lista em JSON contendo todas as Configurações de Cobrança que pertencem a sua Conta de Serviço.</p>
 
+<p>É possível filtrar a lista através dos seguintes parâmetros:</p>
+
+<ul>
+<li><code class="prettyprint">type</code>: Filtra pelo tipo de configuração de cobrança. O valor a ser informado é string com um dos tipos existentes de configuração de cobrança.</li>
+<li><code class="prettyprint">payee_ids</code>: Filtra pelos beneficiários informados. O valor informado é uma <strong>lista*</strong> de ids dos beneficiários.</li>
+<li><code class="prettyprint">payee_national_identifiers</code>: Filtra pelos beneficiários informados. O valor informado é uma <strong>lista*</strong> de número de documentos dos beneficiários.</li>
+</ul>
+
+<p><strong>lista*</strong> Os valores em &ldquo;lista&rdquo; devem ser enviados da seguinte forma: <code class="prettyprint">url?payee_ids[]=15&amp;payee_ids[]=42</code>.</p>
+
 <h2 id="cria-o-de-configura-o-de-cobran-a">Criação de Configuração de Cobrança</h2>
 <pre class="highlight shell"><code>Criar Configuração de Cobrança
 
@@ -1761,6 +1785,7 @@ EXEMPLO DE REQUISIÇÃO
     -X POST https://app.cobrato.com/api/v1/charge_configs <span class="se">\</span>
     -d <span class="s1">'{
           "type": "billet",
+          "payee_id": "1",
           "bank_account_id": "1",
           "portfolio_code": "17",
           "agreement_code": "12345678",
@@ -1814,6 +1839,11 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <td>type</td>
 <td>string</td>
 <td>(opcional) indica o tipo da configuração de cobrança. Neste caso deve ser informado &ldquo;billet&rdquo; ou deixado em branco, pois este é o valor padrão</td>
+</tr>
+<tr>
+<td>payee_id</td>
+<td>integer</td>
+<td><strong>(requerido)</strong> código de identificação do beneficiário ao qual a configuração de cobrança irá pertencer</td>
 </tr>
 <tr>
 <td>bank_account_id</td>
@@ -1906,6 +1936,11 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <td>type</td>
 <td>string</td>
 <td><strong>(requerido)</strong> indica o tipo da configuração de cobrança. Neste caso deve ser informado &ldquo;payment_gateway&rdquo;</td>
+</tr>
+<tr>
+<td>payee_id</td>
+<td>integer</td>
+<td><strong>(requerido)</strong> código de identificação do beneficiário ao qual a configuração de cobrança irá pertencer</td>
 </tr>
 <tr>
 <td>name</td>
@@ -2012,6 +2047,11 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 </tr>
 </thead><tbody>
 <tr>
+<td>payee_id</td>
+<td>integer</td>
+<td><strong>(requerido)</strong> código de identificação do beneficiário ao qual a configuração de cobrança irá pertencer</td>
+</tr>
+<tr>
 <td>portfolio_code</td>
 <td>string</td>
 <td><strong>(requerido)</strong> código de portfólio, validação conforme o banco</td>
@@ -2097,6 +2137,11 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <td>name</td>
 <td>string</td>
 <td><strong>(requerido)</strong> nome que identifica esta configuração de cobrança</td>
+</tr>
+<tr>
+<td>payee_id</td>
+<td>integer</td>
+<td><strong>(requerido)</strong> código de identificação do beneficiário ao qual a configuração de cobrança irá pertencer</td>
 </tr>
 <tr>
 <td>gateway_id</td>
@@ -3240,6 +3285,18 @@ EXEMPLO DE CORPO DA RESPOSTA
 </code></pre>
 
 <p>Retorna uma lista em JSON contendo todos as cobranças que pertencem a sua Conta de Serviço.</p>
+
+<p>É possível filtrar a lista através dos seguintes parâmetros:</p>
+
+<ul>
+<li><code class="prettyprint">type</code>: Filtra pelo tipo de cobrança. O valor a ser informado é string com um dos tipos existentes de cobrança.</li>
+<li><code class="prettyprint">remittable</code>: Filtra as cobranças remessáveis, ou seja, passíveis de geração de arquivo de remessa. É necessária apenas a presença do parâmetro, não importando seu valor.</li>
+<li><code class="prettyprint">charge_config_ids</code>: Filtra pelas configurações de cobrança informadas. O valor informado é uma <strong>lista*</strong> de ids das configurações de cobrança.</li>
+<li><code class="prettyprint">payee_ids</code>: Filtra pelos beneficiários informados. O valor informado é uma <strong>lista*</strong> de ids dos beneficiários.</li>
+<li><code class="prettyprint">payee_national_identifiers</code>: Filtra pelos beneficiários informados. O valor informado é uma <strong>lista*</strong> de número de documentos dos beneficiários.</li>
+</ul>
+
+<p><strong>lista*</strong> Os valores em &ldquo;lista&rdquo; devem ser enviados da seguinte forma: <code class="prettyprint">url?charge_config_ids[]=15&amp;charge_config_ids[]=42</code>.</p>
 
 <h2 id="cria-o-de-cobran-a">Criação de Cobrança</h2>
 <pre class="highlight shell"><code>Criar Cobrança
@@ -4972,6 +5029,135 @@ pode ser verificado no atributo <code class="prettyprint">reusability_error_mess
 <td>soft_descriptor</td>
 <td>string</td>
 <td>(opcional) descritor que irá aparecer na fatura do cartão referente à cobrança de homologação (no máximo 13 caracteres)</td>
+</tr>
+</tbody></table>
+
+<p><strong>payer_attributes</strong></p>
+
+<aside class="notice">
+Caso exista um Pagador (Payer) com o mesmo <code>national_identifier</code>, não será criado um novo, mas sim atualizado o existente.
+</aside>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>national_identifier_type</td>
+<td>string</td>
+<td><strong>(requerido)</strong> tipo do documento do pagador (cpf ou cnpj)</td>
+</tr>
+<tr>
+<td>national_identifier</td>
+<td>string</td>
+<td><strong>(requerido)</strong> documento do pagador</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td><strong>(requerido)</strong> nome do pagador</td>
+</tr>
+<tr>
+<td>number</td>
+<td>string</td>
+<td>(opcional) número do endereço do pagador</td>
+</tr>
+<tr>
+<td>complement</td>
+<td>string</td>
+<td>(opcional) complemento do endereço do pagador</td>
+</tr>
+<tr>
+<td>street</td>
+<td>string</td>
+<td>(opcional) rua do endereço do pagador</td>
+</tr>
+<tr>
+<td>neighbourhood</td>
+<td>string</td>
+<td>(opcional) bairro do endereço do pagador</td>
+</tr>
+<tr>
+<td>zipcode</td>
+<td>string</td>
+<td>(opcional) cep do endereço do pagador</td>
+</tr>
+<tr>
+<td>city</td>
+<td>string</td>
+<td>(opcional) cidade do endereço do pagador</td>
+</tr>
+<tr>
+<td>state</td>
+<td>string</td>
+<td>(opcional) sigla do estado do endereço do pagador (&ldquo;RJ&rdquo; por exemplo)</td>
+</tr>
+</tbody></table>
+
+<h2 id="atualiza-o-de-cart-o-de-cr-dito">Atualização de Cartão de Crédito</h2>
+<pre class="highlight shell"><code>Atualizar Cartão de Crédito
+
+DEFINIÇÃO
+
+  PUT https://app.cobrato.com/api/v1/credit_cards/:credit_card_id
+  PATCH https://app.cobrato.com/api/v1/credit_cards/:credit_card_id
+
+EXEMPLO DE REQUISIÇÃO
+
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X <span class="se">\</span>
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
+    -X PATCH https://app.cobrato.com/api/v1/credit_cards/1 <span class="se">\</span>
+    -d <span class="s1">'{
+        "payer_id": 5
+      }'</span>
+
+EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
+
+    200 OK
+
+EXEMPLO DE ESTADO DA RESPOSTA COM BENEFICIÁRIO INEXISTENTE
+
+    404 Not Found
+
+EXEMPLO DE ESTADO DA RESPOSTA COM INSUCESSO
+
+    422 Unprocessable Entity
+
+EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
+
+    <span class="o">{</span>
+      <span class="s2">"errors"</span>: <span class="o">{</span>
+        <span class="s2">"payer_id"</span>: <span class="o">[</span><span class="s2">"não existe para a sua conta"</span><span class="o">]</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+
+</code></pre>
+
+<p>Atualiza um determinado Cartão de Crédito, retornado as informações do mesmo caso haja sucesso. Se houverem erros, eles serão informados no corpo da resposta.</p>
+
+<p><strong>Parâmetros</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>payer_id</td>
+<td>integer</td>
+<td><strong>(requerido, se não enviar payer_attributes )</strong> identificador do pagador ao qual este cartão pertence (caso seja fornecido, o parâmetro payer_attributes será ignorado)</td>
+</tr>
+<tr>
+<td>payer_attributes*</td>
+<td>object</td>
+<td><strong>(requerido, se não enviar payer_id )</strong> atributos para a criação de um novo pagador ou atualização de um pagador existente com o mesmo documento (national_identifier)</td>
 </tr>
 </tbody></table>
 
