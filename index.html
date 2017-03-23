@@ -207,6 +207,28 @@ itens por página.</p>
 
 </code></pre>
 
+<h2 id="restri-o">Restrição</h2>
+
+<p>Toda resposta de requisição conterá os headers X-RateLimit-Limit, X-RateLimit-Reset e X-RateLimit-Remaining, significando respectivamente o limite de requisições por minuto, a data em que a contagem será resetada e quantas requisições restam.</p>
+
+<p>Cada token de autorização está limitado a 60 requests por minuto. Após atingir a cota, todo acesso irá retornar erro 429 Too Many Requests até que o número de acessos seja resetado. Os acessos são resetados de 1 em 1 minuto, ou seja, se você realizou um request às 17:43:53, o reset acontecerá às 17:44:00 e não 17:44:53.</p>
+
+<aside class="notice">
+  O Cobranto ainda está em fase de coleta de dados para analise das requisições, por tanto ainda não está restringindo o acesso à API. Futuramente estes valores poderão ser alterados.
+</aside>
+<pre class="highlight shell"><code>
+  EXEMPLO DE RESPOSTA
+
+  HTTP/1.1 429 TOO MANY REQUESTS
+  Content-Type: application/json; <span class="nv">charset</span><span class="o">=</span>utf-8
+  Date: Wed, 26 Jan 2011 12:56:45 GMT
+  Retry-After: 60
+  X-RateLimit-Limit: 60
+  X-RateLimit-Reset: Wed, 26 Jan 2011 12:57:00 GMT
+  X-RateLimit-Remaining: -1
+
+</code></pre>
+
           <h1 id="benefici-rio">Beneficiário</h1>
 <pre class="highlight shell"><code>Beneficiário
 
