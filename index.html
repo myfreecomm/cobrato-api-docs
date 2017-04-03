@@ -1510,7 +1510,10 @@ EXEMPLO
 <p>As Configurações de Cobrança do tipo <strong>Boleto</strong> (billet), pertencem as suas contas bancárias, sendo assim é necessário que sempre haja ao menos uma conta bancária para criação desse tipo configuração de cobrança, que também tem suas validações de acordo com o banco de sua conta bancária.</p>
 
 <aside class="info">
-  Quando uma Configuração de Cobrança do tipo Boleto é criada, é também criada, automaticamente, uma cobrança de homologação. Para a Configuração de Cobrança ser homologada, a Cobrança de homologação deve passar por todo o fluxo de cobrança do tipo boleto, ou seja, ser registrada no banco via arquivo de remessa (caso necessário), paga, o valor entrar na conta bancária e o arquivo de retorno ser enviado ao Cobrato. Até que a configuração de cobrança seja homologada, todas as cobranças criadas para esta configuração deverão ser de homologação.
+  Para homologar a Configuração de Cobrança existe uma série de passos que você encontra em
+  <a href="https://app.cobrato.com/charge_configs">nossa interface web</a>. Até 
+  que a Configuração tenha o status &ldquo;ok&rdquo; (Homologado), todas as cobranças criadas para esta Configuração 
+  deverão ser para homologação.
 </aside>
 
 <p><strong>Parâmetros</strong></p>
@@ -2867,12 +2870,12 @@ EXEMPLO
 <tr>
 <td>instructions</td>
 <td>string</td>
-<td>instruções de pagamento do boleto, por padrão &ldquo;Pagável em qualquer agência até data do vencimento.&rdquo;</td>
+<td>instruções de pagamento do boleto</td>
 </tr>
 <tr>
 <td>demonstrative</td>
 <td>string</td>
-<td>demonstrativo do Boleto, por padrão &ldquo;Não receber após o vencimento.&rdquo;</td>
+<td>demonstrativo do Boleto</td>
 </tr>
 <tr>
 <td>notification_emails</td>
@@ -3052,7 +3055,7 @@ EXEMPLO
 <tr>
 <td>charge_config_id</td>
 <td>integer</td>
-<td>identificador da configuração de cobrança a qual esta cobrança pertece</td>
+<td>identificador da configuração de cobrança a qual esta cobrança pertence</td>
 </tr>
 <tr>
 <td>charged_amount</td>
@@ -3408,7 +3411,7 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <tr>
 <td>document_number</td>
 <td>string</td>
-<td>(opcional) número do documento é o número utilizado e controlado pelo beneficiário para identificar o título de cobrança. Caso não seja informado é atribído automaticamente um valor ateatório de até 10 caracters. Este valor deve ser único para cobranças feitas pelo Banco Bradesco de mesmo valor cobrado, data de vencimento e configuração de cobrança</td>
+<td>(opcional) número do documento é o número utilizado e controlado pelo beneficiário para identificar o título de cobrança. Caso não seja informado é atribuído automaticamente um valor aleatório de até 10 caracteres. Este valor deve ser único para cobranças feitas pelo Banco Bradesco de mesmo valor cobrado, data de vencimento e configuração de cobrança</td>
 </tr>
 <tr>
 <td>notification_emails</td>
@@ -3458,12 +3461,12 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <tr>
 <td>instructions</td>
 <td>string</td>
-<td>(opcional) instruções de pagamento do boleto, por padrão &ldquo;Pagável em qualquer agência até data do vencimento.&rdquo; (pode ser linhas separadas por &ldquo;\n&rdquo;)</td>
+<td>(opcional) instruções de pagamento do boleto. As linhas devem ser separadas por &ldquo;\n&rdquo;. Deve ter no máximo 9 linhas com 65 caracteres cada, sendo que se tiver definido multa e juros para a cobrança, será permitido no máximo 6 linhas, pois 3 já serão utilizadas automaticamente.</td>
 </tr>
 <tr>
 <td>demonstrative</td>
 <td>string</td>
-<td>(opcional) demonstrativo do Boleto, por padrão &ldquo;Não receber após o vencimento.&rdquo; (pode ser linhas separadas por &ldquo;\n&rdquo;)</td>
+<td>(opcional) demonstrativo do Boleto. As linhas devem ser separadas por &ldquo;\n&rdquo;. Deve ter no máximo 9 linhas com 65 caracteres cada, sendo que se tiver definido multa e juros para a cobrança, será permitido no máximo 6 linhas, pois 3 já serão utilizadas automaticamente.</td>
 </tr>
 <tr>
 <td>charge_template_id</td>
@@ -3513,7 +3516,7 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <tr>
 <td>email_reply_to</td>
 <td>string</td>
-<td>(opcional) Endereço de email a ser utilizado na respsta ao email de notificação de cobrança, caso a opção auto_send_billet estiver com valor &#39;true&rsquo;</td>
+<td>(opcional) Endereço de email a ser utilizado na resposta ao email de notificação de cobrança, caso a opção auto_send_billet estiver com valor &#39;true&rsquo;</td>
 </tr>
 </tbody></table>
 
@@ -3883,7 +3886,7 @@ Para cobranças do tipo <strong>Boleto</strong> os campos 'paid_at&rsquo;, 'paid
 <tr>
 <td>document_number</td>
 <td>string</td>
-<td>(opcional) número do documento é o número utilizado e controlado pelo beneficiário para identificar o título de cobrança. Caso não seja informado é atribído automaticamente um valor ateatório de até 10 caracters. Este valor deve ser único para cobranças feitas pelo Banco Bradesco de mesmo valor cobrado, data de vencimento e configuração de cobrança</td>
+<td>(opcional) número do documento é o número utilizado e controlado pelo beneficiário para identificar o título de cobrança. Caso não seja informado é atribuído automaticamente um valor aleatório de até 10 caracteres. Este valor deve ser único para cobranças feitas pelo Banco Bradesco de mesmo valor cobrado, data de vencimento e configuração de cobrança</td>
 </tr>
 <tr>
 <td>notification_emails</td>
@@ -3933,12 +3936,12 @@ Para cobranças do tipo <strong>Boleto</strong> os campos 'paid_at&rsquo;, 'paid
 <tr>
 <td>instructions</td>
 <td>string</td>
-<td>(opcional) instruções de pagamento do boleto, por padrão &ldquo;Pagável em qualquer agência até data do vencimento.&rdquo; (pode ser linhas separadas por &ldquo;\n&rdquo;)</td>
+<td>(opcional) instruções de pagamento do boleto. As linhas devem ser separadas por &ldquo;\n&rdquo;. Deve ter no máximo 9 linhas com 65 caracteres cada, sendo que se tiver definido multa e juros para a cobrança, será permitido no máximo 6 linhas, pois 3 já serão utilizadas automaticamente.</td>
 </tr>
 <tr>
 <td>demonstrative</td>
 <td>string</td>
-<td>(opcional) demonstrativo do Boleto, por padrão &ldquo;Não receber após o vencimento.&rdquo; (pode ser linhas separadas por &ldquo;\n&rdquo;)</td>
+<td>(opcional) demonstrativo do Boleto. As linhas devem ser separadas por &ldquo;\n&rdquo;. Deve ter no máximo 9 linhas com 65 caracteres cada, sendo que se tiver definido multa e juros para a cobrança, será permitido no máximo 6 linhas, pois 3 já serão utilizadas automaticamente.</td>
 </tr>
 <tr>
 <td>registrable</td>
@@ -4486,7 +4489,7 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
 <p>Atualiza a data de vencimento do boleto bancário. É importante ressaltar que <strong>é necessária a criação e envio de um novo arquivo de remessa para efetivar a renovação junto ao banco</strong>.</p>
 
-<p>A renovação só será permitida caso a cobrança seja do tipo registrada e já esteja registrada junto ao banco. Caso contrário, é possível nenovar editando a data de vencimento da cobrança.</p>
+<p>A renovação só será permitida caso a cobrança seja do tipo registrada e já esteja registrada junto ao banco. Caso contrário, é possível renovar editando a data de vencimento da cobrança.</p>
 
 <p>Retorna um JSON contento informações atualizadas da cobrança em caso de sucesso ou erros caso haja algum.</p>
 
@@ -4664,7 +4667,7 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
 <p>Para boletos <strong>sem registro</strong>, a cobrança pode ser cancelada enquanto não tiver sido recebida.</p>
 
-<p>Para boletos <strong>com registro</strong>, por sua vez, enquanto não tiver sido recebida e tiver sido registrada ou não tiver arquivo de remessa (<code class="prettyprint">registration_status</code> com um dos valores: &ldquo;registered&rdquo; ou &ldquo;without_remittance&rdquo;). Após ser cancelada no cobrato será necessário criar um arquivo de remessa para notificar o Banco do cancelamento da cobrança.</p>
+<p>Para boletos <strong>com registro</strong>, por sua vez, enquanto não tiver sido recebida e tiver sido registrada ou não tiver arquivo de remessa (<code class="prettyprint">registration_status</code> com um dos valores: &ldquo;registered&rdquo; ou &ldquo;without_remittance&rdquo;). Após ser cancelada no Cobrato será necessário criar um arquivo de remessa para notificar o Banco do cancelamento da cobrança.</p>
 
 <h2 id="revogar-cobran-a">Revogar Cobrança</h2>
 <pre class="highlight shell"><code>Revogar Cobrança
