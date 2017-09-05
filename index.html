@@ -6100,7 +6100,7 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
 </code></pre>
 
-<p>Cria um novo webhook, retornando as informações do mesmo caso haja sucesso. Para realizar o cadastro é necessária que a URL informa aceite as requisições POST e GET, respondendo sempre com HTTP 200. Afim de verificação da URL, o Cobrato fará requisições testes a mesma</p>
+<p>Cria um novo webhook, retornando as informações do mesmo caso haja sucesso. Para realizar o cadastro é necessária que a URL informa aceite requisições POST, respondendo sempre com HTTP 200. No momento da criação, afim verificar a URL informada, o Cobrato fará uma requisição de teste à mesma. A requisição de teste será um <a href="#payloads">payload</a> com o corpo <code class="prettyprint">{&quot;test&quot;: true}</code>.</p>
 
 <p><strong>Parâmetros</strong></p>
 
@@ -6209,7 +6209,48 @@ EXEMPLO DE ESTADO DA RESPOSTA COM WEBHOOK INEXISTENTE
 
           <h1 id="payloads">Payloads</h1>
 
-<p>São as requisições enviadas pelo webhook do Cobrato para uma determinada URL para notificar que certas ações ocorreram. Estas ações notificadas são as seguintes:</p>
+<p>São as requisições enviadas pelo webhook do Cobrato para uma determinada URL notificando a ocorrência de <a href="#eventos-notificados">certos eventos</a>.</p>
+
+<p>Quando um destes eventos ocorre, o webhook envia o payload (para a URL definida na criação do Webhook) em uma requisição HTTP do tipo POST com os seguintes <em>headers</em>:</p>
+
+<ul>
+<li><strong>Accept</strong>: application/json</li>
+<li><strong>Content-Type</strong>: application/json</li>
+<li><strong>User-Agent</strong>: Cobrato v1</li>
+<li><strong>X-Cobrato-Signature</strong>: &lt;some-signature&gt;</li>
+<li><strong>X-Cobrato-Requestid</strong>: &lt;some-request-id&gt;</li>
+</ul>
+
+<p>Os dois últimos fazem parte da assinatura do payload, detalhada a seguir.</p>
+
+<aside class="notice">
+  A URL definida na criação do Webhook deve estar disponível e respondendo com HTTP 200 ok aos payloads. Se a resposta for diferente ou não tiver qualquer resposta, o Cobrato fará 5 novas tentativas até não tentar mais.
+</aside>
+
+<h3 id="assinatura-do-payload">Assinatura do Payload</h3>
+
+<p>Por medidas de segurança, você pode verificar a assinatura do payload antes de tomar qualquer ação em relação ao payload recebido. Isso pode evitar que alguém se passe pelo Cobrato e enviei payloads falsos de eventos que não ocorreram de fato.</p>
+<pre class="highlight ruby"><code><span class="c1"># EXEMPLO DE CÁCULO PARA VERIFICAÇÃO DA SIGNATURE (ruby)</span>
+
+<span class="n">secret</span> <span class="o">=</span> <span class="s1">'segredo definido na criação do Webhook'</span>
+<span class="n">content</span> <span class="o">=</span> <span class="s2">"</span><span class="si">#{</span><span class="n">request</span><span class="p">.</span><span class="nf">headers</span><span class="p">[</span><span class="s1">'X-Cobrato-RequestId'</span><span class="p">]</span><span class="si">}#{</span><span class="n">request</span><span class="p">.</span><span class="nf">body</span><span class="si">}</span><span class="s2">"</span>
+<span class="n">cobrato_signature</span> <span class="o">=</span> <span class="no">OpenSSL</span><span class="o">::</span><span class="no">HMAC</span><span class="p">.</span><span class="nf">hexdigest</span><span class="p">(</span><span class="no">OpenSSL</span><span class="o">::</span><span class="no">Digest</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s1">'sha1'</span><span class="p">),</span> <span class="n">secret</span><span class="p">,</span> <span class="n">content</span><span class="p">)</span>
+
+<span class="n">cobrato_signature</span> <span class="o">==</span> <span class="n">request</span><span class="p">.</span><span class="nf">headers</span><span class="p">[</span><span class="s1">'X-Cobrato-Signature'</span><span class="p">]</span>
+<span class="c1"># =&gt; true</span>
+</code></pre>
+
+<p><strong>X-Cobrato-RequestId</strong></p>
+
+<p>Este header é único para cada requisição e é utilizado no cálculo do <code class="prettyprint">X-Cobrato-Signature</code>.</p>
+
+<p><strong>X-Cobrato-Signature</strong></p>
+
+<p>Este header é a assinatura do webhook. Este valor pode ser calculado com o HMAC hex digest do <code class="prettyprint">X-Cobrato-RequestId</code> concatenado ao corpo do payload, utilizando o <strong>Segredo</strong> (definido na criação do Webhook) como a chave.</p>
+
+<h3 id="eventos-notificados">Eventos notificados</h3>
+
+<p>Os eventos notificados são os seguintes:</p>
 
 <table><thead>
 <tr>
@@ -6299,27 +6340,6 @@ EXEMPLO DE ESTADO DA RESPOSTA COM WEBHOOK INEXISTENTE
 <td>quando o pagador é excluído</td>
 </tr>
 </tbody></table>
-
-<h3 id="assinatura-do-payload">Assinatura do Payload</h3>
-<pre class="highlight ruby"><code><span class="c1"># EXEMPLO DE CÁCULO PARA VERIFICAÇÃO DA SIGNATURE (ruby)</span>
-
-<span class="n">secret</span> <span class="o">=</span> <span class="s1">'segredo definido na criação do Webhook'</span>
-<span class="n">content</span> <span class="o">=</span> <span class="s2">"</span><span class="si">#{</span><span class="n">request</span><span class="p">.</span><span class="nf">headers</span><span class="p">[</span><span class="s1">'X-Cobrato-RequestId'</span><span class="p">]</span><span class="si">}#{</span><span class="n">request</span><span class="p">.</span><span class="nf">body</span><span class="si">}</span><span class="s2">"</span>
-<span class="n">cobrato_signature</span> <span class="o">=</span> <span class="no">OpenSSL</span><span class="o">::</span><span class="no">HMAC</span><span class="p">.</span><span class="nf">hexdigest</span><span class="p">(</span><span class="no">OpenSSL</span><span class="o">::</span><span class="no">Digest</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s1">'sha1'</span><span class="p">),</span> <span class="n">secret</span><span class="p">,</span> <span class="n">content</span><span class="p">)</span>
-
-<span class="n">cobrato_signature</span> <span class="o">==</span> <span class="n">request</span><span class="p">.</span><span class="nf">headers</span><span class="p">[</span><span class="s1">'X-Cobrato-Signature'</span><span class="p">]</span>
-<span class="c1"># =&gt; true</span>
-</code></pre>
-
-<p>Quando um destes eventos ocorre, o webhook envia o payload (para a URL definida na criação do Webhook) em uma requisição HTTP do tipo POST com dois headers específicos:</p>
-
-<p><strong>X-Cobrato-RequestId</strong></p>
-
-<p>Este header é único para cada requisição e é utilizado no cálculo do <code class="prettyprint">X-Cobrato-Signature</code>.</p>
-
-<p><strong>X-Cobrato-Signature</strong></p>
-
-<p>Este header é a assinatura do webhook. Este valor pode ser calculado com o HMAC hex digest do <code class="prettyprint">X-Cobrato-RequestId</code> concatenado ao corpo do payload, utilizando o <strong>Segredo</strong> (definido na criação do Webhook) como a chave.</p>
 
 <h2 id="cobran-a-criada">Cobrança criada</h2>
 <pre class="highlight shell"><code>Cobrança Criada
