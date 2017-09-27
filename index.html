@@ -6224,7 +6224,7 @@ EXEMPLO DE ESTADO DA RESPOSTA COM WEBHOOK INEXISTENTE
 <p>Os dois últimos fazem parte da assinatura do payload, detalhada a seguir.</p>
 
 <aside class="notice">
-  A URL definida na criação do Webhook deve estar disponível e respondendo com HTTP 200 ok aos payloads. Se a resposta for diferente ou não tiver qualquer resposta, o Cobrato fará 5 novas tentativas até não tentar mais.
+  A URL definida na criação do Webhook deve estar disponível e respondendo com HTTP 200 ok aos payloads. O Cobrato fará 5 tentativas de notificação. Após a 5ª tentativa sem sucesso, os administradores da conta serão notificados via e-mail e o endpoint deste webhook será marcado como &ldquo;Com erro&rdquo;. O Cobrato fará então mais 5 tentativas no intervalo de 48 horas até não tentar mais.
 </aside>
 
 <h3 id="assinatura-do-payload">Assinatura do Payload</h3>
