@@ -3416,12 +3416,12 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <tr>
 <td>notification_emails</td>
 <td>array of strings</td>
-<td>(opcional) emails que receberão notificações sobre a cobrança</td>
+<td>(opcional - requerido caso <code class="prettyprint">auto_send_billet</code> seja <code class="prettyprint">true</code>) emails que receberão notificações sobre a cobrança</td>
 </tr>
 <tr>
 <td>payer_emails</td>
 <td>array of strings</td>
-<td>(opcional) (DEPRECATED: use notification_emails) emails que receberão notificações sobre a cobrança</td>
+<td>(DEPRECATED: use notification_emails) (opcional - requerido caso <code class="prettyprint">auto_send_billet</code> seja <code class="prettyprint">true</code>) emails que receberão notificações sobre a cobrança</td>
 </tr>
 <tr>
 <td>document_date</td>
@@ -3640,12 +3640,12 @@ Se for utilizado um cartão já existente (enviando o parâmetro <code>credit_ca
 <tr>
 <td>notification_emails</td>
 <td>array of strings</td>
-<td>(opcional) emails que receberão notificações sobre a cobrança</td>
+<td>(opcional  - requerido caso <code class="prettyprint">auto_send_billet</code> seja <code class="prettyprint">true</code>) emails que receberão notificações sobre a cobrança</td>
 </tr>
 <tr>
 <td>payer_emails</td>
 <td>array of strings</td>
-<td>(opcional) (DEPRECATED: use notification_emails) emails que receberão notificações sobre a cobrança</td>
+<td>(DEPRECATED: use notification_emails) (opcional  - requerido caso <code class="prettyprint">auto_send_billet</code> seja <code class="prettyprint">true</code>) emails que receberão notificações sobre a cobrança</td>
 </tr>
 <tr>
 <td>payer_id</td>
@@ -4711,6 +4711,257 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 </code></pre>
 
 <p>Primeiro tenta excluir a cobrança. Caso não seja possível, tenta cancelá-la. Caso também não seja possível, retorna a resposta de insucesso.</p>
+
+          <h1 id="configura-o-de-pagamento">Configuração de Pagamento</h1>
+
+<aside class="warning">
+Por enquanto, esta API está disponível apenas para contas beta.
+</aside>
+<pre class="highlight shell"><code>Configuração de Pagamento
+
+EXEMPLO
+
+  <span class="o">{</span>
+    <span class="s2">"id"</span>: 1,
+    <span class="s2">"bank_account_id"</span>: 1,
+    <span class="s2">"name"</span>: <span class="s2">"Configuração de Pagamento"</span>,
+    <span class="s2">"_links"</span>:
+      <span class="o">[</span>
+        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"self"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/payment_configs/1"</span><span class="o">}</span>,
+        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"update"</span>,<span class="s2">"method"</span>:<span class="s2">"PUT"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/payment_configs/1"</span><span class="o">}</span>,
+        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"destroy"</span>,<span class="s2">"method"</span>:<span class="s2">"DELETE"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/payment_configs/1"</span><span class="o">}</span>,
+        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"bank_account"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/bank_accounts/1"</span><span class="o">}</span>
+      <span class="o">]</span>
+  <span class="o">}</span>
+
+</code></pre>
+
+<h2 id="informa-es-da-configura-o-de-pagamento">Informações da Configuração de Pagamento</h2>
+<pre class="highlight shell"><code>Mostrar Configuração de Pagamento
+
+DEFINIÇÃO
+
+  GET https://app.cobrato.com/api/v1/payment_configs/:payment_config_id
+
+EXEMPLO DE REQUISIÇÃO
+
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X <span class="se">\</span>
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
+    -X GET https://app.cobrato.com/api/v1/payment_configs/:payment_config_id
+
+EXEMPLO DE ESTADO DA RESPOSTA
+
+    200 OK
+
+EXEMPLO DE CORPO DA RESPOSTA
+
+  <span class="o">{</span>
+    <span class="s2">"id"</span>: 1,
+    <span class="s2">"bank_account_id"</span>: 1,
+    <span class="s2">"name"</span>: <span class="s2">"Configuração de Pagamento"</span>,
+    <span class="s2">"_links"</span>:
+      <span class="o">[</span>
+        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"self"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/payment_configs/1"</span><span class="o">}</span>,
+        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"update"</span>,<span class="s2">"method"</span>:<span class="s2">"PUT"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/payment_configs/1"</span><span class="o">}</span>,
+        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"destroy"</span>,<span class="s2">"method"</span>:<span class="s2">"DELETE"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/payment_configs/1"</span><span class="o">}</span>,
+        <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"bank_account"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/bank_accounts/1"</span><span class="o">}</span>
+      <span class="o">]</span>
+  <span class="o">}</span>
+
+</code></pre>
+
+<p>Retorna as informações detalhadas da Configuração de Pagamento informada em JSON e também suas referências.</p>
+
+<h2 id="lista-de-todas-as-configura-es-de-pagamento">Lista de Todas as Configurações de Pagamento</h2>
+<pre class="highlight shell"><code>Listar Configurações de Pagamento
+
+DEFINIÇÃO
+
+  GET https://app.cobrato.com/api/v1/payment_configs
+
+EXEMPLO DE REQUISIÇÃO
+
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X <span class="se">\</span>
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
+    -X GET https://app.cobrato.com/api/v1/payment_configs
+
+EXEMPLO DE ESTADO DA RESPOSTA
+
+    200 OK
+
+EXEMPLO DE CORPO DA RESPOSTA
+
+  <span class="o">{</span>
+    <span class="s2">"payment_configs"</span>:
+      <span class="o">[</span>
+        <span class="o">{</span>
+          // informações configuração de pagamento 1
+        <span class="o">}</span>,
+        <span class="o">{</span>
+          // informações configuração de pagamento 2
+        <span class="o">}</span>,
+        ...
+      <span class="o">]</span>
+  <span class="o">}</span>
+
+</code></pre>
+
+<p>Retorna uma lista em JSON contendo todas as Configurações de Pagamento que pertencem a sua Conta de Serviço.</p>
+
+<h2 id="cria-o-de-configura-o-de-pagamento">Criação de Configuração de Pagamento</h2>
+<pre class="highlight shell"><code>Criar Configuração de Pagamento
+
+DEFINIÇÃO
+
+  POST https://app.cobrato.com/api/v1/payment_configs
+
+EXEMPLO DE REQUISIÇÃO
+
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X <span class="se">\</span>
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
+    -X POST https://app.cobrato.com/api/v1/payment_configs <span class="se">\</span>
+    -d <span class="s1">'{
+          "bank_account_id": "1",
+          "name": "Configuração de Pagamento"
+        }'</span>
+
+EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
+
+    201 Created
+
+EXEMPLO DE ESTADO DA RESPOSTA COM INSUCESSO
+
+    422 Unprocessable Entity
+
+EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
+
+  <span class="o">{</span>
+    <span class="s2">"errors"</span>:
+      <span class="o">{</span>
+        <span class="s2">"bank_account_id"</span>:[<span class="s2">"não pode ficar em branco"</span><span class="o">]</span>,
+        <span class="s2">"name"</span>:[<span class="s2">"não pode ficar em branco"</span><span class="o">]</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
+
+</code></pre>
+
+<p>Cria uma nova Configuração de Pagamento, retornando as informações da mesma em caso de sucesso. Se houverem erros eles serão informados no corpo da resposta.</p>
+
+<h3 id="boleto">Boleto</h3>
+
+<p><strong>Parâmetros</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>bank_account_id</td>
+<td>integer</td>
+<td><strong>(requerido)</strong> código de identificação da conta bancária em que a configuração de pagamento irá pertencer</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td><strong>(requerido)</strong> nome que identifica esta configuração de pagamento</td>
+</tr>
+</tbody></table>
+
+<h2 id="atualiza-o-de-configura-o-de-pagamento">Atualização de Configuração de Pagamento</h2>
+<pre class="highlight shell"><code>Atualizar Configuração de Pagamento
+
+DEFINIÇÃO
+
+  PUT https://app.cobrato.com/api/v1/payment_configs/:payment_config_id
+  PATCH https://app.cobrato.com/api/v1/payment_configs/:payment_config_id
+
+EXEMPLO DE REQUISIÇÃO
+
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X <span class="se">\</span>
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
+    -X PATCH https://app.cobrato.com/api/v1/payent_configs/:payent_config_id <span class="se">\</span>
+    -d <span class="s1">'{
+          "name": "Novo Nome"
+        }'</span>
+
+EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
+
+    200 OK
+
+EXEMPLO DE ESTADO DA RESPOSTA COM CONFIGURAÇÃO DE PAGAMENTO INEXISTENTE
+
+    404 Not Found
+
+EXEMPLO DE ESTADO DA RESPOSTA COM INSUCESSO
+
+    422 Unprocessable Entity
+
+EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
+
+  <span class="o">{</span>
+    <span class="s2">"errors"</span>:
+      <span class="o">{</span>
+        <span class="s2">"name"</span>: <span class="o">[</span><span class="s2">"não pode ficar em branco"</span><span class="o">]</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
+
+</code></pre>
+
+<p>Atualiza a Configuração de Pagamento determinada, retornando as informações da mesma em caso de sucesso. Se houverem erros, eles serão informados no corpo da resposta. A requisição não diferencia a utilização dos verbos PUT e PATCH.</p>
+
+<p><strong>Parâmetros</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>name</td>
+<td>string</td>
+<td><strong>(requerido)</strong> nome que identifica esta configuração de pagamento</td>
+</tr>
+</tbody></table>
+
+<h2 id="exclus-o-de-configura-o-de-pagamento">Exclusão de Configuração de Pagamento</h2>
+<pre class="highlight shell"><code>Excluir Configuração de Pagamento
+
+DEFINIÇÃO
+
+  DELETE https://app.cobrato.com/api/v1/payment_configs/:payment_config_id
+
+EXEMPLO DE REQUISIÇÃO
+
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X <span class="se">\</span>
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
+    -X DELETE https://app.cobrato.com/api/v1/payment_configs/:payment_config_id
+
+EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
+
+    204 No Content
+
+EXEMPLO DE ESTADO DA RESPOSTA COM CONFIGURAÇÃO DE PAGAMENTO INEXISTENTE
+
+    404 Not Found
+
+</code></pre>
+
+<p>Exclui determinada Configuração de Pagamento. As mudanças são irreversíveis.</p>
 
           <h1 id="cart-o-de-cr-dito">Cartão de Crédito</h1>
 <pre class="highlight shell"><code>Cartão de Crédito
