@@ -51,42 +51,51 @@ As Configurações de Cobrança do tipo **Boleto** (billet), pertencem as suas c
 
 <aside class="info">
   Para homologar a Configuração de Cobrança existe uma série de passos que você encontra em
-  <a href="https://app.cobrato.com/charge_configs">nossa interface web</a>. Até 
-  que a Configuração tenha o status "ok" (Homologado), todas as cobranças criadas para esta Configuração 
+  <a href="https://app.cobrato.com/charge_configs">nossa interface web</a>. Até
+  que a Configuração tenha o status "ok" (Homologado), todas as cobranças criadas para esta Configuração
   deverão ser para homologação.
+</aside>
+
+<aside class="info">
+  <strong>Para o banco Daycoval</strong>, é necessário informar os dados de agência, conta e digito verificador da conta
+  bancária do banco correspondente, ou seja, os dados do banco que gerará o boleto bancário. No caso do Daycoval, o banco Itaú.
+  Estes valores serão informados pelo gerente da conta do banco Daycoval.
 </aside>
 
 **Parâmetros**
 
-| Campo                     | Tipo            | Comentário                                                                                                                                                    |
-|---------------------------|-----------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| id                        | integer         |                                                                                                                                                               |
-| type                      | string          | indica o tipo da configuração de cobrança. Nesse caso 'billet'                                                                                                |
-| name                      | string          | nome que identifica esta configuração de cobrança                                                                                                             |
-| status                    | string          | 'ok' ou 'pending' para indicar se configuração de cobrança está ou não homologada, respectivamente                                                            |
-| payee_id                  | integer         | identificador do beneficiário desta configuração de cobrança no Cobrato                                                                                       |
-| bank_account_id           | integer         | identificador da conta bancária desta configuração de cobrança no Cobrato                                                                                     |
-| portfolio_code            | string          | código de portfólio                                                                                                                                           |
-| agreement_code            | string          | código de convênio ou do beneficiário, de acordo com o banco. No caso do Itaú deve ser igual ao campo 'account' da conta bancária                             |
-| agreement_code_digit      | string          | verificador do código de convênio, de acordo com o banco                                                                                                      |
-| initial_number            | integer         | número inicial do nosso número, sendo atribuído automaticamente e sequencialmente as cobranças                                                                |
-| next_number               | integer         | próximo nosso número a ser atribuído a uma cobrança criada a partir desta configuração de cobrança                                                            |
-| end_number                | integer         | número final do nosso número, sendo o último número a ser atribuído, após isso a sequência é reiniciada                                                       |
-| registered_charges        | boolean         | informa se a configuração de cobrança utiliza boletos registrados ou não, sendo false por padrão                                                              |
-| remittance_agreement_code | integer         | número do convênio com o banco (apenas para o Bradesco)                                                                                                       |
-| remittance_cnab_pattern   | integer         | padrão utilizado no arquivo CNAB de remessa                                                                                                                   |
-| initial_remittance_number | integer         | número inicial de remessa, ou seja, qual foi o último número sequencial de remessa enviado para o banco (apenas para o Bradesco)                              |
-| transmission_code         | string          | código de transmissão (apenas para o Santander)                                                                                                               |
-| pre_released_billet       | boolean         | caso a configuração de cobrança utilize boletos registrados, este atributo indica se os boletos podem ser acessados antes do registro no banco ser confirmado |
-| _links                    | array of object | links da configuração de cobrança e de sua conta bancária                                                                                                     |
+| Campo                       | Tipo            | Comentário                                                                                                                                                    |
+|-----------------------------|-----------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| id                          | integer         |                                                                                                                                                               |
+| type                        | string          | indica o tipo da configuração de cobrança. Nesse caso 'billet'                                                                                                |
+| name                        | string          | nome que identifica esta configuração de cobrança                                                                                                             |
+| status                      | string          | 'ok' ou 'pending' para indicar se configuração de cobrança está ou não homologada, respectivamente                                                            |
+| payee_id                    | integer         | identificador do beneficiário desta configuração de cobrança no Cobrato                                                                                       |
+| bank_account_id             | integer         | identificador da conta bancária desta configuração de cobrança no Cobrato                                                                                     |
+| portfolio_code              | string          | código de portfólio                                                                                                                                           |
+| agreement_code              | string          | código de convênio ou do beneficiário, de acordo com o banco. No caso do Itaú deve ser igual ao campo 'account' da conta bancária                             |
+| agreement_code_digit        | string          | verificador do código de convênio, de acordo com o banco                                                                                                      |
+| correspondent_agency        | string          | código da agência bancária do banco correspondente. (Somente para o banco Daycoval)                                                                           |
+| correspondent_account       | string          | número conta bancária do banco correspondente. (Somente para o banco Daycoval)                                                                                |
+| correspondent_account_digit | string          | verificador do número da conta bancária do banco correspondente. (Somente para o banco Daycoval)                                                              |
+| initial_number              | integer         | número inicial do nosso número, sendo atribuído automaticamente e sequencialmente as cobranças                                                                |
+| next_number                 | integer         | próximo nosso número a ser atribuído a uma cobrança criada a partir desta configuração de cobrança                                                            |
+| end_number                  | integer         | número final do nosso número, sendo o último número a ser atribuído, após isso a sequência é reiniciada                                                       |
+| registered_charges          | boolean         | informa se a configuração de cobrança utiliza boletos registrados ou não, sendo false por padrão                                                              |
+| remittance_agreement_code   | integer         | número do convênio com o banco (apenas para o Bradesco)                                                                                                       |
+| remittance_cnab_pattern     | integer         | padrão utilizado no arquivo CNAB de remessa                                                                                                                   |
+| initial_remittance_number   | integer         | número inicial de remessa, ou seja, qual foi o último número sequencial de remessa enviado para o banco (apenas para o Bradesco)                              |
+| transmission_code           | string          | código de transmissão (apenas para o Santander)                                                                                                               |
+| pre_released_billet         | boolean         | caso a configuração de cobrança utilize boletos registrados, este atributo indica se os boletos podem ser acessados antes do registro no banco ser confirmado |
+| _links                      | array of object | links da configuração de cobrança e de sua conta bancária                                                                                                     |
 
 
 ### Gateway de Pagamento
 
 <aside class="info">
   Para homologar a Configuração de Cobrança existe uma série de passos que você encontra em
-  <a href="https://app.cobrato.com/wizard/payment_gateway/configs/new">nossa interface web</a>. Até 
-  que a Configuração tenha o status "ok" (Homologado), todas as cobranças criadas para esta Configuração 
+  <a href="https://app.cobrato.com/wizard/payment_gateway/configs/new">nossa interface web</a>. Até
+  que a Configuração tenha o status "ok" (Homologado), todas as cobranças criadas para esta Configuração
   serão consideradas Cobranças para homologação.
 </aside>
 
@@ -270,24 +279,27 @@ Cria uma nova Configuração de Cobrança, retornando as informações da mesma 
 
 **Parâmetros**
 
-| Campo                     | Tipo    | Comentário                                                                                                                                                                                                      |
-|---------------------------|---------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| type                      | string  | (opcional) indica o tipo da configuração de cobrança. Neste caso deve ser informado "billet" ou deixado em branco, pois este é o valor padrão                                                                   |
-| payee_id                  | integer | **(requerido)** código de identificação do beneficiário ao qual a configuração de cobrança irá pertencer                                                                                                        |
-| bank_account_id           | integer | **(requerido)** código de identificação da conta bancária em que a configuração de cobrança irá pertencer                                                                                                       |
-| portfolio_code            | string  | **(requerido)** código de portfólio, validação conforme o banco                                                                                                                                                 |
-| agreement_code            | string  | **(requerido, com exceção do Itaú onde é preenchido automaticamente)** código de convênio ou do beneficiário, de acordo com o banco                                                                             |
-| agreement_code_digit      | string  | **(requerido, com exceção do HSBC e Itaú, sendo preenchido automaticamente para o último)** verificador do código de convênio, de acordo com o banco                                                            |
-| name                      | string  | **(requerido)** nome que identifica esta configuração de cobrança                                                                                                                                               |
-| initial_number            | integer | **(requerido)** número inicial do nosso número, sendo atribuído automaticamente e sequencialmente às cobranças                                                                                                  |
-| end_number                | integer | (opcional) número final do nosso número, sendo o último número a ser atribuído, após isso a sequência é reiniciada                                                                                              |
-| next_number               | integer | (opcional) próximo nosso número a ser atribuído a uma cobrança criada a partir desta configuração de cobrança (por padrão inicia com o valor de `initial_number` e é incrementado automatica e sequencialmente) |
-| registered_charges        | boolean | (opcional) informa se a configuração de cobrança utiliza boletos registrados ou não, sendo false por padrão                                                                                                     |
-| remittance_agreement_code | integer | (opcional, requerido apenas se registered_charges for `true`) número do convênio com o banco (apenas para o Bradesco)                                                                                           |
-| remittance_cnab_pattern   | integer | (opcional, requerido apenas se registered_charges for `true`) padrão utilizado no arquivo CNAB de remessa. Os valores permitidos são 240 ou 400                                                                 |
-| transmission_code         | string  | (opcional, requerido apenas se registered_charges for `true`) código de transmissão (apenas para o Santander)                                                                                                   |
-| initial_remittance_number | integer | (opcional) número inicial de remessa, ou seja, qual foi o último número sequencial de remessa enviado para o banco (apenas para o Bradesco). Por padrão o valor é 1                                             |
-| pre_released_billet       | boolean | (opcional) caso a configuração de cobrança utilize boletos registrados, este atributo indica se os boletos podem ser acessados antes do registro no banco ser confirmado. Por padrão é `false`                  |
+| Campo                       | Tipo    | Comentário                                                                                                                                                                                                      |
+|-----------------------------|---------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| type                        | string  | (opcional) indica o tipo da configuração de cobrança. Neste caso deve ser informado "billet" ou deixado em branco, pois este é o valor padrão                                                                   |
+| payee_id                    | integer | **(requerido)** código de identificação do beneficiário ao qual a configuração de cobrança irá pertencer                                                                                                        |
+| bank_account_id             | integer | **(requerido)** código de identificação da conta bancária em que a configuração de cobrança irá pertencer                                                                                                       |
+| portfolio_code              | string  | **(requerido)** código de portfólio, validação conforme o banco                                                                                                                                                 |
+| agreement_code              | string  | **(requerido, com exceção do Itaú onde é preenchido automaticamente)** código de convênio ou do beneficiário, de acordo com o banco                                                                             |
+| agreement_code_digit        | string  | **(requerido, com exceção do HSBC e Itaú, sendo preenchido automaticamente para o último)** verificador do código de convênio, de acordo com o banco                                                            |
+| correspondent_agency        | string  | **(requerido, somente para o banco Daycoval)** código da agência bancária do banco correspondente.                                                                                                              |
+| correspondent_account       | string  | **(requerido, somente para o banco Daycoval)** número conta bancária do banco correspondente.                                                                                                                   |
+| correspondent_account_digit | string  | **(requerido, somente para o banco Daycoval)** verificador do número da conta bancária do banco correspondente.                                                                                                 |
+| name                        | string  | **(requerido)** nome que identifica esta configuração de cobrança                                                                                                                                               |
+| initial_number              | integer | **(requerido)** número inicial do nosso número, sendo atribuído automaticamente e sequencialmente às cobranças                                                                                                  |
+| end_number                  | integer | (opcional) número final do nosso número, sendo o último número a ser atribuído, após isso a sequência é reiniciada                                                                                              |
+| next_number                 | integer | (opcional) próximo nosso número a ser atribuído a uma cobrança criada a partir desta configuração de cobrança (por padrão inicia com o valor de `initial_number` e é incrementado automatica e sequencialmente) |
+| registered_charges          | boolean | (opcional) informa se a configuração de cobrança utiliza boletos registrados ou não, sendo false por padrão                                                                                                     |
+| remittance_agreement_code   | integer | (opcional, requerido apenas se registered_charges for `true`) número do convênio com o banco (apenas para o Bradesco)                                                                                           |
+| remittance_cnab_pattern     | integer | (opcional, requerido apenas se registered_charges for `true`) padrão utilizado no arquivo CNAB de remessa. Os valores permitidos são 240 ou 400                                                                 |
+| transmission_code           | string  | (opcional, requerido apenas se registered_charges for `true`) código de transmissão (apenas para o Santander)                                                                                                   |
+| initial_remittance_number   | integer | (opcional) número inicial de remessa, ou seja, qual foi o último número sequencial de remessa enviado para o banco (apenas para o Bradesco). Por padrão o valor é 1                                             |
+| pre_released_billet         | boolean | (opcional) caso a configuração de cobrança utilize boletos registrados, este atributo indica se os boletos podem ser acessados antes do registro no banco ser confirmado. Por padrão é `false`                  |
 
 <aside class="warning">
   <strong>ATENÇÃO!</strong> Caso seu cliente pague o boleto antes do banco ter confirmado seu registro, <strong>o pagamento pode ser devolvido</strong> e/ou o banco pode te cobrar uma sobretaxa. Ao definir o campo <code>pre_released_billet</code> como <code>true</code>, você está assumindo este risco.
@@ -374,22 +386,25 @@ Atualiza a Configuração de Cobrança determinada, retornando as informações 
 
 **Parâmetros**
 
-| Campo                     | Tipo    | Comentário                                                                                                                                                                                     |
-|---------------------------|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| payee_id                  | integer | **(requerido)** código de identificação do beneficiário ao qual a configuração de cobrança irá pertencer                                                                                       |
-| portfolio_code            | string  | **(requerido)** código de portfólio, validação conforme o banco                                                                                                                                |
-| agreement_code            | string  | **(requerido, com exceção do Itaú onde é preenchido automaticamente)** código de convênio ou do beneficiário, de acordo com o banco                                                            |
-| agreement_code_digit      | string  | **(requerido, com exceção do HSBC e Itaú, sendo preenchido automaticamente para o último)** verificador do código de convênio, de acordo com o banco                                           |
-| name                      | string  | **(requerido)** nome que identifica esta configuração de cobrança                                                                                                                              |
-| initial_number            | integer | **(requerido)** número inicial do nosso número, sendo atribuído automaticamente e sequencialmente às cobranças                                                                                 |
-| end_number                | integer | (opcional) número final do nosso número, sendo o último número a ser atribuído, após isso a sequência é reiniciada                                                                             |
-| next_number               | integer | (opcional) próximo nosso número a ser atribuído a uma cobrança criada a partir desta configuração de cobrança (é incrementado automatica e sequencialmente)                                    |
-| registered_charges        | boolean | (opcional) informa se a configuração de cobrança utiliza boletos registrados ou não, sendo false por padrão                                                                                    |
-| remittance_agreement_code | integer | (opcional, requerido apenas se registered_charges for `true`) número do convênio com o banco (apenas para o Bradesco)                                                                          |
-| remittance_cnab_pattern   | integer | (opcional, requerido apenas se registered_charges for `true`) padrão utilizado no arquivo CNAB de remessa. Os valores permitidos são 240 ou 400                                                |
-| transmission_code         | string  | (opcional, requerido apenas se registered_charges for `true`) código de transmissão (apenas para o Santander)                                                                                  |
-| initial_remittance_number | integer | (opcional) número inicial de remessa, ou seja, qual foi o último número sequencial de remessa enviado para o banco (apenas para o Bradesco). Por padrão o valor é 1                            |
-| pre_released_billet       | boolean | (opcional) caso a configuração de cobrança utilize boletos registrados, este atributo indica se os boletos podem ser acessados antes do registro no banco ser confirmado. Por padrão é `false` |
+| Campo                       | Tipo    | Comentário                                                                                                                                                                                     |
+|-----------------------------|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| payee_id                    | integer | **(requerido)** código de identificação do beneficiário ao qual a configuração de cobrança irá pertencer                                                                                       |
+| portfolio_code              | string  | **(requerido)** código de portfólio, validação conforme o banco                                                                                                                                |
+| agreement_code              | string  | **(requerido, com exceção do Itaú onde é preenchido automaticamente)** código de convênio ou do beneficiário, de acordo com o banco                                                            |
+| agreement_code_digit        | string  | **(requerido, com exceção do HSBC e Itaú, sendo preenchido automaticamente para o último)** verificador do código de convênio, de acordo com o banco                                           |
+| correspondent_agency        | string  | **(requerido, somente para o banco Daycoval)** código da agência bancária do banco correspondente.                                                                                             |
+| correspondent_account       | string  | **(requerido, somente para o banco Daycoval)** número conta bancária do banco correspondente.                                                                                                  |
+| correspondent_account_digit | string  | **(requerido, somente para o banco Daycoval)** verificador do número da conta bancária do banco correspondente.                                                                                |
+| name                        | string  | **(requerido)** nome que identifica esta configuração de cobrança                                                                                                                              |
+| initial_number              | integer | **(requerido)** número inicial do nosso número, sendo atribuído automaticamente e sequencialmente às cobranças                                                                                 |
+| end_number                  | integer | (opcional) número final do nosso número, sendo o último número a ser atribuído, após isso a sequência é reiniciada                                                                             |
+| next_number                 | integer | (opcional) próximo nosso número a ser atribuído a uma cobrança criada a partir desta configuração de cobrança (é incrementado automatica e sequencialmente)                                    |
+| registered_charges          | boolean | (opcional) informa se a configuração de cobrança utiliza boletos registrados ou não, sendo false por padrão                                                                                    |
+| remittance_agreement_code   | integer | (opcional, requerido apenas se registered_charges for `true`) número do convênio com o banco (apenas para o Bradesco)                                                                          |
+| remittance_cnab_pattern     | integer | (opcional, requerido apenas se registered_charges for `true`) padrão utilizado no arquivo CNAB de remessa. Os valores permitidos são 240 ou 400                                                |
+| transmission_code           | string  | (opcional, requerido apenas se registered_charges for `true`) código de transmissão (apenas para o Santander)                                                                                  |
+| initial_remittance_number   | integer | (opcional) número inicial de remessa, ou seja, qual foi o último número sequencial de remessa enviado para o banco (apenas para o Bradesco). Por padrão o valor é 1                            |
+| pre_released_billet         | boolean | (opcional) caso a configuração de cobrança utilize boletos registrados, este atributo indica se os boletos podem ser acessados antes do registro no banco ser confirmado. Por padrão é `false` |
 
 <aside class="warning">
   <strong>ATENÇÃO!</strong> Caso seu cliente pague o boleto antes do banco ter confirmado seu registro, <strong>o pagamento pode ser devolvido</strong> e/ou o banco pode te cobrar uma sobretaxa. Ao definir o campo <code>pre_released_billet</code> como <code>true</code>, você está assumindo este risco.
