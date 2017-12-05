@@ -4853,8 +4853,6 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
 <p>Cria uma nova Configuração de Pagamento, retornando as informações da mesma em caso de sucesso. Se houverem erros eles serão informados no corpo da resposta.</p>
 
-<h3 id="boleto">Boleto</h3>
-
 <p><strong>Parâmetros</strong></p>
 
 <table><thead>
@@ -4962,6 +4960,846 @@ EXEMPLO DE ESTADO DA RESPOSTA COM CONFIGURAÇÃO DE PAGAMENTO INEXISTENTE
 </code></pre>
 
 <p>Exclui determinada Configuração de Pagamento. As mudanças são irreversíveis.</p>
+
+          <h1 id="pagamento">Pagamento</h1>
+
+<aside class="warning">
+Por enquanto, esta API está disponível apenas para contas beta.
+</aside>
+<pre class="highlight shell"><code>Pagamentos
+
+EXEMPLO
+
+  <span class="o">{</span>
+    <span class="s2">"id"</span>: 10,
+    <span class="s2">"amount"</span>: <span class="s2">"456.78"</span>,
+    <span class="s2">"date"</span>: <span class="s2">"2017-12-07"</span>,
+    <span class="s2">"our_number"</span>: null,
+    <span class="s2">"payment_method"</span>: <span class="s2">"ted_same_ownership"</span>,
+    <span class="s2">"payment_type"</span>: <span class="s2">"benefit"</span>,
+    <span class="s2">"account"</span>: <span class="s2">"12345"</span>,
+    <span class="s2">"account_digit"</span>: <span class="s2">"9"</span>,
+    <span class="s2">"agency"</span>: <span class="s2">"4321"</span>,
+    <span class="s2">"bank_code"</span>: <span class="s2">"033"</span>,
+    <span class="s2">"doc_goal"</span>: null,
+    <span class="s2">"payee_document"</span>: <span class="s2">"123.456.789-09"</span>,
+    <span class="s2">"payee_name"</span>: <span class="s2">"John Doe"</span>,
+    <span class="s2">"ted_goal"</span>: <span class="s2">"00300"</span>,
+    <span class="s2">"_links"</span>: <span class="o">[</span>
+      <span class="o">{</span> <span class="s2">"rel"</span>: <span class="s2">"self"</span>, <span class="s2">"method"</span>: <span class="s2">"GET"</span>, <span class="s2">"href"</span>: <span class="s2">"https://app.cobrato.com/api/v1/payments/10"</span> <span class="o">}</span>,
+      <span class="o">{</span> <span class="s2">"rel"</span>: <span class="s2">"update"</span>, <span class="s2">"method"</span>: <span class="s2">"PUT"</span>, <span class="s2">"href"</span>: <span class="s2">"https://app.cobrato.com/api/v1/payments/10"</span> <span class="o">}</span>,
+      <span class="o">{</span> <span class="s2">"rel"</span>: <span class="s2">"destroy"</span>, <span class="s2">"method"</span>: <span class="s2">"DELETE"</span>, <span class="s2">"href"</span>: <span class="s2">"https://app.cobrato.com/api/v1/payments/10"</span> <span class="o">}</span>,
+      <span class="o">{</span> <span class="s2">"rel"</span>: <span class="s2">"payment_config"</span>, <span class="s2">"method"</span>: <span class="s2">"GET"</span>, <span class="s2">"href"</span>: <span class="s2">"https://app.cobrato.com/api/v1/payment_configs/1"</span> <span class="o">}</span>
+    <span class="o">]</span>
+  <span class="o">}</span>
+
+</code></pre>
+
+<p><strong>Parâmetros</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>payment_config_id</td>
+<td>integer</td>
+<td>código de identificação da configuração de pagamento à qual o pagamento irá pertencer</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>decimal</td>
+<td>valor do pagamento</td>
+</tr>
+<tr>
+<td>date</td>
+<td>date</td>
+<td>data do pagamento</td>
+</tr>
+<tr>
+<td>payment_method</td>
+<td>string</td>
+<td>forma de pagamento (&lsquo;credit_other_ownership&rsquo;, &#39;credit_same_ownership&rsquo;, &#39;credit_savings_account&rsquo;, &#39;doc_other_ownership&rsquo;, &#39;doc_same_ownership&rsquo;, &#39;ted_other_ownership&rsquo;, &#39;ted_same_ownership&rsquo;)</td>
+</tr>
+<tr>
+<td>payment_type</td>
+<td>string</td>
+<td>tipo de pagamento. Os possíveis valores variam de acordo com o &ldquo;payment_method&rdquo; (vide tabela 1)</td>
+</tr>
+<tr>
+<td>bank_code</td>
+<td>string</td>
+<td>código de 3 dígitos do banco da conta bancária para o pagamento</td>
+</tr>
+<tr>
+<td>account</td>
+<td>string</td>
+<td>número da conta bancária para o pagamento</td>
+</tr>
+<tr>
+<td>account_digit</td>
+<td>string</td>
+<td>dígito da conta bancária para fazer o pagamento</td>
+</tr>
+<tr>
+<td>agency</td>
+<td>string</td>
+<td>número da agência da conta bancária para fazer o pagamento</td>
+</tr>
+<tr>
+<td>payee_name</td>
+<td>string</td>
+<td>nome do beneficiário</td>
+</tr>
+<tr>
+<td>payee_document_type</td>
+<td>string</td>
+<td>tipo do documento do beneficiário</td>
+</tr>
+<tr>
+<td>payee_document</td>
+<td>string</td>
+<td>número do documento do beneficiário</td>
+</tr>
+<tr>
+<td>doc_goal</td>
+<td>string</td>
+<td>código referente ao objetivo do DOC. Possíveis valores na tabela 2</td>
+</tr>
+<tr>
+<td>ted_goal</td>
+<td>string</td>
+<td>código referente ao objetivo do TED. Possíveis valores na tabela 3</td>
+</tr>
+<tr>
+<td>our_number</td>
+<td>string</td>
+<td>número que identifica o pagamento no banco</td>
+</tr>
+<tr>
+<td>registration_status</td>
+<td>string</td>
+<td>status de registro do pagamento (&#39;without_remittance&rsquo;, &#39;remitted&rsquo;, &#39;registered&rsquo;, &#39;canceled&rsquo;, &#39;edit_amount_started&rsquo;, &#39;edit_date_started&rsquo;, &#39;registered_with_error&rsquo;, &#39;cancelation_started&rsquo;, &#39;canceled_awaiting_confirmation&rsquo;, &#39;amount_edited_awaiting_confirmation&rsquo;, &#39;date_edited_awaiting_confirmation&rsquo;)</td>
+</tr>
+</tbody></table>
+
+<h2 id="informa-es-do-pagamento">Informações do Pagamento</h2>
+<pre class="highlight shell"><code>Mostrar Pagamento
+
+DEFINIÇÃO
+
+  GET https://app.cobrato.com/api/v1/payments/:payment_id
+
+EXEMPLO DE REQUISIÇÃO
+
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X <span class="se">\</span>
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
+    -X GET https://app.cobrato.com/api/v1/payments/:payment_id
+
+EXEMPLO DE ESTADO DA RESPOSTA
+
+    200 OK
+
+EXEMPLO DE CORPO DA RESPOSTA
+
+  <span class="o">{</span>
+    <span class="s2">"id"</span>: 10,
+    <span class="s2">"amount"</span>: <span class="s2">"456.78"</span>,
+    <span class="s2">"date"</span>: <span class="s2">"2017-12-07"</span>,
+    <span class="s2">"our_number"</span>: null,
+    <span class="s2">"payment_method"</span>: <span class="s2">"ted_same_ownership"</span>,
+    <span class="s2">"payment_type"</span>: <span class="s2">"benefit"</span>,
+    <span class="s2">"account"</span>: <span class="s2">"12345"</span>,
+    <span class="s2">"account_digit"</span>: <span class="s2">"9"</span>,
+    <span class="s2">"agency"</span>: <span class="s2">"4321"</span>,
+    <span class="s2">"bank_code"</span>: <span class="s2">"033"</span>,
+    <span class="s2">"doc_goal"</span>: null,
+    <span class="s2">"payee_document"</span>: <span class="s2">"123.456.789-09"</span>,
+    <span class="s2">"payee_name"</span>: <span class="s2">"John Doe"</span>,
+    <span class="s2">"ted_goal"</span>: <span class="s2">"00300"</span>,
+    <span class="s2">"_links"</span>: <span class="o">[</span>
+      <span class="o">{</span> <span class="s2">"rel"</span>: <span class="s2">"self"</span>, <span class="s2">"method"</span>: <span class="s2">"GET"</span>, <span class="s2">"href"</span>: <span class="s2">"https://app.cobrato.com/api/v1/payments/10"</span> <span class="o">}</span>,
+      <span class="o">{</span> <span class="s2">"rel"</span>: <span class="s2">"update"</span>, <span class="s2">"method"</span>: <span class="s2">"PUT"</span>, <span class="s2">"href"</span>: <span class="s2">"https://app.cobrato.com/api/v1/payments/10"</span> <span class="o">}</span>,
+      <span class="o">{</span> <span class="s2">"rel"</span>: <span class="s2">"destroy"</span>, <span class="s2">"method"</span>: <span class="s2">"DELETE"</span>, <span class="s2">"href"</span>: <span class="s2">"https://app.cobrato.com/api/v1/payments/10"</span> <span class="o">}</span>,
+      <span class="o">{</span> <span class="s2">"rel"</span>: <span class="s2">"payment_config"</span>, <span class="s2">"method"</span>: <span class="s2">"GET"</span>, <span class="s2">"href"</span>: <span class="s2">"https://app.cobrato.com/api/v1/payment_configs/1"</span> <span class="o">}</span>
+    <span class="o">]</span>
+  <span class="o">}</span>
+
+</code></pre>
+
+<p>Retorna em JSON as informações detalhadas do Pagamento informado e também suas referências.</p>
+
+<h2 id="lista-de-todos-os-pagamentos">Lista de todos os Pagamentos</h2>
+<pre class="highlight shell"><code>Listar Pagamentos
+
+DEFINIÇÃO
+
+  GET https://app.cobrato.com/api/v1/payments
+
+EXEMPLO DE REQUISIÇÃO
+
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X <span class="se">\</span>
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
+    -X GET https://app.cobrato.com/api/v1/payments
+
+EXEMPLO DE ESTADO DA RESPOSTA
+
+    200 OK
+
+EXEMPLO DE CORPO DA RESPOSTA
+
+  <span class="o">{</span>
+    <span class="s2">"payments"</span>:
+      <span class="o">[</span>
+        <span class="o">{</span>
+          // informações pagamento 1
+        <span class="o">}</span>,
+        <span class="o">{</span>
+          // informações pagamento 2
+        <span class="o">}</span>,
+        ...
+      <span class="o">]</span>
+  <span class="o">}</span>
+
+</code></pre>
+
+<p>Retorna uma lista em JSON contendo todos os Pagamentos que pertencem a sua Conta de Serviço.</p>
+
+<h2 id="cria-o-de-pagamento">Criação de Pagamento</h2>
+<pre class="highlight shell"><code>Criar Pagamento
+
+DEFINIÇÃO
+
+  POST https://app.cobrato.com/api/v1/payments
+
+EXEMPLO DE REQUISIÇÃO
+
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X <span class="se">\</span>
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
+    -X POST https://app.cobrato.com/api/v1/payments <span class="se">\</span>
+    -d <span class="s1">'{
+          "payment_config_id": "1",
+          "payment_type": "provider",
+          "payment_method": "ted_other_ownership",
+          "date": "2017-10-22",
+          "amount": "255.99",
+          "bank_code": "341",
+          "agency": "9358",
+          "account": "21500",
+          "account_digit": "3",
+          "payee_document_type": "cpf",
+          "payee_document": "123.456.789-09",
+          "payee_name": "Jane Doe"
+        }'</span>
+
+EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
+
+    201 Created
+
+EXEMPLO DE ESTADO DA RESPOSTA COM INSUCESSO
+
+    422 Unprocessable Entity
+
+EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
+
+  <span class="o">{</span>
+    <span class="s2">"errors"</span>:
+      <span class="o">{</span>
+        <span class="s2">"payment_config_id"</span>:[<span class="s2">"não pode ficar em branco"</span><span class="o">]</span>,
+        <span class="s2">"payment_type"</span>:[<span class="s2">"não pode ficar em branco"</span><span class="o">]</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
+
+</code></pre>
+
+<p>Cria um novo Pagamento, retornando as informações do mesmo em caso de sucesso. Se houverem erros eles serão informados no corpo da resposta.</p>
+
+<h3 id="transfer-ncias-doc-ted-cr-dito">Transferências (DOC, TED, Crédito)</h3>
+
+<p><strong>Parâmetros</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>payment_config_id</td>
+<td>integer</td>
+<td><strong>(requerido)</strong> código de identificação da configuração de pagamento à qual o pagamento irá pertencer</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>decimal</td>
+<td><strong>(requerido)</strong> valor do pagamento</td>
+</tr>
+<tr>
+<td>date</td>
+<td>date</td>
+<td><strong>(requerido)</strong> data do pagamento</td>
+</tr>
+<tr>
+<td>payment_method</td>
+<td>string</td>
+<td><strong>(requerido)</strong> forma de pagamento (&#39;credit_other_ownership&rsquo;, &#39;credit_same_ownership&rsquo;, &#39;credit_savings_account&rsquo;, &#39;doc_other_ownership&rsquo;, &#39;doc_same_ownership&rsquo;, &#39;ted_other_ownership&rsquo;, &#39;ted_same_ownership&rsquo;)</td>
+</tr>
+<tr>
+<td>payment_type</td>
+<td>string</td>
+<td><strong>(requerido)</strong> tipo de pagamento. Os possíveis valores variam de acordo com o &ldquo;payment_method&rdquo; (vide tabela 1)</td>
+</tr>
+<tr>
+<td>bank_code</td>
+<td>string</td>
+<td><strong>(requerido)</strong> código de 3 dígitos do banco da conta bancária para o pagamento</td>
+</tr>
+<tr>
+<td>account</td>
+<td>string</td>
+<td><strong>(requerido)</strong> número da conta bancária para o pagamento</td>
+</tr>
+<tr>
+<td>account_digit</td>
+<td>string</td>
+<td><strong>(requerido)</strong> dígito da conta bancária para fazer o pagamento</td>
+</tr>
+<tr>
+<td>agency</td>
+<td>string</td>
+<td><strong>(requerido)</strong> número da agência da conta bancária para fazer o pagamento</td>
+</tr>
+<tr>
+<td>payee_name</td>
+<td>string</td>
+<td><strong>(requerido)</strong> nome do beneficiário</td>
+</tr>
+<tr>
+<td>payee_document_type</td>
+<td>string</td>
+<td><strong>(requerido)</strong> tipo do documento do beneficiário</td>
+</tr>
+<tr>
+<td>payee_document</td>
+<td>string</td>
+<td><strong>(requerido)</strong> número do documento do beneficiário</td>
+</tr>
+<tr>
+<td>doc_goal</td>
+<td>string</td>
+<td>(opcional e apenas utilizado quando payment_method é &#39;doc_other_ownership&rsquo; ou &#39;doc_same_ownership&rsquo;) código referente ao objetivo do DOC. Possíveis valores na tabela 2</td>
+</tr>
+<tr>
+<td>ted_goal</td>
+<td>string</td>
+<td>(opcional e apenas utilizado quando payment_method é &#39;ted_other_ownership&rsquo;) código referente ao objetivo do TED. Possíveis valores na tabela 3</td>
+</tr>
+</tbody></table>
+
+<h2 id="atualiza-o-de-pagamento">Atualização de Pagamento</h2>
+<pre class="highlight shell"><code>Atualizar Pagamento
+
+DEFINIÇÃO
+
+  PUT https://app.cobrato.com/api/v1/payments/:id
+  PATCH https://app.cobrato.com/api/v1/payments/:id
+
+EXEMPLO DE REQUISIÇÃO
+
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X <span class="se">\</span>
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
+    -X PATCH https://app.cobrato.com/api/v1/payents/:id <span class="se">\</span>
+    -d <span class="s1">'{
+          "amount": "125.99"
+        }'</span>
+
+EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
+
+    200 OK
+
+EXEMPLO DE ESTADO DA RESPOSTA COM PAGAMENTO INEXISTENTE
+
+    404 Not Found
+
+EXEMPLO DE ESTADO DA RESPOSTA COM INSUCESSO
+
+    422 Unprocessable Entity
+
+EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
+
+  <span class="o">{</span>
+    <span class="s2">"errors"</span>:
+      <span class="o">{</span>
+        <span class="s2">"amount"</span>: <span class="o">[</span><span class="s2">"não pode ficar em branco"</span><span class="o">]</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
+
+</code></pre>
+
+<p>Atualiza um determinado Pagamento, retornando as informações do mesmo em caso de sucesso. Se houverem erros, eles serão informados no corpo da resposta. A requisição não diferencia a utilização dos verbos PUT e PATCH.</p>
+
+<p><strong>Parâmetros</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>amount</td>
+<td>decimal</td>
+<td><strong>(requerido)</strong> valor do pagamento</td>
+</tr>
+<tr>
+<td>date</td>
+<td>date</td>
+<td><strong>(requerido)</strong> data do pagamento</td>
+</tr>
+<tr>
+<td>bank_code</td>
+<td>string</td>
+<td><strong>(requerido)</strong> código de 3 dígitos do banco da conta bancária para o pagamento</td>
+</tr>
+<tr>
+<td>account</td>
+<td>string</td>
+<td><strong>(requerido)</strong> número da conta bancária para o pagamento</td>
+</tr>
+<tr>
+<td>account_digit</td>
+<td>string</td>
+<td><strong>(requerido)</strong> dígito da conta bancária para fazer o pagamento</td>
+</tr>
+<tr>
+<td>agency</td>
+<td>string</td>
+<td><strong>(requerido)</strong> número da agência da conta bancária para fazer o pagamento</td>
+</tr>
+<tr>
+<td>payee_name</td>
+<td>string</td>
+<td><strong>(requerido)</strong> nome do beneficiário</td>
+</tr>
+<tr>
+<td>payee_document_type</td>
+<td>string</td>
+<td><strong>(requerido)</strong> tipo do documento do beneficiário</td>
+</tr>
+<tr>
+<td>payee_document</td>
+<td>string</td>
+<td><strong>(requerido)</strong> número do documento do beneficiário</td>
+</tr>
+<tr>
+<td>doc_goal</td>
+<td>string</td>
+<td>(opcional e apenas utilizado quando payment_method é &#39;doc_other_ownership&rsquo; ou &#39;doc_same_ownership&rsquo;) código referente ao objetivo do DOC. Possíveis valores na tabela 2</td>
+</tr>
+<tr>
+<td>ted_goal</td>
+<td>string</td>
+<td>(opcional e apenas utilizado quando payment_method é &#39;ted_other_ownership&rsquo;) código referente ao objetivo do TED. Possíveis valores na tabela 3</td>
+</tr>
+</tbody></table>
+
+<h2 id="exclus-o-de-pagamento">Exclusão de Pagamento</h2>
+<pre class="highlight shell"><code>Excluir Pagamento
+
+DEFINIÇÃO
+
+  DELETE https://app.cobrato.com/api/v1/payment/:id
+
+EXEMPLO DE REQUISIÇÃO
+
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X <span class="se">\</span>
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
+    -X DELETE https://app.cobrato.com/api/v1/payment/:id
+
+EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
+
+    204 No Content
+
+EXEMPLO DE ESTADO DA RESPOSTA COM PAGAMENTO INEXISTENTE
+
+    404 Not Found
+
+</code></pre>
+
+<p>Exclui determinado Pagamento. As mudanças são irreversíveis.</p>
+
+<h2 id="tabelas">Tabelas</h2>
+
+<h3 id="poss-veis-valores-para-payment_type-tabela-1">Possíveis valores para payment_type (tabela 1)</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: right">payment_type ⟶ <br> payment_method ↴</th>
+<th style="text-align: center">salary <br>&nbsp;</th>
+<th style="text-align: center">dividend <br>&nbsp;</th>
+<th style="text-align: center">debenture <br>&nbsp;</th>
+<th style="text-align: center">traveling_expense <br>&nbsp;</th>
+<th style="text-align: center">authorized_representative <br>&nbsp;</th>
+<th style="text-align: center">provider <br>&nbsp;</th>
+<th style="text-align: center">benefit <br>&nbsp;</th>
+<th style="text-align: center">insurance_claim <br>&nbsp;</th>
+<th style="text-align: center">investment_fund <br>&nbsp;</th>
+<th style="text-align: center">other <br>&nbsp;</th>
+<th style="text-align: center">tribute <br>&nbsp;</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right">credit_other_ownership</td>
+<td style="text-align: center">X</td>
+<td style="text-align: center">X</td>
+<td style="text-align: center">X</td>
+<td style="text-align: center">X</td>
+<td style="text-align: center">X</td>
+<td style="text-align: center">X</td>
+<td style="text-align: center">X</td>
+<td style="text-align: center">X</td>
+<td style="text-align: center">X</td>
+<td style="text-align: center">X</td>
+<td style="text-align: center"></td>
+</tr>
+<tr>
+<td style="text-align: right">credit_same_ownership</td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center">X</td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center">X</td>
+<td style="text-align: center"></td>
+</tr>
+<tr>
+<td style="text-align: right">credit_savings_account</td>
+<td style="text-align: center"></td>
+<td style="text-align: center">X</td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center">X</td>
+<td style="text-align: center">X</td>
+<td style="text-align: center">X</td>
+<td style="text-align: center"></td>
+<td style="text-align: center">X</td>
+<td style="text-align: center"></td>
+</tr>
+<tr>
+<td style="text-align: right">doc_other_ownership</td>
+<td style="text-align: center"></td>
+<td style="text-align: center">X</td>
+<td style="text-align: center">X</td>
+<td style="text-align: center">X</td>
+<td style="text-align: center">X</td>
+<td style="text-align: center">X</td>
+<td style="text-align: center">X</td>
+<td style="text-align: center">X</td>
+<td style="text-align: center"></td>
+<td style="text-align: center">X</td>
+<td style="text-align: center"></td>
+</tr>
+<tr>
+<td style="text-align: right">doc_same_ownership</td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center">X</td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center">X</td>
+<td style="text-align: center"></td>
+</tr>
+<tr>
+<td style="text-align: right">ted_other_ownership</td>
+<td style="text-align: center"></td>
+<td style="text-align: center">X</td>
+<td style="text-align: center">X</td>
+<td style="text-align: center">X</td>
+<td style="text-align: center">X</td>
+<td style="text-align: center">X</td>
+<td style="text-align: center">X</td>
+<td style="text-align: center">X</td>
+<td style="text-align: center"></td>
+<td style="text-align: center">X</td>
+<td style="text-align: center"></td>
+</tr>
+<tr>
+<td style="text-align: right">ted_same_ownership</td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center">X</td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center">X</td>
+<td style="text-align: center"></td>
+</tr>
+</tbody></table>
+
+<h3 id="poss-veis-valores-para-doc_goal-tabela-2">Possíveis valores para doc_goal (tabela 2)</h3>
+
+<p>Quando <em>payment_method</em> for &#39;doc_other_ownership&rsquo; todos os valores são aceitos. Contudo, quando <em>payment_method</em> for &#39;doc_same_ownership&rsquo;, apenas os valores &#39;01&rsquo; e &#39;11&rsquo; são aceitos.</p>
+
+<table><thead>
+<tr>
+<th>Código</th>
+<th>Descrição</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>01</td>
+<td>Crédito em Conta</td>
+</tr>
+<tr>
+<td>02</td>
+<td>Pagamento de Aluguel / Condomínio</td>
+</tr>
+<tr>
+<td>03</td>
+<td>Pagamento de Duplicata / Títulos</td>
+</tr>
+<tr>
+<td>04</td>
+<td>Pagamento de Dividendos</td>
+</tr>
+<tr>
+<td>05</td>
+<td>Pagamento de Mensalidade Escolar</td>
+</tr>
+<tr>
+<td>06</td>
+<td>Pagamento de Salários</td>
+</tr>
+<tr>
+<td>07</td>
+<td>Pagamento de Fornecedores / Honorários</td>
+</tr>
+<tr>
+<td>08</td>
+<td>Operações de Câmbio / Fundos</td>
+</tr>
+<tr>
+<td>09</td>
+<td>Repasse de Arrecadação / Pagamento de Tributos</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Transferência Internacional de Reais</td>
+</tr>
+<tr>
+<td>11</td>
+<td>DOC para Poupança</td>
+</tr>
+<tr>
+<td>12</td>
+<td>DOC para Depósito Judicial</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Pensão Alimentícia</td>
+</tr>
+<tr>
+<td>99</td>
+<td>Outros</td>
+</tr>
+</tbody></table>
+
+<h3 id="poss-veis-valores-para-ted_goal-tabela-3">Possíveis valores para ted_goal (tabela 3)</h3>
+
+<table><thead>
+<tr>
+<th>Código</th>
+<th>Descrição</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>00001</td>
+<td>Pagamento de Impostos, Tributos e Taxas</td>
+</tr>
+<tr>
+<td>00002</td>
+<td>Pagamento a Concessionárias de Serviço Público</td>
+</tr>
+<tr>
+<td>00003</td>
+<td>Pagamento de Dividendos</td>
+</tr>
+<tr>
+<td>00004</td>
+<td>Pagamento de Salários</td>
+</tr>
+<tr>
+<td>00005</td>
+<td>Pagamento de Fornecedores</td>
+</tr>
+<tr>
+<td>00006</td>
+<td>Pagamento de Honorários</td>
+</tr>
+<tr>
+<td>00007</td>
+<td>Pagamento de Aluguéis e Taxas e Condomínio</td>
+</tr>
+<tr>
+<td>00008</td>
+<td>Pagamento de Duplicatas e Títulos</td>
+</tr>
+<tr>
+<td>00009</td>
+<td>Pagamento de Honorários</td>
+</tr>
+<tr>
+<td>00010</td>
+<td>Crédito em Conta</td>
+</tr>
+<tr>
+<td>00011</td>
+<td>Pagamento a Corretoras</td>
+</tr>
+<tr>
+<td>00016</td>
+<td>Crédito em Conta Investimento</td>
+</tr>
+<tr>
+<td>00100</td>
+<td>Depósito Judicial</td>
+</tr>
+<tr>
+<td>00101</td>
+<td>Pensão Alimentícia</td>
+</tr>
+<tr>
+<td>00200</td>
+<td>Transferência Internacional de Reais</td>
+</tr>
+<tr>
+<td>00201</td>
+<td>Ajuste Posição Mercado Futuro</td>
+</tr>
+<tr>
+<td>00204</td>
+<td>Compra/Venda de Ações - Bolsas de Valores e Mercado de Balcão</td>
+</tr>
+<tr>
+<td>00205</td>
+<td>Contrato referenciado em Ações/Índices de Ações - BV/BMF</td>
+</tr>
+<tr>
+<td>00300</td>
+<td>Restituição de Imposto de Renda</td>
+</tr>
+<tr>
+<td>00500</td>
+<td>Restituição de Prêmio de Seguros</td>
+</tr>
+<tr>
+<td>00501</td>
+<td>Pagamento de indenização de Sinistro de Seguro</td>
+</tr>
+<tr>
+<td>00502</td>
+<td>Pagamento de Prêmio de Co-seguro</td>
+</tr>
+<tr>
+<td>00503</td>
+<td>Restituição de prêmio de Co-seguro</td>
+</tr>
+<tr>
+<td>00504</td>
+<td>Pagamento de indenização de Co-seguro</td>
+</tr>
+<tr>
+<td>00505</td>
+<td>Pagamento de prêmio de Resseguro</td>
+</tr>
+<tr>
+<td>00506</td>
+<td>Restituição de prêmio de Resseguro</td>
+</tr>
+<tr>
+<td>00507</td>
+<td>Pagamento de Indenização de Sinistro de Resseguro</td>
+</tr>
+<tr>
+<td>00508</td>
+<td>Restituição de Indenização de Sinistro de Resseguro</td>
+</tr>
+<tr>
+<td>00509</td>
+<td>Pagamento de Despesas com Sinistros</td>
+</tr>
+<tr>
+<td>00510</td>
+<td>Pagamento de Inspeções/Vistorias Prévias</td>
+</tr>
+<tr>
+<td>00511</td>
+<td>Pagamento de Resgate de Título de Capitalização</td>
+</tr>
+<tr>
+<td>00512</td>
+<td>Pagamento de Sorteio de Título de Capitalização</td>
+</tr>
+<tr>
+<td>00513</td>
+<td>Pagamento de Devolução de Mensalidade de Título de Capitalização</td>
+</tr>
+<tr>
+<td>00514</td>
+<td>Restituição de Contribuição de Plano Previdenciário</td>
+</tr>
+<tr>
+<td>00515</td>
+<td>Pagamento de Benefício Previdenciário de Pecúlio</td>
+</tr>
+<tr>
+<td>00516</td>
+<td>Pagamento de Benefício Previdenciário de Pensão</td>
+</tr>
+<tr>
+<td>00517</td>
+<td>Pagamento de Benefício Previdenciário de Aposentadoria</td>
+</tr>
+<tr>
+<td>00518</td>
+<td>Pagamento de Resgate Previdenciário</td>
+</tr>
+<tr>
+<td>00519</td>
+<td>Pagamento de Comissão de Corretagem</td>
+</tr>
+<tr>
+<td>00520</td>
+<td>Pagamento de Transferências/Portabilidade de Reserva de Seguro/Previdência</td>
+</tr>
+</tbody></table>
 
           <h1 id="cart-o-de-cr-dito">Cartão de Crédito</h1>
 <pre class="highlight shell"><code>Cartão de Crédito
@@ -5572,23 +6410,24 @@ EXEMPLO
 
   <span class="o">{</span>
     <span class="s2">"id"</span>: 1,
-    <span class="s2">"charge_config_id"</span>: 1,
+    <span class="s2">"config_id"</span>: 1,
+    <span class="s2">"type"</span>: <span class="s2">"charge"</span>,
     <span class="s2">"status"</span>: <span class="s2">"processed"</span>,
     <span class="s2">"_links"</span>:
       <span class="o">[</span>
         <span class="o">{</span><span class="s2">"rel"</span>: <span class="s2">"self"</span>, <span class="s2">"method"</span>: <span class="s2">"GET"</span>, <span class="s2">"href"</span>: <span class="s2">"https://app.cobrato.com/api/v1/remittance_cnabs/1"</span><span class="o">}</span>,
         <span class="o">{</span><span class="s2">"rel"</span>: <span class="s2">"destroy"</span>, <span class="s2">"method"</span>: <span class="s2">"DELETE"</span>, <span class="s2">"href"</span>: <span class="s2">"https://app.cobrato.com/api/v1/remittance_cnabs/1"</span><span class="o">}</span>,
-        <span class="o">{</span><span class="s2">"rel"</span>: <span class="s2">"charge_config"</span>, <span class="s2">"method"</span>: <span class="s2">"GET"</span>, <span class="s2">"href"</span>: <span class="s2">"https://app.cobrato.com/api/v1/charge_configs/1"</span><span class="o">}</span>,
+        <span class="o">{</span><span class="s2">"rel"</span>: <span class="s2">"config"</span>, <span class="s2">"method"</span>: <span class="s2">"GET"</span>, <span class="s2">"href"</span>: <span class="s2">"https://app.cobrato.com/api/v1/charge_configs/1"</span><span class="o">}</span>,
         <span class="o">{</span><span class="s2">"rel"</span>: <span class="s2">"file"</span>, <span class="s2">"method"</span>: <span class="s2">"GET"</span>, <span class="s2">"href"</span>: <span class="s2">"https://app.cobrato.com/api/v1/remittance_cnabs/1/file"</span><span class="o">}</span>,
-        <span class="o">{</span><span class="s2">"rel"</span>: <span class="s2">"charges"</span>, <span class="s2">"method"</span>: <span class="s2">"GET"</span>, <span class="s2">"href"</span>: <span class="s2">"http://localhost:3000/api/v1/remittance_cnabs/1/charges"</span><span class="o">}</span>
+        <span class="o">{</span><span class="s2">"rel"</span>: <span class="s2">"items"</span>, <span class="s2">"method"</span>: <span class="s2">"GET"</span>, <span class="s2">"href"</span>: <span class="s2">"http://localhost:3000/api/v1/remittance_cnabs/1/items"</span><span class="o">}</span>
       <span class="o">]</span>
   <span class="o">}</span>
 </code></pre>
 
-<p>Os Arquivos CNAB de Remessa são arquivos enviados para o banco com o objetivo de registrar novos títulos, podendo ser gerado a partir de uma ou mais Cobranças. Se forem enviadas Cobranças de Configurações de Cobranças diferentes, será gerado um CNAB de remessa para cada Configuração de Cobrança.</p>
+<p>Os Arquivos CNAB de Remessa são arquivos enviados para o banco com o objetivo de registrar novos títulos/pagamentos, podendo ser gerado a partir de um ou mais items (Cobranças ou Pagamentos). Se forem enviados items de Configurações diferentes, será gerado um CNAB de remessa para cada Configuração.</p>
 
 <aside class="warning">
-A utilização desta API não é autorizada a contas com o plano <strong>Gratuito</strong>, resultando na resposta com o estado <strong>403 Forbidden</strong>!
+Se seu plano não er direito a utilização desta API, a resposta com será com o status <strong>403 Forbidden</strong>!
 </aside>
 
 <p><strong>Parâmetros</strong></p>
@@ -5606,9 +6445,19 @@ A utilização desta API não é autorizada a contas com o plano <strong>Gratuit
 <td>identificador do CNAB de remessa</td>
 </tr>
 <tr>
+<td>type</td>
+<td>string</td>
+<td>indica o tipo de arquivo de remessa (&lsquo;charge&rsquo; ou &#39;payment&rsquo;)</td>
+</tr>
+<tr>
+<td>config_id</td>
+<td>string</td>
+<td>identificador da configuração no Cobrato relacionada ao arquivo de remessa</td>
+</tr>
+<tr>
 <td>charge_config_id</td>
 <td>string</td>
-<td>identificador da configuração de cobrança no Cobrato</td>
+<td>(DEPRECATED: use config_id) identificador da configuração de cobrança no Cobrato</td>
 </tr>
 <tr>
 <td>status</td>
@@ -5645,15 +6494,16 @@ EXEMPLO DE CORPO DA RESPOSTA
 
   <span class="o">{</span>
     <span class="s2">"id"</span>: 1,
-    <span class="s2">"charge_config_id"</span>: 1,
+    <span class="s2">"config_id"</span>: 1,
+    <span class="s2">"type"</span>: <span class="s2">"charge"</span>,
     <span class="s2">"status"</span>: <span class="s2">"processed"</span>,
     <span class="s2">"_links"</span>:
       <span class="o">[</span>
         <span class="o">{</span><span class="s2">"rel"</span>: <span class="s2">"self"</span>, <span class="s2">"method"</span>: <span class="s2">"GET"</span>, <span class="s2">"href"</span>: <span class="s2">"https://app.cobrato.com/api/v1/remittance_cnabs/1"</span><span class="o">}</span>,
         <span class="o">{</span><span class="s2">"rel"</span>: <span class="s2">"destroy"</span>, <span class="s2">"method"</span>: <span class="s2">"DELETE"</span>, <span class="s2">"href"</span>: <span class="s2">"https://app.cobrato.com/api/v1/remittance_cnabs/1"</span><span class="o">}</span>,
-        <span class="o">{</span><span class="s2">"rel"</span>: <span class="s2">"charge_config"</span>, <span class="s2">"method"</span>: <span class="s2">"GET"</span>, <span class="s2">"href"</span>: <span class="s2">"https://app.cobrato.com/api/v1/charge_configs/1"</span><span class="o">}</span>,
+        <span class="o">{</span><span class="s2">"rel"</span>: <span class="s2">"config"</span>, <span class="s2">"method"</span>: <span class="s2">"GET"</span>, <span class="s2">"href"</span>: <span class="s2">"https://app.cobrato.com/api/v1/charge_configs/1"</span><span class="o">}</span>,
         <span class="o">{</span><span class="s2">"rel"</span>: <span class="s2">"file"</span>, <span class="s2">"method"</span>: <span class="s2">"GET"</span>, <span class="s2">"href"</span>: <span class="s2">"https://app.cobrato.com/api/v1/remittance_cnabs/1/file"</span><span class="o">}</span>,
-        <span class="o">{</span><span class="s2">"rel"</span>: <span class="s2">"charges"</span>, <span class="s2">"method"</span>: <span class="s2">"GET"</span>, <span class="s2">"href"</span>: <span class="s2">"http://localhost:3000/api/v1/remittance_cnabs/1/charges"</span><span class="o">}</span>
+        <span class="o">{</span><span class="s2">"rel"</span>: <span class="s2">"items"</span>, <span class="s2">"method"</span>: <span class="s2">"GET"</span>, <span class="s2">"href"</span>: <span class="s2">"http://localhost:3000/api/v1/remittance_cnabs/1/items"</span><span class="o">}</span>
       <span class="o">]</span>
   <span class="o">}</span>
 
@@ -5714,12 +6564,12 @@ EXEMPLO DE REQUISIÇÃO
     -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
     -X POST https://app.cobrato.com/api/v1/remittance_cnabs <span class="se">\</span>
     -D <span class="s1">'{
-        "charge_ids": [12, 13, 15, 18]
+        "item_ids": [12, 13, 15, 18]
       }'</span>
 
 EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
 
-    201 Criated
+    201 Created
 
 EXEMPLO DE ESTADO DA RESPOSTA COM INSUCESSO
 
@@ -5729,20 +6579,20 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
   <span class="o">{</span>
     <span class="s2">"errors"</span>:<span class="o">{</span>
-      <span class="s2">"charge_ids"</span>: <span class="o">[</span><span class="s2">"não pode ficar em branco"</span><span class="o">]</span>,
+      <span class="s2">"item_ids"</span>: <span class="o">[</span><span class="s2">"não pode ficar em branco"</span><span class="o">]</span>,
     <span class="o">}</span>
   <span class="o">}</span>
 
 </code></pre>
 
-<p>Cria novo(s) Arquivo(s) CNAB de Remessa, retornando as informações do mesmo caso haja sucesso. Se houverem erros, eles serão informados no corpo da resposta. </p>
+<p>Cria novo(s) Arquivo(s) CNAB de Remessa, retornando as informações do mesmo caso haja sucesso. Se houverem erros, eles serão informados no corpo da resposta.</p>
 
-<p>Um Arquivo de remessa sempre está associado à uma Configuração de Cobrança. Sendo assim, será gerado um CNAB de remessa para cada Configuração de Cobrança envolvida na solicitação de criação, e esse arquivo irá incluir todas as cobranças passíveis de remessa, seja para registrar a entrada da cobrança, cancelamento ou alteração.</p>
+<p>Um Arquivo de remessa sempre está associado à uma Configuração. Sendo assim, será gerado um CNAB de remessa para cada Configuração envolvida na solicitação de criação, e esse arquivo irá incluir todos os items passíveis de remessa, seja para registrar a inclusão, cancelamento ou alteração.</p>
 
 <p><strong>Parâmetros</strong></p>
 
 <aside class="warning">
-  Ao menos um dos parâmetros abaixo é requerido. Se mais de um for enviado, será considerado apenas um deles, sendo a ordem de precedência a mesma em que aparecem na lista abaixo.
+  Com exceção do parâmetro <i>type</i>, o menos um dos parâmetros abaixo é requerido. Se mais de um for enviado, será considerado apenas um deles, sendo a ordem de precedência a mesma em que aparecem na lista abaixo.
 </aside>
 
 <table><thead>
@@ -5753,24 +6603,39 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 </tr>
 </thead><tbody>
 <tr>
+<td>type</td>
+<td>string</td>
+<td>(optional) Define o tipo de arquivo(s) CNAB de Remessa a ser(em) criado(s). Os possíveis valores são &#39;charge&rsquo; para Cobrança e &#39;payment&rsquo; para Pagamento, sendo que o padrão é &#39;charge&rsquo;</td>
+</tr>
+<tr>
+<td>item_ids</td>
+<td>array of integers</td>
+<td><strong>(requerido, veja a nota acima)</strong> Lista com os ids dos itens (cobranças ou pagamentos) que devem estar incluídos no(s) arquivo(s) CNAB de Remessa</td>
+</tr>
+<tr>
 <td>charge_ids</td>
 <td>array of integers</td>
-<td><strong>(requerido, veja a nota acima)</strong> Lista com os ids das cobranças que devem estar incluídas no(s) arquivo(s) CNAB de Remessa</td>
+<td>(DEPRECATED: use item_ids) <strong>(requerido, veja a nota acima)</strong> Lista com os ids das cobranças que devem estar incluídas no(s) arquivo(s) CNAB de Remessa</td>
+</tr>
+<tr>
+<td>config_ids</td>
+<td>array of integers</td>
+<td><strong>(requerido, veja a nota acima)</strong> Lista com os ids das configurações para as quais devem ser criados os Arquivos CNAB de Remessa</td>
 </tr>
 <tr>
 <td>charge_config_ids</td>
 <td>array of integers</td>
-<td><strong>(requerido, veja a nota acima)</strong> Lista com os ids das configurações de cobranças para as quais devem ser criados os Arquivos CNAB de Remessa</td>
+<td>(DEPRECATED: use config_ids) <strong>(requerido, veja a nota acima)</strong> Lista com os ids das configurações de cobranças para as quais devem ser criados os Arquivos CNAB de Remessa</td>
 </tr>
 <tr>
 <td>payee_ids</td>
 <td>array of integers</td>
-<td><strong>(requerido, veja a nota acima)</strong> Lista com os ids dos beneficiários das configurações de cobrança para as quais devem ser criados os Arquivos CNAB de Remessa</td>
+<td><strong>(requerido, veja a nota acima)</strong> Lista com os ids dos beneficiários das configurações para as quais devem ser criados os Arquivos CNAB de Remessa</td>
 </tr>
 <tr>
 <td>payee_national_identifiers</td>
 <td>array of strings</td>
-<td><strong>(requerido, veja a nota acima)</strong> Lista com os números de documento dos beneficiários das configurações de cobrança para as quais devem ser criados os Arquivos CNAB de Remessa</td>
+<td><strong>(requerido, veja a nota acima)</strong> Lista com os números de documento dos beneficiários das configurações para as quais devem ser criados os Arquivos CNAB de Remessa</td>
 </tr>
 </tbody></table>
 
@@ -5838,9 +6703,11 @@ As URLs disponibilizadas são válidas por apenas 60 minutos. Sendo assim, não 
 </aside>
 
 <h2 id="lista-de-todas-as-cobran-a-do-arquivo-de-remessa">Lista de Todas as Cobrança do Arquivo de Remessa</h2>
-<pre class="highlight shell"><code>
 
-DEFINIÇÃO
+<aside class="warning">
+<b>DEPRECATED</b>: usar o endpoint <i>/api/v1/remittance_cnabs/:id/items</i> para listar os <b>items</b>
+</aside>
+<pre class="highlight shell"><code>DEFINIÇÃO
 
   GET https://app.cobrato.com/api/v1/remittance_cnabs/:id/charges
 
@@ -5874,6 +6741,57 @@ EXEMPLO DE CORPO DA RESPOSTA
 </code></pre>
 
 <p>Retorna uma lista em JSON contendo todos as cobranças que pertencem ao CNAB de remessa informado.</p>
+
+<h2 id="lista-de-todos-os-items-do-arquivo-de-remessa">Lista de Todos os items do Arquivo de Remessa</h2>
+<pre class="highlight shell"><code>DEFINIÇÃO
+
+  GET https://app.cobrato.com/api/v1/remittance_cnabs/:id/items
+
+EXEMPLO DE REQUISIÇÃO
+
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X <span class="se">\</span>
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
+    -X GET https://app.cobrato.com/api/v1/remittance_cnabs/:id/items
+
+EXEMPLO DE ESTADO DA RESPOSTA
+
+    200 OK
+
+EXEMPLO DE CORPO DA RESPOSTA <span class="o">(</span>COBRANÇAS<span class="o">)</span>
+
+  <span class="o">{</span>
+    <span class="s2">"charges"</span>:
+      <span class="o">[</span>
+        <span class="o">{</span>
+          // informações <span class="k">do </span>item 1 <span class="o">(</span>charge<span class="o">)</span>
+        <span class="o">}</span>,
+        <span class="o">{</span>
+          // informações <span class="k">do </span>item 2 <span class="o">(</span>charge<span class="o">)</span>
+        <span class="o">}</span>,
+        ...
+      <span class="o">]</span>
+  <span class="o">}</span>
+
+EXEMPLO DE CORPO DA RESPOSTA <span class="o">(</span>PAGAMENTOS<span class="o">)</span>
+
+  <span class="o">{</span>
+    <span class="s2">"payments"</span>:
+      <span class="o">[</span>
+        <span class="o">{</span>
+          // informações <span class="k">do </span>item 1 <span class="o">(</span>payment<span class="o">)</span>
+        <span class="o">}</span>,
+        <span class="o">{</span>
+          // informações <span class="k">do </span>item 2 <span class="o">(</span>payment<span class="o">)</span>
+        <span class="o">}</span>,
+        ...
+      <span class="o">]</span>
+  <span class="o">}</span>
+
+</code></pre>
+
+<p>Retorna uma lista em JSON contendo todos os items que pertencem ao CNAB de remessa informado.</p>
 
           <h1 id="cnab-de-retorno">CNAB de Retorno</h1>
 <pre class="highlight shell"><code>CNAB de Retorno
