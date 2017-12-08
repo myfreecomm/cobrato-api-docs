@@ -1482,6 +1482,7 @@ EXEMPLO
     <span class="s2">"initial_remittance_number"</span>: 1,
     <span class="s2">"transmission_code"</span>: <span class="s2">"987655"</span>,
     <span class="s2">"pre_released_billet"</span>: <span class="nb">false</span>,
+    <span class="s2">"writing_off_deadline"</span>: null,
     <span class="s2">"_links"</span>:
       <span class="o">[</span>
         <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"self"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charge_configs/1"</span><span class="o">}</span>,
@@ -1511,8 +1512,8 @@ EXEMPLO
 
 <aside class="info">
   Para homologar a Configuração de Cobrança existe uma série de passos que você encontra em
-  <a href="https://app.cobrato.com/charge_configs">nossa interface web</a>. Até 
-  que a Configuração tenha o status &ldquo;ok&rdquo; (Homologado), todas as cobranças criadas para esta Configuração 
+  <a href="https://app.cobrato.com/charge_configs">nossa interface web</a>. Até
+  que a Configuração tenha o status &ldquo;ok&rdquo; (Homologado), todas as cobranças criadas para esta Configuração
   deverão ser para homologação.
 </aside>
 
@@ -1616,6 +1617,11 @@ EXEMPLO
 <td>caso a configuração de cobrança utilize boletos registrados, este atributo indica se os boletos podem ser acessados antes do registro no banco ser confirmado</td>
 </tr>
 <tr>
+<td>writing_off_deadline</td>
+<td>integer</td>
+<td>número de dias após o vencimento da cobrança para que seja feita a baixa automática do título no banco (apenas para cobranças registradas com padrão 240)</td>
+</tr>
+<tr>
 <td>_links</td>
 <td>array of object</td>
 <td>links da configuração de cobrança e de sua conta bancária</td>
@@ -1626,8 +1632,8 @@ EXEMPLO
 
 <aside class="info">
   Para homologar a Configuração de Cobrança existe uma série de passos que você encontra em
-  <a href="https://app.cobrato.com/wizard/payment_gateway/configs/new">nossa interface web</a>. Até 
-  que a Configuração tenha o status &ldquo;ok&rdquo; (Homologado), todas as cobranças criadas para esta Configuração 
+  <a href="https://app.cobrato.com/wizard/payment_gateway/configs/new">nossa interface web</a>. Até
+  que a Configuração tenha o status &ldquo;ok&rdquo; (Homologado), todas as cobranças criadas para esta Configuração
   serão consideradas Cobranças para homologação.
 </aside>
 
@@ -1732,6 +1738,7 @@ EXEMPLO DE CORPO DA RESPOSTA <span class="o">(</span>BOLETO<span class="o">)</sp
     <span class="s2">"initial_remittance_number"</span>: 1,
     <span class="s2">"transmission_code"</span>: <span class="s2">"987655"</span>,
     <span class="s2">"pre_released_billet"</span>: <span class="nb">false</span>,
+    <span class="s2">"writing_off_deadline"</span>: null,
     <span class="s2">"_links"</span>:
       <span class="o">[</span>
         <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"self"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charge_configs/1"</span><span class="o">}</span>,
@@ -1940,6 +1947,11 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <td>boolean</td>
 <td>(opcional) caso a configuração de cobrança utilize boletos registrados, este atributo indica se os boletos podem ser acessados antes do registro no banco ser confirmado. Por padrão é <code class="prettyprint">false</code></td>
 </tr>
+<tr>
+<td>writing_off_deadline</td>
+<td>integer</td>
+<td>(opcional) número de dias após o vencimento da cobrança para que seja feita a baixa automática do título no banco. Valor pode variar entre 7 e 90. (apenas para cobranças registradas com padrão 240)</td>
+</tr>
 </tbody></table>
 
 <aside class="warning">
@@ -2140,6 +2152,11 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <td>pre_released_billet</td>
 <td>boolean</td>
 <td>(opcional) caso a configuração de cobrança utilize boletos registrados, este atributo indica se os boletos podem ser acessados antes do registro no banco ser confirmado. Por padrão é <code class="prettyprint">false</code></td>
+</tr>
+<tr>
+<td>writing_off_deadline</td>
+<td>integer</td>
+<td>(opcional) número de dias após o vencimento da cobrança para que seja feita a baixa automática do título no banco. Valor pode variar entre 7 e 90. (apenas para cobranças registradas com padrão 240)</td>
 </tr>
 </tbody></table>
 
