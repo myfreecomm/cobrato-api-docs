@@ -6441,10 +6441,10 @@ EXEMPLO
   <span class="o">}</span>
 </code></pre>
 
-<p>Os Arquivos CNAB de Remessa são arquivos enviados para o banco com o objetivo de registrar novos títulos/pagamentos, podendo ser gerado a partir de um ou mais items (Cobranças ou Pagamentos). Se forem enviados items de Configurações diferentes, será gerado um CNAB de remessa para cada Configuração.</p>
+<p>Os Arquivos CNAB de Remessa são arquivos enviados para o banco com o objetivo de registrar novas cobranças/pagamentos, podendo ser gerado a partir de um ou mais items (Cobranças ou Pagamentos). Se forem enviados items de Configurações diferentes, será gerado um CNAB de remessa para cada Configuração.</p>
 
 <aside class="warning">
-Se seu plano não er direito a utilização desta API, a resposta com será com o status <strong>403 Forbidden</strong>!
+Se seu plano não der direito a utilização desta API, a resposta com será com o status <strong>403 Forbidden</strong>!
 </aside>
 
 <p><strong>Parâmetros</strong></p>
@@ -6817,33 +6817,24 @@ EXEMPLO
 
   <span class="o">{</span>
     <span class="s2">"id"</span>: 1,
-    <span class="s2">"charge_config_id"</span>: 9,
+    <span class="s2">"charge_config_id"</span>: 9, <span class="c"># DEPRECATED</span>
+    <span class="s2">"config_id"</span>: 9,
     <span class="s2">"status"</span>: <span class="s2">"processed"</span>,
-    <span class="s2">"report"</span>: <span class="o">{</span>
-      <span class="s2">"charges_not_found"</span>: 0,
-      <span class="s2">"received_charges"</span>: <span class="o">[{</span>
-        <span class="s2">"id"</span>: 46,
-        <span class="s2">"_links"</span>: <span class="o">[{</span> <span class="s2">"rel"</span>: <span class="s2">"self"</span>, <span class="s2">"method"</span>: <span class="s2">"GET"</span>, <span class="s2">"href"</span>: <span class="s2">"https://app.cobrato.com/api/v1/charges/46"</span> <span class="o">}]</span>
-      <span class="o">}]</span>,
-      <span class="s2">"registered_charges"</span>: <span class="o">[{</span>
-        <span class="s2">"id"</span>: 45,
-        <span class="s2">"_links"</span>: <span class="o">[{</span> <span class="s2">"rel"</span>: <span class="s2">"self"</span>, <span class="s2">"method"</span>: <span class="s2">"GET"</span>, <span class="s2">"href"</span>: <span class="s2">"https://app.cobrato.com/api/v1/charges/45"</span> <span class="o">}]</span>
-      <span class="o">}]</span>
-    <span class="o">}</span>,
+    <span class="s2">"type"</span>: <span class="s2">"charge"</span>,
     <span class="s2">"_links"</span>:
       <span class="o">[</span>
         <span class="o">{</span><span class="s2">"rel"</span>: <span class="s2">"self"</span>, <span class="s2">"method"</span>: <span class="s2">"GET"</span>, <span class="s2">"href"</span>: <span class="s2">"https://app.cobrato.com/api/v1/regress_cnabs/1"</span><span class="o">}</span>,
         <span class="o">{</span><span class="s2">"rel"</span>: <span class="s2">"destroy"</span>, <span class="s2">"method"</span>: <span class="s2">"DELETE"</span>, <span class="s2">"href"</span>: <span class="s2">"https://app.cobrato.com/api/v1/regress_cnabs/1"</span><span class="o">}</span>,
-        <span class="o">{</span><span class="s2">"rel"</span>: <span class="s2">"charge_config"</span>, <span class="s2">"method"</span>: <span class="s2">"GET"</span>, <span class="s2">"href"</span>: <span class="s2">"https://app.cobrato.com/api/v1/charge_config/1"</span><span class="o">}</span>,
+        <span class="o">{</span><span class="s2">"rel"</span>: <span class="s2">"config"</span>, <span class="s2">"method"</span>: <span class="s2">"GET"</span>, <span class="s2">"href"</span>: <span class="s2">"https://app.cobrato.com/api/v1/charge_config/1"</span><span class="o">}</span>,
         <span class="o">{</span><span class="s2">"rel"</span>: <span class="s2">"file"</span>, <span class="s2">"method"</span>: <span class="s2">"GET"</span>, <span class="s2">"href"</span>: <span class="s2">"https://app.cobrato.com/api/v1/regress_cnabs/1/file"</span><span class="o">}</span>
       <span class="o">]</span>
   <span class="o">}</span>
 </code></pre>
 
-<p>Os arquivos CNABs de retorno, pertencem a uma determinada configuração de cobrança, contendo informações de uma ou mais cobranças desta conta.</p>
+<p>Os Arquivos CNAB de retorno são arquivos disponibilizados pelo banco com as informações de ocorrências relacionadas às cobranças/pagamentos. Os arquivos CNABs de retorno é relacionado à uma determinada Configuração e o cobrato tentará encontrar os itens relacionados e aplicar as informações enviadas pelo banco.</p>
 
 <aside class="warning">
-A utilização desta API não é autorizada a contas com o plano <strong>Gratuito</strong>, resultando na resposta com o estado <strong>403 Forbidden</strong>!
+Se seu plano não der direito a utilização desta API, a resposta com será com o status <strong>403 Forbidden</strong>!
 </aside>
 
 <p><strong>Parâmetros</strong></p>
@@ -6861,9 +6852,19 @@ A utilização desta API não é autorizada a contas com o plano <strong>Gratuit
 <td>identificador do CNAB de retorno</td>
 </tr>
 <tr>
+<td>type</td>
+<td>string</td>
+<td>indica o tipo de arquivo de remessa (&lsquo;charge&rsquo; ou &#39;payment&rsquo;)</td>
+</tr>
+<tr>
+<td>config_id</td>
+<td>string</td>
+<td>identificador da configuração no Cobrato relacionada ao arquivo de remessa</td>
+</tr>
+<tr>
 <td>charge_config_id</td>
 <td>string</td>
-<td>identificador da configuração de cobrança no Cobrato</td>
+<td>(DEPRECATED: use config_id) identificador da configuração de cobrança no Cobrato</td>
 </tr>
 <tr>
 <td>status</td>
@@ -6871,40 +6872,9 @@ A utilização desta API não é autorizada a contas com o plano <strong>Gratuit
 <td>situação do arquivo CNAB, podendo ser &ldquo;processing&rdquo; (processando), &ldquo;processed&rdquo; (processado) e &ldquo;processing_error&rdquo; (erro de processamento)</td>
 </tr>
 <tr>
-<td>report</td>
-<td>string</td>
-<td>relatório de processamento do arquivo CNAB, os parâmetros do relatório se encontram na tabela abaixo</td>
-</tr>
-<tr>
 <td>_links</td>
 <td>array of object</td>
 <td>links relacionado CNAB de retorno</td>
-</tr>
-</tbody></table>
-
-<p><strong>Parâmetros do Relatório de Processamento</strong></p>
-
-<table><thead>
-<tr>
-<th>Campo</th>
-<th>Tipo</th>
-<th>Comentário</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>charges_not_found</td>
-<td>integer</td>
-<td>Quantidade de cobranças que estavam no CNAB, mas não foram localizadas no sistema</td>
-</tr>
-<tr>
-<td>received_charges</td>
-<td>array of objects</td>
-<td>Informações das cobranças recebidas pelo CNAB, contendo o código identificador e link</td>
-</tr>
-<tr>
-<td>registered_charges</td>
-<td>array of objects</td>
-<td>Informações das cobranças registradas pelo CNAB, contendo o código identificador e link</td>
 </tr>
 </tbody></table>
 
@@ -6931,19 +6901,9 @@ EXEMPLO DE CORPO DA RESPOSTA
 
   <span class="o">{</span>
     <span class="s2">"id"</span>: 1,
-    <span class="s2">"charge_config_id"</span>: 9,
+    <span class="s2">"charge_config_id"</span>: 9, <span class="c"># DEPRECATED</span>
+    <span class="s2">"config_id"</span>: 9,
     <span class="s2">"status"</span>: <span class="s2">"processed"</span>,
-    <span class="s2">"report"</span>: <span class="o">{</span>
-      <span class="s2">"charges_not_found"</span>: 0,
-      <span class="s2">"received_charges"</span>: <span class="o">[{</span>
-        <span class="s2">"id"</span>: 46,
-        <span class="s2">"_links"</span>: <span class="o">[{</span> <span class="s2">"rel"</span>: <span class="s2">"self"</span>, <span class="s2">"method"</span>: <span class="s2">"GET"</span>, <span class="s2">"href"</span>: <span class="s2">"https://app.cobrato.com/api/v1/charges/46"</span> <span class="o">}]</span>
-      <span class="o">}]</span>,
-      <span class="s2">"registered_charges"</span>: <span class="o">[{</span>
-        <span class="s2">"id"</span>: 45,
-        <span class="s2">"_links"</span>: <span class="o">[{</span> <span class="s2">"rel"</span>: <span class="s2">"self"</span>, <span class="s2">"method"</span>: <span class="s2">"GET"</span>, <span class="s2">"href"</span>: <span class="s2">"https://app.cobrato.com/api/v1/charges/45"</span> <span class="o">}]</span>
-      <span class="o">}]</span>
-    <span class="o">}</span>,
     <span class="s2">"_links"</span>:
       <span class="o">[</span>
         <span class="o">{</span><span class="s2">"rel"</span>: <span class="s2">"self"</span>, <span class="s2">"method"</span>: <span class="s2">"GET"</span>, <span class="s2">"href"</span>: <span class="s2">"https://app.cobrato.com/api/v1/regress_cnabs/1"</span><span class="o">}</span>,
@@ -6957,7 +6917,7 @@ EXEMPLO DE CORPO DA RESPOSTA
 
 <p>Retorna as informações detalhadas em JSON do CNAB de retorno informado.</p>
 
-<h2 id="lista-de-todas-as-cnabs-de-retorno">Lista de Todas as CNABs de Retorno</h2>
+<h2 id="lista-de-todos-os-cnabs-de-retorno">Lista de Todos os CNABs de Retorno</h2>
 <pre class="highlight shell"><code>Listar CNABs de Retorno
 
 DEFINIÇÃO
@@ -7010,7 +6970,8 @@ EXEMPLO DE REQUISIÇÃO
     -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
     -X POST https://app.cobrato.com/api/v1/regress_cnabs <span class="se">\</span>
     -d <span class="s1">'{
-          "charge_config_id": 1,
+          "config_id": 1,
+          "type": "charge",
           "cnabs": {
             "content":      "MDJSRVRPUk5PMDFDT0JSQU5DQSAgICAgICAzMTMwMDAyMjY5OTAgICA...",
             "content_type": "text/plain"
@@ -7030,7 +6991,7 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
   <span class="o">{</span>
     <span class="s2">"errors"</span>:<span class="o">{</span>
-      <span class="s2">"charge_config_id"</span>: <span class="o">[</span><span class="s2">"não pode ficar em branco"</span><span class="o">]</span>,
+      <span class="s2">"config_id"</span>: <span class="o">[</span><span class="s2">"não pode ficar em branco"</span><span class="o">]</span>,
       <span class="s2">"cnabs"</span>: <span class="o">[</span><span class="s2">"não pode ficar em branco"</span><span class="o">]</span>
     <span class="o">}</span>
   <span class="o">}</span>
@@ -7049,9 +7010,19 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 </tr>
 </thead><tbody>
 <tr>
+<td>type</td>
+<td>string</td>
+<td>(optional) Define o tipo de arquivo CNAB de Retorno a ser criado. Os possíveis valores são &#39;charge&rsquo; para Cobrança e &#39;payment&rsquo; para Pagamento, sendo que o padrão é &#39;charge&rsquo;</td>
+</tr>
+<tr>
+<td>config_id</td>
+<td>string</td>
+<td><strong>(requerido)</strong> identificador da configuração à qual o arquivo CNAB de retorno pertence</td>
+</tr>
+<tr>
 <td>charge_config_id</td>
 <td>string</td>
-<td><strong>(requerido)</strong> identificador da configuração de cobrança à qual o arquivo CNAB de retorno pertence</td>
+<td>(DEPRECATED: use config_id) <strong>(requerido)</strong> identificador da configuração de cobrança à qual o arquivo CNAB de retorno pertence</td>
 </tr>
 <tr>
 <td>cnabs</td>
@@ -7079,7 +7050,7 @@ EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
 
     204 No Content
 
-EXEMPLO DE ESTADO DA RESPOSTA COM CONTA BANCÁRIA INEXISTENTE
+EXEMPLO DE ESTADO DA RESPOSTA COM ARQUIVO DE RETORNO INEXISTENTE
 
     404 Not Found
 
@@ -7106,7 +7077,7 @@ EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
 
     200 OK
 
-EXEMPLO DE ESTADO DA RESPOSTA COM COBRANÇA INEXISTENTE
+EXEMPLO DE ESTADO DA RESPOSTA COM ARQUIVO DE RETORNO INEXISTENTE
 
     404 Not Found
 
