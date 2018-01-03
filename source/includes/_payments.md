@@ -219,7 +219,6 @@ Além dos parâmetros comuns à todos as formas de pagamento, temos parêmtros c
 
 | Campo                     | Tipo    | Comentário                                                                      |
 |---------------------------|---------|---------------------------------------------------------------------------------|
-| bank_code                 | string  | **(requerido)** código de 3 dígitos do banco da conta bancária para o pagamento |
 | account                   | string  | **(requerido)** número da conta bancária para o pagamento                       |
 | account_digit             | string  | **(requerido)** dígito da conta bancária para fazer o pagamento                 |
 | agency                    | string  | **(requerido)** número da agência da conta bancária para fazer o pagamento      |
@@ -232,12 +231,14 @@ Além dos parâmetros comuns à todos as formas de pagamento, temos parêmtros c
 | Campo                     | Tipo    | Comentário                                                                    |
 |---------------------------|---------|-------------------------------------------------------------------------------|
 | doc_goal                  | string  | (opcional) código referente ao objetivo do DOC. Possíveis valores na tabela 2 |
+| bank_code                 | string  | **(requerido)** código de 3 dígitos do banco da conta bancária para o pagamento |
 
 **Parâmetros quando payment_method é 'ted_other_ownership'**
 
 | Campo                     | Tipo    | Comentário                                                                    |
 |---------------------------|---------|-------------------------------------------------------------------------------|
 | ted_goal                  | string  | (opcional) código referente ao objetivo do TED. Possíveis valores na tabela 3 |
+| bank_code                 | string  | **(requerido)** código de 3 dígitos do banco da conta bancária para o pagamento |
 
 ### Boleto Bancário (Boleto de mesmo banco, Boleto de outro Banco)
 
