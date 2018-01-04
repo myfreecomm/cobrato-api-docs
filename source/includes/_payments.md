@@ -213,7 +213,7 @@ Cria um novo Pagamento, retornando as informações do mesmo em caso de sucesso.
 
 ### Transferências (DOC, TED, Crédito)
 
-Além dos parâmetros comuns à todos as formas de pagamento, temos parêmtros comuns aos pagamentos via transferência, além de alguns espefíficos para cada modo de pagamento.
+Além dos parâmetros comuns à todos as formas de pagamento, temos parâmetros comuns aos pagamentos via transferência, além de alguns espefíficos para cada modo de pagamento.
 
 **Parâmetros comuns à todos os pagamentos via transferência**
 
@@ -228,58 +228,52 @@ Além dos parâmetros comuns à todos as formas de pagamento, temos parêmtros c
 
 **Parâmetros quando payment_method é 'doc_other_ownership' ou 'doc_same_ownership'**
 
-| Campo                     | Tipo    | Comentário                                                                    |
-|---------------------------|---------|-------------------------------------------------------------------------------|
-| doc_goal                  | string  | (opcional) código referente ao objetivo do DOC. Possíveis valores na tabela 2 |
+| Campo                     | Tipo    | Comentário                                                                      |
+|---------------------------|---------|---------------------------------------------------------------------------------|
 | bank_code                 | string  | **(requerido)** código de 3 dígitos do banco da conta bancária para o pagamento |
+| doc_goal                  | string  | (opcional) código referente ao objetivo do DOC. Possíveis valores na tabela 2   |
 
 **Parâmetros quando payment_method é 'ted_other_ownership'**
 
-| Campo                     | Tipo    | Comentário                                                                    |
-|---------------------------|---------|-------------------------------------------------------------------------------|
-| ted_goal                  | string  | (opcional) código referente ao objetivo do TED. Possíveis valores na tabela 3 |
+| Campo                     | Tipo    | Comentário                                                                      |
+|---------------------------|---------|---------------------------------------------------------------------------------|
 | bank_code                 | string  | **(requerido)** código de 3 dígitos do banco da conta bancária para o pagamento |
+| ted_goal                  | string  | (opcional) código referente ao objetivo do TED. Possíveis valores na tabela 3   |
 
 ### Boleto Bancário (Boleto de mesmo banco, Boleto de outro Banco)
 
-Para pagamento via boleto bancário, também temos alguns campos comuns e outros específicos para cada valor de payment_method.
+Além dos parâmetros comuns à todos as formas de pagamento, temos parâmetros espefíficos para o pagamento de boletos bancários.
 
-**Parâmetros comuns à todos os pagamentos via boleto bancário**
+<aside class="info">
+O attributo <code>amount</code> nesse caso é opcional, pois ele é identificado a partir do código de barras.
+</aside>
 
-| Campo                     | Tipo    | Comentário                                                                      |
-|---------------------------|---------|---------------------------------------------------------------------------------|
-| due_date                  | string  | **(requerido)** Data de vencimento do boleto                                    |
-| barcode                   | string  | **(requerido)** Código de barras do boleto bancário                             |
-| discount_amount           | string  |  valor do desconto                                                              |
-| extra_amount              | string  |  valor extra                                                                    |
+**Parâmetros quando payment_method é 'billet_same_bank' ou 'billet_other_bank'**
 
-**Parâmetros quando o payment_method é 'billet_other_bank'**
+| Campo                     | Tipo    | Comentário                                                                          |
+|---------------------------|---------|-------------------------------------------------------------------------------------|
+| barcode                   | string  | **(requerido)** Código de barras do boleto bancário                                 |
+| payee_name                | string  | **(requerido)** nome do beneficiário                                                |
+| payee_document_type       | string  | **(requerido)** tipo do documento do beneficiário ('cpf' ou 'cnpj')                 |
+| payee_document            | string  | **(requerido)** número do documento do beneficiário                                 |
+| due_date                  | date    | (opicional, já que é identificado no código de barras) Data de vencimento do boleto |
+| discount_amount           | decimal | (opcional) valor do desconto                                                        |
+| extra_amount              | decimal | (opcional) valor extra                                                              |
 
-| Campo                     | Tipo    | Comentário                                                                      |
-|---------------------------|---------|---------------------------------------------------------------------------------|
-| bank_code                 | string  | **(requerido)** código de 3 dígitos do banco da conta bancária para o pagamento |
-| account                   | string  | **(requerido)** número da conta bancária para o pagamento                       |
-| account_digit             | string  | **(requerido)** dígito da conta bancária para fazer o pagamento                 |
-| agency                    | string  | **(requerido)** número da agência da conta bancária para fazer o pagamento      |
+### Boleto de Tributo (Concecionárias, Tributo com código de barras)
 
-**Parâmetros específicos para 'billet_same_bank'**
+Além dos parâmetros comuns à todos as formas de pagamento, temos parâmetros espefíficos para o pagamento de boletos de concecionárias ou tributos.
 
-| Campo                     | Tipo    | Comentário                                                                      |
-|---------------------------|---------|---------------------------------------------------------------------------------|
-| account                   | string  | **(requerido)** número da conta bancária para o pagamento                       |
-| account_digit             | string  | **(requerido)** dígito da conta bancária para fazer o pagamento                 |
-| agency                    | string  | **(requerido)** número da agência da conta bancária para fazer o pagamento      |
+<aside class="info">
+O attributo <code>amount</code> nesse caso é opcional, pois ele é identificado a partir do código de barras.
+</aside>
 
-### Tributo com código de barras (Concecionárias, Tributo com código de barras)
+**Parâmetros quando payment_method é 'dealdership' ou 'tribute_with_barcode'**
 
-Para pagamento de à concecionárias ou outros tributos com código de barras, utilizamos somente os seguintes campos além dos compartilhados para todos os pagamentos.
-
-**Parâmetros para 'dealdership' e 'tribute_with_barcode'**
-
-| Campo                     | Tipo    | Comentário                                                                      |
-|---------------------------|---------|---------------------------------------------------------------------------------|
-| due_date                  | string  | **(requerido)** Data de vencimento do boleto                                    |
-| barcode                   | string  | **(requerido)** Código de barras do boleto bancário                             |
+| Campo                     | Tipo    | Comentário                                          |
+|---------------------------|---------|-----------------------------------------------------|
+| barcode                   | string  | **(requerido)** Código de barras do boleto bancário |
+| due_date                  | date    | **(requerido)** Data de vencimento do boleto        |
 
 ## Atualização de Pagamento
 
@@ -327,9 +321,6 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
 Atualiza um determinado Pagamento, retornando as informações do mesmo em caso de sucesso. Se houverem erros, eles serão informados no corpo da resposta. A requisição não diferencia a utilização dos verbos PUT e PATCH.
 
-
-Atualiza um determinado Pagamento, retornando as informações do mesmo em caso de sucesso. Se houverem erros, eles serão informados no corpo da resposta. A requisição não diferencia a utilização dos verbos PUT e PATCH.
-
 **Parâmetros comuns a todos as formas de pagamento**
 
 | Campo                     | Tipo    | Comentário                         |
@@ -341,7 +332,7 @@ Atualiza um determinado Pagamento, retornando as informações do mesmo em caso 
 
 ### Transferências (DOC, TED, Crédito)
 
-Além dos parâmetros comuns à todos as formas de pagamento, temos parêmtros comuns aos pagamentos via transferência, além de alguns espefíficos para cada modo de pagamento.
+Além dos parâmetros comuns à todos as formas de pagamento, temos parâmetros comuns aos pagamentos via transferência, além de alguns espefíficos para cada modo de pagamento.
 
 **Parâmetros comuns à todos os pagamentos via transferência**
 
@@ -369,44 +360,28 @@ Além dos parâmetros comuns à todos as formas de pagamento, temos parêmtros c
 
 ### Boleto Bancário (Boleto de mesmo banco, Boleto de outro Banco)
 
-Para pagamento via boleto bancário, também temos alguns campos comuns e outros específicos para cada valor de payment_method.
+Além dos parâmetros comuns à todos as formas de pagamento, temos parâmetros espefíficos para o pagamento de boletos bancários.
 
-**Parâmetros comuns à todos os pagamentos via boleto bancário**
+**Parâmetros quando payment_method é 'billet_same_bank' ou 'billet_other_bank'**
 
-| Campo                     | Tipo    | Comentário                                                                      |
-|---------------------------|---------|---------------------------------------------------------------------------------|
-| due_date                  | string  | **(requerido)** Data de vencimento do boleto                                    |
-| barcode                   | string  | **(requerido)** Código de barras do boleto bancário                             |
-| discount_amount           | string  |  valor do desconto                                                              |
-| extra_amount              | string  |  valor extra                                                                    |
+| Campo                     | Tipo    | Comentário                                                          |
+|---------------------------|---------|---------------------------------------------------------------------|
+| payee_name                | string  | **(requerido)** nome do beneficiário                                |
+| payee_document_type       | string  | **(requerido)** tipo do documento do beneficiário ('cpf' ou 'cnpj') |
+| payee_document            | string  | **(requerido)** número do documento do beneficiário                 |
+| due_date                  | date    | **(requerido)** Data de vencimento do boleto                        |
+| discount_amount           | decimal | (opcional) valor do desconto                                        |
+| extra_amount              | decimal | (opcional) valor extra                                              |
 
-**Parâmetros quando o payment_method é 'billet_other_bank'**
+### Boleto de Tributo (Concecionárias, Tributo com código de barras)
 
-| Campo                     | Tipo    | Comentário                                                                      |
-|---------------------------|---------|---------------------------------------------------------------------------------|
-| bank_code                 | string  | **(requerido)** código de 3 dígitos do banco da conta bancária para o pagamento |
-| account                   | string  | **(requerido)** número da conta bancária para o pagamento                       |
-| account_digit             | string  | **(requerido)** dígito da conta bancária para fazer o pagamento                 |
-| agency                    | string  | **(requerido)** número da agência da conta bancária para fazer o pagamento      |
+Além dos parâmetros comuns à todos as formas de pagamento, temos parâmetros espefíficos para o pagamento de boletos de concecionárias ou tributos.
 
-**Parâmetros específicos para 'billet_same_bank'**
+**Parâmetros quando payment_method é 'dealdership' ou 'tribute_with_barcode'**
 
-| Campo                     | Tipo    | Comentário                                                                      |
-|---------------------------|---------|---------------------------------------------------------------------------------|
-| account                   | string  | **(requerido)** número da conta bancária para o pagamento                       |
-| account_digit             | string  | **(requerido)** dígito da conta bancária para fazer o pagamento                 |
-| agency                    | string  | **(requerido)** número da agência da conta bancária para fazer o pagamento      |
-
-### Tributo com código de barras (Concecionárias, Tributo com código de barras)
-
-Para pagamento de à concecionárias ou outros tributos com código de barras, utilizamos somente os seguintes campos além dos compartilhados para todos os pagamentos:
-
-**Parâmetros para 'dealdership' e 'tribute_with_barcode'**
-
-| Campo                     | Tipo    | Comentário                                                                      |
-|---------------------------|---------|---------------------------------------------------------------------------------|
-| due_date                  | string  | **(requerido)** Data de vencimento do boleto                                    |
-| barcode                   | string  | **(requerido)** Código de barras do boleto bancário                             |
+| Campo                     | Tipo    | Comentário                                          |
+|---------------------------|---------|-----------------------------------------------------|
+| due_date                  | date    | **(requerido)** Data de vencimento do boleto        |
 
 ## Exclusão de Pagamento
 
