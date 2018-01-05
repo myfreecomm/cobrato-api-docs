@@ -208,7 +208,7 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
 Cria um novo Pagamento, retornando as informações do mesmo em caso de sucesso. Se houverem erros eles serão informados no corpo da resposta.
 
-**Parâmetros comuns à todos as formas de pagamento**
+**Parâmetros comuns à todas as formas de pagamento**
 
 | Campo                     | Tipo    | Comentário                                                                                                                                                                                                        |
 |---------------------------|---------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -220,7 +220,7 @@ Cria um novo Pagamento, retornando as informações do mesmo em caso de sucesso.
 
 ### Transferências (DOC, TED, Crédito)
 
-Além dos parâmetros comuns à todos as formas de pagamento, temos parêmtros comuns aos pagamentos via transferência, além de alguns espefíficos para cada tipo de transferência.
+Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros comuns aos pagamentos via transferência, além de alguns espefíficos para cada tipo de transferência.
 
 **Parâmetros comuns à todos os pagamentos via transferência**
 
@@ -249,7 +249,7 @@ Além dos parâmetros comuns à todos as formas de pagamento, temos parêmtros c
 
 ### Boleto Bancário (Boleto de mesmo banco, Boleto de outro Banco)
 
-Além dos parâmetros comuns à todos as formas de pagamento, temos parâmetros espefíficos para o pagamento de boletos bancários.
+Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros espefíficos para o pagamento de boletos bancários.
 
 <aside class="info">
 O attributo <code>amount</code> nesse caso é opcional, pois ele é identificado a partir do código de barras.
@@ -269,7 +269,7 @@ O attributo <code>amount</code> nesse caso é opcional, pois ele é identificado
 
 ### Boleto de Tributo (Concecionárias, Tributo com código de barras)
 
-Além dos parâmetros comuns à todos as formas de pagamento, temos parâmetros espefíficos para o pagamento de boletos de concecionárias ou tributos.
+Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros espefíficos para o pagamento de boletos de concecionárias ou tributos.
 
 <aside class="info">
 O attributo <code>amount</code> nesse caso é opcional, pois ele é identificado a partir do código de barras.
@@ -284,7 +284,7 @@ O attributo <code>amount</code> nesse caso é opcional, pois ele é identificado
 
 ### Tributos sem código de barras (GPS)
 
-Além dos parâmetros comuns à todos as formas de pagamento, temos parâmetros específicos para cada tipo de tributo:
+Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros específicos para cada tipo de tributo:
 
 **Parâmetros quando payment_method é 'gps'**
 
@@ -342,7 +342,7 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
 Atualiza um determinado Pagamento, retornando as informações do mesmo em caso de sucesso. Se houverem erros, eles serão informados no corpo da resposta. A requisição não diferencia a utilização dos verbos PUT e PATCH.
 
-**Parâmetros comuns a todos as formas de pagamento**
+**Parâmetros comuns a todas as formas de pagamento**
 
 | Campo                     | Tipo    | Comentário                         |
 |---------------------------|---------|------------------------------------|
@@ -351,7 +351,7 @@ Atualiza um determinado Pagamento, retornando as informações do mesmo em caso 
 
 ### Transferências (DOC, TED, Crédito)
 
-Além dos parâmetros comuns à todos as formas de pagamento, temos parêmtros comuns aos pagamentos via transferência, além de alguns espefíficos para cada tipo de transferência.
+Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros comuns aos pagamentos via transferência, além de alguns espefíficos para cada tipo de transferência.
 
 **Parâmetros comuns à todos os pagamentos via transferência**
 
@@ -379,7 +379,7 @@ Além dos parâmetros comuns à todos as formas de pagamento, temos parêmtros c
 
 ### Boleto Bancário (Boleto de mesmo banco, Boleto de outro Banco)
 
-Além dos parâmetros comuns à todos as formas de pagamento, temos parâmetros espefíficos para o pagamento de boletos bancários.
+Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros espefíficos para o pagamento de boletos bancários.
 
 **Parâmetros quando payment_method é 'billet_same_bank' ou 'billet_other_bank'**
 
@@ -394,7 +394,7 @@ Além dos parâmetros comuns à todos as formas de pagamento, temos parâmetros 
 
 ### Boleto de Tributo (Concecionárias, Tributo com código de barras)
 
-Além dos parâmetros comuns à todos as formas de pagamento, temos parâmetros espefíficos para o pagamento de boletos de concecionárias ou tributos.
+Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros espefíficos para o pagamento de boletos de concecionárias ou tributos.
 
 **Parâmetros quando payment_method é 'dealdership' ou 'tribute_with_barcode'**
 
@@ -404,7 +404,7 @@ Além dos parâmetros comuns à todos as formas de pagamento, temos parâmetros 
 
 ### Tributos sem código de barras (GPS)
 
-Além dos parâmetros comuns à todos as formas de pagamento, temos parâmetros específicos para cada tipo de tributo:
+Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros específicos para cada tipo de tributo:
 
 **Parâmetros quando payment_method é 'gps'**
 
