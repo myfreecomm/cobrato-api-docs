@@ -5039,7 +5039,7 @@ EXEMPLO
 <tr>
 <td>payment_method</td>
 <td>string</td>
-<td>forma de pagamento (&lsquo;credit_other_ownership&rsquo;, &#39;credit_same_ownership&rsquo;, &#39;credit_savings_account&rsquo;, &#39;doc_other_ownership&rsquo;, &#39;doc_same_ownership&rsquo;, &#39;ted_other_ownership&rsquo;, &#39;ted_same_ownership&rsquo;)</td>
+<td>forma de pagamento (&lsquo;credit_other_ownership&rsquo;, &#39;credit_same_ownership&rsquo;, &#39;credit_savings_account&rsquo;, &#39;doc_other_ownership&rsquo;, &#39;doc_same_ownership&rsquo;, &#39;ted_other_ownership&rsquo;, &#39;ted_same_ownership&rsquo;, &#39;dealership&rsquo;, &#39;billet_same_bank&rsquo;, &#39;billet_other_bank&rsquo;, &#39;gps&rsquo;, &#39;darf&rsquo;)</td>
 </tr>
 <tr>
 <td>payment_type</td>
@@ -5095,6 +5095,51 @@ EXEMPLO
 <td>our_number</td>
 <td>string</td>
 <td>número que identifica o pagamento no banco</td>
+</tr>
+<tr>
+<td>gps_payment_code</td>
+<td>string</td>
+<td>código do GPS, de 4 dígitos</td>
+</tr>
+<tr>
+<td>competency_month</td>
+<td>string</td>
+<td>mês de competência do GPS, repesentado por 2 dígitos</td>
+</tr>
+<tr>
+<td>competency_year</td>
+<td>string</td>
+<td>ano de competência do GPS, repesentado por 4 dígitos</td>
+</tr>
+<tr>
+<td>other_entities_amount</td>
+<td>decimal</td>
+<td>valor extra para outras entidades</td>
+</tr>
+<tr>
+<td>monetary_update</td>
+<td>decimal</td>
+<td>atualização monetária, incluindo valores de juros e multa</td>
+</tr>
+<tr>
+<td>discount_amount</td>
+<td>decimal</td>
+<td>valor do desconto</td>
+</tr>
+<tr>
+<td>extra_amount</td>
+<td>decimal</td>
+<td>valor Extra</td>
+</tr>
+<tr>
+<td>barcode</td>
+<td>string</td>
+<td>código de barras</td>
+</tr>
+<tr>
+<td>due_date</td>
+<td>date</td>
+<td>data de vencimento</td>
 </tr>
 <tr>
 <td>registration_status</td>
@@ -5240,9 +5285,7 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
 <p>Cria um novo Pagamento, retornando as informações do mesmo em caso de sucesso. Se houverem erros eles serão informados no corpo da resposta.</p>
 
-<h3 id="transfer-ncias-doc-ted-cr-dito">Transferências (DOC, TED, Crédito)</h3>
-
-<p><strong>Parâmetros</strong></p>
+<p><strong>Parâmetros comuns à todas as formas de pagamento</strong></p>
 
 <table><thead>
 <tr>
@@ -5257,6 +5300,16 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <td><strong>(requerido)</strong> código de identificação da configuração de pagamento à qual o pagamento irá pertencer</td>
 </tr>
 <tr>
+<td>payment_method</td>
+<td>string</td>
+<td><strong>(requerido)</strong> forma de pagamento (&#39;credit_other_ownership&rsquo;, &#39;credit_same_ownership&rsquo;, &#39;credit_savings_account&rsquo;, &#39;doc_other_ownership&rsquo;, &#39;doc_same_ownership&rsquo;, &#39;ted_other_ownership&rsquo;, &#39;ted_same_ownership&rsquo;, &#39;gps&rsquo;)</td>
+</tr>
+<tr>
+<td>payment_type</td>
+<td>string</td>
+<td><strong>(requerido)</strong> tipo de pagamento. Os possíveis valores variam de acordo com o &ldquo;payment_method&rdquo; (vide tabela 1)</td>
+</tr>
+<tr>
 <td>amount</td>
 <td>decimal</td>
 <td><strong>(requerido)</strong> valor do pagamento</td>
@@ -5266,21 +5319,21 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <td>date</td>
 <td><strong>(requerido)</strong> data do pagamento</td>
 </tr>
+</tbody></table>
+
+<h3 id="transfer-ncias-doc-ted-cr-dito">Transferências (DOC, TED, Crédito)</h3>
+
+<p>Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros comuns aos pagamentos via transferência, além de alguns espefíficos para cada tipo de transferência.</p>
+
+<p><strong>Parâmetros comuns à todos os pagamentos via transferência</strong></p>
+
+<table><thead>
 <tr>
-<td>payment_method</td>
-<td>string</td>
-<td><strong>(requerido)</strong> forma de pagamento (&#39;credit_other_ownership&rsquo;, &#39;credit_same_ownership&rsquo;, &#39;credit_savings_account&rsquo;, &#39;doc_other_ownership&rsquo;, &#39;doc_same_ownership&rsquo;, &#39;ted_other_ownership&rsquo;, &#39;ted_same_ownership&rsquo;)</td>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
 </tr>
-<tr>
-<td>payment_type</td>
-<td>string</td>
-<td><strong>(requerido)</strong> tipo de pagamento. Os possíveis valores variam de acordo com o &ldquo;payment_method&rdquo; (vide tabela 1)</td>
-</tr>
-<tr>
-<td>bank_code</td>
-<td>string</td>
-<td><strong>(requerido)</strong> código de 3 dígitos do banco da conta bancária para o pagamento</td>
-</tr>
+</thead><tbody>
 <tr>
 <td>account</td>
 <td>string</td>
@@ -5311,15 +5364,215 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <td>string</td>
 <td><strong>(requerido)</strong> número do documento do beneficiário</td>
 </tr>
+</tbody></table>
+
+<p><strong>Parâmetros quando payment_method é &#39;doc_other_ownership&rsquo; ou &#39;doc_same_ownership&rsquo;</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>bank_code</td>
+<td>string</td>
+<td><strong>(requerido)</strong> código de 3 dígitos do banco da conta bancária para o pagamento</td>
+</tr>
 <tr>
 <td>doc_goal</td>
 <td>string</td>
-<td>(opcional e apenas utilizado quando payment_method é &#39;doc_other_ownership&rsquo; ou &#39;doc_same_ownership&rsquo;) código referente ao objetivo do DOC. Possíveis valores na tabela 2</td>
+<td>(opcional) código referente ao objetivo do DOC. Possíveis valores na tabela 2</td>
+</tr>
+</tbody></table>
+
+<p><strong>Parâmetros quando payment_method é &#39;ted_other_ownership&rsquo;</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>bank_code</td>
+<td>string</td>
+<td><strong>(requerido)</strong> código de 3 dígitos do banco da conta bancária para o pagamento</td>
 </tr>
 <tr>
 <td>ted_goal</td>
 <td>string</td>
-<td>(opcional e apenas utilizado quando payment_method é &#39;ted_other_ownership&rsquo;) código referente ao objetivo do TED. Possíveis valores na tabela 3</td>
+<td>(opcional) código referente ao objetivo do TED. Possíveis valores na tabela 3</td>
+</tr>
+</tbody></table>
+
+<h3 id="boleto-banc-rio-boleto-de-mesmo-banco-boleto-de-outro-banco">Boleto Bancário (Boleto de mesmo banco, Boleto de outro Banco)</h3>
+
+<p>Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros espefíficos para o pagamento de boletos bancários.</p>
+
+<aside class="info">
+O attributo <code>amount</code> nesse caso é opcional, pois ele é identificado a partir do código de barras.
+</aside>
+
+<p><strong>Parâmetros quando payment_method é &#39;billet_same_bank&rsquo; ou &#39;billet_other_bank&rsquo;</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>barcode</td>
+<td>string</td>
+<td><strong>(requerido)</strong> Código de barras do boleto bancário</td>
+</tr>
+<tr>
+<td>payee_name</td>
+<td>string</td>
+<td><strong>(requerido)</strong> nome do beneficiário</td>
+</tr>
+<tr>
+<td>payee_document_type</td>
+<td>string</td>
+<td><strong>(requerido)</strong> tipo do documento do beneficiário (&#39;cpf&rsquo; ou &#39;cnpj&rsquo;)</td>
+</tr>
+<tr>
+<td>payee_document</td>
+<td>string</td>
+<td><strong>(requerido)</strong> número do documento do beneficiário</td>
+</tr>
+<tr>
+<td>due_date</td>
+<td>date</td>
+<td>(opicional, já que é identificado no código de barras) Data de vencimento do boleto</td>
+</tr>
+<tr>
+<td>discount_amount</td>
+<td>decimal</td>
+<td>(opcional) valor do desconto</td>
+</tr>
+<tr>
+<td>extra_amount</td>
+<td>decimal</td>
+<td>(opcional) valor extra</td>
+</tr>
+</tbody></table>
+
+<h3 id="boleto-de-tributo-concecion-rias-tributo-com-c-digo-de-barras">Boleto de Tributo (Concecionárias, Tributo com código de barras)</h3>
+
+<p>Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros espefíficos para o pagamento de boletos de concecionárias ou tributos.</p>
+
+<aside class="info">
+O attributo <code>amount</code> nesse caso é opcional, pois ele é identificado a partir do código de barras.
+</aside>
+
+<p><strong>Parâmetros quando payment_method é &#39;dealdership&rsquo; ou &#39;tribute_with_barcode&rsquo;</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>barcode</td>
+<td>string</td>
+<td><strong>(requerido)</strong> Código de barras do boleto bancário</td>
+</tr>
+<tr>
+<td>due_date</td>
+<td>date</td>
+<td><strong>(requerido)</strong> Data de vencimento do boleto</td>
+</tr>
+</tbody></table>
+
+<h3 id="tributos-sem-c-digo-de-barras-gps-darf">Tributos sem código de barras (GPS, DARF)</h3>
+
+<p>Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros específicos para cada tipo de tributo:</p>
+
+<aside class="info">
+O attributo <code>payment_type</code> é automaticamente definido como <code>"tribute"</code>.
+</aside>
+
+<p><strong>Parâmetros quando payment_method é &#39;gps&rsquo;</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>gps_payment_code</td>
+<td>string</td>
+<td><strong>(requerido)</strong> código do GPS, de 4 dígitos</td>
+</tr>
+<tr>
+<td>competency_month</td>
+<td>string</td>
+<td><strong>(requerido)</strong> mês de competência do GPS, repesentado por 2 dígitos</td>
+</tr>
+<tr>
+<td>competency_year</td>
+<td>string</td>
+<td><strong>(requerido)</strong> ano de competência do GPS, repesentado por 4 dígitos</td>
+</tr>
+<tr>
+<td>other_entities_amount</td>
+<td>decimal</td>
+<td>(opcional) valor extra para outras entidades</td>
+</tr>
+<tr>
+<td>monetary_update</td>
+<td>decimal</td>
+<td>(opcional) atualização monetária, incluindo valores de juros e multa</td>
+</tr>
+</tbody></table>
+
+<p><strong>Parâmetros quando payment_method é &#39;darf&rsquo;</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>due_date</td>
+<td>date</td>
+<td><strong>(requerido)</strong> data de vencimento</td>
+</tr>
+<tr>
+<td>calculation_period</td>
+<td>date</td>
+<td><strong>(requerido)</strong> período de apuração</td>
+</tr>
+<tr>
+<td>receita_federal_code</td>
+<td>string</td>
+<td><strong>(requerido)</strong> código da receita federal, de 4 dígitos</td>
+</tr>
+<tr>
+<td>reference_number</td>
+<td>string</td>
+<td>(opcional) número de referência</td>
+</tr>
+<tr>
+<td>mulct_amount</td>
+<td>decimal</td>
+<td>(opcional) valor da multa</td>
+</tr>
+<tr>
+<td>interest_amount</td>
+<td>decimal</td>
+<td>(opcional) valor do juros</td>
 </tr>
 </tbody></table>
 
@@ -5367,7 +5620,7 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
 <p>Atualiza um determinado Pagamento, retornando as informações do mesmo em caso de sucesso. Se houverem erros, eles serão informados no corpo da resposta. A requisição não diferencia a utilização dos verbos PUT e PATCH.</p>
 
-<p><strong>Parâmetros</strong></p>
+<p><strong>Parâmetros comuns a todas as formas de pagamento</strong></p>
 
 <table><thead>
 <tr>
@@ -5386,6 +5639,21 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <td>date</td>
 <td><strong>(requerido)</strong> data do pagamento</td>
 </tr>
+</tbody></table>
+
+<h3 id="transfer-ncias-doc-ted-cr-dito">Transferências (DOC, TED, Crédito)</h3>
+
+<p>Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros comuns aos pagamentos via transferência, além de alguns espefíficos para cada tipo de transferência.</p>
+
+<p><strong>Parâmetros comuns à todos os pagamentos via transferência</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
 <tr>
 <td>bank_code</td>
 <td>string</td>
@@ -5421,15 +5689,183 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <td>string</td>
 <td><strong>(requerido)</strong> número do documento do beneficiário</td>
 </tr>
+</tbody></table>
+
+<p><strong>Parâmetros quando payment_method é &#39;doc_other_ownership&rsquo; ou &#39;doc_same_ownership&rsquo;</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
 <tr>
 <td>doc_goal</td>
 <td>string</td>
-<td>(opcional e apenas utilizado quando payment_method é &#39;doc_other_ownership&rsquo; ou &#39;doc_same_ownership&rsquo;) código referente ao objetivo do DOC. Possíveis valores na tabela 2</td>
+<td>(opcional) código referente ao objetivo do DOC. Possíveis valores na tabela 2</td>
 </tr>
+</tbody></table>
+
+<p><strong>Parâmetros quando payment_method é &#39;ted_other_ownership&rsquo;</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
 <tr>
 <td>ted_goal</td>
 <td>string</td>
-<td>(opcional e apenas utilizado quando payment_method é &#39;ted_other_ownership&rsquo;) código referente ao objetivo do TED. Possíveis valores na tabela 3</td>
+<td>(opcional) código referente ao objetivo do TED. Possíveis valores na tabela 3</td>
+</tr>
+</tbody></table>
+
+<h3 id="boleto-banc-rio-boleto-de-mesmo-banco-boleto-de-outro-banco">Boleto Bancário (Boleto de mesmo banco, Boleto de outro Banco)</h3>
+
+<p>Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros espefíficos para o pagamento de boletos bancários.</p>
+
+<p><strong>Parâmetros quando payment_method é &#39;billet_same_bank&rsquo; ou &#39;billet_other_bank&rsquo;</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>payee_name</td>
+<td>string</td>
+<td><strong>(requerido)</strong> nome do beneficiário</td>
+</tr>
+<tr>
+<td>payee_document_type</td>
+<td>string</td>
+<td><strong>(requerido)</strong> tipo do documento do beneficiário (&#39;cpf&rsquo; ou &#39;cnpj&rsquo;)</td>
+</tr>
+<tr>
+<td>payee_document</td>
+<td>string</td>
+<td><strong>(requerido)</strong> número do documento do beneficiário</td>
+</tr>
+<tr>
+<td>due_date</td>
+<td>date</td>
+<td><strong>(requerido)</strong> Data de vencimento do boleto</td>
+</tr>
+<tr>
+<td>discount_amount</td>
+<td>decimal</td>
+<td>(opcional) valor do desconto</td>
+</tr>
+<tr>
+<td>extra_amount</td>
+<td>decimal</td>
+<td>(opcional) valor extra</td>
+</tr>
+</tbody></table>
+
+<h3 id="boleto-de-tributo-concecion-rias-tributo-com-c-digo-de-barras">Boleto de Tributo (Concecionárias, Tributo com código de barras)</h3>
+
+<p>Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros espefíficos para o pagamento de boletos de concecionárias ou tributos.</p>
+
+<p><strong>Parâmetros quando payment_method é &#39;dealdership&rsquo; ou &#39;tribute_with_barcode&rsquo;</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>due_date</td>
+<td>date</td>
+<td><strong>(requerido)</strong> Data de vencimento do boleto</td>
+</tr>
+</tbody></table>
+
+<h3 id="tributos-sem-c-digo-de-barras-gps-darf">Tributos sem código de barras (GPS, DARF)</h3>
+
+<p>Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros específicos para cada tipo de tributo:</p>
+
+<p><strong>Parâmetros quando payment_method é &#39;gps&rsquo;</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>gps_payment_code</td>
+<td>string</td>
+<td><strong>(requerido)</strong> código do GPS, de 4 dígitos</td>
+</tr>
+<tr>
+<td>competency_month</td>
+<td>string</td>
+<td><strong>(requerido)</strong> mês de competência do GPS, repesentado por 2 dígitos</td>
+</tr>
+<tr>
+<td>competency_year</td>
+<td>string</td>
+<td><strong>(requerido)</strong> ano de competência do GPS, repesentado por 4 dígitos</td>
+</tr>
+<tr>
+<td>other_entities_amount</td>
+<td>decimal</td>
+<td>(opcional) valor extra para outras entidades</td>
+</tr>
+<tr>
+<td>monetary_update</td>
+<td>decimal</td>
+<td>(opcional) atualização monetária, incluindo valores de juros e multa</td>
+</tr>
+</tbody></table>
+
+<p><strong>Parâmetros quando payment_method é &#39;darf&rsquo;</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>due_date</td>
+<td>date</td>
+<td><strong>(requerido)</strong> data de vencimento</td>
+</tr>
+<tr>
+<td>calculation_period</td>
+<td>date</td>
+<td><strong>(requerido)</strong> período de apuração</td>
+</tr>
+<tr>
+<td>receita_federal_code</td>
+<td>string</td>
+<td><strong>(requerido)</strong> código da receita federal, de 4 dígitos</td>
+</tr>
+<tr>
+<td>reference_number</td>
+<td>string</td>
+<td>(opcional) número de referência</td>
+</tr>
+<tr>
+<td>mulct_amount</td>
+<td>decimal</td>
+<td>(opcional) valor da multa</td>
+</tr>
+<tr>
+<td>interest_amount</td>
+<td>decimal</td>
+<td>(opcional) valor do juros</td>
 </tr>
 </tbody></table>
 
@@ -5577,6 +6013,90 @@ EXEMPLO DE ESTADO DA RESPOSTA COM PAGAMENTO INEXISTENTE
 <td style="text-align: center"></td>
 <td style="text-align: center">X</td>
 <td style="text-align: center"></td>
+</tr>
+<tr>
+<td style="text-align: right">billet_other_bank</td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center">X</td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center">X</td>
+<td style="text-align: center"></td>
+</tr>
+<tr>
+<td style="text-align: right">billet_same_bank</td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center">X</td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center">X</td>
+<td style="text-align: center"></td>
+</tr>
+<tr>
+<td style="text-align: right">dealdership</td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center">X</td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center">X</td>
+<td style="text-align: center"></td>
+</tr>
+<tr>
+<td style="text-align: right">tribute_with_barcode</td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center">X</td>
+</tr>
+<tr>
+<td style="text-align: right">gps</td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center">X</td>
+</tr>
+<tr>
+<td style="text-align: right">darf</td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center">X</td>
 </tr>
 </tbody></table>
 
