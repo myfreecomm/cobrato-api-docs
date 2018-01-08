@@ -318,10 +318,10 @@ O attributo <code>payment_type</code> é automaticamente definido como <code>"tr
 | due_date                  | date    | **(requerido)** data de vencimento                      |
 | calculation_period        | date    | **(requerido)** período de apuração                     |
 | receita_federal_code      | string  | **(requerido)** código da receita federal, de 4 dígitos |
-| mulct_amount              | decimal | (opcional) valor da multa                               |
-| interest_amount           | decimal | (opcional) valor do juros                               |
 | gross_revenue             | decimal | **(requerido)** Valor da receita bruta                  |
 | gross_revenue_percentage  | decimal | **(requerido)** Valor da porcentagem da receita bruta   |
+| mulct_amount              | decimal | (opcional) valor da multa                               |
+| interest_amount           | decimal | (opcional) valor do juros                               |
 
 
 ## Atualização de Pagamento
@@ -462,10 +462,10 @@ Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros 
 | due_date                  | date    | **(requerido)** data de vencimento                      |
 | calculation_period        | date    | **(requerido)** período de apuração                     |
 | receita_federal_code      | string  | **(requerido)** código da receita federal, de 4 dígitos |
-| mulct_amount              | decimal | (opcional) valor da multa                               |
-| interest_amount           | decimal | (opcional) valor do juros                               |
 | gross_revenue             | decimal | **(requerido)** Valor da receita bruta                  |
 | gross_revenue_percentage  | decimal | **(requerido)** Valor da porcentagem da receita bruta   |
+| mulct_amount              | decimal | (opcional) valor da multa                               |
+| interest_amount           | decimal | (opcional) valor do juros                               |
 
 ## Exclusão de Pagamento
 
