@@ -282,7 +282,7 @@ O attributo <code>amount</code> nesse caso é opcional, pois ele é identificado
 | barcode                   | string  | **(requerido)** Código de barras do boleto bancário |
 | due_date                  | date    | **(requerido)** Data de vencimento do boleto        |
 
-### Tributos sem código de barras (GPS, DARF, DAS IPVA)
+### Tributos sem código de barras (GPS, DARF, DAS, IPVA)
 
 Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros específicos para cada tipo de tributo:
 
@@ -326,16 +326,16 @@ O attributo <code>payment_type</code> é automaticamente definido como <code>"tr
 
 **Parâmetros quando payment_method é 'ipva'**
 
-| Campo                     | Tipo    | Comentário                                                            |
-|---------------------------|---------|-----------------------------------------------------------------------|
-| due_date                  | date    | **(requerido)** data de vencimento                                    |
-| city_code                 | integer | **(requerido)** código da cidade                                      |
-| competency_year           | string  | **(requerido)** ano de competência do IPVA, repesentado por 4 dígitos |
-| license_plate             | string  | **(requerido)** número da placa do carro.                             |
-| payment_option            | string  | **(requerido)** opção de pagamento. Possíveis valores na tabela 4     |
-| renavam                   | string  | **(requerido)** número do Renavam                                     |
-| uf                        | string  | **(requerido)** estado                                                |
-| discount_amount           | decimal | (opcional) valor do desconto.                                         |
+| Campo                     | Tipo    | Comentário                                                                                  |
+|---------------------------|---------|---------------------------------------------------------------------------------------------|
+| due_date                  | date    | **(requerido)** data de vencimento                                                          |
+| city_code                 | integer | **(requerido)** código da cidade                                                            |
+| competency_year           | string  | **(requerido)** ano de competência do IPVA, repesentado por 4 dígitos                       |
+| license_plate             | string  | **(requerido)** placa do carro                                                              |
+| payment_option            | string  | **(requerido)** opção de pagamento. Possíveis valores na tabela 4                           |
+| renavam                   | string  | **(requerido)** número do Renavam                                                           |
+| uf                        | string  | **(requerido)** estado, representado por seu acrônimo (RJ, SC, etc)                         |
+| discount_amount           | decimal | (opcional, requerido quando `payment_option` for 'single_with_discount') valor do desconto. |
 
 ## Atualização de Pagamento
 
@@ -482,16 +482,16 @@ Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros 
 
 **Parâmetros quando payment_method é 'ipva'**
 
-| Campo                     | Tipo    | Comentário                                                            |
-|---------------------------|---------|-----------------------------------------------------------------------|
-| due_date                  | date    | **(requerido)** data de vencimento                                    |
-| city_code                 | integer | **(requerido)** código da cidade                                      |
-| competency_year           | string  | **(requerido)** ano de competência do IPVA, repesentado por 4 dígitos |
-| license_plate             | string  | **(requerido)** número da placa do carro.                             |
-| payment_option            | string  | **(requerido)** opção de pagamento. Possíveis valores na tabela 4     |
-| renavam                   | string  | **(requerido)** número do Renavam                                     |
-| uf                        | string  | **(requerido)** estado                                                |
-| discount_amount           | decimal | (opcional) valor do desconto.                                         |
+| Campo                     | Tipo    | Comentário                                                                                  |
+|---------------------------|---------|---------------------------------------------------------------------------------------------|
+| due_date                  | date    | **(requerido)** data de vencimento                                                          |
+| city_code                 | integer | **(requerido)** código da cidade                                                            |
+| competency_year           | string  | **(requerido)** ano de competência do IPVA, repesentado por 4 dígitos                       |
+| license_plate             | string  | **(requerido)** placa do carro                                                              |
+| payment_option            | string  | **(requerido)** opção de pagamento. Possíveis valores na tabela 4                           |
+| renavam                   | string  | **(requerido)** número do Renavam                                                           |
+| uf                        | string  | **(requerido)** estado, representado por seu acrônimo (RJ, SC, etc)                         |
+| discount_amount           | decimal | (opcional, requerido quando `payment_option` for 'single_with_discount') valor do desconto. |
 
 
 ## Exclusão de Pagamento
