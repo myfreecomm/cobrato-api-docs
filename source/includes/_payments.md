@@ -332,7 +332,7 @@ O attributo <code>payment_type</code> é automaticamente definido como <code>"tr
 | city_code                 | integer | **(requerido)** código da cidade                                      |
 | competency_year           | string  | **(requerido)** ano de competência do IPVA, repesentado por 4 dígitos |
 | license_plate             | string  | **(requerido)** número da placa do carro.                             |
-| payment_option            | string  | **(requerido)** opção de pagamento                                    |
+| payment_option            | string  | **(requerido)** opção de pagamento. Possíveis valores na tabela 4     |
 | renavam                   | string  | **(requerido)** número do Renavam                                     |
 | uf                        | string  | **(requerido)** estado                                                |
 | discount_amount           | decimal | (opcional) valor do desconto.                                         |
@@ -488,7 +488,7 @@ Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros 
 | city_code                 | integer | **(requerido)** código da cidade                                      |
 | competency_year           | string  | **(requerido)** ano de competência do IPVA, repesentado por 4 dígitos |
 | license_plate             | string  | **(requerido)** número da placa do carro.                             |
-| payment_option            | string  | **(requerido)** opção de pagamento                                    |
+| payment_option            | string  | **(requerido)** opção de pagamento. Possíveis valores na tabela 4     |
 | renavam                   | string  | **(requerido)** número do Renavam                                     |
 | uf                        | string  | **(requerido)** estado                                                |
 | discount_amount           | decimal | (opcional) valor do desconto.                                         |
@@ -610,3 +610,16 @@ Quando *payment_method* for 'doc_other_ownership' todos os valores são aceitos.
 | 00518  | Pagamento de Resgate Previdenciário                                        |
 | 00519  | Pagamento de Comissão de Corretagem                                        |
 | 00520  | Pagamento de Transferências/Portabilidade de Reserva de Seguro/Previdência |
+
+### Possíveis valores para payment_option (tabela 4)
+
+| Opção de pagamento       | Descrição              |
+|--------------------------|------------------------|
+| single_with_discount     | Simples com desconto   |
+| single_without_discount  | Simples sem desconto   |
+| installment_1            | Primeira prestação     |
+| installment_2            | Segunda prestação      |
+| installment_3            | Terceira prestação     |
+| installment_4            | Quarta prestação       |
+| installment_5            | Quinta prestação       |
+| installment_6            | Sexta prestação        |
