@@ -5039,7 +5039,7 @@ EXEMPLO
 <tr>
 <td>payment_method</td>
 <td>string</td>
-<td>forma de pagamento (&lsquo;credit_other_ownership&rsquo;, &#39;credit_same_ownership&rsquo;, &#39;credit_savings_account&rsquo;, &#39;doc_other_ownership&rsquo;, &#39;doc_same_ownership&rsquo;, &#39;ted_other_ownership&rsquo;, &#39;ted_same_ownership&rsquo;, &#39;dealership&rsquo;, &#39;billet_same_bank&rsquo;, &#39;billet_other_bank&rsquo;, &#39;gps&rsquo;, &#39;darf&rsquo;)</td>
+<td>forma de pagamento (&lsquo;credit_other_ownership&rsquo;, &#39;credit_same_ownership&rsquo;, &#39;credit_savings_account&rsquo;, &#39;doc_other_ownership&rsquo;, &#39;doc_same_ownership&rsquo;, &#39;ted_other_ownership&rsquo;, &#39;ted_same_ownership&rsquo;, &#39;dealership&rsquo;, &#39;billet_same_bank&rsquo;, &#39;billet_other_bank&rsquo;, &#39;gps&rsquo;, &#39;darf&rsquo;, &#39;das&rsquo;, &#39;ipva&rsquo;)</td>
 </tr>
 <tr>
 <td>payment_type</td>
@@ -5491,7 +5491,7 @@ O attributo <code>amount</code> nesse caso é opcional, pois ele é identificado
 </tr>
 </tbody></table>
 
-<h3 id="tributos-sem-c-digo-de-barras-gps-darf">Tributos sem código de barras (GPS, DARF)</h3>
+<h3 id="tributos-sem-c-digo-de-barras-gps-darf-das-ipva">Tributos sem código de barras (GPS, DARF, DAS, IPVA)</h3>
 
 <p>Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros específicos para cada tipo de tributo:</p>
 
@@ -5573,6 +5573,103 @@ O attributo <code>payment_type</code> é automaticamente definido como <code>"tr
 <td>interest_amount</td>
 <td>decimal</td>
 <td>(opcional) valor do juros</td>
+</tr>
+</tbody></table>
+
+<p><strong>Parâmetros quando payment_method é &#39;das&rsquo;</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>due_date</td>
+<td>date</td>
+<td><strong>(requerido)</strong> data de vencimento</td>
+</tr>
+<tr>
+<td>calculation_period</td>
+<td>date</td>
+<td><strong>(requerido)</strong> período de apuração</td>
+</tr>
+<tr>
+<td>receita_federal_code</td>
+<td>string</td>
+<td><strong>(requerido)</strong> código da receita federal, de 4 dígitos</td>
+</tr>
+<tr>
+<td>gross_revenue</td>
+<td>decimal</td>
+<td><strong>(requerido)</strong> Valor da receita bruta</td>
+</tr>
+<tr>
+<td>gross_revenue_percentage</td>
+<td>decimal</td>
+<td><strong>(requerido)</strong> Valor da porcentagem da receita bruta</td>
+</tr>
+<tr>
+<td>mulct_amount</td>
+<td>decimal</td>
+<td>(opcional) valor da multa</td>
+</tr>
+<tr>
+<td>interest_amount</td>
+<td>decimal</td>
+<td>(opcional) valor do juros</td>
+</tr>
+</tbody></table>
+
+<p><strong>Parâmetros quando payment_method é &#39;ipva&rsquo;</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>due_date</td>
+<td>date</td>
+<td><strong>(requerido)</strong> data de vencimento</td>
+</tr>
+<tr>
+<td>city_code</td>
+<td>integer</td>
+<td><strong>(requerido)</strong> código da cidade</td>
+</tr>
+<tr>
+<td>competency_year</td>
+<td>string</td>
+<td><strong>(requerido)</strong> ano de competência do IPVA, repesentado por 4 dígitos</td>
+</tr>
+<tr>
+<td>license_plate</td>
+<td>string</td>
+<td><strong>(requerido)</strong> placa do carro</td>
+</tr>
+<tr>
+<td>payment_option</td>
+<td>string</td>
+<td><strong>(requerido)</strong> opção de pagamento. Possíveis valores na tabela 4</td>
+</tr>
+<tr>
+<td>renavam</td>
+<td>string</td>
+<td><strong>(requerido)</strong> número do Renavam</td>
+</tr>
+<tr>
+<td>uf</td>
+<td>string</td>
+<td><strong>(requerido)</strong> estado, representado por seu acrônimo (RJ, SC, etc)</td>
+</tr>
+<tr>
+<td>discount_amount</td>
+<td>decimal</td>
+<td>(opcional, requerido quando <code class="prettyprint">payment_option</code> for &#39;single_with_discount&rsquo;) valor do desconto.</td>
 </tr>
 </tbody></table>
 
@@ -5788,7 +5885,7 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 </tr>
 </tbody></table>
 
-<h3 id="tributos-sem-c-digo-de-barras-gps-darf">Tributos sem código de barras (GPS, DARF)</h3>
+<h3 id="tributos-sem-c-digo-de-barras-gps-darf-das-ipva">Tributos sem código de barras (GPS, DARF, DAS, IPVA)</h3>
 
 <p>Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros específicos para cada tipo de tributo:</p>
 
@@ -5866,6 +5963,103 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <td>interest_amount</td>
 <td>decimal</td>
 <td>(opcional) valor do juros</td>
+</tr>
+</tbody></table>
+
+<p><strong>Parâmetros quando payment_method é &#39;das&rsquo;</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>due_date</td>
+<td>date</td>
+<td><strong>(requerido)</strong> data de vencimento</td>
+</tr>
+<tr>
+<td>calculation_period</td>
+<td>date</td>
+<td><strong>(requerido)</strong> período de apuração</td>
+</tr>
+<tr>
+<td>receita_federal_code</td>
+<td>string</td>
+<td><strong>(requerido)</strong> código da receita federal, de 4 dígitos</td>
+</tr>
+<tr>
+<td>gross_revenue</td>
+<td>decimal</td>
+<td><strong>(requerido)</strong> Valor da receita bruta</td>
+</tr>
+<tr>
+<td>gross_revenue_percentage</td>
+<td>decimal</td>
+<td><strong>(requerido)</strong> Valor da porcentagem da receita bruta</td>
+</tr>
+<tr>
+<td>mulct_amount</td>
+<td>decimal</td>
+<td>(opcional) valor da multa</td>
+</tr>
+<tr>
+<td>interest_amount</td>
+<td>decimal</td>
+<td>(opcional) valor do juros</td>
+</tr>
+</tbody></table>
+
+<p><strong>Parâmetros quando payment_method é &#39;ipva&rsquo;</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>due_date</td>
+<td>date</td>
+<td><strong>(requerido)</strong> data de vencimento</td>
+</tr>
+<tr>
+<td>city_code</td>
+<td>integer</td>
+<td><strong>(requerido)</strong> código da cidade</td>
+</tr>
+<tr>
+<td>competency_year</td>
+<td>string</td>
+<td><strong>(requerido)</strong> ano de competência do IPVA, repesentado por 4 dígitos</td>
+</tr>
+<tr>
+<td>license_plate</td>
+<td>string</td>
+<td><strong>(requerido)</strong> placa do carro</td>
+</tr>
+<tr>
+<td>payment_option</td>
+<td>string</td>
+<td><strong>(requerido)</strong> opção de pagamento. Possíveis valores na tabela 4</td>
+</tr>
+<tr>
+<td>renavam</td>
+<td>string</td>
+<td><strong>(requerido)</strong> número do Renavam</td>
+</tr>
+<tr>
+<td>uf</td>
+<td>string</td>
+<td><strong>(requerido)</strong> estado, representado por seu acrônimo (RJ, SC, etc)</td>
+</tr>
+<tr>
+<td>discount_amount</td>
+<td>decimal</td>
+<td>(opcional, requerido quando <code class="prettyprint">payment_option</code> for &#39;single_with_discount&rsquo;) valor do desconto.</td>
 </tr>
 </tbody></table>
 
@@ -6086,6 +6280,34 @@ EXEMPLO DE ESTADO DA RESPOSTA COM PAGAMENTO INEXISTENTE
 </tr>
 <tr>
 <td style="text-align: right">darf</td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center">X</td>
+</tr>
+<tr>
+<td style="text-align: right">das</td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center">X</td>
+</tr>
+<tr>
+<td style="text-align: right">ipva</td>
 <td style="text-align: center"></td>
 <td style="text-align: center"></td>
 <td style="text-align: center"></td>
@@ -6335,6 +6557,48 @@ EXEMPLO DE ESTADO DA RESPOSTA COM PAGAMENTO INEXISTENTE
 <tr>
 <td>00520</td>
 <td>Pagamento de Transferências/Portabilidade de Reserva de Seguro/Previdência</td>
+</tr>
+</tbody></table>
+
+<h3 id="poss-veis-valores-para-payment_option-tabela-4">Possíveis valores para payment_option (tabela 4)</h3>
+
+<table><thead>
+<tr>
+<th>Opção de pagamento</th>
+<th>Descrição</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>single_with_discount</td>
+<td>Simples com desconto</td>
+</tr>
+<tr>
+<td>single_without_discount</td>
+<td>Simples sem desconto</td>
+</tr>
+<tr>
+<td>installment_1</td>
+<td>Primeira prestação</td>
+</tr>
+<tr>
+<td>installment_2</td>
+<td>Segunda prestação</td>
+</tr>
+<tr>
+<td>installment_3</td>
+<td>Terceira prestação</td>
+</tr>
+<tr>
+<td>installment_4</td>
+<td>Quarta prestação</td>
+</tr>
+<tr>
+<td>installment_5</td>
+<td>Quinta prestação</td>
+</tr>
+<tr>
+<td>installment_6</td>
+<td>Sexta prestação</td>
 </tr>
 </tbody></table>
 
