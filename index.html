@@ -5039,7 +5039,7 @@ EXEMPLO
 <tr>
 <td>payment_method</td>
 <td>string</td>
-<td>forma de pagamento (&lsquo;credit_other_ownership&rsquo;, &#39;credit_same_ownership&rsquo;, &#39;credit_savings_account&rsquo;, &#39;doc_other_ownership&rsquo;, &#39;doc_same_ownership&rsquo;, &#39;ted_other_ownership&rsquo;, &#39;ted_same_ownership&rsquo;, &#39;dealership&rsquo;, &#39;billet_same_bank&rsquo;, &#39;billet_other_bank&rsquo;, &#39;gps&rsquo;, &#39;darf&rsquo;, &#39;das&rsquo;, &#39;ipva&rsquo;)</td>
+<td>forma de pagamento (&lsquo;credit_other_ownership&rsquo;, &#39;credit_same_ownership&rsquo;, &#39;credit_savings_account&rsquo;, &#39;doc_other_ownership&rsquo;, &#39;doc_same_ownership&rsquo;, &#39;ted_other_ownership&rsquo;, &#39;ted_same_ownership&rsquo;, &#39;dealership&rsquo;, &#39;billet_same_bank&rsquo;, &#39;billet_other_bank&rsquo;, &#39;gps&rsquo;, &#39;darf&rsquo;, &#39;das&rsquo;, &#39;ipva&rsquo;, &#39;icms_sp&rsquo;, &#39;dpvat&rsquo;, &#39;fgts&rsquo;)</td>
 </tr>
 <tr>
 <td>payment_type</td>
@@ -5462,7 +5462,7 @@ O attributo <code>amount</code> nesse caso é opcional, pois ele é identificado
 </tr>
 </tbody></table>
 
-<h3 id="boleto-de-tributo-concecion-rias-tributo-com-c-digo-de-barras">Boleto de Tributo (Concecionárias, Tributo com código de barras)</h3>
+<h3 id="boleto-de-tributo-concecion-rias-tributo-com-c-digo-de-barras-fgts">Boleto de Tributo (Concecionárias, Tributo com código de barras, FGTS)</h3>
 
 <p>Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros espefíficos para o pagamento de boletos de concecionárias ou tributos.</p>
 
@@ -5491,7 +5491,43 @@ O attributo <code>amount</code> nesse caso é opcional, pois ele é identificado
 </tr>
 </tbody></table>
 
-<h3 id="tributos-sem-c-digo-de-barras-gps-darf-das-ipva">Tributos sem código de barras (GPS, DARF, DAS, IPVA)</h3>
+<p><strong>Parâmetros quando payment_method é &#39;fgts&rsquo;</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>barcode</td>
+<td>string</td>
+<td><strong>(requerido)</strong> Código de barras do boleto bancário</td>
+</tr>
+<tr>
+<td>receita_federal_code</td>
+<td>string</td>
+<td><strong>(requerido)</strong> código da receita federal, de 4 dígitos</td>
+</tr>
+<tr>
+<td>fgts_identifier</td>
+<td>string</td>
+<td><strong>(requerido)</strong> código de identificação do FGTS</td>
+</tr>
+<tr>
+<td>connectivity_seal</td>
+<td>string</td>
+<td><strong>(requerido)</strong> selo de conectividade social</td>
+</tr>
+<tr>
+<td>connectivity_seal_digit</td>
+<td>string</td>
+<td><strong>(requerido)</strong> dígito verificador do selo de conectividade social</td>
+</tr>
+</tbody></table>
+
+<h3 id="tributos-sem-c-digo-de-barras-gps-darf-das-ipva-icms-sp-dpvat">Tributos sem código de barras (GPS, DARF, DAS, IPVA, ICMS-SP, DPVAT)</h3>
 
 <p>Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros específicos para cada tipo de tributo:</p>
 
@@ -5670,6 +5706,108 @@ O attributo <code>payment_type</code> é automaticamente definido como <code>"tr
 <td>discount_amount</td>
 <td>decimal</td>
 <td>(opcional, requerido quando <code class="prettyprint">payment_option</code> for &#39;single_with_discount&rsquo;) valor do desconto.</td>
+</tr>
+</tbody></table>
+
+<p><strong>Parâmetros quando payment_method é &#39;icms_sp&rsquo;</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>due_date</td>
+<td>date</td>
+<td><strong>(requerido)</strong> data de vencimento</td>
+</tr>
+<tr>
+<td>receita_federal_code</td>
+<td>string</td>
+<td><strong>(requerido)</strong> código da receita federal, de 4 dígitos</td>
+</tr>
+<tr>
+<td>competency_month</td>
+<td>string</td>
+<td><strong>(requerido)</strong> mês de competência do ICMS-SP, repesentado por 2 dígitos</td>
+</tr>
+<tr>
+<td>competency_year</td>
+<td>string</td>
+<td><strong>(requerido)</strong> ano de competência do ICMS-SP, repesentado por 4 dígitos</td>
+</tr>
+<tr>
+<td>state_registration</td>
+<td>string</td>
+<td><strong>(requerido)</strong> registro estadual</td>
+</tr>
+<tr>
+<td>active_debt_registration</td>
+<td>string</td>
+<td><strong>(requerido)</strong> registro de dívida ativa</td>
+</tr>
+<tr>
+<td>installment_number</td>
+<td>string</td>
+<td><strong>(requerido)</strong> número da prestação</td>
+</tr>
+<tr>
+<td>mulct_amount</td>
+<td>decimal</td>
+<td>(opcional) valor da multa</td>
+</tr>
+<tr>
+<td>interest_amount</td>
+<td>decimal</td>
+<td>(opcional) valor do juros</td>
+</tr>
+</tbody></table>
+
+<p><strong>Parâmetros quando payment_method é &#39;dpvat&rsquo;</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>competency_year</td>
+<td>string</td>
+<td><strong>(requerido)</strong> ano de competência do DPVAT, repesentado por 4 dígitos</td>
+</tr>
+<tr>
+<td>license_plate</td>
+<td>string</td>
+<td><strong>(requerido)</strong> placa do carro</td>
+</tr>
+<tr>
+<td>renavam</td>
+<td>string</td>
+<td><strong>(requerido)</strong> número do Renavam</td>
+</tr>
+<tr>
+<td>uf</td>
+<td>string</td>
+<td><strong>(requerido)</strong> estado, representado por seu acrônimo (RJ, SC, etc)</td>
+</tr>
+<tr>
+<td>discount_amount</td>
+<td>decimal</td>
+<td>(opcional) valor do desconto.</td>
+</tr>
+<tr>
+<td>due_date</td>
+<td>date</td>
+<td>(opcional) data de vencimento</td>
+</tr>
+<tr>
+<td>city_code</td>
+<td>integer</td>
+<td>(opcional) código da cidade</td>
 </tr>
 </tbody></table>
 
@@ -5865,7 +6003,7 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 </tr>
 </tbody></table>
 
-<h3 id="boleto-de-tributo-concecion-rias-tributo-com-c-digo-de-barras">Boleto de Tributo (Concecionárias, Tributo com código de barras)</h3>
+<h3 id="boleto-de-tributo-concecion-rias-tributo-com-c-digo-de-barras-fgts">Boleto de Tributo (Concecionárias, Tributo com código de barras, FGTS)</h3>
 
 <p>Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros espefíficos para o pagamento de boletos de concecionárias ou tributos.</p>
 
@@ -5885,7 +6023,38 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 </tr>
 </tbody></table>
 
-<h3 id="tributos-sem-c-digo-de-barras-gps-darf-das-ipva">Tributos sem código de barras (GPS, DARF, DAS, IPVA)</h3>
+<p><strong>Parâmetros quando payment_method é &#39;fgts&rsquo;</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>receita_federal_code</td>
+<td>string</td>
+<td><strong>(requerido)</strong> código da receita federal, de 4 dígitos</td>
+</tr>
+<tr>
+<td>fgts_identifier</td>
+<td>string</td>
+<td><strong>(requerido)</strong> código de identificação do FGTS</td>
+</tr>
+<tr>
+<td>connectivity_seal</td>
+<td>string</td>
+<td><strong>(requerido)</strong> selo de conectividade social</td>
+</tr>
+<tr>
+<td>connectivity_seal_digit</td>
+<td>string</td>
+<td><strong>(requerido)</strong> dígito verificador do selo de conectividade social</td>
+</tr>
+</tbody></table>
+
+<h3 id="tributos-sem-c-digo-de-barras-gps-darf-das-ipva-icms-sp-dpvat">Tributos sem código de barras (GPS, DARF, DAS, IPVA, ICMS-SP, DPVAT)</h3>
 
 <p>Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros específicos para cada tipo de tributo:</p>
 
@@ -6060,6 +6229,108 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <td>discount_amount</td>
 <td>decimal</td>
 <td>(opcional, requerido quando <code class="prettyprint">payment_option</code> for &#39;single_with_discount&rsquo;) valor do desconto.</td>
+</tr>
+</tbody></table>
+
+<p><strong>Parâmetros quando payment_method é &#39;icms_sp&rsquo;</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>due_date</td>
+<td>date</td>
+<td><strong>(requerido)</strong> data de vencimento</td>
+</tr>
+<tr>
+<td>receita_federal_code</td>
+<td>string</td>
+<td><strong>(requerido)</strong> código da receita federal, de 4 dígitos</td>
+</tr>
+<tr>
+<td>competency_month</td>
+<td>string</td>
+<td><strong>(requerido)</strong> mês de competência do ICMS-SP, repesentado por 2 dígitos</td>
+</tr>
+<tr>
+<td>competency_year</td>
+<td>string</td>
+<td><strong>(requerido)</strong> ano de competência do ICMS-SP, repesentado por 4 dígitos</td>
+</tr>
+<tr>
+<td>state_registration</td>
+<td>string</td>
+<td><strong>(requerido)</strong> registro estadual</td>
+</tr>
+<tr>
+<td>active_debt_registration</td>
+<td>string</td>
+<td><strong>(requerido)</strong> registro de dívida ativa</td>
+</tr>
+<tr>
+<td>installment_number</td>
+<td>string</td>
+<td><strong>(requerido)</strong> número da prestação</td>
+</tr>
+<tr>
+<td>mulct_amount</td>
+<td>decimal</td>
+<td>(opcional) valor da multa</td>
+</tr>
+<tr>
+<td>interest_amount</td>
+<td>decimal</td>
+<td>(opcional) valor do juros</td>
+</tr>
+</tbody></table>
+
+<p><strong>Parâmetros quando payment_method é &#39;dpvat&rsquo;</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>competency_year</td>
+<td>string</td>
+<td><strong>(requerido)</strong> ano de competência do DPVAT, repesentado por 4 dígitos</td>
+</tr>
+<tr>
+<td>license_plate</td>
+<td>string</td>
+<td><strong>(requerido)</strong> placa do carro</td>
+</tr>
+<tr>
+<td>renavam</td>
+<td>string</td>
+<td><strong>(requerido)</strong> número do Renavam</td>
+</tr>
+<tr>
+<td>uf</td>
+<td>string</td>
+<td><strong>(requerido)</strong> estado, representado por seu acrônimo (RJ, SC, etc)</td>
+</tr>
+<tr>
+<td>discount_amount</td>
+<td>decimal</td>
+<td>(opcional) valor do desconto.</td>
+</tr>
+<tr>
+<td>due_date</td>
+<td>date</td>
+<td>(opcional) data de vencimento</td>
+</tr>
+<tr>
+<td>city_code</td>
+<td>integer</td>
+<td>(opcional) código da cidade</td>
 </tr>
 </tbody></table>
 
@@ -6265,6 +6536,20 @@ EXEMPLO DE ESTADO DA RESPOSTA COM PAGAMENTO INEXISTENTE
 <td style="text-align: center">X</td>
 </tr>
 <tr>
+<td style="text-align: right">fgts</td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center">X</td>
+</tr>
+<tr>
 <td style="text-align: right">gps</td>
 <td style="text-align: center"></td>
 <td style="text-align: center"></td>
@@ -6308,6 +6593,34 @@ EXEMPLO DE ESTADO DA RESPOSTA COM PAGAMENTO INEXISTENTE
 </tr>
 <tr>
 <td style="text-align: right">ipva</td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center">X</td>
+</tr>
+<tr>
+<td style="text-align: right">icms_sp</td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+<td style="text-align: center">X</td>
+</tr>
+<tr>
+<td style="text-align: right">dpvat</td>
 <td style="text-align: center"></td>
 <td style="text-align: center"></td>
 <td style="text-align: center"></td>
