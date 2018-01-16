@@ -633,7 +633,9 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
 ```
 
-Inicia o processo de cancelamento de um determinado Pagamento. Após iniciar o processo de cancelamento será necessário gerar um arquivo de remessa, enviar para o banco e esperar o arquivo de retorno confirmando o cancelamento.
+Inicia o processo de cancelamento de um determinado Pagamento, retornando JSON contendo as informações do pagamento em caso de sucesso ou os erros, caso haja algum.
+
+Após iniciar o processo de cancelamento será necessário gerar um arquivo de remessa, enviar para o banco e esperar o arquivo de retorno confirmando o cancelamento.
 
 ## Tabelas
 
