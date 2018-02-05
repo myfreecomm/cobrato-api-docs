@@ -440,9 +440,8 @@ Atualiza a Configuração de Cobrança determinada, retornando as informações 
 
 | Campo        | Tipo    | Comentário                                                                                                                                            |
 |--------------|---------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
-| type         | string  | **(requerido)** indica o tipo da configuração de cobrança. Neste caso deve ser informado "payment_gateway"                                            |
-| payee_id     | integer | **(requerido)** código de identificação do beneficiário ao qual a configuração de cobrança irá pertencer                                              |
 | name         | string  | **(requerido)** nome que identifica esta configuração de cobrança                                                                                     |
+| payee_id     | integer | **(requerido)** código de identificação do beneficiário ao qual a configuração de cobrança irá pertencer                                              |
 | gateway_name | string  | **(requerido)** nome do gateway de pagamento ('cielo-ws15', 'cielo-api30', 'pjbank')*                                                                 |
 | status       | string  | (opctional, default "pending") indica o status, ou etapa, de homologação em que configuração de cobrança está ('pending', 'production_tests', 'ok')   |
 
