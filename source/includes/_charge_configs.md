@@ -39,16 +39,16 @@ EXEMPLO
 
 As Configurações de Cobrança podem ser de tipos diferentes. Sendo assim, os parâmetros e algums comportamentos irão variar de acordo com o tipo. Atualmente temos os tipos:
 
-- Boleto (billet)
+- Conta Bancária (billet)
 - Gateway de pagamento (payment_gateway)
 
 <aside class="warning">
-  As Configurações de Cobrança <strong>precisam ser homologada antes de ser utilizada normalmente</strong>. Veja como homologar cada tipo de Configuração de Cobrança em suas informações específicas.
+  As Configurações de Cobrança <strong>precisam ser homologadas antes de serem utilizadas normalmente</strong>. Veja como homologar cada tipo de Configuração de Cobrança em suas informações específicas.
 </aside>
 
-### Boleto
+### Conta bancária
 
-As Configurações de Cobrança do tipo **Boleto** (billet), pertencem as suas contas bancárias, sendo assim é necessário que sempre haja ao menos uma conta bancária para criação desse tipo configuração de cobrança, que também tem suas validações de acordo com o banco de sua conta bancária.
+As Configurações de Cobrança do tipo **Conta bancária** (billet), pertencem as suas contas bancárias, sendo assim é necessário que sempre haja ao menos uma conta bancária para criação desse tipo configuração de cobrança, que também tem suas validações de acordo com o banco de sua conta bancária.
 
 <aside class="info">
   Para homologar a Configuração de Cobrança existe uma série de passos que você encontra em
@@ -92,7 +92,7 @@ As Configurações de Cobrança do tipo **Boleto** (billet), pertencem as suas c
   serão consideradas Cobranças para homologação.
 </aside>
 
-**Parâmetros**
+**Parâmetros comuns a todos os Gateways**
 
 | Campo        | Tipo            | Comentário                                                                                                            |
 |--------------|-----------------|-----------------------------------------------------------------------------------------------------------------------|
@@ -101,11 +101,26 @@ As Configurações de Cobrança do tipo **Boleto** (billet), pertencem as suas c
 | name         | string          | nome que identifica esta configuração de cobrança                                                                     |
 | status       | string          | indica o status, ou etapa, de homologação em que configuração de cobrança está ('pending', 'production_tests', 'ok')  |
 | payee_id     | integer         | identificador do beneficiário desta configuração de cobrança no Cobrato                                               |
-| gateway_name | string          | nome do gateway de pagamento ('cielo-ws15', 'cielo-api30')                                                            |
+| gateway_name | string          | nome do gateway de pagamento ('cielo-ws15', 'cielo-api30', 'pjbank')                                                  |
+| _links       | array of object | links da configuração de cobrança e de sua conta bancária                                                             |
+
+**Parâmetros específicos para gateway Cielo**
+
+| Campo        | Tipo            | Comentário                                                                                                            |
+|--------------|-----------------|-----------------------------------------------------------------------------------------------------------------------|
 | gateway_id   | string          | número de afiliação do contrato com o gateway de pagamento                                                            |
 | gateway_key  | string          | chave de acesso atribuída pelo gateway de pagamento                                                                   |
 | use_avs      | boolean         | define se será feita a solicitação e a confirmação do endereço de cobrança da fatura do cartão utilizado no pagamento |
-| _links       | array of object | links da configuração de cobrança e de sua conta bancária                                                             |
+
+**Parâmetros específicos para gateway PJBank**
+
+| Campo              | Tipo            | Comentário                                                                                                      |
+|--------------------|-----------------|-----------------------------------------------------------------------------------------------------------------|
+| gateway_id         | string          | credencial do contrato com o gateway de pagamento para cobranças de **cartão de crédito**                       |
+| gateway_key        | string          | chave de acesso atribuída pelo gateway de pagamento para cobranças de **cartão de crédito**                     |
+| billet_gateway_id  | string          | credencial do contrato com o gateway de pagamento para cobranças de **boleto**                                  |
+| billet_gateway_key | string          | chave de acesso atribuída pelo gateway de pagamento para cobranças de **boleto**                                |
+
 
 ## Informações da Configuração de Cobrança
 
@@ -299,28 +314,47 @@ Cria uma nova Configuração de Cobrança, retornando as informações da mesma 
 
 ### Gateway de Pagamento
 
-**Parâmetros**
+**Parâmetros comuns a todos os Gateways**
 
 | Campo        | Tipo    | Comentário                                                                                                                                            |
 |--------------|---------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
 | type         | string  | **(requerido)** indica o tipo da configuração de cobrança. Neste caso deve ser informado "payment_gateway"                                            |
 | payee_id     | integer | **(requerido)** código de identificação do beneficiário ao qual a configuração de cobrança irá pertencer                                              |
 | name         | string  | **(requerido)** nome que identifica esta configuração de cobrança                                                                                     |
-| gateway_name | string  | **(requerido)** nome do gateway de pagamento ('cielo-ws15', 'cielo-api30')*                                                                           |
+| gateway_name | string  | **(requerido)** nome do gateway de pagamento ('cielo-ws15', 'cielo-api30', 'pjbank')*                                                                 |
+| status       | string  | (opctional, default "pending") indica o status, ou etapa, de homologação em que configuração de cobrança está ('pending', 'production_tests', 'ok')   |
+
+**Parâmetros para o gateway Cielo**
+
+| Campo        | Tipo    | Comentário                                                                                                                                            |
+|--------------|---------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
 | gateway_id   | string  | **(requerido)** número de afiliação do contrato com o gateway de pagamento                                                                            |
 | gateway_key  | string  | **(requerido)** chave de acesso atribuída pelo gateway de pagamento                                                                                   |
-| status       | string  | (opctional, default "pending") indica o status, ou etapa, de homologação em que configuração de cobrança está ('pending', 'production_tests', 'ok')   |
 | use_avs      | boolean | (opcional) define se será feita a solicitação e a confirmação do endereço de cobrança da fatura do cartão utilizado no pagamento (`false` por padrão) |
+
+**Parâmetros para o gateway PJBank**
+
+| Campo               | Tipo    | Comentário                                                                                                                                                           |
+|---------------------|---------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| gateway_id          | string  | **(requerido, somente quando o campo 'gateway_key' estiver preenchido)** credencial do contrato com o gateway de pagamento para cobranças de **cartão de crédito**   |
+| gateway_key         | string  | **(requerido, somente quando o campo 'gateway_id' estiver preenchido)** chave de acesso atribuída pelo gateway de pagamento para cobranças de **cartão de crédito**  |
+| billet_gateway_id   | string  | **(requerido, somente quando o campo 'billet_gateway_key' estiver preenchido)** credencial do contrato com o gateway de pagamento para cobranças de **boleto**       |
+| billet_gateway_key  | string  | **(requerido, somente quando o campo 'billet_gateway_id' estiver preenchido)** chave de acesso atribuída pelo gateway de pagamento para cobranças de **boleto**      |
+
 
 <strong>*</strong> Os possíveis valores para o <code>gateway_name</code> são os seguintes:</p>
 
 <dl>
   <dt>cielo-api30</dt>
-  <dd>Cielo API 3.0</dd>
+  <dd>API e-Commerce Cielo</dd>
 </dl>
 <dl>
   <dt>cielo-ws15</dt>
-  <dd>Cielo Webservice 1.5</dd>
+  <dd>Webservice 1.5</dd>
+</dl>
+<dl>
+  <dt>pjbank</dt>
+  <dd>PJBank</dd>
 </dl>
 
 ## Atualização de Configuração de Cobrança
@@ -402,15 +436,32 @@ Atualiza a Configuração de Cobrança determinada, retornando as informações 
 
 ### Gateway de Pagamento
 
-**Parâmetros**
+**Parâmetros comuns a todos os Gateways**
 
 | Campo        | Tipo    | Comentário                                                                                                                                            |
 |--------------|---------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
-| name         | string  | **(requerido)** nome que identifica esta configuração de cobrança                                                                                     |
+| type         | string  | **(requerido)** indica o tipo da configuração de cobrança. Neste caso deve ser informado "payment_gateway"                                            |
 | payee_id     | integer | **(requerido)** código de identificação do beneficiário ao qual a configuração de cobrança irá pertencer                                              |
+| name         | string  | **(requerido)** nome que identifica esta configuração de cobrança                                                                                     |
+| gateway_name | string  | **(requerido)** nome do gateway de pagamento ('cielo-ws15', 'cielo-api30', 'pjbank')*                                                                 |
+| status       | string  | (opctional, default "pending") indica o status, ou etapa, de homologação em que configuração de cobrança está ('pending', 'production_tests', 'ok')   |
+
+**Parâmetros para o gateway Cielo**
+
+| Campo        | Tipo    | Comentário                                                                                                                                            |
+|--------------|---------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
 | gateway_id   | string  | **(requerido)** número de afiliação do contrato com o gateway de pagamento                                                                            |
 | gateway_key  | string  | **(requerido)** chave de acesso atribuída pelo gateway de pagamento                                                                                   |
 | use_avs      | boolean | (opcional) define se será feita a solicitação e a confirmação do endereço de cobrança da fatura do cartão utilizado no pagamento (`false` por padrão) |
+
+**Parâmetros para o gateway PJBank**
+
+| Campo               | Tipo    | Comentário                                                                                                                                                           |
+|---------------------|---------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| gateway_id          | string  | **(requerido, somente quando o campo 'gateway_key' estiver preenchido)** credencial do contrato com o gateway de pagamento para cobranças de **cartão de crédito**   |
+| gateway_key         | string  | **(requerido, somente quando o campo 'gateway_id' estiver preenchido)** chave de acesso atribuída pelo gateway de pagamento para cobranças de **cartão de crédito**  |
+| billet_gateway_id   | string  | **(requerido, somente quando o campo 'billet_gateway_key' estiver preenchido)** credencial do contrato com o gateway de pagamento para cobranças de **boleto**       |
+| billet_gateway_key  | string  | **(requerido, somente quando o campo 'billet_gateway_id' estiver preenchido)** chave de acesso atribuída pelo gateway de pagamento para cobranças de **boleto**      |
 
 ## Exclusão de Configuração de Cobrança
 
