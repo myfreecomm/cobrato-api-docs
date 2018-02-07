@@ -5137,6 +5137,16 @@ EXEMPLO
 <td>data de vencimento</td>
 </tr>
 <tr>
+<td>taxpayer_document_type</td>
+<td>string</td>
+<td>Tipo do documento do contribuinte</td>
+</tr>
+<tr>
+<td>taxpayer_document</td>
+<td>string</td>
+<td>Número do documento do contribuinte</td>
+</tr>
+<tr>
 <td>registration_status</td>
 <td>string</td>
 <td>status de registro do pagamento (&#39;without_remittance&rsquo;, &#39;remitted&rsquo;, &#39;registered&rsquo;, &#39;canceled&rsquo;, &#39;edit_amount_started&rsquo;, &#39;edit_date_started&rsquo;, &#39;registered_with_error&rsquo;, &#39;cancelation_started&rsquo;, &#39;canceled_awaiting_confirmation&rsquo;, &#39;amount_edited_awaiting_confirmation&rsquo;, &#39;date_edited_awaiting_confirmation&rsquo;)</td>
@@ -5496,24 +5506,14 @@ O attributo <code>amount</code> nesse caso é opcional, pois ele é identificado
 <td><strong>(requerido)</strong> Código de barras do boleto bancário</td>
 </tr>
 <tr>
-<td>receita_federal_code</td>
+<td>taxpayer_document_type</td>
 <td>string</td>
-<td><strong>(requerido)</strong> código da receita federal, de 4 dígitos</td>
+<td><strong>(requerido)</strong> Tipo do documento do contribuinte (&ldquo;cnpj&rdquo; ou &ldquo;cei&rdquo;)</td>
 </tr>
 <tr>
-<td>fgts_identifier</td>
+<td>taxpayer_document</td>
 <td>string</td>
-<td><strong>(requerido)</strong> código de identificação do FGTS</td>
-</tr>
-<tr>
-<td>connectivity_seal</td>
-<td>string</td>
-<td><strong>(requerido)</strong> selo de conectividade social</td>
-</tr>
-<tr>
-<td>connectivity_seal_digit</td>
-<td>string</td>
-<td><strong>(requerido)</strong> dígito verificador do selo de conectividade social</td>
+<td><strong>(requerido)</strong> Número do documento do contribuinte</td>
 </tr>
 </tbody></table>
 
@@ -6018,24 +6018,14 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 </tr>
 </thead><tbody>
 <tr>
-<td>receita_federal_code</td>
+<td>taxpayer_document_type</td>
 <td>string</td>
-<td><strong>(requerido)</strong> código da receita federal, de 4 dígitos</td>
+<td><strong>(requerido)</strong> Tipo do documento do contribuinte (&ldquo;cnpj&rdquo; ou &ldquo;cei&rdquo;)</td>
 </tr>
 <tr>
-<td>fgts_identifier</td>
+<td>taxpayer_document</td>
 <td>string</td>
-<td><strong>(requerido)</strong> código de identificação do FGTS</td>
-</tr>
-<tr>
-<td>connectivity_seal</td>
-<td>string</td>
-<td><strong>(requerido)</strong> selo de conectividade social</td>
-</tr>
-<tr>
-<td>connectivity_seal_digit</td>
-<td>string</td>
-<td><strong>(requerido)</strong> dígito verificador do selo de conectividade social</td>
+<td><strong>(requerido)</strong> Número do documento do contribuinte</td>
 </tr>
 </tbody></table>
 
