@@ -5151,6 +5151,11 @@ EXEMPLO
 <td>string</td>
 <td>status de registro do pagamento (&#39;without_remittance&rsquo;, &#39;remitted&rsquo;, &#39;registered&rsquo;, &#39;canceled&rsquo;, &#39;edit_amount_started&rsquo;, &#39;edit_date_started&rsquo;, &#39;registered_with_error&rsquo;, &#39;cancelation_started&rsquo;, &#39;canceled_awaiting_confirmation&rsquo;, &#39;amount_edited_awaiting_confirmation&rsquo;, &#39;date_edited_awaiting_confirmation&rsquo;)</td>
 </tr>
+<tr>
+<td>note</td>
+<td>string</td>
+<td>Oberservação do pagamento</td>
+</tr>
 </tbody></table>
 
 <h2 id="informa-es-do-pagamento">Informações do Pagamento</h2>
@@ -5189,6 +5194,7 @@ EXEMPLO DE CORPO DA RESPOSTA
     <span class="s2">"payee_document"</span>: <span class="s2">"123.456.789-09"</span>,
     <span class="s2">"payee_name"</span>: <span class="s2">"John Doe"</span>,
     <span class="s2">"ted_goal"</span>: <span class="s2">"00300"</span>,
+    <span class="s2">"note"</span>: <span class="s2">"Pagamento feito para outra conta"</span>,
     <span class="s2">"_links"</span>: <span class="o">[</span>
       <span class="o">{</span> <span class="s2">"rel"</span>: <span class="s2">"self"</span>, <span class="s2">"method"</span>: <span class="s2">"GET"</span>, <span class="s2">"href"</span>: <span class="s2">"https://app.cobrato.com/api/v1/payments/10"</span> <span class="o">}</span>,
       <span class="o">{</span> <span class="s2">"rel"</span>: <span class="s2">"update"</span>, <span class="s2">"method"</span>: <span class="s2">"PUT"</span>, <span class="s2">"href"</span>: <span class="s2">"https://app.cobrato.com/api/v1/payments/10"</span> <span class="o">}</span>,
@@ -5266,6 +5272,7 @@ EXEMPLO DE REQUISIÇÃO
           "payee_document_type": "cpf",
           "payee_document": "123.456.789-09",
           "payee_name": "Jane Doe"
+          "note": "Pagamento para fornecedores",
         }'</span>
 
 EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
@@ -5307,7 +5314,7 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <tr>
 <td>payment_method</td>
 <td>string</td>
-<td><strong>(requerido)</strong> forma de pagamento (&#39;credit_other_ownership&rsquo;, &#39;credit_same_ownership&rsquo;, &#39;credit_savings_account&rsquo;, &#39;doc_other_ownership&rsquo;, &#39;doc_same_ownership&rsquo;, &#39;ted_other_ownership&rsquo;, &#39;ted_same_ownership&rsquo;, &#39;gps&rsquo;)</td>
+<td><strong>(requerido)</strong> forma de pagamento (&#39;credit_other_ownership&rsquo;, &#39;credit_same_ownership&rsquo;, &#39;credit_savings_account&rsquo;, &#39;doc_other_ownership&rsquo;, &#39;doc_same_ownership&rsquo;, &#39;ted_other_ownership&rsquo;, &#39;ted_same_ownership&rsquo;, &#39;gps&rsquo;, &#39;darf&rsquo;, &#39;das&rsquo;, &#39;ipva&rsquo;, icms_sp&rsquo;, &#39;dpvat&rsquo;)</td>
 </tr>
 <tr>
 <td>payment_type</td>
@@ -5323,6 +5330,11 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <td>date</td>
 <td>date</td>
 <td><strong>(requerido)</strong> data do pagamento</td>
+</tr>
+<tr>
+<td>note</td>
+<td>string</td>
+<td>(opcional) oberservação do pagamento</td>
 </tr>
 </tbody></table>
 
@@ -5864,6 +5876,11 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <td>date</td>
 <td><strong>(requerido)</strong> data do pagamento</td>
 </tr>
+<tr>
+<td>note</td>
+<td>string</td>
+<td>(opcional) oberservação do pagamento</td>
+</tr>
 </tbody></table>
 
 <h3 id="transfer-ncias-doc-ted-cr-dito">Transferências (DOC, TED, Crédito)</h3>
@@ -6377,6 +6394,80 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <p>Inicia o processo de cancelamento de um determinado Pagamento, retornando JSON contendo as informações do pagamento em caso de sucesso ou os erros, caso haja algum.</p>
 
 <p>Após iniciar o processo de cancelamento será necessário gerar um arquivo de remessa, enviar para o banco e esperar o arquivo de retorno confirmando o cancelamento.</p>
+
+<h2 id="schema-de-pagamento">Schema de Pagamento</h2>
+<pre class="highlight shell"><code>Schema de Pagamento
+
+DEFINIÇÃO
+
+  GET https://app.cobrato.com/api/v1/payments/schema
+
+EXEMPLO DE REQUISIÇÃO
+
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X <span class="se">\</span>
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
+    -X GET https://app.cobrato.com/api/v1/payments/schema?payment_config_id<span class="o">=</span>1&amp;payment_method<span class="o">=</span>ted_other_ownership
+
+EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
+
+    200 OK
+
+EXEMPLO DE CORPO DA RESPOSTA COM SUCESSO
+
+  <span class="o">{</span>
+    <span class="s2">"schema"</span>: <span class="o">{</span>
+      // json schema
+    <span class="o">}</span>,
+    <span class="s2">"form"</span>: <span class="o">{</span>
+      // json schema form
+    <span class="o">}</span>
+  <span class="o">}</span>
+
+EXEMPLO DE ESTADO DA RESPOSTA COM INSUCESSO
+
+    422 Unprocessable Entity
+
+EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
+
+  <span class="o">{</span>
+    <span class="s2">"errors"</span>: <span class="o">{</span>
+      <span class="s2">"payment_method"</span>:[<span class="s2">"ao menos um dos parâmetros deve ser enviado: payment_method e barcode"</span><span class="o">]</span>,
+      <span class="s2">"barcode"</span>:[<span class="s2">"ao menos um dos parâmetros deve ser enviado: payment_method e barcode"</span><span class="o">]</span>,
+      <span class="s2">"payment_config_id"</span>:[<span class="s2">"não pode ficar em branco"</span><span class="o">]</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+
+</code></pre>
+
+<p>Retorna o <a href="http://json-schema.org/">json schema</a> e o <a href="https://github.com/myfreecomm/nexaas-json-schema-form">json schema form</a> com as informações necessárias para criar um pagamento, baseado nos dados enviados.</p>
+
+<p><strong>Parâmetros</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>payment_config_id</td>
+<td>integer</td>
+<td><strong>(requerido)</strong> código de identificação da configuração de pagamento à qual o pagamento irá pertencer</td>
+</tr>
+<tr>
+<td>payment_method</td>
+<td>string</td>
+<td><strong>(requerido, ou barcode)</strong> forma de pagamento (&#39;credit_other_ownership&rsquo;, &#39;credit_same_ownership&rsquo;, &#39;credit_savings_account&rsquo;, &#39;doc_other_ownership&rsquo;, &#39;doc_same_ownership&rsquo;, &#39;ted_other_ownership&rsquo;, &#39;ted_same_ownership&rsquo;, &#39;gps&rsquo;, &#39;darf&rsquo;, &#39;das&rsquo;, &#39;ipva&rsquo;, icms_sp&rsquo;, &#39;dpvat&rsquo;)</td>
+</tr>
+<tr>
+<td>barcode</td>
+<td>string</td>
+<td><strong>(requerido, ou payment_method)</strong> código de barras do pagamento</td>
+</tr>
+</tbody></table>
 
 <h2 id="tabelas">Tabelas</h2>
 
