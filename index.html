@@ -6395,6 +6395,88 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
 <p>Após iniciar o processo de cancelamento será necessário gerar um arquivo de remessa, enviar para o banco e esperar o arquivo de retorno confirmando o cancelamento.</p>
 
+<h2 id="marcar-pagamento-como-n-o-autorizado">Marcar Pagamento como não autorizado</h2>
+<pre class="highlight shell"><code>Marcar Pagamento como não autorizado
+
+DEFINIÇÃO
+
+  POST https://app.cobrato.com/api/v1/payment/:id/unauthorize
+
+  EXEMPLO DE REQUISIÇÃO
+
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X <span class="se">\</span>
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
+    -X POST https://app.cobrato.com/api/v1/payment/:id/unauthorize
+
+EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
+
+    200 OK
+
+EXEMPLO DE ESTADO DA RESPOSTA COM PAGAMENTO INEXISTENTE
+
+    404 Not Found
+
+EXEMPLO DE ESTADO DA RESPOSTA COM INSUCESSO
+
+    422 Unprocessable Entity
+
+EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
+
+  <span class="o">{</span>
+    <span class="s2">"errors"</span>:
+      <span class="o">{</span>
+        <span class="s2">"registration_status"</span>: <span class="o">[</span><span class="s2">"Não é possível marcar este pagamento como não autorizado. Somente pagamentos com status 'registrado', NÃO efetivados e vencidos podem ser marcados como não autorizados"</span><span class="o">]</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
+
+</code></pre>
+
+<p>Marca um determinado Pagamento como não autorizado, retornando JSON com as informações do pagamento em caso de sucesso ou, caso contrário, os erros.</p>
+
+<h2 id="marcar-pagamento-com-erro-no-registro">Marcar pagamento com Erro no Registro</h2>
+<pre class="highlight shell"><code>Marcar pagamento com Erro no Registro
+
+DEFINIÇÃO
+
+  POST https://app.cobrato.com/api/v1/payment/:id/register_error
+
+EXEMPLO DE REQUISIÇÃO
+
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X <span class="se">\</span>
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
+    -X POST https://app.cobrato.com/api/v1/payment/:id/register_error
+
+EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
+
+    200 OK
+
+EXEMPLO DE ESTADO DA RESPOSTA COM PAGAMENTO INEXISTENTE
+
+    404 Not Found
+
+EXEMPLO DE ESTADO DA RESPOSTA COM INSUCESSO
+
+    422 Unprocessable Entity
+
+EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
+
+  <span class="o">{</span>
+    <span class="s2">"errors"</span>:
+      <span class="o">{</span>
+        <span class="s2">"registration_status"</span>: <span class="o">[</span><span class="s2">"não permite marcar como Erro no Registro"</span><span class="o">]</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
+
+</code></pre>
+
+<p>Marca o pagamento com Erro no registro manualmente.</p>
+
+<p>Importante para pagamentos que tiveram o lote rejeitado pelo sistema do banco. Neste caso o banco não envia nenhum erro no arquivo de retorno e é necessário marcar manualmente.</p>
+
 <h2 id="schema-de-pagamento">Schema de Pagamento</h2>
 <pre class="highlight shell"><code>Schema de Pagamento
 
@@ -8701,6 +8783,36 @@ EXEMPLO DE ESTADO DA RESPOSTA COM WEBHOOK INEXISTENTE
 <td>destroyed</td>
 <td>quando o pagador é excluído</td>
 </tr>
+<tr>
+<td>payment</td>
+<td>created</td>
+<td>quando o pagamento é criado</td>
+</tr>
+<tr>
+<td>payment</td>
+<td>updated</td>
+<td>quando o pagamento é atualizado</td>
+</tr>
+<tr>
+<td>payment</td>
+<td>canceled</td>
+<td>quando o pagamento é cancelado</td>
+</tr>
+<tr>
+<td>payment</td>
+<td>destroyed</td>
+<td>quando o pagamento é excluído</td>
+</tr>
+<tr>
+<td>payment</td>
+<td>unauthorized</td>
+<td>quando o pagamento é marcado como não autorizado</td>
+</tr>
+<tr>
+<td>payment</td>
+<td>registered_with_error</td>
+<td>quando o pagamento é marcado com Erro no registro</td>
+</tr>
 </tbody></table>
 
 <h2 id="cobran-a-criada">Cobrança criada</h2>
@@ -9118,6 +9230,111 @@ EXEMPLO DE PAYLOAD
 </code></pre>
 
 <p>Informações enviadas quando uma Pagador é excluído.</p>
+
+<h2 id="pagamento-criado">Pagamento criado</h2>
+<pre class="highlight shell"><code>Pagamento Criado
+
+EXEMPLO DE PAYLOAD
+
+  <span class="o">{</span>
+    <span class="s2">"created_at"</span>:<span class="s2">"2015-05-21T16:13:33Z"</span>,
+    <span class="s2">"event"</span>:<span class="s2">"created"</span>,
+    <span class="s2">"object_type"</span>:<span class="s2">"payment"</span>,
+    <span class="s2">"object_id"</span>:12,
+    <span class="s2">"_links"</span>:[<span class="o">{</span>
+      <span class="s2">"rel"</span>:<span class="s2">"self"</span>,
+      <span class="s2">"method"</span>:<span class="s2">"GET"</span>,
+      <span class="s2">"url"</span>:<span class="s2">"https://app.cobrato.com/api/v1/payments/12"</span>
+    <span class="o">}]</span>
+  <span class="o">}</span>
+
+</code></pre>
+
+<p>Informações enviadas quando um Pagamento é criado.</p>
+
+<h2 id="pagamento-atualizado">Pagamento Atualizado</h2>
+<pre class="highlight shell"><code>Pagamento Atualizado
+
+EXEMPLO DE PAYLOAD
+
+  <span class="o">{</span>
+    <span class="s2">"created_at"</span>:<span class="s2">"2015-05-21T16:13:33Z"</span>,
+    <span class="s2">"event"</span>:<span class="s2">"updated"</span>,
+    <span class="s2">"object_type"</span>:<span class="s2">"payment"</span>,
+    <span class="s2">"object_id"</span>:12,
+    <span class="s2">"_links"</span>:[<span class="o">{</span>
+      <span class="s2">"rel"</span>:<span class="s2">"self"</span>,
+      <span class="s2">"method"</span>:<span class="s2">"GET"</span>,
+      <span class="s2">"url"</span>:<span class="s2">"https://app.cobrato.com/api/v1/payments/12"</span>
+    <span class="o">}]</span>
+  <span class="o">}</span>
+
+</code></pre>
+
+<p>Informações enviadas quando um Pagamento é atualizado.</p>
+
+<h2 id="pagamento-exclu-do">Pagamento Excluído</h2>
+<pre class="highlight shell"><code>Pagamento Excluído
+
+EXEMPLO DE PAYLOAD
+
+  <span class="o">{</span>
+    <span class="s2">"created_at"</span>:<span class="s2">"2015-05-21T16:13:33Z"</span>,
+    <span class="s2">"event"</span>:<span class="s2">"destroyed"</span>,
+    <span class="s2">"object_type"</span>:<span class="s2">"payment"</span>,
+    <span class="s2">"object_id"</span>:12,
+    <span class="s2">"_links"</span>:[<span class="o">{</span>
+      <span class="s2">"rel"</span>:<span class="s2">"self"</span>,
+      <span class="s2">"method"</span>:<span class="s2">"GET"</span>,
+      <span class="s2">"url"</span>:<span class="s2">"https://app.cobrato.com/api/v1/payments/12"</span>
+    <span class="o">}]</span>
+  <span class="o">}</span>
+
+</code></pre>
+
+<p>Informações enviadas quando um Pagamento é excluído.</p>
+
+<h2 id="pagamento-marcado-como-n-o-autorizado">Pagamento Marcado como Não Autorizado</h2>
+<pre class="highlight shell"><code>Pagamento Marcado como Não Autorizado
+
+EXEMPLO DE PAYLOAD
+
+  <span class="o">{</span>
+    <span class="s2">"created_at"</span>:<span class="s2">"2015-05-21T16:13:33Z"</span>,
+    <span class="s2">"event"</span>:<span class="s2">"unauthorized"</span>,
+    <span class="s2">"object_type"</span>:<span class="s2">"payment"</span>,
+    <span class="s2">"object_id"</span>:12,
+    <span class="s2">"_links"</span>:[<span class="o">{</span>
+      <span class="s2">"rel"</span>:<span class="s2">"self"</span>,
+      <span class="s2">"method"</span>:<span class="s2">"GET"</span>,
+      <span class="s2">"url"</span>:<span class="s2">"https://app.cobrato.com/api/v1/payments/12"</span>
+    <span class="o">}]</span>
+  <span class="o">}</span>
+
+</code></pre>
+
+<p>Informações enviadas quando um Pagamento é marcado como Não Autorizado.</p>
+
+<h2 id="pagamento-marcado-com-erro-no-registro">Pagamento Marcado com Erro no Registro</h2>
+<pre class="highlight shell"><code>Pagamento Marcado com Erro no Registro
+
+EXEMPLO DE PAYLOAD
+
+  <span class="o">{</span>
+    <span class="s2">"created_at"</span>:<span class="s2">"2015-05-21T16:13:33Z"</span>,
+    <span class="s2">"event"</span>:<span class="s2">"registered_with_error"</span>,
+    <span class="s2">"object_type"</span>:<span class="s2">"payment"</span>,
+    <span class="s2">"object_id"</span>:12,
+    <span class="s2">"_links"</span>:[<span class="o">{</span>
+      <span class="s2">"rel"</span>:<span class="s2">"self"</span>,
+      <span class="s2">"method"</span>:<span class="s2">"GET"</span>,
+      <span class="s2">"url"</span>:<span class="s2">"https://app.cobrato.com/api/v1/payments/12"</span>
+    <span class="o">}]</span>
+  <span class="o">}</span>
+
+</code></pre>
+
+<p>Informações enviadas quando um Pagamento é marcado com Erro no Registro.</p>
 
           <h1 id="tipos-de-cobran-a">Tipos de cobrança</h1>
 
