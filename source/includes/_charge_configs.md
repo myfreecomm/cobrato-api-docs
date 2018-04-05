@@ -322,7 +322,6 @@ Cria uma nova Configuração de Cobrança, retornando as informações da mesma 
 | payee_id     | integer | **(requerido)** código de identificação do beneficiário ao qual a configuração de cobrança irá pertencer                                              |
 | name         | string  | **(requerido)** nome que identifica esta configuração de cobrança                                                                                     |
 | gateway_name | string  | **(requerido)** nome do gateway de pagamento ('cielo-ws15', 'cielo-api30', 'pjbank')*                                                                 |
-| status       | string  | (opctional, default "pending") indica o status, ou etapa, de homologação em que configuração de cobrança está ('pending', 'production_tests', 'ok')   |
 
 **Parâmetros para o gateway Cielo**
 
@@ -331,6 +330,7 @@ Cria uma nova Configuração de Cobrança, retornando as informações da mesma 
 | gateway_id   | string  | **(requerido)** número de afiliação do contrato com o gateway de pagamento                                                                            |
 | gateway_key  | string  | **(requerido)** chave de acesso atribuída pelo gateway de pagamento                                                                                   |
 | use_avs      | boolean | (opcional) define se será feita a solicitação e a confirmação do endereço de cobrança da fatura do cartão utilizado no pagamento (`false` por padrão) |
+| status       | string  | (opcional, default "pending") indica o status, ou etapa, de homologação em que configuração de cobrança está ('pending', 'production_tests', 'ok')    |
 
 **Parâmetros para o gateway PJBank**
 
@@ -443,7 +443,6 @@ Atualiza a Configuração de Cobrança determinada, retornando as informações 
 | name         | string  | **(requerido)** nome que identifica esta configuração de cobrança                                                                                     |
 | payee_id     | integer | **(requerido)** código de identificação do beneficiário ao qual a configuração de cobrança irá pertencer                                              |
 | gateway_name | string  | **(requerido)** nome do gateway de pagamento ('cielo-ws15', 'cielo-api30', 'pjbank')*                                                                 |
-| status       | string  | (opctional, default "pending") indica o status, ou etapa, de homologação em que configuração de cobrança está ('pending', 'production_tests', 'ok')   |
 
 **Parâmetros para o gateway Cielo**
 
@@ -452,6 +451,7 @@ Atualiza a Configuração de Cobrança determinada, retornando as informações 
 | gateway_id   | string  | **(requerido)** número de afiliação do contrato com o gateway de pagamento                                                                            |
 | gateway_key  | string  | **(requerido)** chave de acesso atribuída pelo gateway de pagamento                                                                                   |
 | use_avs      | boolean | (opcional) define se será feita a solicitação e a confirmação do endereço de cobrança da fatura do cartão utilizado no pagamento (`false` por padrão) |
+| status       | string  | (opcional, default "pending") indica o status, ou etapa, de homologação em que configuração de cobrança está ('pending', 'production_tests', 'ok')    |
 
 **Parâmetros para o gateway PJBank**
 
