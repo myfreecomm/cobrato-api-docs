@@ -52,9 +52,9 @@ As Configurações de Cobrança do tipo **Conta bancária** (billet), pertencem 
 
 <aside class="info">
   Para homologar a Configuração de Cobrança existe uma série de passos que você encontra em
-  <a href="https://app.cobrato.com/charge_configs">nossa interface web</a>. Até
-  que a Configuração tenha o status "ok" (Homologado), todas as cobranças criadas para esta Configuração
-  deverão ser para homologação.
+  <a href="https://app.cobrato.com/charge_configs">nossa interface web</a>. Cada gateway de pagamento tem um processo
+  de homologação específico. Até que a Configuração tenha o status "ok" (Homologado), todas as cobranças criadas para
+  esta Configuração deverão ser para homologação.
 </aside>
 
 **Parâmetros**
