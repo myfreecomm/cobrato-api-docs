@@ -176,9 +176,9 @@ e tem suas respostas dadas em payloads via webhook.
 | charge_config_id               | integer          | identificador da configuração de cobrança a qual esta cobrança pertence                                                                       |
 | charged_amount                 | decimal          | valor cobrado no boleto                                                                                                                       |
 | due_date                       | date             | data de vencimento da cobranca                                                                                                                |
-| monthly_interest               | decimal          | porcentagem de juros mensal que deve ser aplicado em caso de atraso. Esse valore será dividido por 30 para ser encontrata a taxa diária       |
-| mulct                          | decimal          | valor da multa que deve ser aplicada em caso de atraso                                                                                        |
-| discount                       | decimal          | valor do disconto que deve ser aplicado em caso de pagamento até a data de vencimento                                                         |
+| interest_amount_per_month      | decimal          | porcentagem de juros mensal que deve ser aplicado em caso de atraso. Esse valore será dividido por 30 para ser encontrata a taxa diária       |
+| mulct_type                     | decimal          | valor da multa que deve ser aplicada em caso de atraso                                                                                        |
+| discount_amount                | decimal          | valor do disconto que deve ser aplicado em caso de pagamento até a data de vencimento                                                         |
 | payer_id                       | integer          | identificador do pagador                                                                                                                      |
 | payer_national_identifier_type | string           | tipo do documento do pagador (cpf ou cnpj)                                                                                                    |
 | payer_national_identifier      | string           | documento do pagador                                                                                                                          |
@@ -538,24 +538,24 @@ Caso exista um Pagador (Payer) com o mesmo <code>national_identifier</code>, nã
 
 **Parâmetros**
 
-| Campo               | Tipo             | Comentário                                                                                                                                                                         |
-|---------------------|------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| type                | string           | **(requerido)** tipo da cobrança, nesse caso deve ser "billet"                                                                                                                     |
-| charge_config_id    | integer          | **(requerido)** código de identificação da configuração de cobrança da qual a cobrança irá pertencer                                                                               |
-| charged_amount      | decimal          | **(requerido)** valor cobrado                                                                                                                                                      |
-| due_date            | date             | **(requerido)** data de vencimento da cobrança                                                                                                                                     |
-| payer_id            | integer          | **(requerido, se não enviar payer_attributes)** identificador do pagador (caso seja fornecido, o parâmetro payer_attributes será ignorado)                                         |
-| payer_attributes*   | object           | **(requerido, se não enviar payer_id)** atributos para a criação de um novo pagador ou atualização de um pagador existente com o mesmo documento (national_identifier)             |
-| document_kind       | string           | (opcional) espécie do documento, podendo ser DM (Duplicata Mercantil), DS (Duplicata de Serviço), NP (Nota Promissória) ou DV (Diversos)                                           |
-| monthly_interest    | decimal          | (opcional) porcentagem de juros mensal que deve ser aplicado em caso de atraso. Esse valore será dividido por 30 para ser encontrata a taxa diária                                 |
-| mulct               | decimal          | (opcional) valor da multa que deve ser aplicada em caso de atraso                                                                                                                  |
-| discount            | decimal          | (opcional) valor do disconto que deve ser aplicado em caso de pagamento até a data de vencimento                                                                                   |
-| auto_send_billet    | boolean          | (opcional) Indica se será enviado email de notificação automaticamente para os emails especificados no campo 'notification_emails'. Caso não seja informada assumirá valor 'false' |
-| notification_emails | array of strings | (opcional - requerido caso `auto_send_billet` seja `true`) emails que receberão notificações sobre a cobrança                                                                      |
-| email_sender_name   | string           | (opcional) Nome do remetente do email de notificação de cobrança, caso a opção auto_send_billet estiver com valor 'true'                                                           |
-| email_subject       | string           | (opcional) Assunto do email de notificação de cobrança, caso a opção auto_send_billet estiver com valor 'true'                                                                     |
-| email_text          | string           | (opcional) Texto do email de notificação de cobrança, caso a opção auto_send_billet estiver com valor 'true'                                                                       |
-| email_reply_to      | string           | (opcional) Endereço de email a ser utilizado na resposta ao email de notificação de cobrança, caso a opção auto_send_billet estiver com valor 'true'                               |
+| Campo                     | Tipo             | Comentário                                                                                                                                                                         |
+|---------------------------|------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| type                      | string           | **(requerido)** tipo da cobrança, nesse caso deve ser "billet"                                                                                                                     |
+| charge_config_id          | integer          | **(requerido)** código de identificação da configuração de cobrança da qual a cobrança irá pertencer                                                                               |
+| charged_amount            | decimal          | **(requerido)** valor cobrado                                                                                                                                                      |
+| due_date                  | date             | **(requerido)** data de vencimento da cobrança                                                                                                                                     |
+| payer_id                  | integer          | **(requerido, se não enviar payer_attributes)** identificador do pagador (caso seja fornecido, o parâmetro payer_attributes será ignorado)                                         |
+| payer_attributes*         | object           | **(requerido, se não enviar payer_id)** atributos para a criação de um novo pagador ou atualização de um pagador existente com o mesmo documento (national_identifier)             |
+| document_kind             | string           | (opcional) espécie do documento, podendo ser DM (Duplicata Mercantil), DS (Duplicata de Serviço), NP (Nota Promissória) ou DV (Diversos)                                           |
+| interest_amount_per_month | decimal          | (opcional) porcentagem de juros mensal que deve ser aplicado em caso de atraso. Esse valore será dividido por 30 para ser encontrata a taxa diária                                 |
+| mulct_type                | decimal          | (opcional) valor da multa que deve ser aplicada em caso de atraso                                                                                                                  |
+| discount_amount           | decimal          | (opcional) valor do disconto que deve ser aplicado em caso de pagamento até a data de vencimento                                                                                   |
+| auto_send_billet          | boolean          | (opcional) Indica se será enviado email de notificação automaticamente para os emails especificados no campo 'notification_emails'. Caso não seja informada assumirá valor 'false' |
+| notification_emails       | array of strings | (opcional - requerido caso `auto_send_billet` seja `true`) emails que receberão notificações sobre a cobrança                                                                      |
+| email_sender_name         | string           | (opcional) Nome do remetente do email de notificação de cobrança, caso a opção auto_send_billet estiver com valor 'true'                                                           |
+| email_subject             | string           | (opcional) Assunto do email de notificação de cobrança, caso a opção auto_send_billet estiver com valor 'true'                                                                     |
+| email_text                | string           | (opcional) Texto do email de notificação de cobrança, caso a opção auto_send_billet estiver com valor 'true'                                                                       |
+| email_reply_to            | string           | (opcional) Endereço de email a ser utilizado na resposta ao email de notificação de cobrança, caso a opção auto_send_billet estiver com valor 'true'                               |
 
 **payer_attributes**
 
@@ -741,22 +741,22 @@ da cobrança no gateway de pagamento.
 
 **Parâmetros**
 
-| Campo               | Tipo             | Comentário                                                                                                                                                                         |
-|---------------------|------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| charged_amount      | decimal          | **(requerido)** valor cobrado                                                                                                                                                      |
-| due_date            | date             | **(requerido)** data de vencimento da cobrança                                                                                                                                     |
-| payer_id            | integer          | **(requerido, se não enviar payer_attributes)** identificador do pagador (caso seja fornecido, o parâmetro payer_attributes será ignorado)                                         |
-| payer_attributes*   | object           | **(requerido, se não enviar payer_id)** atributos para a criação de um novo pagador ou atualização de um pagador existente com o mesmo documento (national_identifier)             |
-| document_kind       | string           | (opcional) espécie do documento, podendo ser DM (Duplicata Mercantil), DS (Duplicata de Serviço), NP (Nota Promissória) ou DV (Diversos)                                           |
-| monthly_interest    | decimal          | (opcional) porcentagem de juros mensal que deve ser aplicado em caso de atraso. Esse valore será dividido por 30 para ser encontrata a taxa diária                                 |
-| mulct               | decimal          | (opcional) valor da multa que deve ser aplicada em caso de atraso                                                                                                                  |
-| discount            | decimal          | (opcional) valor do disconto que deve ser aplicado em caso de pagamento até a data de vencimento                                                                                   |
-| auto_send_billet    | boolean          | (opcional) Indica se será enviado email de notificação automaticamente para os emails especificados no campo 'notification_emails'. Caso não seja informada assumirá valor 'false' |
-| notification_emails | array of strings | (opcional - requerido caso `auto_send_billet` seja `true`) emails que receberão notificações sobre a cobrança                                                                      |
-| email_sender_name   | string           | (opcional) Nome do remetente do email de notificação de cobrança, caso a opção auto_send_billet estiver com valor 'true'                                                           |
-| email_subject       | string           | (opcional) Assunto do email de notificação de cobrança, caso a opção auto_send_billet estiver com valor 'true'                                                                     |
-| email_text          | string           | (opcional) Texto do email de notificação de cobrança, caso a opção auto_send_billet estiver com valor 'true'                                                                       |
-| email_reply_to      | string           | (opcional) Endereço de email a ser utilizado na resposta ao email de notificação de cobrança, caso a opção auto_send_billet estiver com valor 'true'                               |
+| Campo                     | Tipo             | Comentário                                                                                                                                                                         |
+|---------------------------|------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| charged_amount            | decimal          | **(requerido)** valor cobrado                                                                                                                                                      |
+| due_date                  | date             | **(requerido)** data de vencimento da cobrança                                                                                                                                     |
+| payer_id                  | integer          | **(requerido, se não enviar payer_attributes)** identificador do pagador (caso seja fornecido, o parâmetro payer_attributes será ignorado)                                         |
+| payer_attributes*         | object           | **(requerido, se não enviar payer_id)** atributos para a criação de um novo pagador ou atualização de um pagador existente com o mesmo documento (national_identifier)             |
+| document_kind             | string           | (opcional) espécie do documento, podendo ser DM (Duplicata Mercantil), DS (Duplicata de Serviço), NP (Nota Promissória) ou DV (Diversos)                                           |
+| interest_amount_per_month | decimal          | (opcional) porcentagem de juros mensal que deve ser aplicado em caso de atraso. Esse valore será dividido por 30 para ser encontrata a taxa diária                                 |
+| mulct_type                | decimal          | (opcional) valor da multa que deve ser aplicada em caso de atraso                                                                                                                  |
+| discount_amount           | decimal          | (opcional) valor do disconto que deve ser aplicado em caso de pagamento até a data de vencimento                                                                                   |
+| auto_send_billet          | boolean          | (opcional) Indica se será enviado email de notificação automaticamente para os emails especificados no campo 'notification_emails'. Caso não seja informada assumirá valor 'false' |
+| notification_emails       | array of strings | (opcional - requerido caso `auto_send_billet` seja `true`) emails que receberão notificações sobre a cobrança                                                                      |
+| email_sender_name         | string           | (opcional) Nome do remetente do email de notificação de cobrança, caso a opção auto_send_billet estiver com valor 'true'                                                           |
+| email_subject             | string           | (opcional) Assunto do email de notificação de cobrança, caso a opção auto_send_billet estiver com valor 'true'                                                                     |
+| email_text                | string           | (opcional) Texto do email de notificação de cobrança, caso a opção auto_send_billet estiver com valor 'true'                                                                       |
+| email_reply_to            | string           | (opcional) Endereço de email a ser utilizado na resposta ao email de notificação de cobrança, caso a opção auto_send_billet estiver com valor 'true'                               |
 
 **payer_attributes**
 
