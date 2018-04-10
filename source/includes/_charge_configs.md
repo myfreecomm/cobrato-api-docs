@@ -228,8 +228,9 @@ Retorna uma lista em JSON contendo todas as Configurações de Cobrança que per
 - `type`: Filtra pelo tipo de configuração de cobrança. O valor a ser informado é string com um dos tipos existentes de configuração de cobrança.
 - `payee_ids`: Filtra pelos beneficiários informados. O valor informado é uma **lista\*** de ids dos beneficiários.
 - `payee_national_identifiers`: Filtra pelos beneficiários informados. O valor informado é uma **lista\*** de número de documentos dos beneficiários.
+- `charge_type`: Filtra pelo tipo de cobrança disponível. O valor a ser informado é a string com um dos tipos de cobrança disponíveis, "billet" e "credit_card".
 
-**lista\*** Os valores em "lista" devem ser enviados da seguinte forma: `url?payee_ids[]=15&payee_ids[]=42`.
+**lista\*** Os valores em "lista" devem ser enviados da seguinte forma: `url?payee_ids[]=15&payee_ids[]=42&charge_type=credit_card`.
 
 ## Criação de Configuração de Cobrança
 
