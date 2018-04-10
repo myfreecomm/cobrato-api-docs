@@ -25,6 +25,7 @@ EXEMPLO
     "transmission_code": "987655",
     "pre_released_billet": false,
     "writing_off_deadline": null,
+    "available_charge_types": ["billet"],
     "_links":
       [
         {"rel":"self","method":"GET","href":"https://app.cobrato.com/api/v1/charge_configs/1"},
@@ -59,28 +60,29 @@ As Configurações de Cobrança do tipo **Conta bancária** (billet), pertencem 
 
 **Parâmetros**
 
-| Campo                     | Tipo            | Comentário                                                                                                                                                    |
-|---------------------------|-----------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| id                        | integer         |                                                                                                                                                               |
-| type                      | string          | indica o tipo da configuração de cobrança. Nesse caso 'billet'                                                                                                |
-| name                      | string          | nome que identifica esta configuração de cobrança                                                                                                             |
-| status                    | string          | 'ok' ou 'pending' para indicar se configuração de cobrança está ou não homologada, respectivamente                                                            |
-| payee_id                  | integer         | identificador do beneficiário desta configuração de cobrança no Cobrato                                                                                       |
-| bank_account_id           | integer         | identificador da conta bancária desta configuração de cobrança no Cobrato                                                                                     |
-| portfolio_code            | string          | código de portfólio                                                                                                                                           |
-| agreement_code            | string          | código de convênio ou do beneficiário, de acordo com o banco. No caso do Itaú deve ser igual ao campo 'account' da conta bancária                             |
-| agreement_code_digit      | string          | verificador do código de convênio, de acordo com o banco                                                                                                      |
-| initial_number            | integer         | número inicial do nosso número, sendo atribuído automaticamente e sequencialmente as cobranças                                                                |
-| next_number               | integer         | próximo nosso número a ser atribuído a uma cobrança criada a partir desta configuração de cobrança                                                            |
-| end_number                | integer         | número final do nosso número, sendo o último número a ser atribuído, após isso a sequência é reiniciada                                                       |
-| registered_charges        | boolean         | informa se a configuração de cobrança utiliza boletos registrados ou não, sendo false por padrão                                                              |
-| remittance_agreement_code | integer         | número do convênio com o banco (apenas para o Bradesco)                                                                                                       |
-| remittance_cnab_pattern   | integer         | padrão utilizado no arquivo CNAB de remessa                                                                                                                   |
-| initial_remittance_number | integer         | número inicial de remessa, ou seja, qual foi o último número sequencial de remessa enviado para o banco (apenas para o Bradesco)                              |
-| transmission_code         | string          | código de transmissão (apenas para o Santander)                                                                                                               |
-| pre_released_billet       | boolean         | caso a configuração de cobrança utilize boletos registrados, este atributo indica se os boletos podem ser acessados antes do registro no banco ser confirmado |
-| writing_off_deadline      | integer         | número de dias após o vencimento da cobrança para que seja feita a baixa automática do título no banco (apenas para cobranças registradas com padrão 240)     |
-| _links                    | array of object | links da configuração de cobrança e de sua conta bancária                                                                                                     |
+| Campo                     | Tipo             | Comentário                                                                                                                                                                |
+|---------------------------|------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| id                        | integer          |                                                                                                                                                                           |
+| type                      | string           | indica o tipo da configuração de cobrança. Nesse caso 'billet'                                                                                                            |
+| name                      | string           | nome que identifica esta configuração de cobrança                                                                                                                         |
+| status                    | string           | 'ok' ou 'pending' para indicar se configuração de cobrança está ou não homologada, respectivamente                                                                        |
+| payee_id                  | integer          | identificador do beneficiário desta configuração de cobrança no Cobrato                                                                                                   |
+| bank_account_id           | integer          | identificador da conta bancária desta configuração de cobrança no Cobrato                                                                                                 |
+| portfolio_code            | string           | código de portfólio                                                                                                                                                       |
+| agreement_code            | string           | código de convênio ou do beneficiário, de acordo com o banco. No caso do Itaú deve ser igual ao campo 'account' da conta bancária                                         |
+| agreement_code_digit      | string           | verificador do código de convênio, de acordo com o banco                                                                                                                  |
+| initial_number            | integer          | número inicial do nosso número, sendo atribuído automaticamente e sequencialmente as cobranças                                                                            |
+| next_number               | integer          | próximo nosso número a ser atribuído a uma cobrança criada a partir desta configuração de cobrança                                                                        |
+| end_number                | integer          | número final do nosso número, sendo o último número a ser atribuído, após isso a sequência é reiniciada                                                                   |
+| registered_charges        | boolean          | informa se a configuração de cobrança utiliza boletos registrados ou não, sendo false por padrão                                                                          |
+| remittance_agreement_code | integer          | número do convênio com o banco (apenas para o Bradesco)                                                                                                                   |
+| remittance_cnab_pattern   | integer          | padrão utilizado no arquivo CNAB de remessa                                                                                                                               |
+| initial_remittance_number | integer          | número inicial de remessa, ou seja, qual foi o último número sequencial de remessa enviado para o banco (apenas para o Bradesco)                                          |
+| transmission_code         | string           | código de transmissão (apenas para o Santander)                                                                                                                           |
+| pre_released_billet       | boolean          | caso a configuração de cobrança utilize boletos registrados, este atributo indica se os boletos podem ser acessados antes do registro no banco ser confirmado             |
+| writing_off_deadline      | integer          | número de dias após o vencimento da cobrança para que seja feita a baixa automática do título no banco (apenas para cobranças registradas com padrão 240)                 |
+| available_charge_types    | array of strings | tipos de cobrança disponíveis. No caso de Configuração de Cobrança por Conta Bancária, será disponível somente a opção "billet". Este campo será gerenciado pelo Cobrato. |
+| _links                    | array of object  | links da configuração de cobrança e de sua conta bancária                                                                                                                 |
 
 
 ### Gateway de Pagamento
@@ -94,15 +96,16 @@ As Configurações de Cobrança do tipo **Conta bancária** (billet), pertencem 
 
 **Parâmetros comuns a todos os Gateways**
 
-| Campo        | Tipo            | Comentário                                                                                                            |
-|--------------|-----------------|-----------------------------------------------------------------------------------------------------------------------|
-| id           | integer         |                                                                                                                       |
-| type         | string          | indica o tipo da configuração de cobrança. Nese caso 'payment_gateway'                                                |
-| name         | string          | nome que identifica esta configuração de cobrança                                                                     |
-| status       | string          | indica o status, ou etapa, de homologação em que configuração de cobrança está ('pending', 'production_tests', 'ok')  |
-| payee_id     | integer         | identificador do beneficiário desta configuração de cobrança no Cobrato                                               |
-| gateway_name | string          | nome do gateway de pagamento ('cielo-ws15', 'cielo-api30', 'pjbank')                                                  |
-| _links       | array of object | links da configuração de cobrança e de sua conta bancária                                                             |
+| Campo                   | Tipo             | Comentário                                                                                                                                                                             |
+|-------------------------|------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| id                      | integer          |                                                                                                                                                                                        |
+| type                    | string           | indica o tipo da configuração de cobrança. Nese caso 'payment_gateway'                                                                                                                 |
+| name                    | string           | nome que identifica esta configuração de cobrança                                                                                                                                      |
+| status                  | string           | indica o status, ou etapa, de homologação em que configuração de cobrança está ('pending', 'production_tests', 'ok')                                                                   |
+| payee_id                | integer          | identificador do beneficiário desta configuração de cobrança no Cobrato                                                                                                                |
+| gateway_name            | string           | nome do gateway de pagamento ('cielo-ws15', 'cielo-api30', 'pjbank')                                                                                                                   |
+| available_charge_types  | array of strings | tipos de cobrança disponíveis. No caso de Configuração de Cobrança por Gateway de Pagamento, as opções possíveis são "billet" e "credit_card". Este campo será gerenciado pelo Cobrato |
+| _links                  | array of object  | links da configuração de cobrança e de sua conta bancária                                                                                                                              |
 
 **Parâmetros específicos para gateway Cielo**
 
@@ -165,6 +168,7 @@ EXEMPLO DE CORPO DA RESPOSTA (BOLETO)
     "transmission_code": "987655",
     "pre_released_billet": false,
     "writing_off_deadline": null,
+    "available_charge_types": ["billet"],
     "_links":
       [
         {"rel":"self","method":"GET","href":"https://app.cobrato.com/api/v1/charge_configs/1"},
