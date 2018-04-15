@@ -1483,6 +1483,7 @@ EXEMPLO
     <span class="s2">"transmission_code"</span>: <span class="s2">"987655"</span>,
     <span class="s2">"pre_released_billet"</span>: <span class="nb">false</span>,
     <span class="s2">"writing_off_deadline"</span>: null,
+    <span class="s2">"available_charge_types"</span>: <span class="o">[</span><span class="s2">"billet"</span><span class="o">]</span>,
     <span class="s2">"_links"</span>:
       <span class="o">[</span>
         <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"self"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charge_configs/1"</span><span class="o">}</span>,
@@ -1498,23 +1499,23 @@ EXEMPLO
 <p>As Configurações de Cobrança podem ser de tipos diferentes. Sendo assim, os parâmetros e algums comportamentos irão variar de acordo com o tipo. Atualmente temos os tipos:</p>
 
 <ul>
-<li>Boleto (billet)</li>
+<li>Conta Bancária (billet)</li>
 <li>Gateway de pagamento (payment_gateway)</li>
 </ul>
 
 <aside class="warning">
-  As Configurações de Cobrança <strong>precisam ser homologada antes de ser utilizada normalmente</strong>. Veja como homologar cada tipo de Configuração de Cobrança em suas informações específicas.
+  As Configurações de Cobrança <strong>precisam ser homologadas antes de serem utilizadas normalmente</strong>. Veja como homologar cada tipo de Configuração de Cobrança em suas informações específicas.
 </aside>
 
-<h3 id="boleto">Boleto</h3>
+<h3 id="conta-banc-ria">Conta bancária</h3>
 
-<p>As Configurações de Cobrança do tipo <strong>Boleto</strong> (billet), pertencem as suas contas bancárias, sendo assim é necessário que sempre haja ao menos uma conta bancária para criação desse tipo configuração de cobrança, que também tem suas validações de acordo com o banco de sua conta bancária.</p>
+<p>As Configurações de Cobrança do tipo <strong>Conta bancária</strong> (billet), pertencem as suas contas bancárias, sendo assim é necessário que sempre haja ao menos uma conta bancária para criação desse tipo configuração de cobrança, que também tem suas validações de acordo com o banco de sua conta bancária.</p>
 
 <aside class="info">
   Para homologar a Configuração de Cobrança existe uma série de passos que você encontra em
-  <a href="https://app.cobrato.com/charge_configs">nossa interface web</a>. Até
-  que a Configuração tenha o status &ldquo;ok&rdquo; (Homologado), todas as cobranças criadas para esta Configuração
-  deverão ser para homologação.
+  <a href="https://app.cobrato.com/charge_configs">nossa interface web</a>. Cada gateway de pagamento tem um processo
+  de homologação específico. Até que a Configuração tenha o status &ldquo;ok&rdquo; (Homologado), todas as cobranças criadas para
+  esta Configuração deverão ser para homologação.
 </aside>
 
 <p><strong>Parâmetros</strong></p>
@@ -1622,6 +1623,11 @@ EXEMPLO
 <td>número de dias após o vencimento da cobrança para que seja feita a baixa automática do título no banco (apenas para cobranças registradas com padrão 240)</td>
 </tr>
 <tr>
+<td>available_charge_types</td>
+<td>array of strings</td>
+<td>tipos de cobrança disponíveis. No caso de Configuração de Cobrança por Conta Bancária, será disponível somente a opção &ldquo;billet&rdquo;. Este campo será gerenciado pelo Cobrato.</td>
+</tr>
+<tr>
 <td>_links</td>
 <td>array of object</td>
 <td>links da configuração de cobrança e de sua conta bancária</td>
@@ -1637,7 +1643,7 @@ EXEMPLO
   serão consideradas Cobranças para homologação.
 </aside>
 
-<p><strong>Parâmetros</strong></p>
+<p><strong>Parâmetros comuns a todos os Gateways</strong></p>
 
 <table><thead>
 <tr>
@@ -1674,8 +1680,29 @@ EXEMPLO
 <tr>
 <td>gateway_name</td>
 <td>string</td>
-<td>nome do gateway de pagamento (&#39;cielo-ws15&rsquo;, &#39;cielo-api30&rsquo;)</td>
+<td>nome do gateway de pagamento (&#39;cielo-ws15&rsquo;, &#39;cielo-api30&rsquo;, &#39;pjbank&rsquo;)</td>
 </tr>
+<tr>
+<td>available_charge_types</td>
+<td>array of strings</td>
+<td>tipos de cobrança disponíveis. No caso de Configuração de Cobrança por Gateway de Pagamento, as opções possíveis são &ldquo;billet&rdquo; e &ldquo;credit_card&rdquo;. Este campo será gerenciado pelo Cobrato</td>
+</tr>
+<tr>
+<td>_links</td>
+<td>array of object</td>
+<td>links da configuração de cobrança e de sua conta bancária</td>
+</tr>
+</tbody></table>
+
+<p><strong>Parâmetros específicos para gateway Cielo</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
 <tr>
 <td>gateway_id</td>
 <td>string</td>
@@ -1691,10 +1718,36 @@ EXEMPLO
 <td>boolean</td>
 <td>define se será feita a solicitação e a confirmação do endereço de cobrança da fatura do cartão utilizado no pagamento</td>
 </tr>
+</tbody></table>
+
+<p><strong>Parâmetros específicos para gateway PJBank</strong></p>
+
+<table><thead>
 <tr>
-<td>_links</td>
-<td>array of object</td>
-<td>links da configuração de cobrança e de sua conta bancária</td>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>gateway_id</td>
+<td>string</td>
+<td>credencial do contrato com o gateway de pagamento para cobranças de <strong>cartão de crédito</strong></td>
+</tr>
+<tr>
+<td>gateway_key</td>
+<td>string</td>
+<td>chave de acesso atribuída pelo gateway de pagamento para cobranças de <strong>cartão de crédito</strong></td>
+</tr>
+<tr>
+<td>billet_gateway_id</td>
+<td>string</td>
+<td>credencial do contrato com o gateway de pagamento para cobranças de <strong>boleto</strong></td>
+</tr>
+<tr>
+<td>billet_gateway_key</td>
+<td>string</td>
+<td>chave de acesso atribuída pelo gateway de pagamento para cobranças de <strong>boleto</strong></td>
 </tr>
 </tbody></table>
 
@@ -1739,6 +1792,7 @@ EXEMPLO DE CORPO DA RESPOSTA <span class="o">(</span>BOLETO<span class="o">)</sp
     <span class="s2">"transmission_code"</span>: <span class="s2">"987655"</span>,
     <span class="s2">"pre_released_billet"</span>: <span class="nb">false</span>,
     <span class="s2">"writing_off_deadline"</span>: null,
+    <span class="s2">"available_charge_types"</span>: <span class="o">[</span><span class="s2">"billet"</span><span class="o">]</span>,
     <span class="s2">"_links"</span>:
       <span class="o">[</span>
         <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"self"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charge_configs/1"</span><span class="o">}</span>,
@@ -1795,6 +1849,7 @@ EXEMPLO DE CORPO DA RESPOSTA
 
 <ul>
 <li><code class="prettyprint">type</code>: Filtra pelo tipo de configuração de cobrança. O valor a ser informado é string com um dos tipos existentes de configuração de cobrança.</li>
+<li><code class="prettyprint">charge_type</code>: Filtra pelo tipo de cobrança disponível para a configuração, ou seja retornará as configurações que suportam o tipo de cobrança informado. O valor a ser informado é a string com um dos tipos de cobrança disponíveis (&ldquo;billet&rdquo; ou &ldquo;credit_card&rdquo; até o momento).</li>
 <li><code class="prettyprint">payee_ids</code>: Filtra pelos beneficiários informados. O valor informado é uma <strong>lista*</strong> de ids dos beneficiários.</li>
 <li><code class="prettyprint">payee_national_identifiers</code>: Filtra pelos beneficiários informados. O valor informado é uma <strong>lista*</strong> de número de documentos dos beneficiários.</li>
 </ul>
@@ -1960,7 +2015,7 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
 <h3 id="gateway-de-pagamento">Gateway de Pagamento</h3>
 
-<p><strong>Parâmetros</strong></p>
+<p><strong>Parâmetros comuns a todos os Gateways</strong></p>
 
 <table><thead>
 <tr>
@@ -1987,8 +2042,19 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <tr>
 <td>gateway_name</td>
 <td>string</td>
-<td><strong>(requerido)</strong> nome do gateway de pagamento (&#39;cielo-ws15&rsquo;, &#39;cielo-api30&rsquo;)*</td>
+<td><strong>(requerido)</strong> nome do gateway de pagamento (&#39;cielo-ws15&rsquo;, &#39;cielo-api30&rsquo;, &#39;pjbank&rsquo;)*</td>
 </tr>
+</tbody></table>
+
+<p><strong>Parâmetros para o gateway Cielo</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
 <tr>
 <td>gateway_id</td>
 <td>string</td>
@@ -2000,14 +2066,45 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <td><strong>(requerido)</strong> chave de acesso atribuída pelo gateway de pagamento</td>
 </tr>
 <tr>
-<td>status</td>
-<td>string</td>
-<td>(opctional, default &ldquo;pending&rdquo;) indica o status, ou etapa, de homologação em que configuração de cobrança está (&#39;pending&rsquo;, &#39;production_tests&rsquo;, &#39;ok&rsquo;)</td>
-</tr>
-<tr>
 <td>use_avs</td>
 <td>boolean</td>
 <td>(opcional) define se será feita a solicitação e a confirmação do endereço de cobrança da fatura do cartão utilizado no pagamento (<code class="prettyprint">false</code> por padrão)</td>
+</tr>
+<tr>
+<td>status</td>
+<td>string</td>
+<td>(opcional, default &ldquo;pending&rdquo;) indica o status, ou etapa, de homologação em que configuração de cobrança está (&#39;pending&rsquo;, &#39;production_tests&rsquo;, &#39;ok&rsquo;)</td>
+</tr>
+</tbody></table>
+
+<p><strong>Parâmetros para o gateway PJBank</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>gateway_id</td>
+<td>string</td>
+<td><strong>(requerido, somente quando o campo &#39;gateway_key&rsquo; estiver preenchido)</strong> credencial do contrato com o gateway de pagamento para cobranças de <strong>cartão de crédito</strong></td>
+</tr>
+<tr>
+<td>gateway_key</td>
+<td>string</td>
+<td><strong>(requerido, somente quando o campo &#39;gateway_id&rsquo; estiver preenchido)</strong> chave de acesso atribuída pelo gateway de pagamento para cobranças de <strong>cartão de crédito</strong></td>
+</tr>
+<tr>
+<td>billet_gateway_id</td>
+<td>string</td>
+<td><strong>(requerido, somente quando o campo &#39;billet_gateway_key&rsquo; estiver preenchido)</strong> credencial do contrato com o gateway de pagamento para cobranças de <strong>boleto</strong></td>
+</tr>
+<tr>
+<td>billet_gateway_key</td>
+<td>string</td>
+<td><strong>(requerido, somente quando o campo &#39;billet_gateway_id&rsquo; estiver preenchido)</strong> chave de acesso atribuída pelo gateway de pagamento para cobranças de <strong>boleto</strong></td>
 </tr>
 </tbody></table>
 
@@ -2015,12 +2112,17 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
 <dl>
   <dt>cielo-api30</dt>
-  <dd>Cielo API 3.0</dd>
+  <dd>API e-Commerce Cielo</dd>
 </dl>
 
 <dl>
   <dt>cielo-ws15</dt>
-  <dd>Cielo Webservice 1.5</dd>
+  <dd>Webservice 1.5</dd>
+</dl>
+
+<dl>
+  <dt>pjbank</dt>
+  <dd>PJBank</dd>
 </dl>
 
 <h2 id="atualiza-o-de-configura-o-de-cobran-a">Atualização de Configuração de Cobrança</h2>
@@ -2166,7 +2268,7 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
 <h3 id="gateway-de-pagamento">Gateway de Pagamento</h3>
 
-<p><strong>Parâmetros</strong></p>
+<p><strong>Parâmetros comuns a todos os Gateways</strong></p>
 
 <table><thead>
 <tr>
@@ -2186,6 +2288,22 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <td><strong>(requerido)</strong> código de identificação do beneficiário ao qual a configuração de cobrança irá pertencer</td>
 </tr>
 <tr>
+<td>gateway_name</td>
+<td>string</td>
+<td><strong>(requerido)</strong> nome do gateway de pagamento (&#39;cielo-ws15&rsquo;, &#39;cielo-api30&rsquo;, &#39;pjbank&rsquo;)*</td>
+</tr>
+</tbody></table>
+
+<p><strong>Parâmetros para o gateway Cielo</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
 <td>gateway_id</td>
 <td>string</td>
 <td><strong>(requerido)</strong> número de afiliação do contrato com o gateway de pagamento</td>
@@ -2199,6 +2317,42 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <td>use_avs</td>
 <td>boolean</td>
 <td>(opcional) define se será feita a solicitação e a confirmação do endereço de cobrança da fatura do cartão utilizado no pagamento (<code class="prettyprint">false</code> por padrão)</td>
+</tr>
+<tr>
+<td>status</td>
+<td>string</td>
+<td>(opcional, default &ldquo;pending&rdquo;) indica o status, ou etapa, de homologação em que configuração de cobrança está (&#39;pending&rsquo;, &#39;production_tests&rsquo;, &#39;ok&rsquo;)</td>
+</tr>
+</tbody></table>
+
+<p><strong>Parâmetros para o gateway PJBank</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>gateway_id</td>
+<td>string</td>
+<td><strong>(requerido, somente quando o campo &#39;gateway_key&rsquo; estiver preenchido)</strong> credencial do contrato com o gateway de pagamento para cobranças de <strong>cartão de crédito</strong></td>
+</tr>
+<tr>
+<td>gateway_key</td>
+<td>string</td>
+<td><strong>(requerido, somente quando o campo &#39;gateway_id&rsquo; estiver preenchido)</strong> chave de acesso atribuída pelo gateway de pagamento para cobranças de <strong>cartão de crédito</strong></td>
+</tr>
+<tr>
+<td>billet_gateway_id</td>
+<td>string</td>
+<td><strong>(requerido, somente quando o campo &#39;billet_gateway_key&rsquo; estiver preenchido)</strong> credencial do contrato com o gateway de pagamento para cobranças de <strong>boleto</strong></td>
+</tr>
+<tr>
+<td>billet_gateway_key</td>
+<td>string</td>
+<td><strong>(requerido, somente quando o campo &#39;billet_gateway_id&rsquo; estiver preenchido)</strong> chave de acesso atribuída pelo gateway de pagamento para cobranças de <strong>boleto</strong></td>
 </tr>
 </tbody></table>
 
@@ -2801,9 +2955,13 @@ EXEMPLO
   <span class="o">}</span>
 </code></pre>
 
-<p>Cada uma das cobranças criadas serão do mesmo tipo da configuração. Desta forma qualquer Cobrança criada sob uma Configuração de Cobrança do tipo Boleto será uma cobrança do tipo Boleto. Por este motivo os parâmetros, validações e alguns comportamentos serão variáveis de acordo com o tipo de cobrança.</p>
+<p>Cada uma das cobranças criadas terá um tipo, podendo variar de acordo com a configuração de cobrança. Um gateway de
+pagamento pode ter suporte à cobranças via boleto ou cartão de crédito, por exemplo. Por este motivo os parâmetros,
+validações e alguns comportamentos serão variáveis de acordo com o tipo de cobrança e da configuração de cobrança.</p>
 
-<h3 id="boleto">Boleto</h3>
+<h3 id="cobran-as-via-conta-banc-ria">Cobranças via Conta Bancária</h3>
+
+<h4 id="boleto">Boleto</h4>
 
 <p><strong>Parâmetros</strong></p>
 
@@ -3046,9 +3204,16 @@ EXEMPLO
 </tr>
 </tbody></table>
 
-<h3 id="gateway-de-pagamento">Gateway de Pagamento</h3>
+<h3 id="cobran-as-via-gateway-de-pagamento">Cobranças via Gateway de Pagamento</h3>
 
-<p>As Cobranças tem o comportamento assíncrono em relação à comunicação com o Gateway de Pagamento. Ou seja, às ações que dependem de efetivação no Gateway de Pagamento não tem resposta na mesma requisição, são feitas em um processo separado e tem suas respostas dadas em payloads via webhook.</p>
+<p>Cada Gateway de Pagamento tem suporte à tipos de cobrança diferentes. Alguns têm suporte à cobranças via boleto, outros
+não, por exemplo. Em cada tipo de cobrança abaixo é especificado quais Gatways de Pagamento suportam tal tipo de cobrança.</p>
+
+<p>As Cobranças tem o comportamento assíncrono em relação à comunicação com o Gateway de Pagamento. Ou seja, às ações que
+dependem de efetivação no Gateway de Pagamento não tem resposta na mesma requisição, são feitas em um processo separado
+e tem suas respostas dadas em payloads via webhook.</p>
+
+<h4 id="cart-o-de-cr-dito">Cartão de crédito</h4>
 
 <p><strong>Parâmetros</strong></p>
 
@@ -3067,7 +3232,7 @@ EXEMPLO
 <tr>
 <td>type</td>
 <td>string</td>
-<td>indica o tipo da cobrança. Nesse caso, &ldquo;payment_gateway&rdquo;</td>
+<td>indica o tipo da cobrança. Nesse caso, &ldquo;credit_card&rdquo;</td>
 </tr>
 <tr>
 <td>charge_config_id</td>
@@ -3196,6 +3361,159 @@ EXEMPLO
 </tr>
 </tbody></table>
 
+<h4 id="boleto">Boleto</h4>
+
+<p><strong>Parâmetros</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>integer</td>
+<td></td>
+</tr>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>indica o tipo da cobrança. Nesse caso, &ldquo;billet&rdquo;</td>
+</tr>
+<tr>
+<td>charge_config_id</td>
+<td>integer</td>
+<td>identificador da configuração de cobrança a qual esta cobrança pertence</td>
+</tr>
+<tr>
+<td>charged_amount</td>
+<td>decimal</td>
+<td>valor cobrado no boleto</td>
+</tr>
+<tr>
+<td>due_date</td>
+<td>date</td>
+<td>data de vencimento da cobranca</td>
+</tr>
+<tr>
+<td>interest_amount_per_month</td>
+<td>decimal</td>
+<td>porcentagem de juros mensal que deve ser aplicado em caso de atraso. Esse valore será dividido por 30 para ser encontrata a taxa diária</td>
+</tr>
+<tr>
+<td>mulct_value</td>
+<td>decimal</td>
+<td>valor da multa que deve ser aplicada em caso de atraso</td>
+</tr>
+<tr>
+<td>discount_amount</td>
+<td>decimal</td>
+<td>valor do disconto que deve ser aplicado em caso de pagamento até a data de vencimento</td>
+</tr>
+<tr>
+<td>payer_id</td>
+<td>integer</td>
+<td>identificador do pagador</td>
+</tr>
+<tr>
+<td>payer_national_identifier_type</td>
+<td>string</td>
+<td>tipo do documento do pagador (cpf ou cnpj)</td>
+</tr>
+<tr>
+<td>payer_national_identifier</td>
+<td>string</td>
+<td>documento do pagador</td>
+</tr>
+<tr>
+<td>payer_name</td>
+<td>string</td>
+<td>nome do pagador</td>
+</tr>
+<tr>
+<td>payer_number</td>
+<td>string</td>
+<td>número do endereço do pagador</td>
+</tr>
+<tr>
+<td>payer_complement</td>
+<td>string</td>
+<td>complemento do endereço do pagador</td>
+</tr>
+<tr>
+<td>payer_street</td>
+<td>string</td>
+<td>rua do endereço do pagador</td>
+</tr>
+<tr>
+<td>payer_neighbourhood</td>
+<td>string</td>
+<td>bairro do endereço do pagador</td>
+</tr>
+<tr>
+<td>payer_zipcode</td>
+<td>string</td>
+<td>cep do endereço do pagador</td>
+</tr>
+<tr>
+<td>payer_city</td>
+<td>string</td>
+<td>cidade do endereço do pagador</td>
+</tr>
+<tr>
+<td>payer_state</td>
+<td>string</td>
+<td>sigla do estado do endereço do pagador (&ldquo;RJ&rdquo; por exemplo)</td>
+</tr>
+<tr>
+<td>document_kind</td>
+<td>string</td>
+<td>espécie do documento</td>
+</tr>
+<tr>
+<td>auto_send_billet</td>
+<td>boolean</td>
+<td>indica se será enviado email de notificação automaticamente para os emails especificados no campo &#39;notification_emails&rsquo;</td>
+</tr>
+<tr>
+<td>notification_emails</td>
+<td>array of strings</td>
+<td>emails que receberão notificações sobre a cobrança</td>
+</tr>
+<tr>
+<td>email_sender_name</td>
+<td>string</td>
+<td>nome do remetente do email de notificação de cobrança</td>
+</tr>
+<tr>
+<td>email_subject</td>
+<td>string</td>
+<td>assunto do email de notificação de cobrança</td>
+</tr>
+<tr>
+<td>email_text</td>
+<td>string</td>
+<td>texto do email de notificação de cobrança</td>
+</tr>
+<tr>
+<td>email_reply_to</td>
+<td>string</td>
+<td>endereço de email a ser utilizado na resposta ao email de notificação de cobrança</td>
+</tr>
+<tr>
+<td>canceled_at</td>
+<td>datetime</td>
+<td>data e horário em que a cobrança foi cancelada, se for o caso</td>
+</tr>
+<tr>
+<td>_links</td>
+<td>array of object</td>
+<td>links relacionados à cobrança</td>
+</tr>
+</tbody></table>
+
 <h2 id="informa-es-da-cobran-a">Informações da Cobrança</h2>
 <pre class="highlight shell"><code>Mostrar Cobrança
 
@@ -3278,7 +3596,9 @@ EXEMPLO DE CORPO DA RESPOSTA <span class="o">(</span>BOLETO<span class="o">)</sp
 <p>Retorna as informações detalhadas da cobrança informada em JSON e também a referência a sua configuração de cobrança.</p>
 
 <aside class="notice">
-  O conteúdo do nó &ldquo;_links&rdquo; irá variar de acordo com o tipo e o status da cobrança. No caso da Cobrança do tipo boleto, além dos itens básicos mostrados no exemplo de resposta ao lado, se a cobrança tiver sido recebida, irá conter o seguinte link:
+  O conteúdo do nó &ldquo;_links&rdquo; irá variar de acordo com o tipo e o status da cobrança. No caso da Cobrança do tipo boleto
+  de conta Bancária, além dos itens básicos mostrados no exemplo de resposta ao lado, se a cobrança tiver sido recebida,
+  irá conter o seguinte link:
 
   <br><br>
   <p>
@@ -3337,7 +3657,7 @@ EXEMPLO DE CORPO DA RESPOSTA
 <p>É possível filtrar a lista através dos seguintes parâmetros:</p>
 
 <ul>
-<li><code class="prettyprint">type</code>: Filtra pelo tipo de cobrança. O valor a ser informado é string com um dos tipos existentes de cobrança.</li>
+<li><code class="prettyprint">type</code>: Filtra pelo tipo de cobrança. O valor a ser informado é string com um dos tipos existentes de cobrança (&ldquo;billet&rdquo; e &ldquo;credit_card&rdquo;, sendo que existe &ldquo;payment_gateway&rdquo; que está <em>deprecated</em> retornando a mesma coisa que &ldquo;credit_card&rdquo;) .</li>
 <li><code class="prettyprint">remittable</code>: Filtra as cobranças remessáveis, ou seja, passíveis de geração de arquivo de remessa. É necessária apenas a presença do parâmetro, não importando seu valor.</li>
 <li><code class="prettyprint">charge_config_ids</code>: Filtra pelas configurações de cobrança informadas. O valor informado é uma <strong>lista*</strong> de ids das configurações de cobrança.</li>
 <li><code class="prettyprint">payee_ids</code>: Filtra pelos beneficiários informados. O valor informado é uma <strong>lista*</strong> de ids dos beneficiários.</li>
@@ -3394,7 +3714,9 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
 <p>Cria um nova cobrança, caso haja sucesso retornará as informações da mesma e será gerado seu boleto. Se houverem erros eles serão informados no corpo da resposta.</p>
 
-<h3 id="boleto">Boleto</h3>
+<h3 id="cobran-a-via-conta-banc-ria">Cobrança via Conta Bancária</h3>
+
+<h4 id="boleto">Boleto</h4>
 
 <p><strong>Parâmetros</strong></p>
 
@@ -3598,16 +3920,28 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 </tr>
 </tbody></table>
 
-<h3 id="gateway-de-pagamento">Gateway de Pagamento</h3>
+<h3 id="cobran-as-via-gateway-de-pagamento">Cobranças via Gateway de Pagamento</h3>
 
-<p>Após a cobrança ser criada com sucesso (sem erros de validação) é iniciado o processo assíncrono para a comunicação com o gateway. Assim que esse processo terminar, um payload de recebimento ou de erro é enviado via webhook.</p>
+<p>Cobranças via gateway de pagamento podem ser de vários tipos, como Boleto e Cartão de crédito. Desse modo, quando for
+criar uma cobrança via gateway de pagamento, deve ser indicado o tipo através do atributo <code class="prettyprint">type</code>. Por padrão, esse
+atributo terá o valor <code class="prettyprint">&quot;credit_card&quot;</code>.</p>
+
+<p>É importante ressaltar que os tipos de cobrança disponíveis dependem do gateway de pagamento utilizado e da configuração
+de cobrança.</p>
+
+<p>Após a cobrança ser criada com sucesso (sem erros de validação) é iniciado o processo assíncrono para a comunicação com
+o gateway. Assim que esse processo terminar, um payload de atualização ou de erro é enviado via webhook.</p>
 
 <aside class="notice">
-Em caso de falha da efetivação da cobrança no Gateway de Pagamento, o motivo da falha será disponibilizado no atributo 'payment_gateway_message&rsquo;.
+Em caso de falha da efetivação da cobrança no Gateway de Pagamento, o motivo da falha será disponibilizado no
+atributo 'payment_gateway_message&rsquo;.
 </aside>
 
+<h4 id="cart-o-de-cr-dito">Cartão de crédito</h4>
+
 <aside class="notice">
-Se for utilizado um cartão já existente (enviando o parâmetro <code>credit_card_id</code>), este deve pertencer a mesma Configuração de Cobrança (parâmetro <code>charge_config_id</code>) utilizada.
+Se for utilizado um cartão já existente (enviando o parâmetro <code>credit_card_id</code>), este deve pertencer a
+mesma Configuração de Cobrança (parâmetro <code>charge_config_id</code>) utilizada.
 </aside>
 
 <p><strong>Parâmetros</strong></p>
@@ -3633,6 +3967,11 @@ Se for utilizado um cartão já existente (enviando o parâmetro <code>credit_ca
 <td>payment_method</td>
 <td>string</td>
 <td><strong>(requerido)</strong> método de pagamento (&ldquo;credit_card_in_cash&rdquo; pagamento à vista, &ldquo;credit_card_financed&rdquo; pagamento parcelado)</td>
+</tr>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>(opcional) tipo da cobrança, nesse caso &ldquo;credit_card&rdquo; é o valor padrão, por isso é opcional</td>
 </tr>
 <tr>
 <td>description</td>
@@ -3822,6 +4161,164 @@ Caso exista um Pagador (Payer) com o mesmo <code>national_identifier</code>, nã
 </tr>
 </tbody></table>
 
+<h4 id="boleto">Boleto</h4>
+
+<p><strong>Parâmetros</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>type</td>
+<td>string</td>
+<td><strong>(requerido)</strong> tipo da cobrança, nesse caso deve ser &ldquo;billet&rdquo;</td>
+</tr>
+<tr>
+<td>charge_config_id</td>
+<td>integer</td>
+<td><strong>(requerido)</strong> código de identificação da configuração de cobrança da qual a cobrança irá pertencer</td>
+</tr>
+<tr>
+<td>charged_amount</td>
+<td>decimal</td>
+<td><strong>(requerido)</strong> valor cobrado</td>
+</tr>
+<tr>
+<td>due_date</td>
+<td>date</td>
+<td><strong>(requerido)</strong> data de vencimento da cobrança</td>
+</tr>
+<tr>
+<td>payer_id</td>
+<td>integer</td>
+<td><strong>(requerido, se não enviar payer_attributes)</strong> identificador do pagador (caso seja fornecido, o parâmetro payer_attributes será ignorado)</td>
+</tr>
+<tr>
+<td>payer_attributes*</td>
+<td>object</td>
+<td><strong>(requerido, se não enviar payer_id)</strong> atributos para a criação de um novo pagador ou atualização de um pagador existente com o mesmo documento (national_identifier)</td>
+</tr>
+<tr>
+<td>document_kind</td>
+<td>string</td>
+<td>(opcional) espécie do documento, podendo ser DM (Duplicata Mercantil), DS (Duplicata de Serviço), NP (Nota Promissória) ou DV (Diversos)</td>
+</tr>
+<tr>
+<td>interest_amount_per_month</td>
+<td>decimal</td>
+<td>(opcional) porcentagem de juros mensal que deve ser aplicado em caso de atraso. Esse valore será dividido por 30 para ser encontrata a taxa diária</td>
+</tr>
+<tr>
+<td>mulct_value</td>
+<td>decimal</td>
+<td>(opcional) porcentagem de multa que deve ser aplicada em caso de atraso</td>
+</tr>
+<tr>
+<td>discount_amount</td>
+<td>decimal</td>
+<td>(opcional) valor do disconto que deve ser aplicado em caso de pagamento até a data de vencimento</td>
+</tr>
+<tr>
+<td>auto_send_billet</td>
+<td>boolean</td>
+<td>(opcional) Indica se será enviado email de notificação automaticamente para os emails especificados no campo &#39;notification_emails&rsquo;. Caso não seja informada assumirá valor &#39;false&rsquo;</td>
+</tr>
+<tr>
+<td>notification_emails</td>
+<td>array of strings</td>
+<td>(opcional - requerido caso <code class="prettyprint">auto_send_billet</code> seja <code class="prettyprint">true</code>) emails que receberão notificações sobre a cobrança</td>
+</tr>
+<tr>
+<td>email_sender_name</td>
+<td>string</td>
+<td>(opcional) Nome do remetente do email de notificação de cobrança, caso a opção auto_send_billet estiver com valor &#39;true&rsquo;</td>
+</tr>
+<tr>
+<td>email_subject</td>
+<td>string</td>
+<td>(opcional) Assunto do email de notificação de cobrança, caso a opção auto_send_billet estiver com valor &#39;true&rsquo;</td>
+</tr>
+<tr>
+<td>email_text</td>
+<td>string</td>
+<td>(opcional) Texto do email de notificação de cobrança, caso a opção auto_send_billet estiver com valor &#39;true&rsquo;</td>
+</tr>
+<tr>
+<td>email_reply_to</td>
+<td>string</td>
+<td>(opcional) Endereço de email a ser utilizado na resposta ao email de notificação de cobrança, caso a opção auto_send_billet estiver com valor &#39;true&rsquo;</td>
+</tr>
+</tbody></table>
+
+<p><strong>payer_attributes</strong></p>
+
+<aside class="notice">
+Caso exista um Pagador (Payer) com o mesmo <code>national_identifier</code>, não será criado um novo, mas sim atualizado o existente.
+</aside>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>national_identifier_type</td>
+<td>string</td>
+<td><strong>(requerido)</strong> tipo do documento do pagador (cpf ou cnpj)</td>
+</tr>
+<tr>
+<td>national_identifier</td>
+<td>string</td>
+<td><strong>(requerido)</strong> documento do pagador</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td><strong>(requerido)</strong> nome do pagador</td>
+</tr>
+<tr>
+<td>number</td>
+<td>string</td>
+<td>(opcional) número do endereço do pagador</td>
+</tr>
+<tr>
+<td>complement</td>
+<td>string</td>
+<td>(opcional) complemento do endereço do pagador</td>
+</tr>
+<tr>
+<td>street</td>
+<td>string</td>
+<td>(opcional) rua do endereço do pagador</td>
+</tr>
+<tr>
+<td>neighbourhood</td>
+<td>string</td>
+<td>(opcional) bairro do endereço do pagador</td>
+</tr>
+<tr>
+<td>zipcode</td>
+<td>string</td>
+<td>(opcional) cep do endereço do pagador</td>
+</tr>
+<tr>
+<td>city</td>
+<td>string</td>
+<td>(opcional) cidade do endereço do pagador</td>
+</tr>
+<tr>
+<td>state</td>
+<td>string</td>
+<td>(opcional) sigla do estado do endereço do pagador (&ldquo;RJ&rdquo; por exemplo)</td>
+</tr>
+</tbody></table>
+
 <h2 id="atualiza-o-de-cobran-a">Atualização de Cobrança</h2>
 <pre class="highlight shell"><code>Atualizar Cobrança
 
@@ -3866,14 +4363,19 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
 <p>Atualiza a cobrança determinada, caso haja sucesso retornará as informações da mesma. Se houverem erros eles serão informados no corpo da resposta. A requisição não diferencia a utilização dos verbos PUT e PATCH.</p>
 
-<h3 id="boleto">Boleto</h3>
+<h3 id="cobran-as-via-conta-banc-ria">Cobranças via Conta Bancária</h3>
+
+<h4 id="boleto">Boleto</h4>
 
 <aside class="warning">
-Para cobranças do tipo <strong>Boleto</strong> não é possível atualizar uma cobrança após seu recebimento, para isso é necessário desfazer o recebimento da mesma! Além disso, caso seja alterado com sucesso e será gerado um novo boleto sobrescrevendo o anterior.
+Para cobranças do tipo <strong>Boleto de Conta Bancária</strong> não é possível atualizar uma cobrança após seu
+recebimento, para isso é necessário desfazer o recebimento da mesma! Além disso, caso seja alterado com sucesso será
+gerado um novo boleto sobrescrevendo o anterior.
 </aside>
 
 <aside class="notice">
-Para cobranças do tipo <strong>Boleto</strong> os campos 'paid_at&rsquo;, 'paid_amount&rsquo; e 'payment_tax&rsquo;, não são alterados via atualização de cobrança, apenas no recebimento ou desfazendo o recebimento da mesma.
+Para cobranças do tipo <strong>Boleto de Conta Bancária</strong> os campos 'paid_at&rsquo;, 'paid_amount&rsquo; e 'payment_tax&rsquo;, não
+são alterados via atualização de cobrança, apenas no recebimento ou desfazendo o recebimento da mesma.
 </aside>
 
 <p><strong>Parâmetros</strong></p>
@@ -4038,13 +4540,18 @@ Para cobranças do tipo <strong>Boleto</strong> os campos 'paid_at&rsquo;, 'paid
 </tr>
 </tbody></table>
 
-<h3 id="gateway-de-pagamento">Gateway de Pagamento</h3>
+<h3 id="cobran-as-via-gateway-de-pagamento">Cobranças via Gateway de Pagamento</h3>
 
 <aside class="notice">
-Para cobranças do tipo <strong>Gateway de Pagamento</strong>, a atualização só é permitida caso o status no gateway de pagamento (atributo 'payment_gateway_status&rsquo;) seja de erro.
+Para cobranças do via <strong>Gateway de Pagamento</strong>, a atualização só é permitida caso o status no
+gateway de pagamento (atributo 'payment_gateway_status&rsquo;) seja de erro.
 </aside>
 
-<p>Uma cobrança com o status de erro no gateway de pagamento pode ser editada com o objetivo de corrigir este error (descrito no atributo &#39;payment_gateway_message&rsquo;). Sendo atualizada com sucesso, é feita uma re-tentativa de efetivação da cobrança no gateway de pagamento.</p>
+<p>Uma cobrança com o status de erro no gateway de pagamento pode ser editada com o objetivo de corrigir este error
+(descrito no atributo &#39;payment_gateway_message&rsquo;). Sendo atualizada com sucesso, é feita uma re-tentativa de efetivação
+da cobrança no gateway de pagamento.</p>
+
+<h4 id="cart-o-de-cr-dito">Cartão de crédito</h4>
 
 <p><strong>Parâmetros</strong></p>
 
@@ -4249,7 +4756,155 @@ Para cobranças do tipo <strong>Gateway de Pagamento</strong>, a atualização s
 </tr>
 </tbody></table>
 
-<h2 id="re-tentativa-de-efetivar-de-cobran-a-gateway-de-pagamento">Re-tentativa de efetivar de Cobrança (Gateway de pagamento)</h2>
+<h4 id="boleto">Boleto</h4>
+
+<p><strong>Parâmetros</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>charged_amount</td>
+<td>decimal</td>
+<td><strong>(requerido)</strong> valor cobrado</td>
+</tr>
+<tr>
+<td>due_date</td>
+<td>date</td>
+<td><strong>(requerido)</strong> data de vencimento da cobrança</td>
+</tr>
+<tr>
+<td>payer_id</td>
+<td>integer</td>
+<td><strong>(requerido, se não enviar payer_attributes)</strong> identificador do pagador (caso seja fornecido, o parâmetro payer_attributes será ignorado)</td>
+</tr>
+<tr>
+<td>payer_attributes*</td>
+<td>object</td>
+<td><strong>(requerido, se não enviar payer_id)</strong> atributos para a criação de um novo pagador ou atualização de um pagador existente com o mesmo documento (national_identifier)</td>
+</tr>
+<tr>
+<td>document_kind</td>
+<td>string</td>
+<td>(opcional) espécie do documento, podendo ser DM (Duplicata Mercantil), DS (Duplicata de Serviço), NP (Nota Promissória) ou DV (Diversos)</td>
+</tr>
+<tr>
+<td>interest_amount_per_month</td>
+<td>decimal</td>
+<td>(opcional) porcentagem de juros mensal que deve ser aplicado em caso de atraso. Esse valore será dividido por 30 para ser encontrata a taxa diária</td>
+</tr>
+<tr>
+<td>mulct_value</td>
+<td>decimal</td>
+<td>(opcional) porcentagem de multa que deve ser aplicada em caso de atraso</td>
+</tr>
+<tr>
+<td>discount_amount</td>
+<td>decimal</td>
+<td>(opcional) valor do disconto que deve ser aplicado em caso de pagamento até a data de vencimento</td>
+</tr>
+<tr>
+<td>auto_send_billet</td>
+<td>boolean</td>
+<td>(opcional) Indica se será enviado email de notificação automaticamente para os emails especificados no campo &#39;notification_emails&rsquo;. Caso não seja informada assumirá valor &#39;false&rsquo;</td>
+</tr>
+<tr>
+<td>notification_emails</td>
+<td>array of strings</td>
+<td>(opcional - requerido caso <code class="prettyprint">auto_send_billet</code> seja <code class="prettyprint">true</code>) emails que receberão notificações sobre a cobrança</td>
+</tr>
+<tr>
+<td>email_sender_name</td>
+<td>string</td>
+<td>(opcional) Nome do remetente do email de notificação de cobrança, caso a opção auto_send_billet estiver com valor &#39;true&rsquo;</td>
+</tr>
+<tr>
+<td>email_subject</td>
+<td>string</td>
+<td>(opcional) Assunto do email de notificação de cobrança, caso a opção auto_send_billet estiver com valor &#39;true&rsquo;</td>
+</tr>
+<tr>
+<td>email_text</td>
+<td>string</td>
+<td>(opcional) Texto do email de notificação de cobrança, caso a opção auto_send_billet estiver com valor &#39;true&rsquo;</td>
+</tr>
+<tr>
+<td>email_reply_to</td>
+<td>string</td>
+<td>(opcional) Endereço de email a ser utilizado na resposta ao email de notificação de cobrança, caso a opção auto_send_billet estiver com valor &#39;true&rsquo;</td>
+</tr>
+</tbody></table>
+
+<p><strong>payer_attributes</strong></p>
+
+<aside class="notice">
+Caso exista um Pagador (Payer) com o mesmo <code>national_identifier</code>, não será criado um novo, mas sim atualizado o existente.
+</aside>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>national_identifier_type</td>
+<td>string</td>
+<td><strong>(requerido)</strong> tipo do documento do pagador (cpf ou cnpj)</td>
+</tr>
+<tr>
+<td>national_identifier</td>
+<td>string</td>
+<td><strong>(requerido)</strong> documento do pagador</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td><strong>(requerido)</strong> nome do pagador</td>
+</tr>
+<tr>
+<td>number</td>
+<td>string</td>
+<td>(opcional) número do endereço do pagador</td>
+</tr>
+<tr>
+<td>complement</td>
+<td>string</td>
+<td>(opcional) complemento do endereço do pagador</td>
+</tr>
+<tr>
+<td>street</td>
+<td>string</td>
+<td>(opcional) rua do endereço do pagador</td>
+</tr>
+<tr>
+<td>neighbourhood</td>
+<td>string</td>
+<td>(opcional) bairro do endereço do pagador</td>
+</tr>
+<tr>
+<td>zipcode</td>
+<td>string</td>
+<td>(opcional) cep do endereço do pagador</td>
+</tr>
+<tr>
+<td>city</td>
+<td>string</td>
+<td>(opcional) cidade do endereço do pagador</td>
+</tr>
+<tr>
+<td>state</td>
+<td>string</td>
+<td>(opcional) sigla do estado do endereço do pagador (&ldquo;RJ&rdquo; por exemplo)</td>
+</tr>
+</tbody></table>
+
+<h2 id="re-tentativa-de-efetivar-de-cobran-a-cart-o-de-cr-dito">Re-tentativa de efetivar de Cobrança (Cartão de crédito)</h2>
 <pre class="highlight shell"><code>Re-tentativa de efetivação de Cobrança
 
 DEFINIÇÃO
@@ -4316,17 +4971,22 @@ EXEMPLO DE ESTADO DA RESPOSTA COM COBRANÇA INEXISTENTE
 
 <p>Uma cobrança poderá ser excluída nos seguintes casos:</p>
 
-<h3 id="gateway-de-pagamento">Gateway de Pagamento</h3>
+<h3 id="cart-o-de-cr-dito">Cartão de crédito</h3>
 
 <p>Somente quando a cobrança estiver com erro de autorização (<code class="prettyprint">payment_gateway_status</code> tiver o valor &ldquo;authorize_error&rdquo;).</p>
 
-<h3 id="boleto">Boleto</h3>
+<h3 id="boleto-via-gateway-de-pagamento">Boleto via Gateway de pagamento</h3>
+
+<p>Somente quando a cobrança estiver com erro de criação (<code class="prettyprint">payment_gateway_status</code> tiver o valor &ldquo;error_on_creation&rdquo;).</p>
+
+<h3 id="boleto-via-conta-banc-ria">Boleto via Conta Bancária</h3>
 
 <p>Para boletos <strong>sem registro</strong> a cobrança pode ser excluída enquanto não tiver sido recebida.</p>
 
-<p>Para boletos <strong>com registro</strong>, por sua vez, enquanto não tiver sido recebida e enquanto não tiver sido registrada (<code class="prettyprint">registration_status</code> diferente de &ldquo;registered&rdquo;).</p>
+<p>Para boletos <strong>com registro</strong>, por sua vez, enquanto não tiver sido recebida e enquanto não tiver sido
+registrada (<code class="prettyprint">registration_status</code> diferente de &ldquo;registered&rdquo;).</p>
 
-<h2 id="recebimento-de-cobran-a-boleto">Recebimento de Cobrança (Boleto)</h2>
+<h2 id="recebimento-de-cobran-a-boleto-via-conta-banc-ria">Recebimento de Cobrança (Boleto via Conta Bancária)</h2>
 <pre class="highlight shell"><code>Receber Cobrança <span class="o">(</span>Boleto<span class="o">)</span>
 
 DEFINIÇÃO
@@ -4424,7 +5084,7 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 </tr>
 </tbody></table>
 
-<h2 id="desfazer-recebimento-de-cobran-a-boleto">Desfazer Recebimento de Cobrança (Boleto)</h2>
+<h2 id="desfazer-recebimento-de-cobran-a-boleto-via-conta-banc-ria">Desfazer Recebimento de Cobrança (Boleto via conta Bancária)</h2>
 <pre class="highlight shell"><code>Desfazer Recebimento de Cobrança <span class="o">(</span>Boleto<span class="o">)</span>
 
 DEFINIÇÃO
@@ -4464,7 +5124,7 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
 <p>Marca determinada cobrança via Boleto como não recebida, retornando JSON contendo as informações da cobrança em caso de sucesso ou os erros, caso haja algum.</p>
 
-<h2 id="renova-o-de-cobran-a-boleto">Renovação de Cobrança (Boleto)</h2>
+<h2 id="renova-o-de-cobran-a-boleto-via-conta-banc-ria">Renovação de Cobrança (Boleto via conta Bancária)</h2>
 <pre class="highlight shell"><code>Renovar Cobrança <span class="o">(</span>Boleto<span class="o">)</span>
 
 DEFINIÇÃO
@@ -4526,7 +5186,7 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 </tr>
 </tbody></table>
 
-<h2 id="boleto-da-cobran-a">Boleto da Cobrança</h2>
+<h2 id="boleto-da-cobran-a-boleto-via-gateway-e-conta-banc-ria">Boleto da Cobrança (Boleto via Gateway e Conta Bancária)</h2>
 <pre class="highlight shell"><code>Mostrar Boleto da Cobrança <span class="o">(</span>URL<span class="o">)</span>
 
 DEFINIÇÃO
@@ -4578,7 +5238,7 @@ As URLs disponibilizadas são válidas por apenas 60 minutos. Sendo assim, não 
 Para cobranças registradas, o boleto só ficará disponível após o registro da cobrança a não ser quando a configuração de cobrança tiver habilitada a opção de disponibilizar boleto antes de registrar.
 </aside>
 
-<h2 id="envio-de-boleto-da-cobran-a">Envio de Boleto da Cobrança</h2>
+<h2 id="envio-de-boleto-da-cobran-a-boleto-via-gateway-e-conta-banc-ria">Envio de Boleto da Cobrança (Boleto via Gateway e Conta Bancária)</h2>
 <pre class="highlight shell"><code>Enviar Boleto da Cobrança
 
 DEFINIÇÃO
@@ -4674,17 +5334,27 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
 <p>Cancela determinada cobrança.</p>
 
-<h3 id="gateway-de-pagamento">Gateway de Pagamento</h3>
+<h3 id="cart-o-de-cr-dito">Cartão de crédito</h3>
 
 <p>Neste caso o cancelamento irá <strong>estornar</strong> o valor cobrado para o cliente.</p>
 
-<p>A cobrança poderá ser cancelada somente quando tiver sido autorizada, capturada ou com erro no cancelamento (<code class="prettyprint">payment_gateway_status</code> tiver um dos seguintes valores: &ldquo;authorized&rdquo;, &ldquo;captured&rdquo;, ou &ldquo;cancel_error&rdquo;).</p>
+<p>A cobrança poderá ser cancelada somente quando tiver sido autorizada, capturada ou com erro no cancelamento
+(<code class="prettyprint">payment_gateway_status</code> tiver um dos seguintes valores: &ldquo;authorized&rdquo;, &ldquo;captured&rdquo;, ou &ldquo;cancel_error&rdquo;).</p>
 
-<h3 id="boleto">Boleto</h3>
+<h3 id="boleto-via-gateway">Boleto via Gateway</h3>
+
+<p>Neste caso o cancelamento irá <strong>invalidar</strong> a cobrança, não permitindo mais o seu pagamento.</p>
+
+<p>A cobrança poderá ser cancelada somente quando ainda não tiver sido paga ou já tiver tido uma tentativa de cancelamento
+com erro (<code class="prettyprint">payment_gateway_status</code> tiver o valor &ldquo;error_on_cancelation&rdquo;).</p>
+
+<h3 id="boleto-via-conta-banc-ria">Boleto via Conta Bancária</h3>
 
 <p>Para boletos <strong>sem registro</strong>, a cobrança pode ser cancelada enquanto não tiver sido recebida.</p>
 
-<p>Para boletos <strong>com registro</strong>, por sua vez, enquanto não tiver sido recebida e tiver sido registrada ou não tiver arquivo de remessa (<code class="prettyprint">registration_status</code> com um dos valores: &ldquo;registered&rdquo; ou &ldquo;without_remittance&rdquo;). Após ser cancelada no Cobrato será necessário criar um arquivo de remessa para notificar o Banco do cancelamento da cobrança.</p>
+<p>Para boletos <strong>com registro</strong>, por sua vez, enquanto não tiver sido recebida e tiver sido registrada ou não tiver
+arquivo de remessa (<code class="prettyprint">registration_status</code> com um dos valores: &ldquo;registered&rdquo; ou &ldquo;without_remittance&rdquo;). Após ser cancelada
+no Cobrato será necessário criar um arquivo de remessa para notificar o Banco do cancelamento da cobrança.</p>
 
 <h2 id="revogar-cobran-a">Revogar Cobrança</h2>
 <pre class="highlight shell"><code>Revogar Cobrança
@@ -4727,7 +5397,8 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
 </code></pre>
 
-<p>Primeiro tenta excluir a cobrança. Caso não seja possível, tenta cancelá-la. Caso também não seja possível, retorna a resposta de insucesso.</p>
+<p>Primeiro tenta excluir a cobrança. Caso não seja possível, tenta cancelá-la. Caso também não seja possível, retorna a
+resposta de insucesso.</p>
 
           <h1 id="configura-o-de-pagamento">Configuração de Pagamento</h1>
 <pre class="highlight shell"><code>Configuração de Pagamento
