@@ -1850,6 +1850,7 @@ EXEMPLO DE CORPO DA RESPOSTA
 <ul>
 <li><code class="prettyprint">type</code>: Filtra pelo tipo de configuração de cobrança. O valor a ser informado é string com um dos tipos existentes de configuração de cobrança.</li>
 <li><code class="prettyprint">charge_type</code>: Filtra pelo tipo de cobrança disponível para a configuração, ou seja retornará as configurações que suportam o tipo de cobrança informado. O valor a ser informado é a string com um dos tipos de cobrança disponíveis (&ldquo;billet&rdquo; ou &ldquo;credit_card&rdquo; até o momento).</li>
+<li><code class="prettyprint">bank_code</code>: Filtrar pelo código do banco da configuração de cobrança. O valor a ser informado é uma string com o código do banco. Por exemplo &ldquo;341&rdquo; para Itaú, &ldquo;237&rdquo; para Bradesco e etc.</li>
 <li><code class="prettyprint">payee_ids</code>: Filtra pelos beneficiários informados. O valor informado é uma <strong>lista*</strong> de ids dos beneficiários.</li>
 <li><code class="prettyprint">payee_national_identifiers</code>: Filtra pelos beneficiários informados. O valor informado é uma <strong>lista*</strong> de número de documentos dos beneficiários.</li>
 </ul>
@@ -8547,6 +8548,26 @@ EXEMPLO DE ESTADO DA RESPOSTA COM INSUCESSO
 
     422 Unprocessable Entity
 
+EXEMPLO DE CORPO DA RESPOSTA
+
+  <span class="o">{</span>
+    <span class="s2">"remittance_cnabs"</span>: <span class="o">[</span>
+      <span class="s2">"id"</span>: 1,
+      <span class="s2">"config_id"</span>: 1,
+      <span class="s2">"type"</span>: <span class="s2">"charge"</span>,
+      <span class="s2">"status"</span>: <span class="s2">"processed"</span>,
+      <span class="s2">"charge_config_id"</span>: 1,
+      <span class="s2">"_links"</span>:
+        <span class="o">[</span>
+          <span class="o">{</span><span class="s2">"rel"</span>: <span class="s2">"self"</span>, <span class="s2">"method"</span>: <span class="s2">"GET"</span>, <span class="s2">"href"</span>: <span class="s2">"https://app.cobrato.com/api/v1/remittance_cnabs/1"</span><span class="o">}</span>,
+          <span class="o">{</span><span class="s2">"rel"</span>: <span class="s2">"destroy"</span>, <span class="s2">"method"</span>: <span class="s2">"DELETE"</span>, <span class="s2">"href"</span>: <span class="s2">"https://app.cobrato.com/api/v1/remittance_cnabs/1"</span><span class="o">}</span>,
+          <span class="o">{</span><span class="s2">"rel"</span>: <span class="s2">"config"</span>, <span class="s2">"method"</span>: <span class="s2">"GET"</span>, <span class="s2">"href"</span>: <span class="s2">"https://app.cobrato.com/api/v1/charge_configs/1"</span><span class="o">}</span>,
+          <span class="o">{</span><span class="s2">"rel"</span>: <span class="s2">"file"</span>, <span class="s2">"method"</span>: <span class="s2">"GET"</span>, <span class="s2">"href"</span>: <span class="s2">"https://app.cobrato.com/api/v1/remittance_cnabs/1/file"</span><span class="o">}</span>,
+          <span class="o">{</span><span class="s2">"rel"</span>: <span class="s2">"items"</span>, <span class="s2">"method"</span>: <span class="s2">"GET"</span>, <span class="s2">"href"</span>: <span class="s2">"http://localhost:3000/api/v1/remittance_cnabs/1/items"</span><span class="o">}</span>
+        <span class="o">]</span>
+    <span class="o">}]</span>
+  <span class="o">}</span>
+
 EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
   <span class="o">{</span>
@@ -8557,7 +8578,7 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
 </code></pre>
 
-<p>Cria novo(s) Arquivo(s) CNAB de Remessa, retornando as informações do mesmo caso haja sucesso. Se houverem erros, eles serão informados no corpo da resposta.</p>
+<p>Cria novo(s) Arquivo(s) CNAB de Remessa, retornando as informações do(s) mesmo(s) caso haja sucesso. Se houverem erros, eles serão informados no corpo da resposta.</p>
 
 <p>Um Arquivo de remessa sempre está associado à uma Configuração. Sendo assim, será gerado um CNAB de remessa para cada Configuração envolvida na solicitação de criação, e esse arquivo irá incluir todos os items passíveis de remessa, seja para registrar a inclusão, cancelamento ou alteração.</p>
 
