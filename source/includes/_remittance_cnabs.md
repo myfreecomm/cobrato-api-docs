@@ -148,6 +148,24 @@ EXEMPLO DE ESTADO DA RESPOSTA COM INSUCESSO
 
     422 Unprocessable Entity
 
+EXEMPLO DE CORPO DA RESPOSTA
+
+  {
+    "id": 1,
+    "config_id": 1,
+    "type": "charge",
+    "status": "processed",
+    "charge_config_id": 1,
+    "_links":
+      [
+        {"rel": "self", "method": "GET", "href": "https://app.cobrato.com/api/v1/remittance_cnabs/1"},
+        {"rel": "destroy", "method": "DELETE", "href": "https://app.cobrato.com/api/v1/remittance_cnabs/1"},
+        {"rel": "config", "method": "GET", "href": "https://app.cobrato.com/api/v1/charge_configs/1"},
+        {"rel": "file", "method": "GET", "href": "https://app.cobrato.com/api/v1/remittance_cnabs/1/file"},
+        {"rel": "items", "method": "GET", "href": "http://localhost:3000/api/v1/remittance_cnabs/1/items"}
+      ]
+  }
+
 EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
   {
