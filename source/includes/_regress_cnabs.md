@@ -126,7 +126,7 @@ Retorna uma lista em JSON contendo todos os CNABs de retorno que pertencem a sua
 É possível filtrar a lista através dos seguintes parâmetros:
 
 - `type`: Filtra pelo tipo de arquivo de retorno. O valor a ser informado é string com um dos tipos existentes de arquivo de retorno ("charge" ou "payment").
-- `config_id`: Filtra pela configuração informada. O valor informado deve ser o um id de uma configuração, seja de cobrança ou de pagamento. É bom usar sempre o filtro `type` em conjunto com esse.
+- `config_id`: Filtra pela configuração informada. O valor informado deve ser o um id de uma configuração, seja de cobrança ou de pagamento. É **fortemente recomendado** usar sempre o filtro `type` em conjunto com esse para ter os resultados esperados.
 
 ## Criação de CNAB de Retorno
 
