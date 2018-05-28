@@ -8385,7 +8385,7 @@ EXEMPLO
     <span class="s2">"id"</span>: 1,
     <span class="s2">"config_id"</span>: 1,
     <span class="s2">"type"</span>: <span class="s2">"charge"</span>,
-    <span class="s2">"file_name"</span>: <span class="s2">"CI14058A.REM"</span>,
+    <span class="s2">"filename"</span>: <span class="s2">"CI14058A.REM"</span>,
     <span class="s2">"status"</span>: <span class="s2">"processed"</span>,
     <span class="s2">"_links"</span>:
       <span class="o">[</span>
@@ -8434,7 +8434,7 @@ Se seu plano não der direito a utilização desta API, a resposta com será com
 <td>(DEPRECATED: use config_id) identificador da configuração de cobrança no Cobrato</td>
 </tr>
 <tr>
-<td>file_name</td>
+<td>filename</td>
 <td>string</td>
 <td>nome do arquivo de remessa</td>
 </tr>
@@ -8475,7 +8475,7 @@ EXEMPLO DE CORPO DA RESPOSTA
     <span class="s2">"id"</span>: 1,
     <span class="s2">"config_id"</span>: 1,
     <span class="s2">"type"</span>: <span class="s2">"charge"</span>,
-    <span class="s2">"file_name"</span>: <span class="s2">"CI14058A.REM"</span>,
+    <span class="s2">"filename"</span>: <span class="s2">"CI14058A.REM"</span>,
     <span class="s2">"status"</span>: <span class="s2">"processed"</span>,
     <span class="s2">"_links"</span>:
       <span class="o">[</span>
@@ -8562,7 +8562,7 @@ EXEMPLO DE CORPO DA RESPOSTA
       <span class="s2">"id"</span>: 1,
       <span class="s2">"config_id"</span>: 1,
       <span class="s2">"type"</span>: <span class="s2">"charge"</span>,
-      <span class="s2">"file_name"</span>: <span class="s2">"CI14058A.REM"</span>,
+      <span class="s2">"filename"</span>: <span class="s2">"CI14058A.REM"</span>,
       <span class="s2">"status"</span>: <span class="s2">"processed"</span>,
       <span class="s2">"charge_config_id"</span>: 1,
       <span class="s2">"_links"</span>:
@@ -8805,7 +8805,7 @@ EXEMPLO
     <span class="s2">"config_id"</span>: 9,
     <span class="s2">"status"</span>: <span class="s2">"processed"</span>,
     <span class="s2">"type"</span>: <span class="s2">"charge"</span>,
-    <span class="s2">"file_name"</span>: <span class="s2">"CI14058A.RET"</span>,
+    <span class="s2">"filename"</span>: <span class="s2">"CI14058A.RET"</span>,
     <span class="s2">"_links"</span>:
       <span class="o">[</span>
         <span class="o">{</span><span class="s2">"rel"</span>: <span class="s2">"self"</span>, <span class="s2">"method"</span>: <span class="s2">"GET"</span>, <span class="s2">"href"</span>: <span class="s2">"https://app.cobrato.com/api/v1/regress_cnabs/1"</span><span class="o">}</span>,
@@ -8852,7 +8852,7 @@ Se seu plano não der direito a utilização desta API, a resposta com será com
 <td>(DEPRECATED: use config_id) identificador da configuração de cobrança no Cobrato</td>
 </tr>
 <tr>
-<td>file_name</td>
+<td>filename</td>
 <td>string</td>
 <td>nome do arquivo de retorno</td>
 </tr>
@@ -8895,7 +8895,7 @@ EXEMPLO DE CORPO DA RESPOSTA
     <span class="s2">"config_id"</span>: 9,
     <span class="s2">"status"</span>: <span class="s2">"processed"</span>,
     <span class="s2">"type"</span>: <span class="s2">"charge"</span>,
-    <span class="s2">"file_name"</span>: <span class="s2">"CI14058A.RET"</span>,
+    <span class="s2">"filename"</span>: <span class="s2">"CI14058A.RET"</span>,
     <span class="s2">"_links"</span>:
       <span class="o">[</span>
         <span class="o">{</span><span class="s2">"rel"</span>: <span class="s2">"self"</span>, <span class="s2">"method"</span>: <span class="s2">"GET"</span>, <span class="s2">"href"</span>: <span class="s2">"https://app.cobrato.com/api/v1/regress_cnabs/1"</span><span class="o">}</span>,
@@ -8951,7 +8951,7 @@ EXEMPLO DE CORPO DA RESPOSTA
 
 <ul>
 <li><code class="prettyprint">type</code>: Filtra pelo tipo de arquivo de retorno. O valor a ser informado é string com um dos tipos existentes de arquivo de retorno (&ldquo;charge&rdquo; ou &ldquo;payment&rdquo;).</li>
-<li><code class="prettyprint">config_id</code>: Filtra pela configuração informada. O valor informado deve ser o um id de uma configuração, seja de cobrança ou de pagamento. É bom usar sempre o filtro <code class="prettyprint">type</code> em conjunto com esse.</li>
+<li><code class="prettyprint">config_id</code>: Filtra pela configuração informada. O valor informado deve ser o id de uma configuração, seja de cobrança ou de pagamento. É <strong>fortemente recomendado</strong> usar sempre o filtro <code class="prettyprint">type</code> em conjunto com esse para ter os resultados esperados.</li>
 </ul>
 
 <h2 id="cria-o-de-cnab-de-retorno">Criação de CNAB de Retorno</h2>
@@ -9526,9 +9526,9 @@ EXEMPLO DE ESTADO DA RESPOSTA COM WEBHOOK INEXISTENTE
 <td>quando o pagamento é marcado com Erro no registro</td>
 </tr>
 <tr>
-<td>regress_cnab</td>
-<td>created</td>
-<td>quando o arquivo de retorno é criado</td>
+<td>remittance_cnab</td>
+<td>updated</td>
+<td>quando o arquivo de remessa é atualizado</td>
 </tr>
 <tr>
 <td>regress_cnab</td>
@@ -10058,26 +10058,26 @@ EXEMPLO DE PAYLOAD
 
 <p>Informações enviadas quando um Pagamento é marcado com Erro no Registro.</p>
 
-<h2 id="arquivo-de-retorno-criado">Arquivo de retorno criado</h2>
-<pre class="highlight shell"><code>Arquivo de retorno Criado
+<h2 id="arquivo-de-remessa-atualizado">Arquivo de remessa Atualizado</h2>
+<pre class="highlight shell"><code>Arquivo de remessa Atualizadao
 
 EXEMPLO DE PAYLOAD
 
   <span class="o">{</span>
     <span class="s2">"created_at"</span>:<span class="s2">"2015-05-21T16:13:33Z"</span>,
-    <span class="s2">"event"</span>:<span class="s2">"created"</span>,
-    <span class="s2">"object_type"</span>:<span class="s2">"regress_cnab"</span>,
+    <span class="s2">"event"</span>:<span class="s2">"updated"</span>,
+    <span class="s2">"object_type"</span>:<span class="s2">"remittance_cnab"</span>,
     <span class="s2">"object_id"</span>:12,
     <span class="s2">"_links"</span>:[<span class="o">{</span>
       <span class="s2">"rel"</span>:<span class="s2">"self"</span>,
       <span class="s2">"method"</span>:<span class="s2">"GET"</span>,
-      <span class="s2">"url"</span>:<span class="s2">"https://app.cobrato.com/api/v1/regress_cnabs/12"</span>
+      <span class="s2">"url"</span>:<span class="s2">"https://app.cobrato.com/api/v1/remittance_cnabs/12"</span>
     <span class="o">}]</span>
   <span class="o">}</span>
 
 </code></pre>
 
-<p>Informações enviadas quando um Arquivo de retorno é criado.</p>
+<p>Informações enviadas quando um Arquivo de remessa é atualizado.</p>
 
 <h2 id="arquivo-de-retorno-atualizado">Arquivo de retorno Atualizado</h2>
 <pre class="highlight shell"><code>Arquivo de retorno Atualizado
