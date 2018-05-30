@@ -1,7 +1,7 @@
-# Pagador
+# Pessoa
 
 ```shell
-Pagador
+Pessoa
 
 EXEMPLO
 
@@ -24,14 +24,11 @@ EXEMPLO
       ]
   }
 ```
-<aside class="warning">
-  <strong>ATENÇÃO!</strong> Este endpoint será descontinuado. Por favor utilize o endpoint de <code>Pessoa</code>
-</aside>
 
-É possível ter indeterminados pagadores pertencentes a uma Conta de Serviço. Podem ser tanto pessoas físicas como pessoas jurídicas.
+É possível ter indeterminadas pessoas pertencentes a uma Conta de Serviço. Podem ser tanto pessoas físicas como pessoas jurídicas.
 
 <aside class="notice">
-  É importante ressaltar que, para o pagador ser utilizado em uma cobrança via boleto registrado, todos os dados devem ser preenchidos (são obrigatórios), com exceção do <code>complement</code>.
+  É importante ressaltar que, para a pessoa ser utilizada em uma cobrança via boleto registrado, neste caso como Pagador, todos os dados são obrigatórios, com exceção do <code>complement</code>.
 </aside>
 
 **Parâmetros**
@@ -41,24 +38,24 @@ EXEMPLO
 | id                       | integer         |                                                                 |
 | national_identifier_type | string          | tipo de identificação nacional ('cpf' ou 'cnpj')                |
 | national_identifier      | string          | número válido de cnpj ou cpf, de acordo com o campo anterior    |
-| name                     | string          | nome completo do pagador                                        |
-| city                     | string          | nome da cidade do domicílio do pagador                          |
-| state                    | string          | uf do estado do domicílio do pagador (duas letras, p. ex. 'RJ') |
-| neighbourhood            | string          | bairro do domicílio do pagador                                  |
-| street                   | string          | logradouro do pagador                                           |
-| number                   | string          | número da logradouro do pagador                                 |
-| zipcode                  | string          | cep do domicílio do pagador                                     |
-| complement               | string          | complemento para o endereço de domicilio do pagador             |
-| _links                   | array of object | links do pagador                                                |
+| name                     | string          | nome completo da pessoa                                         |
+| city                     | string          | nome da cidade do domicílio da pessoa                           |
+| state                    | string          | uf do estado do domicílio da pessoa (duas letras, p. ex. 'RJ')  |
+| neighbourhood            | string          | bairro do domicílio da pessoa                                   |
+| street                   | string          | logradouro da pessoa                                            |
+| number                   | string          | número da logradouro da pessoa                                  |
+| zipcode                  | string          | cep do domicílio da pessoa                                      |
+| complement               | string          | complemento para o endereço de domicilio da pessoa              |
+| _links                   | array of object | links da pessoa                                                 |
 
-## Informações do Pagador
+## Informações da Pessoa
 
 ```shell
-Mostrar Pagador
+Mostrar Pessoa
 
 DEFINIÇÃO
 
-  GET https://app.cobrato.com/api/v1/payers/:payer_id
+  GET https://app.cobrato.com/api/v1/people/:person_id
 
 EXEMPLO DE REQUISIÇÃO
 
@@ -66,7 +63,7 @@ EXEMPLO DE REQUISIÇÃO
     -H 'User-Agent: My App 1.0' \
     -H 'Accept: application/json' \
     -H 'Content-type: application/json' \
-    -X GET https://app.cobrato.com/api/v1/payers/:payer_id
+    -X GET https://app.cobrato.com/api/v1/people/:person_id
 
 EXEMPLO DE ESTADO DA RESPOSTA
 
@@ -94,16 +91,16 @@ EXEMPLO DE CORPO DA RESPOSTA
   }
 ```
 
-Retorna as informações detalhadas do pagador em JSON.
+Retorna as informações detalhadas da pessoa em JSON.
 
-## Lista de Todos os Pagadors
+## Lista de Todos as Pessoas
 
 ```shell
-Listar Pagadors
+Listar Pessoas
 
 DEFINIÇÃO
 
-  GET https://app.cobrato.com/api/v1/payers
+  GET https://app.cobrato.com/api/v1/people
 
 EXEMPLO DE REQUISIÇÃO
 
@@ -111,7 +108,7 @@ EXEMPLO DE REQUISIÇÃO
     -H 'User-Agent: My App 1.0' \
     -H 'Accept: application/json' \
     -H 'Content-type: application/json' \
-    -X GET https://app.cobrato.com/api/v1/payers
+    -X GET https://app.cobrato.com/api/v1/people
 
 EXEMPLO DE ESTADO DA RESPOSTA
 
@@ -123,26 +120,26 @@ EXEMPLO DE CORPO DA RESPOSTA
     "people":
       [
         {
-          // informações pagador 1
+          // informações pessoa 1
         },
         {
-          // informações pagador 2
+          // informações pessoa 2
         },
         ...
       ]
   }
 ```
 
-Retorna uma lista em JSON contendo todos os pagadores pertencentes a sua Conta de Serviço.
+Retorna uma lista em JSON contendo todas as pessoas pertencentes a sua Conta de Serviço.
 
-## Criação de Pagador
+## Criação de Pessoa
 
 ```shell
-Criar Pagador
+Criar Pessoa
 
 DEFINIÇÃO
 
-  POST https://app.cobrato.com/api/v1/payers
+  POST https://app.cobrato.com/api/v1/people
 
 EXEMPLO DE REQUISIÇÃO
 
@@ -150,7 +147,7 @@ EXEMPLO DE REQUISIÇÃO
     -H 'User-Agent: My App 1.0' \
     -H 'Accept: application/json' \
     -H 'Content-type: application/json' \
-    -X POST https://app.cobrato.com/api/v1/payers \
+    -X POST https://app.cobrato.com/api/v1/people \
     -d '{
         "name": "João Silva",
         "city": "Caxias do Sul",
@@ -182,7 +179,7 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
 ```
 
-Cria um novo pagador, retornando as informações do mesmo caso haja sucesso. Se houverem erros eles serão informados no corpo da resposta.
+Cria uma nova pessoa, retornando as informações da mesma caso haja sucesso. Se houverem erros eles serão informados no corpo da resposta.
 
 **Parâmetros**
 
@@ -190,24 +187,24 @@ Cria um novo pagador, retornando as informações do mesmo caso haja sucesso. Se
 |--------------------------|--------|------------------------------------------------------------------------------|
 | national_identifier_type | string | **(requerido)** tipo de identificação nacional ('cpf' ou 'cnpj')             |
 | national_identifier      | string | **(requerido)** número válido de cnpj ou cpf, de acordo com o campo anterior |
-| name                     | string | **(requerido)** nome completo do pagador                                     |
-| city                     | string | (opcional) nome da cidade do domicílio do pagador                            |
-| state                    | string | (opcional) uf do estado do domicílio do pagador (duas letras, p. ex. 'RJ')   |
-| neighbourhood            | string | (opcional) bairro do domicílio do pagador                                    |
-| street                   | string | (opcional) logradouro do pagador                                             |
-| number                   | string | (opcional) número da logradouro do pagador                                   |
-| zipcode                  | string | (opcional) cep do domicílio do pagador                                       |
-| complement               | string | (opcional) complemento para o endereço de domicilio do pagador               |
+| name                     | string | **(requerido)** nome completo da pessoa                                      |
+| city                     | string | (opcional) nome da cidade do domicílio da pessoa                             |
+| state                    | string | (opcional) uf do estado do domicílio da pessoa (duas letras, p. ex. 'RJ')    |
+| neighbourhood            | string | (opcional) bairro do domicílio da pessoa                                     |
+| street                   | string | (opcional) logradouro da pessoa                                              |
+| number                   | string | (opcional) número da logradouro da pessoa                                    |
+| zipcode                  | string | (opcional) cep do domicílio da pessoa                                        |
+| complement               | string | (opcional) complemento para o endereço de domicilio da pessoa                |
 
-## Atualização de Pagador
+## Atualização de Pessoa
 
 ```shell
-Atualizar Pagador
+Atualizar Pessoa
 
 DEFINIÇÃO
 
-  PUT https://app.cobrato.com/api/v1/payers/:payer_id
-  PATCH https://app.cobrato.com/api/v1/payers/:payer_id
+  PUT https://app.cobrato.com/api/v1/people/:person_id
+  PATCH https://app.cobrato.com/api/v1/people/:person_id
 
 EXEMPLO DE REQUISIÇÃO
 
@@ -215,7 +212,7 @@ EXEMPLO DE REQUISIÇÃO
     -H 'User-Agent: My App 1.0' \
     -H 'Accept: application/json' \
     -H 'Content-type: application/json' \
-    -X PATCH https://app.cobrato.com/api/v1/payers/:payer_id \
+    -X PATCH https://app.cobrato.com/api/v1/people/:person_id \
     -d '{
         "city": "Farroupilha",
         "state": "RS"
@@ -243,7 +240,7 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
 ```
 
-Atualiza um determinado pagador, retornando as informações do mesmo caso haja sucesso. Se houverem erros eles serão informados no corpo da resposta. A requisição não diferencia a utilização dos verbos PUT e PATCH.
+Atualiza uma determinada pessoa, retornando as informações da mesma caso haja sucesso. Se houverem erros eles serão informados no corpo da resposta. A requisição não diferencia a utilização dos verbos PUT e PATCH.
 
 **Parâmetros**
 
@@ -251,11 +248,11 @@ Atualiza um determinado pagador, retornando as informações do mesmo caso haja 
 |--------------------------|--------|------------------------------------------------------------------------------|
 | national_identifier_type | string | **(requerido)** tipo de identificação nacional ('cpf' ou 'cnpj')             |
 | national_identifier      | string | **(requerido)** número válido de cnpj ou cpf, de acordo com o campo anterior |
-| name                     | string | **(requerido)** nome completo do pagador                                     |
-| city                     | string | (opcional) nome da cidade do domicílio do pagador                            |
-| state                    | string | (opcional) uf do estado do domicílio do pagador (duas letras, p. ex. 'RJ')   |
-| neighbourhood            | string | (opcional) bairro do domicílio do pagador                                    |
-| street                   | string | (opcional) logradouro do pagador                                             |
-| number                   | string | (opcional) número da logradouro do pagador                                   |
-| zipcode                  | string | (opcional) cep do domicílio do pagador                                       |
-| complement               | string | (opcional) complemento para o endereço de domicilio do pagador               |
+| name                     | string | **(requerido)** nome completo da pessoa                                      |
+| city                     | string | (opcional) nome da cidade do domicílio da pessoa                             |
+| state                    | string | (opcional) uf do estado do domicílio da pessoa (duas letras, p. ex. 'RJ')    |
+| neighbourhood            | string | (opcional) bairro do domicílio da pessoa                                     |
+| street                   | string | (opcional) logradouro da pessoa                                              |
+| number                   | string | (opcional) número da logradouro da pessoa                                    |
+| zipcode                  | string | (opcional) cep do domicílio da pessoa                                        |
+| complement               | string | (opcional) complemento para o endereço de domicilio da pessoa                |

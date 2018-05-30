@@ -502,7 +502,11 @@ mesma Configuração de Cobrança (parâmetro <code>charge_config_id</code>) uti
 **payer_attributes**
 
 <aside class="notice">
-Caso exista um Pagador (Payer) com o mesmo <code>national_identifier</code>, não será criado um novo, mas sim atualizado o existente.
+No contexto de Cobrança utilizamos o nome 'Pagador' para referirmos à Pessoa (Person).
+</aside>
+
+<aside class="notice">
+Caso exista um Pagador (Person) com o mesmo <code>national_identifier</code>, não será criado um novo, mas sim atualizado o existente.
 </aside>
 
 | Campo                    | Tipo   | Comentário                                                           |
@@ -556,25 +560,6 @@ Caso exista um Pagador (Payer) com o mesmo <code>national_identifier</code>, nã
 | email_subject             | string           | (opcional) Assunto do email de notificação de cobrança, caso a opção auto_send_billet estiver com valor 'true'                                                                     |
 | email_text                | string           | (opcional) Texto do email de notificação de cobrança, caso a opção auto_send_billet estiver com valor 'true'                                                                       |
 | email_reply_to            | string           | (opcional) Endereço de email a ser utilizado na resposta ao email de notificação de cobrança, caso a opção auto_send_billet estiver com valor 'true'                               |
-
-**payer_attributes**
-
-<aside class="notice">
-Caso exista um Pagador (Payer) com o mesmo <code>national_identifier</code>, não será criado um novo, mas sim atualizado o existente.
-</aside>
-
-| Campo                    | Tipo   | Comentário                                                           |
-|--------------------------|--------|----------------------------------------------------------------------|
-| national_identifier_type | string | **(requerido)** tipo do documento do pagador (cpf ou cnpj)           |
-| national_identifier      | string | **(requerido)** documento do pagador                                 |
-| name                     | string | **(requerido)** nome do pagador                                      |
-| number                   | string | (opcional) número do endereço do pagador                             |
-| complement               | string | (opcional) complemento do endereço do pagador                        |
-| street                   | string | (opcional) rua do endereço do pagador                                |
-| neighbourhood            | string | (opcional) bairro do endereço do pagador                             |
-| zipcode                  | string | (opcional) cep do endereço do pagador                                |
-| city                     | string | (opcional) cidade do endereço do pagador                             |
-| state                    | string | (opcional) sigla do estado do endereço do pagador ("RJ" por exemplo) |
 
 ## Atualização de Cobrança
 
@@ -662,6 +647,10 @@ são alterados via atualização de cobrança, apenas no recebimento ou desfazen
 
 **payer_attributes**
 
+<aside class="notice">
+No contexto de Cobrança utilizamos o nome 'Pagador' para referirmos à Pessoa (Person).
+</aside>
+
 | Campo                    | Tipo   | Comentário                                                                                                |
 |--------------------------|--------|-----------------------------------------------------------------------------------------------------------|
 | national_identifier_type | string | **(requerido)** tipo do documento do pagador (cpf ou cnpj)                                                |
@@ -707,6 +696,10 @@ da cobrança no gateway de pagamento.
 | overwrite_card_payer    | boolean          | (opcional) indica se o pagador dono do cartão deve ser alterado para o pagador informado                                                                                |
 
 **payer_attributes**
+
+<aside class="notice">
+No contexto de Cobrança utilizamos o nome 'Pagador' para referirmos à Pessoa (Person).
+</aside>
 
 | Campo                    | Tipo   | Comentário                                                           |
 |--------------------------|--------|----------------------------------------------------------------------|
@@ -759,6 +752,10 @@ da cobrança no gateway de pagamento.
 | email_reply_to            | string           | (opcional) Endereço de email a ser utilizado na resposta ao email de notificação de cobrança, caso a opção auto_send_billet estiver com valor 'true'                               |
 
 **payer_attributes**
+
+<aside class="notice">
+No contexto de Cobrança utilizamos o nome 'Pagador' para referirmos à Pessoa (Person).
+</aside>
 
 <aside class="notice">
 Caso exista um Pagador (Payer) com o mesmo <code>national_identifier</code>, não será criado um novo, mas sim atualizado o existente.
