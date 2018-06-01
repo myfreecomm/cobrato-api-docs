@@ -96,10 +96,10 @@ EXEMPLO DE CORPO DA RESPOSTA
 
 Retorna as informações detalhadas do pagador em JSON.
 
-## Lista de Todos os Pagadors
+## Lista de Todos os Pagadores
 
 ```shell
-Listar Pagadors
+Listar Pagadores
 
 DEFINIÇÃO
 
