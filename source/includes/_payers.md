@@ -94,6 +94,10 @@ EXEMPLO DE CORPO DA RESPOSTA
   }
 ```
 
+<aside class="warning">
+  <strong>ATENÇÃO!</strong> Este endpoint será descontinuado. Por favor utilize o endpoint de <code>Pessoa</code>
+</aside>
+
 Retorna as informações detalhadas do pagador em JSON.
 
 ## Lista de Todos os Pagadores
@@ -132,6 +136,10 @@ EXEMPLO DE CORPO DA RESPOSTA
       ]
   }
 ```
+
+<aside class="warning">
+  <strong>ATENÇÃO!</strong> Este endpoint será descontinuado. Por favor utilize o endpoint de <code>Pessoa</code>
+</aside>
 
 Retorna uma lista em JSON contendo todos os pagadores pertencentes a sua Conta de Serviço.
 
@@ -181,6 +189,10 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
   }
 
 ```
+
+<aside class="warning">
+  <strong>ATENÇÃO!</strong> Este endpoint será descontinuado. Por favor utilize o endpoint de <code>Pessoa</code>
+</aside>
 
 Cria um novo pagador, retornando as informações do mesmo caso haja sucesso. Se houverem erros eles serão informados no corpo da resposta.
 
@@ -242,6 +254,10 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
     }
 
 ```
+
+<aside class="warning">
+  <strong>ATENÇÃO!</strong> Este endpoint será descontinuado. Por favor utilize o endpoint de <code>Pessoa</code>
+</aside>
 
 Atualiza um determinado pagador, retornando as informações do mesmo caso haja sucesso. Se houverem erros eles serão informados no corpo da resposta. A requisição não diferencia a utilização dos verbos PUT e PATCH.
 
