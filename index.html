@@ -6162,6 +6162,11 @@ EXEMPLO
 <td>número da agência da conta bancária para fazer o pagamento</td>
 </tr>
 <tr>
+<td>payee_id</td>
+<td>integer</td>
+<td>identificador do beneficiário</td>
+</tr>
+<tr>
 <td>payee_name</td>
 <td>string</td>
 <td>nome do beneficiário</td>
@@ -6467,19 +6472,14 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <td><strong>(requerido)</strong> número da agência da conta bancária para fazer o pagamento</td>
 </tr>
 <tr>
-<td>payee_name</td>
+<td>payee_id</td>
 <td>string</td>
-<td><strong>(requerido)</strong> nome do beneficiário</td>
+<td><strong>(requerido, se não enviar payee)</strong> identificador do beneficiário (caso seja fornecido, o parâmetro <code class="prettyprint">payee</code> será ignorado)</td>
 </tr>
 <tr>
-<td>payee_document_type</td>
-<td>string</td>
-<td><strong>(requerido)</strong> tipo do documento do beneficiário</td>
-</tr>
-<tr>
-<td>payee_document</td>
-<td>string</td>
-<td><strong>(requerido)</strong> número do documento do beneficiário</td>
+<td>payee*</td>
+<td>object</td>
+<td><strong>(requerido, se não enviar payee_id)</strong> atributos para a criação de um novo beneficiário ou atualização de um beneficiário existente com o mesmo documento (national_identifier)</td>
 </tr>
 </tbody></table>
 
@@ -6548,19 +6548,14 @@ O attributo <code>amount</code> nesse caso é opcional, pois ele é identificado
 <td><strong>(requerido)</strong> Código de barras do boleto bancário</td>
 </tr>
 <tr>
-<td>payee_name</td>
+<td>payee_id</td>
 <td>string</td>
-<td><strong>(requerido)</strong> nome do beneficiário</td>
+<td><strong>(requerido, se não enviar payee)</strong> identificador do beneficiário (caso seja fornecido, o parâmetro <code class="prettyprint">payee</code> será ignorado)</td>
 </tr>
 <tr>
-<td>payee_document_type</td>
-<td>string</td>
-<td><strong>(requerido)</strong> tipo do documento do beneficiário (&#39;cpf&rsquo; ou &#39;cnpj&rsquo;)</td>
-</tr>
-<tr>
-<td>payee_document</td>
-<td>string</td>
-<td><strong>(requerido)</strong> número do documento do beneficiário</td>
+<td>payee*</td>
+<td>object</td>
+<td><strong>(requerido, se não enviar payee_id)</strong> atributos para a criação de um novo beneficiário ou atualização de um beneficiário existente com o mesmo documento (national_identifier)</td>
 </tr>
 <tr>
 <td>due_date</td>
@@ -6913,6 +6908,32 @@ O attributo <code>payment_type</code> é automaticamente definido como <code>"tr
 </tr>
 </tbody></table>
 
+<p><strong>payee</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>national_identifier_type</td>
+<td>string</td>
+<td><strong>(requerido)</strong> tipo do documento do beneficiário (cpf ou cnpj)</td>
+</tr>
+<tr>
+<td>national_identifier</td>
+<td>string</td>
+<td><strong>(requerido)</strong> documento do beneficiário</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td><strong>(requerido)</strong> nome do beneficiário</td>
+</tr>
+</tbody></table>
+
 <h2 id="atualiza-o-de-pagamento">Atualização de Pagamento</h2>
 <pre class="highlight shell"><code>Atualizar Pagamento
 
@@ -7017,19 +7038,14 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <td><strong>(requerido)</strong> número da agência da conta bancária para fazer o pagamento</td>
 </tr>
 <tr>
-<td>payee_name</td>
+<td>payee_id</td>
 <td>string</td>
-<td><strong>(requerido)</strong> nome do beneficiário</td>
+<td><strong>(requerido, se não enviar payee)</strong> identificador do beneficiário (caso seja fornecido, o parâmetro <code class="prettyprint">payee</code> será ignorado)</td>
 </tr>
 <tr>
-<td>payee_document_type</td>
-<td>string</td>
-<td><strong>(requerido)</strong> tipo do documento do beneficiário</td>
-</tr>
-<tr>
-<td>payee_document</td>
-<td>string</td>
-<td><strong>(requerido)</strong> número do documento do beneficiário</td>
+<td>payee*</td>
+<td>object</td>
+<td><strong>(requerido, se não enviar payee_id)</strong> atributos para a criação de um novo beneficiário ou atualização de um beneficiário existente com o mesmo documento (national_identifier)</td>
 </tr>
 </tbody></table>
 
@@ -7079,19 +7095,14 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 </tr>
 </thead><tbody>
 <tr>
-<td>payee_name</td>
+<td>payee_id</td>
 <td>string</td>
-<td><strong>(requerido)</strong> nome do beneficiário</td>
+<td><strong>(requerido, se não enviar payee)</strong> identificador do beneficiário (caso seja fornecido, o parâmetro <code class="prettyprint">payee</code> será ignorado)</td>
 </tr>
 <tr>
-<td>payee_document_type</td>
-<td>string</td>
-<td><strong>(requerido)</strong> tipo do documento do beneficiário (&#39;cpf&rsquo; ou &#39;cnpj&rsquo;)</td>
-</tr>
-<tr>
-<td>payee_document</td>
-<td>string</td>
-<td><strong>(requerido)</strong> número do documento do beneficiário</td>
+<td>payee*</td>
+<td>object</td>
+<td><strong>(requerido, se não enviar payee_id)</strong> atributos para a criação de um novo beneficiário ou atualização de um beneficiário existente com o mesmo documento (national_identifier)</td>
 </tr>
 <tr>
 <td>due_date</td>
@@ -7423,6 +7434,32 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <td>city_code</td>
 <td>integer</td>
 <td>(opcional) código da cidade</td>
+</tr>
+</tbody></table>
+
+<p><strong>payee</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>national_identifier_type</td>
+<td>string</td>
+<td><strong>(requerido)</strong> tipo do documento do beneficiário (cpf ou cnpj)</td>
+</tr>
+<tr>
+<td>national_identifier</td>
+<td>string</td>
+<td><strong>(requerido)</strong> documento do beneficiário</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td><strong>(requerido)</strong> nome do beneficiário</td>
 </tr>
 </tbody></table>
 
