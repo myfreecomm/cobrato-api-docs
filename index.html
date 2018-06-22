@@ -2040,7 +2040,7 @@ EXEMPLO
 <tr>
 <td>available_charge_types</td>
 <td>array of strings</td>
-<td>tipos de cobrança disponíveis. No caso de Configuração de Cobrança por Conta Bancária, será disponível somente a opção &ldquo;billet&rdquo;. Este campo será gerenciado pelo Cobrato.</td>
+<td>tipos de cobrança disponíveis. No caso de Configuração de Cobrança por Conta Bancária, será disponível somente a opção &ldquo;billet&rdquo;. Este campo será gerenciado pelo Cobrato</td>
 </tr>
 <tr>
 <td>_links</td>
@@ -2208,6 +2208,7 @@ EXEMPLO DE CORPO DA RESPOSTA <span class="o">(</span>BOLETO<span class="o">)</sp
     <span class="s2">"pre_released_billet"</span>: <span class="nb">false</span>,
     <span class="s2">"writing_off_deadline"</span>: null,
     <span class="s2">"available_charge_types"</span>: <span class="o">[</span><span class="s2">"billet"</span><span class="o">]</span>,
+    <span class="s2">"deactivated_at"</span>: 2018-04-10,
     <span class="s2">"_links"</span>:
       <span class="o">[</span>
         <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"self"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charge_configs/1"</span><span class="o">}</span>,
@@ -2798,6 +2799,33 @@ EXEMPLO DE ESTADO DA RESPOSTA COM CONFIGURAÇÃO DE COBRANÇA INEXISTENTE
 </code></pre>
 
 <p>Exclui determinada Configuração de Cobrança e junto a ela todas suas Cobranças. As mudanças são irreversíveis.</p>
+
+<h2 id="desativa-o-de-configura-o-de-cobran-a">Desativação de Configuração de Cobrança</h2>
+<pre class="highlight shell"><code>Desativar Configuração de Cobrança
+
+DEFINIÇÃO
+
+  POST https://app.cobrato.com/api/v1/charge_configs/:id/deactivate
+
+EXEMPLO DE REQUISIÇÃO
+
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X <span class="se">\</span>
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
+    -X POST https://app.cobrato.com/api/v1/charge_configs/:id/deactivate
+
+EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
+
+    204 No Content
+
+EXEMPLO DE ESTADO DA RESPOSTA COM CONFIGURAÇÃO DE COBRANÇA INEXISTENTE
+
+    404 Not Found
+
+</code></pre>
+
+<p>Desativa determinada Configuração de Cobrança.</p>
 
           <h1 id="modelo-de-cobran-a">Modelo de Cobrança</h1>
 <pre class="highlight shell"><code>Charge Template
@@ -9924,6 +9952,11 @@ EXEMPLO DE ESTADO DA RESPOSTA COM WEBHOOK INEXISTENTE
 <td>quando a configuração de cobrança é excluída</td>
 </tr>
 <tr>
+<td>charge_config</td>
+<td>deactivated</td>
+<td>quando a configuração de cobrança é desativada</td>
+</tr>
+<tr>
 <td>credit_card</td>
 <td>created</td>
 <td>quando o cartão de crédito é criado</td>
@@ -10206,7 +10239,7 @@ EXEMPLO DE PAYLOAD
     <span class="s2">"_links"</span>:[<span class="o">{</span>
       <span class="s2">"rel"</span>:<span class="s2">"self"</span>,
       <span class="s2">"method"</span>:<span class="s2">"GET"</span>,
-      <span class="s2">"url"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charges_accounts/7"</span>
+      <span class="s2">"url"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charges_configs/7"</span>
     <span class="o">}]</span>
   <span class="o">}</span>
 
@@ -10254,6 +10287,27 @@ EXEMPLO DE PAYLOAD
 </code></pre>
 
 <p>Informações enviadas quando uma Configuração de Cobrança é excluída.</p>
+
+<h2 id="configura-o-de-cobran-a-desativada">Configuração de Cobrança desativada</h2>
+<pre class="highlight shell"><code>Configuração de Cobrança Desativada
+
+EXEMPLO DE PAYLOAD
+
+  <span class="o">{</span>
+    <span class="s2">"created_at"</span>:<span class="s2">"2015-05-21T16:13:33Z"</span>,
+    <span class="s2">"event"</span>:<span class="s2">"deactivated"</span>,
+    <span class="s2">"object_type"</span>:<span class="s2">"charge_config"</span>,
+    <span class="s2">"object_id"</span>:7,
+    <span class="s2">"_links"</span>:[<span class="o">{</span>
+      <span class="s2">"rel"</span>:<span class="s2">"self"</span>,
+      <span class="s2">"method"</span>:<span class="s2">"GET"</span>,
+      <span class="s2">"url"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charge_configs/7"</span>
+    <span class="o">}]</span>
+  <span class="o">}</span>
+
+</code></pre>
+
+<p>Informações enviadas quando uma Configuração de Cobrança é Desativada.</p>
 
 <h2 id="cart-o-de-cr-dito-criado">Cartão de crédito criado</h2>
 <pre class="highlight shell"><code>Cartão de crédito Criado
