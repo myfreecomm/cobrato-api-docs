@@ -25,9 +25,9 @@ EXEMPLO
     "notification_emails":["myemail@gmail.com"],
     "received":true, # deprecated
     "received_amount":"10.07", # deprecated
-    "received_at":"2015-01-30", # deprecated
+    "received_at":"2015-01-30T04:00:00Z", # deprecated
     "paid_amount":"10.07",
-    "paid_at":"2015-01-30",
+    "paid_at":"2015-01-30T04:00:00Z",
     "paid_discount":"4.56",
     "paid_additions":"0.50",
     "paid_rebate":"0.30",
@@ -243,9 +243,9 @@ EXEMPLO DE CORPO DA RESPOSTA (BOLETO)
     "notification_emails":["myemail@gmail.com"],
     "received":true, # deprecated
     "received_amount":"10.07", # deprecated
-    "received_at":"2015-01-30", # deprecated
+    "received_at":"2015-01-30T04:00:00Z", # deprecated
     "paid_amount":"10.07",
-    "paid_at":"2015-01-30",
+    "paid_at":"2015-01-30T04:00:00Z",
     "paid_discount":"4.56",
     "paid_additions":"0.50",
     "paid_rebate":"0.30",
