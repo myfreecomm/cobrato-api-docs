@@ -2045,7 +2045,7 @@ EXEMPLO
 </tr>
 <tr>
 <td>timezone</td>
-<td>array of strings</td>
+<td>string</td>
 <td>fuso horário utilizado pelo banco. Utilize essa informação para converter e apresentar atributos do tipo &ldquo;datetime&rdquo; das cobranças dessa configuração de forma adequada</td>
 </tr>
 <tr>
@@ -2110,7 +2110,7 @@ EXEMPLO
 </tr>
 <tr>
 <td>timezone</td>
-<td>array of strings</td>
+<td>string</td>
 <td>fuso horário utilizado pelo gateway. Utilize essa informação para converter e apresentar atributos do tipo &ldquo;datetime&rdquo; das cobranças dessa configuração de forma adequada</td>
 </tr>
 <tr>
@@ -3374,9 +3374,9 @@ EXEMPLO
     <span class="s2">"notification_emails"</span>:[<span class="s2">"myemail@gmail.com"</span><span class="o">]</span>,
     <span class="s2">"received"</span>:true, <span class="c"># deprecated</span>
     <span class="s2">"received_amount"</span>:<span class="s2">"10.07"</span>, <span class="c"># deprecated</span>
-    <span class="s2">"received_at"</span>:<span class="s2">"2015-01-30"</span>, <span class="c"># deprecated</span>
+    <span class="s2">"received_at"</span>:<span class="s2">"2015-01-30T04:00:00Z"</span>, <span class="c"># deprecated</span>
     <span class="s2">"paid_amount"</span>:<span class="s2">"10.07"</span>,
-    <span class="s2">"paid_at"</span>:<span class="s2">"2015-01-30"</span>,
+    <span class="s2">"paid_at"</span>:<span class="s2">"2015-01-30T04:00:00Z"</span>,
     <span class="s2">"paid_discount"</span>:<span class="s2">"4.56"</span>,
     <span class="s2">"paid_additions"</span>:<span class="s2">"0.50"</span>,
     <span class="s2">"paid_rebate"</span>:<span class="s2">"0.30"</span>,
@@ -3531,7 +3531,7 @@ validações e alguns comportamentos serão variáveis de acordo com o tipo de c
 <tr>
 <td>received_at</td>
 <td>datetime</td>
-<td>(DEPRECATED: use paid_at) date e horário em que a cobrança foi paga</td>
+<td>(DEPRECATED: use paid_at) date e horário em que a cobrança foi paga. (Utilize o timezone da configuração de cobrança ao converter para data)</td>
 </tr>
 <tr>
 <td>paid_amount</td>
@@ -3541,7 +3541,7 @@ validações e alguns comportamentos serão variáveis de acordo com o tipo de c
 <tr>
 <td>paid_at</td>
 <td>datetime</td>
-<td>date e horário em que a cobrança foi paga</td>
+<td>date e horário em que a cobrança foi paga. (Utilize o timezone da configuração de cobrança ao converter para data)</td>
 </tr>
 <tr>
 <td>paid_discount</td>
@@ -3808,7 +3808,7 @@ e tem suas respostas dadas em payloads via webhook.</p>
 <tr>
 <td>canceled_at</td>
 <td>datetime</td>
-<td>data e horário em que a cobrança foi cancelada, se for o caso</td>
+<td>data e horário em que a cobrança foi cancelada, se for o caso. (Utilize o timezone da configuração de cobrança ao converter para data)</td>
 </tr>
 <tr>
 <td>_links</td>
@@ -4011,9 +4011,9 @@ EXEMPLO DE CORPO DA RESPOSTA <span class="o">(</span>BOLETO<span class="o">)</sp
     <span class="s2">"notification_emails"</span>:[<span class="s2">"myemail@gmail.com"</span><span class="o">]</span>,
     <span class="s2">"received"</span>:true, <span class="c"># deprecated</span>
     <span class="s2">"received_amount"</span>:<span class="s2">"10.07"</span>, <span class="c"># deprecated</span>
-    <span class="s2">"received_at"</span>:<span class="s2">"2015-01-30"</span>, <span class="c"># deprecated</span>
+    <span class="s2">"received_at"</span>:<span class="s2">"2015-01-30T04:00:00Z"</span>, <span class="c"># deprecated</span>
     <span class="s2">"paid_amount"</span>:<span class="s2">"10.07"</span>,
-    <span class="s2">"paid_at"</span>:<span class="s2">"2015-01-30"</span>,
+    <span class="s2">"paid_at"</span>:<span class="s2">"2015-01-30T04:00:00Z"</span>,
     <span class="s2">"paid_discount"</span>:<span class="s2">"4.56"</span>,
     <span class="s2">"paid_additions"</span>:<span class="s2">"0.50"</span>,
     <span class="s2">"paid_rebate"</span>:<span class="s2">"0.30"</span>,
