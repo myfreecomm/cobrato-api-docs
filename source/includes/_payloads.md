@@ -68,6 +68,7 @@ Os eventos notificados são os seguintes:
 | payment         | destroyed             | quando o pagamento é excluído                     |
 | payment         | unauthorized          | quando o pagamento é marcado como não autorizado  |
 | payment         | registered_with_error | quando o pagamento é marcado com Erro no registro |
+| payment         | rescheduled           | quando o pagamento é reagendado                   |
 | remittance_cnab | updated               | quando o arquivo de remessa é atualizado          |
 | regress_cnab    | updated               | quando o arquivo de retorno é atualizado          |
 

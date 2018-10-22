@@ -60,7 +60,7 @@ EXEMPLO
 | due_date                  | date    | data de vencimento                                                                                                                                                                                                                                                                                          |
 | taxpayer_document_type    | string  | Tipo do documento do contribuinte                                                                                                                                                                                                                                                                           |
 | taxpayer_document         | string  | Número do documento do contribuinte                                                                                                                                                                                                                                                                         |
-| registration_status       | string  | status de registro do pagamento ('without_remittance', 'remitted', 'registered', 'canceled', 'edit_amount_started', 'edit_date_started', 'registered_with_error', 'cancelation_started', 'canceled_awaiting_confirmation', 'amount_edited_awaiting_confirmation', 'date_edited_awaiting_confirmation')      |
+| registration_status       | string  | status de registro do pagamento ('without_remittance', 'remitted', 'registered', 'canceled', 'edit_amount_started', 'reschedule_started', 'registered_with_error', 'cancelation_started', 'canceled_awaiting_confirmation', 'amount_edited_awaiting_confirmation', 'rescheduled_awaiting_confirmation')     |
 | note                      | string  | Oberservação do pagamento                                                                                                                                                                                                                                                                                   |
 
 
@@ -689,6 +689,53 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 ```
 
 Marca um determinado Pagamento como não autorizado, retornando JSON com as informações do pagamento em caso de sucesso ou, caso contrário, os erros.
+
+## Reagendar Pagamento
+
+
+```shell
+Reagendar Pagamento
+
+DEFINIÇÃO
+
+  POST https://app.cobrato.com/api/v1/payments/:id/reschedule
+
+EXEMPLO DE REQUISIÇÃO
+
+  $ curl -i -u $API_TOKEN:X \
+    -H 'User-Agent: My App 1.0' \
+    -H 'Accept: application/json' \
+    -H 'Content-type: application/json' \
+    -X PATCH https://app.cobrato.com/api/v1/payents/:id/reschedule \
+    -d '{
+          "date": "2018-10-02"
+        }'
+
+EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
+
+    200 OK
+
+EXEMPLO DE ESTADO DA RESPOSTA COM PAGAMENTO INEXISTENTE
+
+    404 Not Found
+
+EXEMPLO DE ESTADO DA RESPOSTA COM INSUCESSO
+
+    422 Unprocessable Entity
+
+EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
+
+  {
+    "errors":
+      {
+        "date": ["não pode ficar em branco"]
+        "registration_status": ["não permite reagendar pagamento. Somente pagamentos com status 'Pagamento registrado', podem ser reagendados"]
+      }
+  }
+
+```
+
+Reagenda um determinado Pagamento. Se houverem erros, eles serão informados no corpo da resposta.
 
 ## Marcar pagamento com Erro no Registro
 
