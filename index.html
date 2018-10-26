@@ -4161,7 +4161,6 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
         <span class="s2">"charge_config_id"</span>:[<span class="s2">"não pode ficar em branco"</span><span class="o">]</span>,
         <span class="s2">"our_number"</span>:[<span class="s2">"não pode ficar em branco"</span><span class="o">]</span>,
         <span class="s2">"charged_amount"</span>:[<span class="s2">"não pode ficar em branco"</span><span class="o">]</span>,
-        <span class="s2">"document_kind"</span>:[<span class="s2">"não pode ficar em branco"</span>,<span class="s2">"não está incluído na lista"</span><span class="o">]</span>,
         <span class="s2">"due_date"</span>:[<span class="s2">"não pode ficar em branco"</span><span class="o">]</span>
       <span class="o">}</span>
   <span class="o">}</span>
@@ -4196,7 +4195,7 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <tr>
 <td>document_kind</td>
 <td>string</td>
-<td><strong>(requerido)</strong> espécie do documento, podendo ser DM (Duplicata Mercantil), DS (Duplicata de Serviço), NP (Nota Promissória) ou DV (Diversos)</td>
+<td>(opcional) espécie do documento, podendo ser DM (Duplicata Mercantil), DS (Duplicata de Serviço), NP (Nota Promissória) ou DV (Diversos). Caso não seja informado o valor assumido será &ldquo;DM&rdquo;</td>
 </tr>
 <tr>
 <td>charged_amount</td>
@@ -4665,7 +4664,7 @@ Caso exista um Pagador (Person) com o mesmo <code>national_identifier</code>, n�
 <tr>
 <td>document_kind</td>
 <td>string</td>
-<td>(opcional) espécie do documento, podendo ser DM (Duplicata Mercantil), DS (Duplicata de Serviço), NP (Nota Promissória) ou DV (Diversos)</td>
+<td>(opcional) espécie do documento, podendo ser DM (Duplicata Mercantil), DS (Duplicata de Serviço), NP (Nota Promissória) ou DV (Diversos). Caso não seja informado o valor assumido será &ldquo;DM&rdquo;.</td>
 </tr>
 <tr>
 <td>interest_amount_per_month</td>
@@ -4855,7 +4854,7 @@ são alterados via atualização de cobrança, apenas no recebimento ou desfazen
 <tr>
 <td>document_kind</td>
 <td>string</td>
-<td><strong>(requerido)</strong> espécie do documento, podendo ser DM (Duplicata Mercantil), DS (Duplicata de Serviço), NP (Nota Promissória) ou DV (Diversos)</td>
+<td>(opcional) espécie do documento, podendo ser DM (Duplicata Mercantil), DS (Duplicata de Serviço), NP (Nota Promissória) ou DV (Diversos). Caso não seja informado o valor assumido será &ldquo;DM&rdquo;.</td>
 </tr>
 <tr>
 <td>charged_amount</td>
