@@ -176,7 +176,6 @@ e tem suas respostas dadas em payloads via webhook.
 | charge_config_id               | integer          | identificador da configuração de cobrança a qual esta cobrança pertence                                                                       |
 | charged_amount                 | decimal          | valor cobrado no boleto                                                                                                                       |
 | due_date                       | date             | data de vencimento da cobranca                                                                                                                |
-| interest_amount_per_month      | decimal          | porcentagem de juros mensal que deve ser aplicado em caso de atraso. Esse valore será dividido por 30 para ser encontrata a taxa diária       |
 | mulct_value                    | decimal          | valor da multa que deve ser aplicada em caso de atraso                                                                                        |
 | discount_amount                | decimal          | valor do disconto que deve ser aplicado em caso de pagamento até a data de vencimento                                                         |
 | payer_id                       | integer          | identificador do pagador                                                                                                                      |
@@ -190,7 +189,6 @@ e tem suas respostas dadas em payloads via webhook.
 | payer_zipcode                  | string           | cep do endereço do pagador                                                                                                                    |
 | payer_city                     | string           | cidade do endereço do pagador                                                                                                                 |
 | payer_state                    | string           | sigla do estado do endereço do pagador ("RJ" por exemplo)                                                                                     |
-| document_kind                  | string           | espécie do documento                                                                                                                          |
 | auto_send_billet               | boolean          | indica se será enviado email de notificação automaticamente para os emails especificados no campo 'notification_emails'                       |
 | notification_emails            | array of strings | emails que receberão notificações sobre a cobrança                                                                                            |
 | email_sender_name              | string           | nome do remetente do email de notificação de cobrança                                                                                         |
@@ -199,6 +197,20 @@ e tem suas respostas dadas em payloads via webhook.
 | email_reply_to                 | string           | endereço de email a ser utilizado na resposta ao email de notificação de cobrança                                                             |
 | canceled_at                    | datetime         | data e horário em que a cobrança foi cancelada, se for o caso                                                                                 |
 | _links                         | array of object  | links relacionados à cobrança                                                                                                                 |
+
+**Parâmetros específicos para gateway PJBank**
+
+| Campo                          | Tipo             | Comentário                                                                                                                                    |
+|--------------------------------|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
+| document_kind                  | string           | espécie do documento                                                                                                                          |
+| interest_amount_per_month      | decimal          | porcentagem de juros mensal que deve ser aplicado em caso de atraso. Esse valore será dividido por 30 para ser encontrata a taxa diária       |
+
+**Parâmetros específicos para gateway Iugu**
+
+| Campo                          | Tipo             | Comentário                                                                                                                                    |
+|--------------------------------|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
+| per_day_interest               | boolean          | indica que será cobrado 1% de juros ao mês pro rata em caso de atraso                                                                         |
+
 
 ## Informações da Cobrança
 
@@ -550,8 +562,6 @@ Caso exista um Pagador (Person) com o mesmo <code>national_identifier</code>, n�
 | due_date                  | date             | **(requerido)** data de vencimento da cobrança                                                                                                                                     |
 | payer_id                  | integer          | **(requerido, se não enviar payer_attributes)** identificador do pagador (caso seja fornecido, o parâmetro payer_attributes será ignorado)                                         |
 | payer_attributes*         | object           | **(requerido, se não enviar payer_id)** atributos para a criação de um novo pagador ou atualização de um pagador existente com o mesmo documento (national_identifier)             |
-| document_kind             | string           | (opcional) espécie do documento, podendo ser DM (Duplicata Mercantil), DS (Duplicata de Serviço), NP (Nota Promissória) ou DV (Diversos)                                           |
-| interest_amount_per_month | decimal          | (opcional) porcentagem de juros mensal que deve ser aplicado em caso de atraso. Esse valore será dividido por 30 para ser encontrata a taxa diária                                 |
 | mulct_value               | decimal          | (opcional) porcentagem de multa que deve ser aplicada em caso de atraso                                                                                                            |
 | discount_amount           | decimal          | (opcional) valor do disconto que deve ser aplicado em caso de pagamento até a data de vencimento                                                                                   |
 | auto_send_billet          | boolean          | (opcional) Indica se será enviado email de notificação automaticamente para os emails especificados no campo 'notification_emails'. Caso não seja informada assumirá valor 'false' |
@@ -579,6 +589,20 @@ Caso exista um Pagador (Payer) com o mesmo <code>national_identifier</code>, nã
 | zipcode                  | string | (opcional) cep do endereço do pagador                                |
 | city                     | string | (opcional) cidade do endereço do pagador                             |
 | state                    | string | (opcional) sigla do estado do endereço do pagador ("RJ" por exemplo) |
+
+**Parâmetros específicos para gateway PJBank**
+
+| Campo                          | Tipo             | Comentário                                                                                                                                         |
+|--------------------------------|------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|
+| document_kind                  | string           | (opcional) espécie do documento, podendo ser DM (Duplicata Mercantil), DS (Duplicata de Serviço), NP (Nota Promissória) ou DV (Diversos)           |
+| interest_amount_per_month      | decimal          | (opcional) porcentagem de juros mensal que deve ser aplicado em caso de atraso. Esse valore será dividido por 30 para ser encontrata a taxa diária |
+
+**Parâmetros específicos para gateway Iugu**
+
+| Campo                          | Tipo             | Comentário                                                                                                                                    |
+|--------------------------------|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
+| per_day_interest               | boolean          | (opcional) indica que será cobrado 1% de juros ao mês pro rata em caso de atraso                                                              |
+
 
 ## Atualização de Cobrança
 
@@ -759,8 +783,6 @@ No contexto de Cobrança utilizamos o nome 'Pagador' para referirmos à Pessoa (
 | due_date                  | date             | **(requerido)** data de vencimento da cobrança                                                                                                                                     |
 | payer_id                  | integer          | **(requerido, se não enviar payer_attributes)** identificador do pagador (caso seja fornecido, o parâmetro payer_attributes será ignorado)                                         |
 | payer_attributes*         | object           | **(requerido, se não enviar payer_id)** atributos para a criação de um novo pagador ou atualização de um pagador existente com o mesmo documento (national_identifier)             |
-| document_kind             | string           | (opcional) espécie do documento, podendo ser DM (Duplicata Mercantil), DS (Duplicata de Serviço), NP (Nota Promissória) ou DV (Diversos)                                           |
-| interest_amount_per_month | decimal          | (opcional) porcentagem de juros mensal que deve ser aplicado em caso de atraso. Esse valore será dividido por 30 para ser encontrata a taxa diária                                 |
 | mulct_value               | decimal          | (opcional) porcentagem de multa que deve ser aplicada em caso de atraso                                                                                                            |
 | discount_amount           | decimal          | (opcional) valor do disconto que deve ser aplicado em caso de pagamento até a data de vencimento                                                                                   |
 | auto_send_billet          | boolean          | (opcional) Indica se será enviado email de notificação automaticamente para os emails especificados no campo 'notification_emails'. Caso não seja informada assumirá valor 'false' |
@@ -792,6 +814,20 @@ Caso exista um Pagador (Payer) com o mesmo <code>national_identifier</code>, nã
 | zipcode                  | string | (opcional) cep do endereço do pagador                                |
 | city                     | string | (opcional) cidade do endereço do pagador                             |
 | state                    | string | (opcional) sigla do estado do endereço do pagador ("RJ" por exemplo) |
+
+**Parâmetros específicos para gateway PJBank**
+
+| Campo                          | Tipo             | Comentário                                                                                                                                         |
+|--------------------------------|------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|
+| document_kind                  | string           | (opcional) espécie do documento, podendo ser DM (Duplicata Mercantil), DS (Duplicata de Serviço), NP (Nota Promissória) ou DV (Diversos)           |
+| interest_amount_per_month      | decimal          | (opcional) porcentagem de juros mensal que deve ser aplicado em caso de atraso. Esse valore será dividido por 30 para ser encontrata a taxa diária |
+
+**Parâmetros específicos para gateway Iugu**
+
+| Campo                          | Tipo             | Comentário                                                                                                                                    |
+|--------------------------------|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
+| per_day_interest               | boolean          | (opcional) indica que será cobrado 1% de juros ao mês pro rata em caso de atraso                                                              |
+
 
 ## Re-tentativa de efetivar de Cobrança (Cartão de crédito)
 
