@@ -203,13 +203,13 @@ e tem suas respostas dadas em payloads via webhook.
 | Campo                          | Tipo             | Comentário                                                                                                                                    |
 |--------------------------------|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
 | document_kind                  | string           | espécie do documento                                                                                                                          |
-| interest_amount_per_month      | decimal          | porcentagem de juros mensal que deve ser aplicado em caso de atraso. Esse valore será dividido por 30 para ser encontrata a taxa diária       |
+| interest_amount_per_month      | decimal          | porcentagem de juros mensal que deve ser aplicado em caso de atraso. Esse valor será dividido por 30 para ser encontrata a taxa diária       |
 
 **Parâmetros específicos para gateway Iugu**
 
 | Campo                          | Tipo             | Comentário                                                                                                                                    |
 |--------------------------------|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
-| per_day_interest               | boolean          | indica que será cobrado 1% de juros ao mês pro rata em caso de atraso                                                                         |
+| per_day_interest               | boolean          | indica que será cobrado 1% de juros ao mês pro rata em caso de atraso. Este valor é fixado pelo Iugu.                                         |
 
 
 ## Informações da Cobrança
@@ -601,7 +601,7 @@ Caso exista um Pagador (Payer) com o mesmo <code>national_identifier</code>, nã
 
 | Campo                          | Tipo             | Comentário                                                                                                                                    |
 |--------------------------------|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
-| per_day_interest               | boolean          | (opcional) indica que será cobrado 1% de juros ao mês pro rata em caso de atraso                                                              |
+| per_day_interest               | boolean          | (opcional) indica que será cobrado 1% de juros ao mês pro rata em caso de atraso. Este valor é fixado pelo Iugu.                              |
 
 
 ## Atualização de Cobrança
@@ -826,7 +826,7 @@ Caso exista um Pagador (Payer) com o mesmo <code>national_identifier</code>, nã
 
 | Campo                          | Tipo             | Comentário                                                                                                                                    |
 |--------------------------------|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
-| per_day_interest               | boolean          | (opcional) indica que será cobrado 1% de juros ao mês pro rata em caso de atraso                                                              |
+| per_day_interest               | boolean          | (opcional) indica que será cobrado 1% de juros ao mês pro rata em caso de atraso. Este valor é fixado pelo Iugu.                              |
 
 
 ## Re-tentativa de efetivar de Cobrança (Cartão de crédito)
