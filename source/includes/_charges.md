@@ -595,7 +595,7 @@ Caso exista um Pagador (Payer) com o mesmo <code>national_identifier</code>, nã
 | Campo                          | Tipo             | Comentário                                                                                                                                         |
 |--------------------------------|------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|
 | document_kind                  | string           | (opcional) espécie do documento, podendo ser DM (Duplicata Mercantil), DS (Duplicata de Serviço), NP (Nota Promissória) ou DV (Diversos)           |
-| interest_amount_per_month      | decimal          | (opcional) porcentagem de juros mensal que deve ser aplicado em caso de atraso. Esse valore será dividido por 30 para ser encontrata a taxa diária |
+| interest_amount_per_month      | decimal          | (opcional) porcentagem de juros mensal que deve ser aplicado em caso de atraso. Esse valor será dividido por 30 para ser encontrata a taxa diária |
 
 **Parâmetros específicos para gateway Iugu**
 
@@ -820,7 +820,7 @@ Caso exista um Pagador (Payer) com o mesmo <code>national_identifier</code>, nã
 | Campo                          | Tipo             | Comentário                                                                                                                                         |
 |--------------------------------|------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|
 | document_kind                  | string           | (opcional) espécie do documento, podendo ser DM (Duplicata Mercantil), DS (Duplicata de Serviço), NP (Nota Promissória) ou DV (Diversos)           |
-| interest_amount_per_month      | decimal          | (opcional) porcentagem de juros mensal que deve ser aplicado em caso de atraso. Esse valore será dividido por 30 para ser encontrata a taxa diária |
+| interest_amount_per_month      | decimal          | (opcional) porcentagem de juros mensal que deve ser aplicado em caso de atraso. Esse valor será dividido por 30 para ser encontrata a taxa diária |
 
 **Parâmetros específicos para gateway Iugu**
 
