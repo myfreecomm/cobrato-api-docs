@@ -2006,7 +2006,7 @@ EXEMPLO
 <tr>
 <td>registered_charges</td>
 <td>boolean</td>
-<td>informa se a configuração de cobrança utiliza boletos registrados ou não, sendo false por padrão</td>
+<td>informa se a configuração de cobrança utiliza boletos registrados ou não, sendo sempre true para configurações de cobrança criadas após 27/10/2018</td>
 </tr>
 <tr>
 <td>remittance_agreement_code</td>
@@ -2281,6 +2281,7 @@ EXEMPLO DE CORPO DA RESPOSTA
 <li><code class="prettyprint">bank_code</code>: Filtrar pelo código do banco da configuração de cobrança. O valor a ser informado é uma string com o código do banco. Por exemplo &ldquo;341&rdquo; para Itaú, &ldquo;237&rdquo; para Bradesco e etc.</li>
 <li><code class="prettyprint">payee_ids</code>: Filtra pelos beneficiários informados. O valor informado é uma <strong>lista*</strong> de ids dos beneficiários.</li>
 <li><code class="prettyprint">payee_national_identifiers</code>: Filtra pelos beneficiários informados. O valor informado é uma <strong>lista*</strong> de número de documentos dos beneficiários.</li>
+<li><code class="prettyprint">active</code>: Filtra pelo estado da configuração de cobrança. O valor a ser informado é <strong>true</strong> para retornar somente as configurações ativas ou <strong>false</strong> para retornar somente as configurações de cobrança desativadas.</li>
 </ul>
 
 <p><strong>lista*</strong> Os valores em &ldquo;lista&rdquo; devem ser enviados da seguinte forma: <code class="prettyprint">url?payee_ids[]=15&amp;payee_ids[]=42</code>.</p>
@@ -2402,24 +2403,19 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <td>(opcional) próximo nosso número a ser atribuído a uma cobrança criada a partir desta configuração de cobrança (por padrão inicia com o valor de <code class="prettyprint">initial_number</code> e é incrementado automatica e sequencialmente)</td>
 </tr>
 <tr>
-<td>registered_charges</td>
-<td>boolean</td>
-<td>(opcional) informa se a configuração de cobrança utiliza boletos registrados ou não, sendo false por padrão</td>
-</tr>
-<tr>
 <td>remittance_agreement_code</td>
 <td>integer</td>
-<td>(opcional, requerido apenas se registered_charges for <code class="prettyprint">true</code>) número do convênio com o banco (apenas para o Bradesco)</td>
+<td><strong>(requerido)</strong> número do convênio com o banco (apenas para o Bradesco)</td>
 </tr>
 <tr>
 <td>remittance_cnab_pattern</td>
 <td>integer</td>
-<td>(opcional, requerido apenas se registered_charges for <code class="prettyprint">true</code>) padrão utilizado no arquivo CNAB de remessa. Os valores permitidos são 240 ou 400</td>
+<td><strong>(requerido)</strong> padrão utilizado no arquivo CNAB de remessa. Os valores permitidos são 240 ou 400</td>
 </tr>
 <tr>
 <td>transmission_code</td>
 <td>string</td>
-<td>(opcional, requerido apenas se registered_charges for <code class="prettyprint">true</code>) código de transmissão (apenas para o Santander)</td>
+<td><strong>(requerido)</strong> código de transmissão (apenas para o Santander)</td>
 </tr>
 <tr>
 <td>initial_remittance_number</td>
@@ -2655,24 +2651,19 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <td>(opcional) próximo nosso número a ser atribuído a uma cobrança criada a partir desta configuração de cobrança (é incrementado automatica e sequencialmente)</td>
 </tr>
 <tr>
-<td>registered_charges</td>
-<td>boolean</td>
-<td>(opcional) informa se a configuração de cobrança utiliza boletos registrados ou não, sendo false por padrão</td>
-</tr>
-<tr>
 <td>remittance_agreement_code</td>
 <td>integer</td>
-<td>(opcional, requerido apenas se registered_charges for <code class="prettyprint">true</code>) número do convênio com o banco (apenas para o Bradesco)</td>
+<td>*<em>(requerido)</em> número do convênio com o banco (apenas para o Bradesco)</td>
 </tr>
 <tr>
 <td>remittance_cnab_pattern</td>
 <td>integer</td>
-<td>(opcional, requerido apenas se registered_charges for <code class="prettyprint">true</code>) padrão utilizado no arquivo CNAB de remessa. Os valores permitidos são 240 ou 400</td>
+<td>*<em>(requerido)</em> padrão utilizado no arquivo CNAB de remessa. Os valores permitidos são 240 ou 400</td>
 </tr>
 <tr>
 <td>transmission_code</td>
 <td>string</td>
-<td>(opcional, requerido apenas se registered_charges for <code class="prettyprint">true</code>) código de transmissão (apenas para o Santander)</td>
+<td>*<em>(requerido)</em> código de transmissão (apenas para o Santander)</td>
 </tr>
 <tr>
 <td>initial_remittance_number</td>
@@ -3581,7 +3572,7 @@ validações e alguns comportamentos serão variáveis de acordo com o tipo de c
 <tr>
 <td>registrable</td>
 <td>boolean</td>
-<td>indica se a cobrança é registrável (do tipo que deve ser registrada no banco). Por padrão é o que está definido na Configuração de Cobrança</td>
+<td>indica se a cobrança é registrável (do tipo que deve ser registrada no banco). Sendo sempre true para Cobranças criadas após 27/10/2018</td>
 </tr>
 <tr>
 <td>payer_id</td>
@@ -4273,11 +4264,6 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <td><strong>(requerido, se a configuração de cobrança não estiver homologada)</strong> indica se é uma cobrança para ser utilizada na homologação da Configuração de cobrança</td>
 </tr>
 <tr>
-<td>registrable</td>
-<td>boolean</td>
-<td>(opcional) indica se a cobrança é registrável (do tipo que deve ser registrada no banco). Por padrão é o que está definido na Configuração de Cobrança</td>
-</tr>
-<tr>
 <td>payer_id</td>
 <td>integer</td>
 <td><strong>(requerido, se não enviar payer_attributes)</strong> identificador do pagador (caso seja fornecido, o parâmetro payer_attributes será ignorado)</td>
@@ -4341,37 +4327,37 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <tr>
 <td>number</td>
 <td>string</td>
-<td>(opcional, requerido se registrable for <code class="prettyprint">true</code>) número do endereço do pagador</td>
+<td><strong>(requerido)</strong> número do endereço do pagador</td>
 </tr>
 <tr>
 <td>complement</td>
 <td>string</td>
-<td>(opcional, requerido se registrable for <code class="prettyprint">true</code>) complemento do endereço do pagador</td>
+<td><strong>(requerido)</strong> complemento do endereço do pagador</td>
 </tr>
 <tr>
 <td>street</td>
 <td>string</td>
-<td>(opcional, requerido se registrable for <code class="prettyprint">true</code>) rua do endereço do pagador</td>
+<td><strong>(requerido)</strong> rua do endereço do pagador</td>
 </tr>
 <tr>
 <td>neighbourhood</td>
 <td>string</td>
-<td>(opcional, requerido se registrable for <code class="prettyprint">true</code>) bairro do endereço do pagador</td>
+<td><strong>(requerido)</strong> bairro do endereço do pagador</td>
 </tr>
 <tr>
 <td>zipcode</td>
 <td>string</td>
-<td>(opcional, requerido se registrable for <code class="prettyprint">true</code>) cep do endereço do pagador</td>
+<td><strong>(requerido)</strong> cep do endereço do pagador</td>
 </tr>
 <tr>
 <td>city</td>
 <td>string</td>
-<td>(opcional, requerido se registrable for <code class="prettyprint">true</code>) cidade do endereço do pagador</td>
+<td><strong>(requerido)</strong> cidade do endereço do pagador</td>
 </tr>
 <tr>
 <td>state</td>
 <td>string</td>
-<td>(opcional, requerido se registrable for <code class="prettyprint">true</code>) sigla do estado do endereço do pagador (&ldquo;RJ&rdquo; por exemplo)</td>
+<td><strong>(requerido)</strong> sigla do estado do endereço do pagador (&ldquo;RJ&rdquo; por exemplo)</td>
 </tr>
 </tbody></table>
 
@@ -4922,11 +4908,6 @@ são alterados via atualização de cobrança, apenas no recebimento ou desfazen
 <td>(opcional) demonstrativo do Boleto. As linhas devem ser separadas por &ldquo;\n&rdquo;. Deve ter no máximo 9 linhas com 65 caracteres cada, sendo que se tiver definido multa e juros para a cobrança, será permitido no máximo 6 linhas, pois 3 já serão utilizadas automaticamente.</td>
 </tr>
 <tr>
-<td>registrable</td>
-<td>boolean</td>
-<td>(opcional) indica se a cobrança é registrável (do tipo que deve ser registrada no banco). Por padrão é o que está definido na Configuração de Cobrança</td>
-</tr>
-<tr>
 <td>payer_id</td>
 <td>integer</td>
 <td><strong>(requerido, se não enviar payer_attributes)</strong> identificador do pagador (caso seja fornecido, o parâmetro payer_attributes será ignorado)</td>
@@ -4969,37 +4950,37 @@ No contexto de Cobrança utilizamos o nome 'Pagador&rsquo; para referirmos à Pe
 <tr>
 <td>number</td>
 <td>string</td>
-<td>(opcional, requerido se registrable for <code class="prettyprint">true</code>) número do endereço do pagador</td>
+<td><strong>(requerido)</strong> número do endereço do pagador</td>
 </tr>
 <tr>
 <td>complement</td>
 <td>string</td>
-<td>(opcional, requerido se registrable for <code class="prettyprint">true</code>) complemento do endereço do pagador</td>
+<td><strong>(requerido)</strong> complemento do endereço do pagador</td>
 </tr>
 <tr>
 <td>street</td>
 <td>string</td>
-<td>(opcional, requerido se registrable for <code class="prettyprint">true</code>) rua do endereço do pagador</td>
+<td><strong>(requerido)</strong> rua do endereço do pagador</td>
 </tr>
 <tr>
 <td>neighbourhood</td>
 <td>string</td>
-<td>(opcional, requerido se registrable for <code class="prettyprint">true</code>) bairro do endereço do pagador</td>
+<td><strong>(requerido)</strong> bairro do endereço do pagador</td>
 </tr>
 <tr>
 <td>zipcode</td>
 <td>string</td>
-<td>(opcional, requerido se registrable for <code class="prettyprint">true</code>) cep do endereço do pagador</td>
+<td><strong>(requerido)</strong> cep do endereço do pagador</td>
 </tr>
 <tr>
 <td>city</td>
 <td>string</td>
-<td>(opcional, requerido se registrable for <code class="prettyprint">true</code>) cidade do endereço do pagador</td>
+<td><strong>(requerido)</strong> cidade do endereço do pagador</td>
 </tr>
 <tr>
 <td>state</td>
 <td>string</td>
-<td>(opcional, requerido se registrable for <code class="prettyprint">true</code>) sigla do estado do endereço do pagador (&ldquo;RJ&rdquo; por exemplo)</td>
+<td><strong>(requerido)</strong> sigla do estado do endereço do pagador (&ldquo;RJ&rdquo; por exemplo)</td>
 </tr>
 </tbody></table>
 
