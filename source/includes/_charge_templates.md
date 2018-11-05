@@ -40,11 +40,9 @@ EXEMPLO
 | name                      | string           | **(requerido)** Nome identificador do modelo de cobrança                                                                                                |
 | charge_config_id          | integer          | **(requerido)** id da configuração de cobrança                                                                                                          |
 | charged_amount            | decimal          | (opcional) valor cobrado no boleto                                                                                                                      |
-| document_kind             | string           | (opcional) espécie do documento, podendo ser DM (Duplicata Mercantil), DS (Duplicata de Serviço), NP (Nota Promissória) ou DV (Diversos)                |
 | instructions              | integer          | (opcional) instruções de pagamento do boleto, por padrão "Pagável em qualquer agência até data do vencimento." (pode ser linhas separadas por "\n")     |
 | demonstrative             | integer          | (opcional) demonstrativo do Boleto, por padrão "Não receber após o vencimento." (pode ser linhas separadas por "\n")                                    |
 | registrable               | boolean          | (opcional) indica se a cobrança é registrável (do tipo que deve ser registrada no banco). Por padrão é o que está definido na Configuração de Cobrança  |
-| interest_amount_per_month | decimal          | (opcional) porcentagem de juros mensal que deve ser aplicado em caso de atraso. No boleto será mostrado o valor diário de juros que será calculado      |
 | mulct_type                | string           | (opcional) indica o tipo de multa que deve ser aplicada em caso de atraso ("percentage" para porcentagem, "currency" para valor em reais)               |
 | mulct_value               | decimal          | (opcional) valor da multa que deve ser aplicada em caso de atraso, com base em seu tipo                                                                 |
 | auto_send_billet          | boolean          | (opcional) Padrão "false". Envio ou não de boleto por email                                                                                             |
@@ -53,6 +51,18 @@ EXEMPLO
 | email_text                | string           | (opcional) Texto do email de notificação de cobrança                                                                                                    |
 | email_reply_to            | string           | (opcional) Endereço de email a ser utilizado na respsta ao email de notificação de cobrança                                                             |
 
+**Parâmetros específicos para configuração de cobrança via Banco ou gateway PJBank**
+
+| Campo                          | Tipo             | Comentário                                                                                                                                         |
+|--------------------------------|------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|
+| document_kind                  | string           | (opcional) espécie do documento, podendo ser DM (Duplicata Mercantil), DS (Duplicata de Serviço), NP (Nota Promissória) ou DV (Diversos)           |
+| interest_amount_per_month      | decimal          | (opcional) porcentagem de juros mensal que deve ser aplicado em caso de atraso. Esse valor será dividido por 30 para ser encontrata a taxa diária  |
+
+**Parâmetros específicos para configuração de cobrança via gateway Iugu**
+
+| Campo                          | Tipo             | Comentário                                                                                                                                    |
+|--------------------------------|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
+| per_day_interest               | boolean          | (opcional) indica que será cobrado 1% de juros ao mês pro rata em caso de atraso. Este valor é fixado pelo Iugu.                              |
 
 ## Informações do Modelo de Cobrança
 
@@ -209,11 +219,9 @@ Cria um novo modelo de cobrança, retornando as informações do mesmo caso haja
 | name                      | string  | **(requerido)** Nome identificador do modelo de cobrança                                                                                                |
 | charge_config_id          | integer | **(requerido)** id da configuração de cobrança                                                                                                          |
 | charged_amount            | decimal | (opcional) valor cobrado no boleto                                                                                                                      |
-| document_kind             | string  | (opcional) espécie do documento, podendo ser DM (Duplicata Mercantil), DS (Duplicata de Serviço), NP (Nota Promissória) ou DV (Diversos)                |
 | instructions              | integer | (opcional) instruções de pagamento do boleto, por padrão "Pagável em qualquer agência até data do vencimento." (pode ser linhas separadas por "\n")     |
 | demonstrative             | integer | (opcional) demonstrativo do Boleto, por padrão "Não receber após o vencimento." (pode ser linhas separadas por "\n")                                    |
 | registrable               | boolean | (opcional) indica se a cobrança é registrável (do tipo que deve ser registrada no banco). Por padrão é o que está definido na Configuração de Cobrança  |
-| interest_amount_per_month | decimal | (opcional) porcentagem de juros mensal que deve ser aplicado em caso de atraso. No boleto será mostrado o valor diário de juros que será calculado      |
 | mulct_type                | string  | (opcional) indica o tipo de multa que deve ser aplicada em caso de atraso ("percentage" para porcentagem, "currency" para valor em reais)               |
 | mulct_value               | decimal | (opcional) valor da multa que deve ser aplicada em caso de atraso, com base em seu tipo                                                                 |
 | auto_send_billet          | boolean | (opcional) Padrão "false". Envio ou não de boleto por email                                                                                             |
@@ -221,6 +229,19 @@ Cria um novo modelo de cobrança, retornando as informações do mesmo caso haja
 | email_subject             | string  | (opcional) Assunto do email de notificação de cobrança                                                                                                  |
 | email_text                | string  | (opcional) Texto do email de notificação de cobrança                                                                                                    |
 | email_reply_to            | string  | (opcional) Endereço de email a ser utilizado na respsta ao email de notificação de cobrança                                                             |
+
+**Parâmetros específicos para configuração de cobrança via Banco ou gateway PJBank**
+
+| Campo                          | Tipo             | Comentário                                                                                                                                         |
+|--------------------------------|------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|
+| document_kind                  | string           | (opcional) espécie do documento, podendo ser DM (Duplicata Mercantil), DS (Duplicata de Serviço), NP (Nota Promissória) ou DV (Diversos)           |
+| interest_amount_per_month      | decimal          | (opcional) porcentagem de juros mensal que deve ser aplicado em caso de atraso. Esse valor será dividido por 30 para ser encontrata a taxa diária  |
+
+**Parâmetros específicos para configuração de cobrança via gateway Iugu**
+
+| Campo                          | Tipo             | Comentário                                                                                                                                    |
+|--------------------------------|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
+| per_day_interest               | boolean          | (opcional) indica que será cobrado 1% de juros ao mês pro rata em caso de atraso. Este valor é fixado pelo Iugu.                              |
 
 
 ## Atualização de Modelo de Cobrança
@@ -282,11 +303,9 @@ Atualiza campos do Modelo de Cobrança. A requisição não diferencia a utiliza
 | name                      | string  | **(requerido)** Nome identificador do modelo de cobrança                                                                                                |
 | charge_config_id          | integer | **(requerido)** id da configuração de cobrança                                                                                                          |
 | charged_amount            | decimal | (opcional) valor cobrado no boleto                                                                                                                      |
-| document_kind             | string  | (opcional) espécie do documento, podendo ser DM (Duplicata Mercantil), DS (Duplicata de Serviço), NP (Nota Promissória) ou DV (Diversos)                |
 | instructions              | integer | (opcional) instruções de pagamento do boleto, por padrão "Pagável em qualquer agência até data do vencimento." (pode ser linhas separadas por "\n")     |
 | demonstrative             | integer | (opcional) demonstrativo do Boleto, por padrão "Não receber após o vencimento." (pode ser linhas separadas por "\n")                                    |
 | registrable               | boolean | (opcional) indica se a cobrança é registrável (do tipo que deve ser registrada no banco). Por padrão é o que está definido na Configuração de Cobrança  |
-| interest_amount_per_month | decimal | (opcional) porcentagem de juros mensal que deve ser aplicado em caso de atraso. No boleto será mostrado o valor diário de juros que será calculado      |
 | mulct_type                | string  | (opcional) indica o tipo de multa que deve ser aplicada em caso de atraso ("percentage" para porcentagem, "currency" para valor em reais)               |
 | mulct_value               | decimal | (opcional) valor da multa que deve ser aplicada em caso de atraso, com base em seu tipo                                                                 |
 | auto_send_billet          | boolean | (opcional) Padrão "false". Envio ou não de boleto por email                                                                                             |
@@ -294,6 +313,19 @@ Atualiza campos do Modelo de Cobrança. A requisição não diferencia a utiliza
 | email_subject             | string  | (opcional) Assunto do email de notificação de cobrança                                                                                                  |
 | email_text                | string  | (opcional) Texto do email de notificação de cobrança                                                                                                    |
 | email_reply_to            | string  | (opcional) Endereço de email a ser utilizado na respsta ao email de notificação de cobrança                                                             |
+
+**Parâmetros específicos para configuração de cobrança via Banco ou gateway PJBank**
+
+| Campo                          | Tipo             | Comentário                                                                                                                                         |
+|--------------------------------|------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|
+| document_kind                  | string           | (opcional) espécie do documento, podendo ser DM (Duplicata Mercantil), DS (Duplicata de Serviço), NP (Nota Promissória) ou DV (Diversos)           |
+| interest_amount_per_month      | decimal          | (opcional) porcentagem de juros mensal que deve ser aplicado em caso de atraso. Esse valor será dividido por 30 para ser encontrata a taxa diária  |
+
+**Parâmetros específicos para configuração de cobrança via gateway Iugu**
+
+| Campo                          | Tipo             | Comentário                                                                                                                                    |
+|--------------------------------|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
+| per_day_interest               | boolean          | (opcional) indica que será cobrado 1% de juros ao mês pro rata em caso de atraso. Este valor é fixado pelo Iugu.                              |
 
 ## Exclusão de Modelo de Cobrança
 
