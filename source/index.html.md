@@ -18,6 +18,7 @@ includes:
   - charge_templates
   - charges
   - payment_configs
+  - payment_methods
   - payments
   - credit_cards
   - remittance_cnabs
