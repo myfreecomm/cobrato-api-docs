@@ -26,27 +26,18 @@ EXEMPLO DE CORPO DA RESPOSTA
   {
     "payment_methods":
       [
-        "credit_other_ownership",
-        "credit_same_ownership",
-        "credit_savings_account",
-        "doc_other_ownership",
-        "doc_same_ownership",
-        "ted_other_ownership",
-        "ted_same_ownership",
-        "tribute_with_barcode",
-        "dealership",
-        "billet_same_bank",
-        "billet_other_bank",
-        "gps",
-        "darf",
-        "das",
-        "ipva",
-        "icms_sp",
-        "dpvat",
-        "fgts"
+        { 
+          "identifier": 'credit_other_ownership',
+          "group": 'transfer',
+          "label": 'Crédito em conta Corrente - Outra titularidade' 
+        },
+        { 
+          // informações de outro método 
+        },
+        ...
       ]
   }
 
 ```
 
-Retorna uma lista em JSON contendo todos os Métodos de Pagamento possíveis.
+Retorna um objeto JSON contendo todos os Métodos de Pagamento possíveis.
