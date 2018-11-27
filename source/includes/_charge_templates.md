@@ -62,7 +62,7 @@ EXEMPLO
 
 | Campo                          | Tipo             | Comentário                                                                                                                                    |
 |--------------------------------|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
-| per_day_interest               | boolean          | (opcional) indica que será cobrado 1% de juros ao mês pro rata em caso de atraso. Este valor é fixado pelo Iugu.                              |
+| per_day_interest               | boolean          | (opcional) indica que será cobrado 1% de juros ao mês pró-rata em caso de atraso. Este valor é fixado pelo Iugu.                              |
 
 ## Informações do Modelo de Cobrança
 
@@ -241,7 +241,7 @@ Cria um novo modelo de cobrança, retornando as informações do mesmo caso haja
 
 | Campo                          | Tipo             | Comentário                                                                                                                                    |
 |--------------------------------|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
-| per_day_interest               | boolean          | (opcional) indica que será cobrado 1% de juros ao mês pro rata em caso de atraso. Este valor é fixado pelo Iugu.                              |
+| per_day_interest               | boolean          | (opcional) indica que será cobrado 1% de juros ao mês pró-rata em caso de atraso. Este valor é fixado pelo Iugu.                              |
 
 
 ## Atualização de Modelo de Cobrança
@@ -325,7 +325,7 @@ Atualiza campos do Modelo de Cobrança. A requisição não diferencia a utiliza
 
 | Campo                          | Tipo             | Comentário                                                                                                                                    |
 |--------------------------------|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
-| per_day_interest               | boolean          | (opcional) indica que será cobrado 1% de juros ao mês pro rata em caso de atraso. Este valor é fixado pelo Iugu.                              |
+| per_day_interest               | boolean          | (opcional) indica que será cobrado 1% de juros ao mês pró-rata em caso de atraso. Este valor é fixado pelo Iugu.                              |
 
 ## Exclusão de Modelo de Cobrança
 
