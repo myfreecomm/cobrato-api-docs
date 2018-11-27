@@ -17,7 +17,7 @@ build/
 .vagrant
 .sass-cache
 .ruby-version
-
+.ruby-gemset
 # YARD artifacts
 .yardoc
 _yardoc

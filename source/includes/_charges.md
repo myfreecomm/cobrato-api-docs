@@ -104,7 +104,7 @@ validações e alguns comportamentos serão variáveis de acordo com o tipo de c
 | paid_difference                | decimal          | diferença entre valor pago e valor cobrando                                                                                                         |
 | processing_date                | date             | data de geração do boleto                                                                                                                           |
 | for_homologation               | boolean          | indica se é uma cobrança que foi criada com o objetivo de homologar uma Configuração de cobrança                                                    |
-| registrable                    | boolean          | indica se a cobrança é registrável (do tipo que deve ser registrada no banco). Por padrão é o que está definido na Configuração de Cobrança         |
+| registrable                    | boolean          | indica se a cobrança é registrável (do tipo que deve ser registrada no banco). Sendo sempre true para Cobranças criadas após 27/10/2018             |
 | payer_id                       | integer          | identificador do pagador                                                                                                                            |
 | payer_national_identifier_type | string           | tipo do documento do pagador (cpf ou cnpj)                                                                                                          |
 | payer_national_identifier      | string           | documento do pagador                                                                                                                                |
@@ -441,7 +441,6 @@ Cria um nova cobrança, caso haja sucesso retornará as informações da mesma e
 | demonstrative             | string           | (opcional) demonstrativo do Boleto. As linhas devem ser separadas por "\n". Deve ter no máximo 9 linhas com 65 caracteres cada, sendo que se tiver definido multa e juros para a cobrança, será permitido no máximo 6 linhas, pois 3 já serão utilizadas automaticamente.                                                                                        |
 | charge_template_id        | integer          | (opcional) número do modelo de cobrança a ser utilizado. A cobrança será criada com base nos atributos preestabelecidos do modelo. Contudo, os valores enviados na criação terão preferência                                                                                                                                                                     |
 | for_homologation          | boolean          | **(requerido, se a configuração de cobrança não estiver homologada)** indica se é uma cobrança para ser utilizada na homologação da Configuração de cobrança                                                                                                                                                                                                     |
-| registrable               | boolean          | (opcional) indica se a cobrança é registrável (do tipo que deve ser registrada no banco). Por padrão é o que está definido na Configuração de Cobrança                                                                                                                                                                                                           |
 | payer_id                  | integer          | **(requerido, se não enviar payer_attributes)** identificador do pagador (caso seja fornecido, o parâmetro payer_attributes será ignorado)                                                                                                                                                                                                                       |
 | payer_attributes*         | object           | **(requerido, se não enviar payer_id)** atributos para a criação de um novo pagador ou atualização de um pagador existente com o mesmo documento (national_identifier)                                                                                                                                                                                           |
 | auto_send_billet          | boolean          | (opcional) Indica se será enviado email de notificação automaticamente para os emails especificados no campo 'notification_emails'. Caso não seja informada assumirá valor 'false'                                                                                                                                                                               |
@@ -452,18 +451,18 @@ Cria um nova cobrança, caso haja sucesso retornará as informações da mesma e
 
 **payer_attributes**
 
-| Campo                    | Tipo   | Comentário                                                                                                |
-|--------------------------|--------|-----------------------------------------------------------------------------------------------------------|
-| national_identifier_type | string | **(requerido)** tipo do documento do pagador (cpf ou cnpj)                                                |
-| national_identifier      | string | **(requerido)** documento do pagador                                                                      |
-| name                     | string | **(requerido)** nome do pagador                                                                           |
-| number                   | string | (opcional, requerido se registrable for `true`) número do endereço do pagador                             |
-| complement               | string | (opcional, requerido se registrable for `true`) complemento do endereço do pagador                        |
-| street                   | string | (opcional, requerido se registrable for `true`) rua do endereço do pagador                                |
-| neighbourhood            | string | (opcional, requerido se registrable for `true`) bairro do endereço do pagador                             |
-| zipcode                  | string | (opcional, requerido se registrable for `true`) cep do endereço do pagador                                |
-| city                     | string | (opcional, requerido se registrable for `true`) cidade do endereço do pagador                             |
-| state                    | string | (opcional, requerido se registrable for `true`) sigla do estado do endereço do pagador ("RJ" por exemplo) |
+| Campo                    | Tipo   | Comentário                                                                |
+|--------------------------|--------|---------------------------------------------------------------------------|
+| national_identifier_type | string | **(requerido)** tipo do documento do pagador (cpf ou cnpj)                |
+| national_identifier      | string | **(requerido)** documento do pagador                                      |
+| name                     | string | **(requerido)** nome do pagador                                           |
+| number                   | string | **(requerido)** número do endereço do pagador                             |
+| complement               | string | **(requerido)** complemento do endereço do pagador                        |
+| street                   | string | **(requerido)** rua do endereço do pagador                                |
+| neighbourhood            | string | **(requerido)** bairro do endereço do pagador                             |
+| zipcode                  | string | **(requerido)** cep do endereço do pagador                                |
+| city                     | string | **(requerido)** cidade do endereço do pagador                             |
+| state                    | string | **(requerido)** sigla do estado do endereço do pagador ("RJ" por exemplo) |
 
 ### Cobranças via Gateway de Pagamento
 
@@ -553,22 +552,24 @@ Caso exista um Pagador (Person) com o mesmo <code>national_identifier</code>, n�
 
 **Parâmetros**
 
-| Campo                     | Tipo             | Comentário                                                                                                                                                                         |
-|---------------------------|------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| type                      | string           | **(requerido)** tipo da cobrança, nesse caso deve ser "billet"                                                                                                                     |
-| charge_config_id          | integer          | **(requerido)** código de identificação da configuração de cobrança da qual a cobrança irá pertencer                                                                               |
-| charged_amount            | decimal          | **(requerido)** valor cobrado                                                                                                                                                      |
-| due_date                  | date             | **(requerido)** data de vencimento da cobrança                                                                                                                                     |
-| payer_id                  | integer          | **(requerido, se não enviar payer_attributes)** identificador do pagador (caso seja fornecido, o parâmetro payer_attributes será ignorado)                                         |
-| payer_attributes*         | object           | **(requerido, se não enviar payer_id)** atributos para a criação de um novo pagador ou atualização de um pagador existente com o mesmo documento (national_identifier)             |
-| mulct_value               | decimal          | (opcional) porcentagem de multa que deve ser aplicada em caso de atraso                                                                                                            |
-| discount_amount           | decimal          | (opcional) valor do disconto que deve ser aplicado em caso de pagamento até a data de vencimento                                                                                   |
-| auto_send_billet          | boolean          | (opcional) Indica se será enviado email de notificação automaticamente para os emails especificados no campo 'notification_emails'. Caso não seja informada assumirá valor 'false' |
-| notification_emails       | array of strings | (opcional - requerido caso `auto_send_billet` seja `true`) emails que receberão notificações sobre a cobrança                                                                      |
-| email_sender_name         | string           | (opcional) Nome do remetente do email de notificação de cobrança, caso a opção auto_send_billet estiver com valor 'true'                                                           |
-| email_subject             | string           | (opcional) Assunto do email de notificação de cobrança, caso a opção auto_send_billet estiver com valor 'true'                                                                     |
-| email_text                | string           | (opcional) Texto do email de notificação de cobrança, caso a opção auto_send_billet estiver com valor 'true'                                                                       |
-| email_reply_to            | string           | (opcional) Endereço de email a ser utilizado na resposta ao email de notificação de cobrança, caso a opção auto_send_billet estiver com valor 'true'                               |
+| Campo                     | Tipo             | Comentário                                                                                                                                                                                    |
+|---------------------------|------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| type                      | string           | **(requerido)** tipo da cobrança, nesse caso deve ser "billet"                                                                                                                                                    |
+| charge_config_id          | integer          | **(requerido)** código de identificação da configuração de cobrança da qual a cobrança irá pertencer                                                                                                              |
+| charged_amount            | decimal          | **(requerido)** valor cobrado                                                                                                                                                                                     |
+| due_date                  | date             | **(requerido)** data de vencimento da cobrança                                                                                                                                                                    |
+| payer_id                  | integer          | **(requerido, se não enviar payer_attributes)** identificador do pagador (caso seja fornecido, o parâmetro payer_attributes será ignorado)                                                                        |
+| payer_attributes*         | object           | **(requerido, se não enviar payer_id)** atributos para a criação de um novo pagador ou atualização de um pagador existente com o mesmo documento (national_identifier)                                            |
+| document_kind             | string           | (opcional) espécie do documento, podendo ser DM (Duplicata Mercantil), DS (Duplicata de Serviço), NP (Nota Promissória), LC (Letra de Cambio) ou RC (Recibo). Caso não seja informado o valor assumido será "DM". |
+| interest_amount_per_month | decimal          | (opcional) porcentagem de juros mensal que deve ser aplicado em caso de atraso. Esse valore será dividido por 30 para ser encontrata a taxa diária                                                                |
+| mulct_value               | decimal          | (opcional) porcentagem de multa que deve ser aplicada em caso de atraso                                                                                                                                           |
+| discount_amount           | decimal          | (opcional) valor do disconto que deve ser aplicado em caso de pagamento até a data de vencimento                                                                                                                  |
+| auto_send_billet          | boolean          | (opcional) Indica se será enviado email de notificação automaticamente para os emails especificados no campo 'notification_emails'. Caso não seja informada assumirá valor 'false'                                |
+| notification_emails       | array of strings | (opcional - requerido caso `auto_send_billet` seja `true`) emails que receberão notificações sobre a cobrança                                                                                                     |
+| email_sender_name         | string           | (opcional) Nome do remetente do email de notificação de cobrança, caso a opção auto_send_billet estiver com valor 'true'                                                                                          |
+| email_subject             | string           | (opcional) Assunto do email de notificação de cobrança, caso a opção auto_send_billet estiver com valor 'true'                                                                                                    |
+| email_text                | string           | (opcional) Texto do email de notificação de cobrança, caso a opção auto_send_billet estiver com valor 'true'                                                                                                      |
+| email_reply_to            | string           | (opcional) Endereço de email a ser utilizado na resposta ao email de notificação de cobrança, caso a opção auto_send_billet estiver com valor 'true'                                                              |
 
 **payer_attributes**
 
@@ -683,7 +684,6 @@ são alterados via atualização de cobrança, apenas no recebimento ou desfazen
 | mulct_value               | decimal          | (opcional) valor da multa que deve ser aplicada em caso de atraso, com base em seu tipo                                                                                                                                                                                                                                                                          |
 | instructions              | string           | (opcional) instruções de pagamento do boleto. As linhas devem ser separadas por "\n". Deve ter no máximo 9 linhas com 65 caracteres cada, sendo que se tiver definido multa e juros para a cobrança, será permitido no máximo 6 linhas, pois 3 já serão utilizadas automaticamente.                                                                              |
 | demonstrative             | string           | (opcional) demonstrativo do Boleto. As linhas devem ser separadas por "\n". Deve ter no máximo 9 linhas com 65 caracteres cada, sendo que se tiver definido multa e juros para a cobrança, será permitido no máximo 6 linhas, pois 3 já serão utilizadas automaticamente.                                                                                        |
-| registrable               | boolean          | (opcional) indica se a cobrança é registrável (do tipo que deve ser registrada no banco). Por padrão é o que está definido na Configuração de Cobrança                                                                                                                                                                                                           |
 | payer_id                  | integer          | **(requerido, se não enviar payer_attributes)** identificador do pagador (caso seja fornecido, o parâmetro payer_attributes será ignorado)                                                                                                                                                                                                                       |
 | payer_attributes*         | object           | **(requerido, se não enviar payer_id)** atributos para a criação de um novo pagador ou atualização de um pagador existente com o mesmo documento (national_identifier)                                                                                                                                                                                           |
 
@@ -693,18 +693,18 @@ são alterados via atualização de cobrança, apenas no recebimento ou desfazen
 No contexto de Cobrança utilizamos o nome 'Pagador' para referirmos à Pessoa (Person).
 </aside>
 
-| Campo                    | Tipo   | Comentário                                                                                                |
-|--------------------------|--------|-----------------------------------------------------------------------------------------------------------|
-| national_identifier_type | string | **(requerido)** tipo do documento do pagador (cpf ou cnpj)                                                |
-| national_identifier      | string | **(requerido)** documento do pagador                                                                      |
-| name                     | string | **(requerido)** nome do pagador                                                                           |
-| number                   | string | (opcional, requerido se registrable for `true`) número do endereço do pagador                             |
-| complement               | string | (opcional, requerido se registrable for `true`) complemento do endereço do pagador                        |
-| street                   | string | (opcional, requerido se registrable for `true`) rua do endereço do pagador                                |
-| neighbourhood            | string | (opcional, requerido se registrable for `true`) bairro do endereço do pagador                             |
-| zipcode                  | string | (opcional, requerido se registrable for `true`) cep do endereço do pagador                                |
-| city                     | string | (opcional, requerido se registrable for `true`) cidade do endereço do pagador                             |
-| state                    | string | (opcional, requerido se registrable for `true`) sigla do estado do endereço do pagador ("RJ" por exemplo) |
+| Campo                    | Tipo   | Comentário                                                                |
+|--------------------------|--------|---------------------------------------------------------------------------|
+| national_identifier_type | string | **(requerido)** tipo do documento do pagador (cpf ou cnpj)                |
+| national_identifier      | string | **(requerido)** documento do pagador                                      |
+| name                     | string | **(requerido)** nome do pagador                                           |
+| number                   | string | **(requerido)** número do endereço do pagador                             |
+| complement               | string | **(requerido)** complemento do endereço do pagador                        |
+| street                   | string | **(requerido)** rua do endereço do pagador                                |
+| neighbourhood            | string | **(requerido)** bairro do endereço do pagador                             |
+| zipcode                  | string | **(requerido)** cep do endereço do pagador                                |
+| city                     | string | **(requerido)** cidade do endereço do pagador                             |
+| state                    | string | **(requerido)** sigla do estado do endereço do pagador ("RJ" por exemplo) |
 
 ### Cobranças via Gateway de Pagamento
 
@@ -782,6 +782,11 @@ No contexto de Cobrança utilizamos o nome 'Pagador' para referirmos à Pessoa (
 | due_date                  | date             | **(requerido)** data de vencimento da cobrança                                                                                                                                     |
 | payer_id                  | integer          | **(requerido, se não enviar payer_attributes)** identificador do pagador (caso seja fornecido, o parâmetro payer_attributes será ignorado)                                         |
 | payer_attributes*         | object           | **(requerido, se não enviar payer_id)** atributos para a criação de um novo pagador ou atualização de um pagador existente com o mesmo documento (national_identifier)             |
+<<<<<<< HEAD
+=======
+| document_kind             | string           | (opcional) espécie do documento, podendo ser DM (Duplicata Mercantil), DS (Duplicata de Serviço), NP (Nota Promissória), LC (Letra de Cambio) ou RC (Recibo)                       |
+| interest_amount_per_month | decimal          | (opcional) porcentagem de juros mensal que deve ser aplicado em caso de atraso. Esse valore será dividido por 30 para ser encontrata a taxa diária                                 |
+>>>>>>> master
 | mulct_value               | decimal          | (opcional) porcentagem de multa que deve ser aplicada em caso de atraso                                                                                                            |
 | discount_amount           | decimal          | (opcional) valor do disconto que deve ser aplicado em caso de pagamento até a data de vencimento                                                                                   |
 | auto_send_billet          | boolean          | (opcional) Indica se será enviado email de notificação automaticamente para os emails especificados no campo 'notification_emails'. Caso não seja informada assumirá valor 'false' |
