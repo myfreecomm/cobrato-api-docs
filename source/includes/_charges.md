@@ -782,11 +782,8 @@ No contexto de Cobrança utilizamos o nome 'Pagador' para referirmos à Pessoa (
 | due_date                  | date             | **(requerido)** data de vencimento da cobrança                                                                                                                                     |
 | payer_id                  | integer          | **(requerido, se não enviar payer_attributes)** identificador do pagador (caso seja fornecido, o parâmetro payer_attributes será ignorado)                                         |
 | payer_attributes*         | object           | **(requerido, se não enviar payer_id)** atributos para a criação de um novo pagador ou atualização de um pagador existente com o mesmo documento (national_identifier)             |
-<<<<<<< HEAD
-=======
 | document_kind             | string           | (opcional) espécie do documento, podendo ser DM (Duplicata Mercantil), DS (Duplicata de Serviço), NP (Nota Promissória), LC (Letra de Cambio) ou RC (Recibo)                       |
 | interest_amount_per_month | decimal          | (opcional) porcentagem de juros mensal que deve ser aplicado em caso de atraso. Esse valore será dividido por 30 para ser encontrata a taxa diária                                 |
->>>>>>> master
 | mulct_value               | decimal          | (opcional) porcentagem de multa que deve ser aplicada em caso de atraso                                                                                                            |
 | discount_amount           | decimal          | (opcional) valor do disconto que deve ser aplicado em caso de pagamento até a data de vencimento                                                                                   |
 | auto_send_billet          | boolean          | (opcional) Indica se será enviado email de notificação automaticamente para os emails especificados no campo 'notification_emails'. Caso não seja informada assumirá valor 'false' |
