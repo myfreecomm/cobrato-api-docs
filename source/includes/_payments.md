@@ -942,3 +942,21 @@ Quando *payment_method* for 'doc_other_ownership' todos os valores são aceitos.
 | installment_4            | Quarta prestação       |
 | installment_5            | Quinta prestação       |
 | installment_6            | Sexta prestação        |
+
+### Ações permitidas para cada Status (Tabela 5)
+
+Somente os status `without_remittance`, `registered`, `canceled` e `registered_with_error` permitem ações. Abaixo as ações disponíveis para todos os Status.
+
+| Status                              | Descrição                                                                                                                       | Cancelar | Excluir | Retentar |
+|-------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|----------|---------|----------|
+| without_remittance                  | Pagamento criado, mas ainda não teve o arquivo de remessa gerado                                                                |          |    X    |          |
+| registered                          | Pagamento registrado no banco                                                                                                   |    X     |         |          |
+| canceled                            | Pagamento previamente cadastrado foi cancelado no banco                                                                         |    X     |         |          |
+| registered_with_error               | O banco não conseguiu processar a instrução de registro do pagamento                                                            |          |    X    |    X     |
+| remitted                            | Pagamento teve seu arquivo de remessa de registro no banco criado                                                               |    -     |    -    |    -     |
+| cancelation_started                 | Pagamento teve seu processo de cancelamento iniciado. Nesse momento ainda não foi criado o arquivo de remessa de cancelamento   |    -     |    -    |    -     |
+| canceled_awaiting_confirmation      | Pagamento teve seu arquivo de remessa de cancelamento criado                                                                    |    -     |    -    |    -     |
+| amount_edited_awaiting_confirmation | Pagamento teve seu arquivo de remessa de alteração do valor criado                                                              |    -     |    -    |    -     |
+| rescheduled_awaiting_confirmation   | Pagamento teve seu arquivo de remessa reagendamento criado                                                                      |    -     |    -    |    -     |
+| edit_amount_started                 | Pagamento teve seu processo de alteração do valor inciado. Nesse momento ainda não foi criado o arquivo de remessa de alteração |    -     |    -    |    -     |
+| reschedule_started                  | Pagamento teve seu processo de reagendamento inciado. Nesse momento ainda não foi criado o arquivo de remessa de reagendamento  |    -     |    -    |    -     |
