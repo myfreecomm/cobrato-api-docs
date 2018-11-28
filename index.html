@@ -2890,7 +2890,7 @@ EXEMPLO
 <tr>
 <td>document_kind</td>
 <td>string</td>
-<td>(opcional) espécie do documento, podendo ser DM (Duplicata Mercantil), DS (Duplicata de Serviço), NP (Nota Promissória) ou DV (Diversos)</td>
+<td>(opcional) espécie do documento, podendo ser para qualquer tipo de cobrança: DM (Duplicata Mercantil), DS (Duplicata de Serviço) ou NP (Nota Promissória). Somente para cobranças via banco: DV (Diversos) ou somente para cobranças via gateway: LC (Letra de Cambio) ou RC (Recibo)</td>
 </tr>
 <tr>
 <td>instructions</td>
@@ -3118,7 +3118,7 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <tr>
 <td>document_kind</td>
 <td>string</td>
-<td>(opcional) espécie do documento, podendo ser DM (Duplicata Mercantil), DS (Duplicata de Serviço), NP (Nota Promissória) ou DV (Diversos)</td>
+<td>(opcional) espécie do documento, podendo ser para qualquer tipo de cobrança: DM (Duplicata Mercantil), DS (Duplicata de Serviço) ou NP (Nota Promissória). Somente para cobranças via banco: DV (Diversos) ou somente para cobranças via gateway: LC (Letra de Cambio) ou RC (Recibo)</td>
 </tr>
 <tr>
 <td>instructions</td>
@@ -3254,7 +3254,7 @@ EXEMPLO DE ESTADO DA RESPOSTA COM INSUCESSO
 <tr>
 <td>document_kind</td>
 <td>string</td>
-<td>(opcional) espécie do documento, podendo ser DM (Duplicata Mercantil), DS (Duplicata de Serviço), NP (Nota Promissória) ou DV (Diversos)</td>
+<td>(opcional) espécie do documento, podendo ser para qualquer tipo de cobrança: DM (Duplicata Mercantil), DS (Duplicata de Serviço) ou NP (Nota Promissória). Somente para cobranças via banco: DV (Diversos) ou somente para cobranças via gateway: LC (Letra de Cambio) ou RC (Recibo)</td>
 </tr>
 <tr>
 <td>instructions</td>
@@ -4650,7 +4650,7 @@ Caso exista um Pagador (Person) com o mesmo <code>national_identifier</code>, n�
 <tr>
 <td>document_kind</td>
 <td>string</td>
-<td>(opcional) espécie do documento, podendo ser DM (Duplicata Mercantil), DS (Duplicata de Serviço), NP (Nota Promissória) ou DV (Diversos). Caso não seja informado o valor assumido será &ldquo;DM&rdquo;.</td>
+<td>(opcional) espécie do documento, podendo ser DM (Duplicata Mercantil), DS (Duplicata de Serviço), NP (Nota Promissória), LC (Letra de Cambio) ou RC (Recibo). Caso não seja informado o valor assumido será &ldquo;DM&rdquo;.</td>
 </tr>
 <tr>
 <td>interest_amount_per_month</td>
@@ -5238,7 +5238,7 @@ No contexto de Cobrança utilizamos o nome 'Pagador&rsquo; para referirmos à Pe
 <tr>
 <td>document_kind</td>
 <td>string</td>
-<td>(opcional) espécie do documento, podendo ser DM (Duplicata Mercantil), DS (Duplicata de Serviço), NP (Nota Promissória) ou DV (Diversos)</td>
+<td>(opcional) espécie do documento, podendo ser DM (Duplicata Mercantil), DS (Duplicata de Serviço), NP (Nota Promissória), LC (Letra de Cambio) ou RC (Recibo)</td>
 </tr>
 <tr>
 <td>interest_amount_per_month</td>
@@ -6098,6 +6098,48 @@ EXEMPLO DE ESTADO DA RESPOSTA COM CONFIGURAÇÃO DE PAGAMENTO INEXISTENTE
 </code></pre>
 
 <p>Exclui determinada Configuração de Pagamento. As mudanças são irreversíveis.</p>
+
+          <h1 id="m-todos-de-pagamento">Métodos de pagamento</h1>
+
+<h2 id="lista-de-todos-os-m-todos-de-pagamento">Lista de todos os Métodos de Pagamento</h2>
+<pre class="highlight shell"><code>Listar Métodos de Pagamento
+
+DEFINIÇÃO
+
+  GET https://app.cobrato.com/api/v1/payment_methods
+
+EXEMPLO DE REQUISIÇÃO
+
+  <span class="nv">$ </span>curl -i -u <span class="nv">$API_TOKEN</span>:X <span class="se">\</span>
+    -H <span class="s1">'User-Agent: My App 1.0'</span> <span class="se">\</span>
+    -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
+    -X GET https://app.cobrato.com/api/v1/payment_methods
+
+EXEMPLO DE ESTADO DA RESPOSTA
+
+    200 OK
+
+EXEMPLO DE CORPO DA RESPOSTA
+
+  <span class="o">{</span>
+    <span class="s2">"payment_methods"</span>:
+      <span class="o">[</span>
+        <span class="o">{</span> 
+          <span class="s2">"identifier"</span>: <span class="s1">'credit_other_ownership'</span>,
+          <span class="s2">"group"</span>: <span class="s1">'transfer'</span>,
+          <span class="s2">"label"</span>: <span class="s1">'Crédito em conta Corrente - Outra titularidade'</span> 
+        <span class="o">}</span>,
+        <span class="o">{</span> 
+          // informações de outro método 
+        <span class="o">}</span>,
+        ...
+      <span class="o">]</span>
+  <span class="o">}</span>
+
+</code></pre>
+
+<p>Retorna um objeto JSON contendo todos os Métodos de Pagamento possíveis.</p>
 
           <h1 id="pagamento">Pagamento</h1>
 <pre class="highlight shell"><code>Pagamentos
@@ -10070,6 +10112,11 @@ EXEMPLO DE ESTADO DA RESPOSTA COM WEBHOOK INEXISTENTE
 <td>quando o pagamento é reagendado</td>
 </tr>
 <tr>
+<td>payment</td>
+<td>paid</td>
+<td>quando o pagamento é efetivado</td>
+</tr>
+<tr>
 <td>remittance_cnab</td>
 <td>updated</td>
 <td>quando o arquivo de remessa é atualizado</td>
@@ -10559,6 +10606,27 @@ EXEMPLO DE PAYLOAD
 </code></pre>
 
 <p>Informações enviadas quando um Pagamento é atualizado.</p>
+
+<h2 id="pagamento-efetivado">Pagamento Efetivado</h2>
+<pre class="highlight shell"><code>Pagamento Efetivado
+
+EXEMPLO DE PAYLOAD
+
+  <span class="o">{</span>
+    <span class="s2">"created_at"</span>:<span class="s2">"2015-05-21T16:13:33Z"</span>,
+    <span class="s2">"event"</span>:<span class="s2">"paid"</span>,
+    <span class="s2">"object_type"</span>:<span class="s2">"payment"</span>,
+    <span class="s2">"object_id"</span>:12,
+    <span class="s2">"_links"</span>:[<span class="o">{</span>
+      <span class="s2">"rel"</span>:<span class="s2">"self"</span>,
+      <span class="s2">"method"</span>:<span class="s2">"GET"</span>,
+      <span class="s2">"url"</span>:<span class="s2">"https://app.cobrato.com/api/v1/payments/12"</span>
+    <span class="o">}]</span>
+  <span class="o">}</span>
+
+</code></pre>
+
+<p>Informações enviadas quando um Pagamento é efetivado.</p>
 
 <h2 id="pagamento-exclu-do">Pagamento Excluído</h2>
 <pre class="highlight shell"><code>Pagamento Excluído
