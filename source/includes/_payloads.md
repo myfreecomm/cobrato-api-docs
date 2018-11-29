@@ -577,7 +577,7 @@ Informações enviadas quando um Pagamento é criado.
 ## Pagamento Atualizado
 
 <aside class="notice">
-  O payload de pagamento atualizado <strong>não é</strong> enviado pelo webhook se outros webhooks específicos são disparados. Ou seja, quando há uma mudança no pagamento para registrado, será enviado o webhook (e consequentemente o payload) de pagamento registrado. Isso vale para os outros webhooks como: não autorizado, erro no registro, edição confirmada ou efetivado.
+  Este webhook <strong>não é</strong> enviado se outros webhooks específicos são disparados. Ou seja, quando há uma mudança no pagamento para registrado, será enviado apenas o webhook de pagamento registrado. Isso vale para os outros webhooks de pagamento.
 </aside>
 
 ```shell
