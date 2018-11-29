@@ -10108,8 +10108,18 @@ EXEMPLO DE ESTADO DA RESPOSTA COM WEBHOOK INEXISTENTE
 </tr>
 <tr>
 <td>payment</td>
+<td>registered</td>
+<td>quando o pagamento é registrado</td>
+</tr>
+<tr>
+<td>payment</td>
 <td>rescheduled</td>
 <td>quando o pagamento é reagendado</td>
+</tr>
+<tr>
+<td>payment</td>
+<td>edited</td>
+<td>quando o pagamento tem a edição confirmada</td>
 </tr>
 <tr>
 <td>payment</td>
@@ -10587,6 +10597,10 @@ EXEMPLO DE PAYLOAD
 <p>Informações enviadas quando um Pagamento é criado.</p>
 
 <h2 id="pagamento-atualizado">Pagamento Atualizado</h2>
+
+<aside class="notice">
+  O payload de pagamento atualizado <strong>não é</strong> enviado pelo webhook se outros webhooks específicos são disparados. Ou seja, quando há uma mudança no pagamento para registrado, será enviado o webhook (e consequentemente o payload) de pagamento registrado. Isso vale para os outros webhooks como: não autorizado, erro no registro, edição confirmada ou efetivado.
+</aside>
 <pre class="highlight shell"><code>Pagamento Atualizado
 
 EXEMPLO DE PAYLOAD
@@ -10669,6 +10683,69 @@ EXEMPLO DE PAYLOAD
 </code></pre>
 
 <p>Informações enviadas quando um Pagamento é marcado como Não Autorizado.</p>
+
+<h2 id="pagamento-registrado">Pagamento registrado</h2>
+<pre class="highlight shell"><code>Pagamento Registrado
+
+EXEMPLO DE PAYLOAD
+
+  <span class="o">{</span>
+    <span class="s2">"created_at"</span>:<span class="s2">"2015-05-21T16:13:33Z"</span>,
+    <span class="s2">"event"</span>:<span class="s2">"registered"</span>,
+    <span class="s2">"object_type"</span>:<span class="s2">"payment"</span>,
+    <span class="s2">"object_id"</span>:12,
+    <span class="s2">"_links"</span>:[<span class="o">{</span>
+      <span class="s2">"rel"</span>:<span class="s2">"self"</span>,
+      <span class="s2">"method"</span>:<span class="s2">"GET"</span>,
+      <span class="s2">"url"</span>:<span class="s2">"https://app.cobrato.com/api/v1/payments/12"</span>
+    <span class="o">}]</span>
+  <span class="o">}</span>
+
+</code></pre>
+
+<p>Informações enviadas quando um Pagamento é registrado.</p>
+
+<h2 id="pagamento-com-edi-o-confirmada">Pagamento com edição confirmada</h2>
+<pre class="highlight shell"><code>Pagamento com edição confirmada
+
+EXEMPLO DE PAYLOAD
+
+  <span class="o">{</span>
+    <span class="s2">"created_at"</span>:<span class="s2">"2015-05-21T16:13:33Z"</span>,
+    <span class="s2">"event"</span>:<span class="s2">"edited"</span>,
+    <span class="s2">"object_type"</span>:<span class="s2">"payment"</span>,
+    <span class="s2">"object_id"</span>:12,
+    <span class="s2">"_links"</span>:[<span class="o">{</span>
+      <span class="s2">"rel"</span>:<span class="s2">"self"</span>,
+      <span class="s2">"method"</span>:<span class="s2">"GET"</span>,
+      <span class="s2">"url"</span>:<span class="s2">"https://app.cobrato.com/api/v1/payments/12"</span>
+    <span class="o">}]</span>
+  <span class="o">}</span>
+
+</code></pre>
+
+<p>Informações enviadas quando um Pagamento tem sua edição confirmada.</p>
+
+<h2 id="pagamento-efetivado">Pagamento Efetivado</h2>
+<pre class="highlight shell"><code>Pagamento Efetivado
+
+EXEMPLO DE PAYLOAD
+
+  <span class="o">{</span>
+    <span class="s2">"created_at"</span>:<span class="s2">"2015-05-21T16:13:33Z"</span>,
+    <span class="s2">"event"</span>:<span class="s2">"paid"</span>,
+    <span class="s2">"object_type"</span>:<span class="s2">"payment"</span>,
+    <span class="s2">"object_id"</span>:12,
+    <span class="s2">"_links"</span>:[<span class="o">{</span>
+      <span class="s2">"rel"</span>:<span class="s2">"self"</span>,
+      <span class="s2">"method"</span>:<span class="s2">"GET"</span>,
+      <span class="s2">"url"</span>:<span class="s2">"https://app.cobrato.com/api/v1/payments/12"</span>
+    <span class="o">}]</span>
+  <span class="o">}</span>
+
+</code></pre>
+
+<p>Informações enviadas quando um Pagamento é efetivado.</p>
 
 <h2 id="pagamento-marcado-com-erro-no-registro">Pagamento Marcado com Erro no Registro</h2>
 <pre class="highlight shell"><code>Pagamento Marcado com Erro no Registro
