@@ -68,7 +68,9 @@ Os eventos notificados são os seguintes:
 | payment         | destroyed             | quando o pagamento é excluído                     |
 | payment         | unauthorized          | quando o pagamento é marcado como não autorizado  |
 | payment         | registered_with_error | quando o pagamento é marcado com Erro no registro |
+| payment         | registered            | quando o pagamento é registrado                   |
 | payment         | rescheduled           | quando o pagamento é reagendado                   |
+| payment         | edited                | quando o pagamento tem a edição confirmada        |
 | payment         | paid                  | quando o pagamento é efetivado                    |
 | remittance_cnab | updated               | quando o arquivo de remessa é atualizado          |
 | regress_cnab    | updated               | quando o arquivo de retorno é atualizado          |
@@ -574,6 +576,10 @@ Informações enviadas quando um Pagamento é criado.
 
 ## Pagamento Atualizado
 
+<aside class="notice">
+  O payload de pagamento atualizado <strong>não é</strong> enviado pelo webhook se outros webhooks específicos são disparados. Ou seja, quando há uma mudança no pagamento para registrado, será enviado o webhook (e consequentemente o payload) de pagamento registrado. Isso vale para os outros webhooks como: não autorizado, erro no registro, edição confirmada ou efetivado.
+</aside>
+
 ```shell
 Pagamento Atualizado
 
@@ -663,6 +669,75 @@ EXEMPLO DE PAYLOAD
 ```
 
 Informações enviadas quando um Pagamento é marcado como Não Autorizado.
+
+## Pagamento registrado
+
+```shell
+Pagamento Registrado
+
+EXEMPLO DE PAYLOAD
+
+  {
+    "created_at":"2015-05-21T16:13:33Z",
+    "event":"registered",
+    "object_type":"payment",
+    "object_id":12,
+    "_links":[{
+      "rel":"self",
+      "method":"GET",
+      "url":"https://app.cobrato.com/api/v1/payments/12"
+    }]
+  }
+
+```
+
+Informações enviadas quando um Pagamento é registrado.
+
+## Pagamento com edição confirmada
+
+```shell
+Pagamento com edição confirmada
+
+EXEMPLO DE PAYLOAD
+
+  {
+    "created_at":"2015-05-21T16:13:33Z",
+    "event":"edited",
+    "object_type":"payment",
+    "object_id":12,
+    "_links":[{
+      "rel":"self",
+      "method":"GET",
+      "url":"https://app.cobrato.com/api/v1/payments/12"
+    }]
+  }
+
+```
+
+Informações enviadas quando um Pagamento tem sua edição confirmada.
+
+## Pagamento Efetivado
+
+```shell
+Pagamento Efetivado
+
+EXEMPLO DE PAYLOAD
+
+  {
+    "created_at":"2015-05-21T16:13:33Z",
+    "event":"paid",
+    "object_type":"payment",
+    "object_id":12,
+    "_links":[{
+      "rel":"self",
+      "method":"GET",
+      "url":"https://app.cobrato.com/api/v1/payments/12"
+    }]
+  }
+
+```
+
+Informações enviadas quando um Pagamento é efetivado.
 
 ## Pagamento Marcado com Erro no Registro
 
