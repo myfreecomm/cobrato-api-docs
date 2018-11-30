@@ -8350,6 +8350,98 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 </tr>
 </tbody></table>
 
+<h3 id="a-es-permitidas-para-cada-status-tabela-5">Ações permitidas para cada Status (Tabela 5)</h3>
+
+<p>Somente os status <code class="prettyprint">without_remittance</code>, <code class="prettyprint">registered</code>, <code class="prettyprint">canceled</code> e <code class="prettyprint">registered_with_error</code> permitem ações. Abaixo as ações disponíveis para todos os Status.</p>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Descrição</th>
+<th>Cancelar</th>
+<th>Excluir</th>
+<th>Editar / Reagendar</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>without_remittance</td>
+<td>Pagamento criado, mas ainda não teve o arquivo de remessa gerado pelo usuário</td>
+<td></td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>remitted</td>
+<td>Pagamento teve seu arquivo de remessa gerado e o usuário deve enviar o arquivo para o banco. Ainda não foi registrado no banco</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>registered</td>
+<td>O banco informou que o pagamento foi devidamente registrado e será efetivado na data cadastrada</td>
+<td>✓</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>registered_with_error</td>
+<td>O banco não conseguiu processar a instrução de registro do pagamento e portanto existe a garantia de que não será efetivado</td>
+<td></td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>canceled</td>
+<td>Pagamento previamente registrado no banco foi cancelado antes de ser efetivado</td>
+<td>✓</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>cancelation_started</td>
+<td>Pagamento teve seu processo de cancelamento iniciado. Nesse momento ainda não foi criado o arquivo de remessa de cancelamento</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>canceled_awaiting_confirmation</td>
+<td>Pagamento teve seu arquivo de remessa de cancelamento gerado e o usuário deve envia-lo para o banco. O pagamento pode ter sido efetivado pelo banco e não há a garantia que o cancelamento ocorra a tempo</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>edit_amount_started</td>
+<td>Pagamento teve seu processo de alteração do valor iniciado. Nesse momento ainda não foi criado o arquivo de remessa de alteração</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>amount_edited_awaiting_confirmation</td>
+<td>Pagamento teve seu arquivo de remessa de alteração do valor gerado e o usuário deve envia-lo para o banco. O pagamento pode ter sido efetivado pelo banco e não há a garantia que a alteração ocorra a tempo</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>reschedule_started</td>
+<td>Pagamento teve seu processo de reagendamento iniciado. Nesse momento ainda não foi criado o arquivo de remessa de reagendamento</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>rescheduled_awaiting_confirmation</td>
+<td>Pagamento teve seu arquivo de remessa reagendamento criado e o usuário deve envia-lo para o banco. O pagamento pode ter sido efetivado pelo banco e não há a garantia que o reagendamento ocorra a tempo</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+
           <h1 id="cart-o-de-cr-dito">Cartão de Crédito</h1>
 <pre class="highlight shell"><code>Cartão de Crédito
 
