@@ -942,3 +942,21 @@ Quando *payment_method* for 'doc_other_ownership' todos os valores são aceitos.
 | installment_4            | Quarta prestação       |
 | installment_5            | Quinta prestação       |
 | installment_6            | Sexta prestação        |
+
+### Ações permitidas para cada Status (Tabela 5)
+
+Somente os status `without_remittance`, `registered`, `canceled` e `registered_with_error` permitem ações. Abaixo as ações disponíveis para todos os Status.
+
+| Status                              | Descrição                                                                                                                                                                                                    | Cancelar | Excluir | Editar / Reagendar |
+|-------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|---------|--------------------|
+| without_remittance                  | Pagamento criado, mas ainda não teve o arquivo de remessa gerado pelo usuário                                                                                                                                |          |    ✓    |          ✓         |
+| remitted                            | Pagamento teve seu arquivo de remessa gerado e o usuário deve enviar o arquivo para o banco. Ainda não foi registrado no banco                                                                               |          |         |                    |
+| registered                          | O banco informou que o pagamento foi devidamente registrado e será efetivado na data cadastrada                                                                                                              |    ✓     |         |                    |
+| registered_with_error               | O banco não conseguiu processar a instrução de registro do pagamento e portanto existe a garantia de que não será efetivado                                                                                  |          |    ✓    |          ✓         |
+| canceled                            | Pagamento previamente registrado no banco foi cancelado antes de ser efetivado                                                                                                                               |    ✓     |         |                    |
+| cancelation_started                 | Pagamento teve seu processo de cancelamento iniciado. Nesse momento ainda não foi criado o arquivo de remessa de cancelamento                                                                                |          |         |                    |
+| canceled_awaiting_confirmation      | Pagamento teve seu arquivo de remessa de cancelamento gerado e o usuário deve envia-lo para o banco. O pagamento pode ter sido efetivado pelo banco e não há a garantia que o cancelamento ocorra a tempo    |          |         |                    |
+| edit_amount_started                 | Pagamento teve seu processo de alteração do valor iniciado. Nesse momento ainda não foi criado o arquivo de remessa de alteração                                                                             |          |         |                    |
+| amount_edited_awaiting_confirmation | Pagamento teve seu arquivo de remessa de alteração do valor gerado e o usuário deve envia-lo para o banco. O pagamento pode ter sido efetivado pelo banco e não há a garantia que a alteração ocorra a tempo |          |         |                    |
+| reschedule_started                  | Pagamento teve seu processo de reagendamento iniciado. Nesse momento ainda não foi criado o arquivo de remessa de reagendamento                                                                              |          |         |                    |
+| rescheduled_awaiting_confirmation   | Pagamento teve seu arquivo de remessa reagendamento criado e o usuário deve envia-lo para o banco. O pagamento pode ter sido efetivado pelo banco e não há a garantia que o reagendamento ocorra a tempo     |          |         |                    |
