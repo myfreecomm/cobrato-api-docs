@@ -53,6 +53,18 @@ EXEMPLO
 | email_text                | string           | (opcional) Texto do email de notificação de cobrança                                                                                                                                                                                                                                  |
 | email_reply_to            | string           | (opcional) Endereço de email a ser utilizado na respsta ao email de notificação de cobrança                                                                                                                                                                                           |
 
+**Parâmetros específicos para configuração de cobrança via Banco ou gateway PJBank**
+
+| Campo                          | Tipo             | Comentário                                                                                                                                         |
+|--------------------------------|------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|
+| document_kind                  | string           | (opcional) espécie do documento, podendo ser DM (Duplicata Mercantil), DS (Duplicata de Serviço), NP (Nota Promissória) ou DV (Diversos)           |
+| interest_amount_per_month      | decimal          | (opcional) porcentagem de juros mensal que deve ser aplicado em caso de atraso. Esse valor será dividido por 30 para ser encontrata a taxa diária  |
+
+**Parâmetros específicos para configuração de cobrança via gateway Iugu**
+
+| Campo                          | Tipo             | Comentário                                                                                                                                    |
+|--------------------------------|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
+| per_day_interest               | boolean          | (opcional) indica que será cobrado 1% de juros ao mês pró-rata em caso de atraso. Este valor é fixado pelo Iugu.                              |
 
 ## Informações do Modelo de Cobrança
 
@@ -222,6 +234,19 @@ Cria um novo modelo de cobrança, retornando as informações do mesmo caso haja
 | email_text                | string  | (opcional) Texto do email de notificação de cobrança                                                                                                                                                                                                                                  |
 | email_reply_to            | string  | (opcional) Endereço de email a ser utilizado na respsta ao email de notificação de cobrança                                                                                                                                                                                           |
 
+**Parâmetros específicos para configuração de cobrança via Banco ou gateway PJBank**
+
+| Campo                          | Tipo             | Comentário                                                                                                                                         |
+|--------------------------------|------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|
+| document_kind                  | string           | (opcional) espécie do documento, podendo ser DM (Duplicata Mercantil), DS (Duplicata de Serviço), NP (Nota Promissória) ou DV (Diversos)           |
+| interest_amount_per_month      | decimal          | (opcional) porcentagem de juros mensal que deve ser aplicado em caso de atraso. Esse valor será dividido por 30 para ser encontrata a taxa diária  |
+
+**Parâmetros específicos para configuração de cobrança via gateway Iugu**
+
+| Campo                          | Tipo             | Comentário                                                                                                                                    |
+|--------------------------------|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
+| per_day_interest               | boolean          | (opcional) indica que será cobrado 1% de juros ao mês pró-rata em caso de atraso. Este valor é fixado pelo Iugu.                              |
+
 
 ## Atualização de Modelo de Cobrança
 
@@ -294,6 +319,19 @@ Atualiza campos do Modelo de Cobrança. A requisição não diferencia a utiliza
 | email_subject             | string  | (opcional) Assunto do email de notificação de cobrança                                                                                                                                                                                                                                |
 | email_text                | string  | (opcional) Texto do email de notificação de cobrança                                                                                                                                                                                                                                  |
 | email_reply_to            | string  | (opcional) Endereço de email a ser utilizado na respsta ao email de notificação de cobrança                                                                                                                                                                                           |
+
+**Parâmetros específicos para configuração de cobrança via Banco ou gateway PJBank**
+
+| Campo                          | Tipo             | Comentário                                                                                                                                         |
+|--------------------------------|------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|
+| document_kind                  | string           | (opcional) espécie do documento, podendo ser DM (Duplicata Mercantil), DS (Duplicata de Serviço), NP (Nota Promissória) ou DV (Diversos)           |
+| interest_amount_per_month      | decimal          | (opcional) porcentagem de juros mensal que deve ser aplicado em caso de atraso. Esse valor será dividido por 30 para ser encontrata a taxa diária  |
+
+**Parâmetros específicos para configuração de cobrança via gateway Iugu**
+
+| Campo                          | Tipo             | Comentário                                                                                                                                    |
+|--------------------------------|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
+| per_day_interest               | boolean          | (opcional) indica que será cobrado 1% de juros ao mês pró-rata em caso de atraso. Este valor é fixado pelo Iugu.                              |
 
 ## Exclusão de Modelo de Cobrança
 
