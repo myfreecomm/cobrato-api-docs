@@ -105,7 +105,7 @@ As Configurações de Cobrança do tipo **Conta bancária** (billet), pertencem 
 | name                    | string           | nome que identifica esta configuração de cobrança                                                                                                                                      |
 | status                  | string           | indica o status, ou etapa, de homologação em que configuração de cobrança está ('pending', 'production_tests', 'ok')                                                                   |
 | payee_id                | integer          | identificador do beneficiário desta configuração de cobrança no Cobrato                                                                                                                |
-| gateway_name            | string           | nome do gateway de pagamento ('cielo-ws15', 'cielo-api30', 'pjbank')                                                                                                                   |
+| gateway_name            | string           | nome do gateway de pagamento ('cielo-ws15', 'cielo-api30', 'pjbank', 'iugu')                                                                                                           |
 | available_charge_types  | array of strings | tipos de cobrança disponíveis. No caso de Configuração de Cobrança por Gateway de Pagamento, as opções possíveis são "billet" e "credit_card". Este campo será gerenciado pelo Cobrato |
 | timezone                | string           | fuso horário utilizado pelo gateway. Utilize essa informação para converter e apresentar atributos do tipo "datetime" das cobranças dessa configuração de forma adequada               |
 | _links                  | array of object  | links da configuração de cobrança e de sua conta bancária                                                                                                                              |
@@ -126,6 +126,12 @@ As Configurações de Cobrança do tipo **Conta bancária** (billet), pertencem 
 | gateway_key        | string          | chave de acesso atribuída pelo gateway de pagamento para cobranças de **cartão de crédito**                     |
 | billet_gateway_id  | string          | credencial do contrato com o gateway de pagamento para cobranças de **boleto**                                  |
 | billet_gateway_key | string          | chave de acesso atribuída pelo gateway de pagamento para cobranças de **boleto**                                |
+
+**Parâmetros para o gateway Iugu**
+
+| Campo               | Tipo           | Comentário                                                                     |
+|---------------------|----------------|--------------------------------------------------------------------------------|
+| gateway_key         | string         | chave de acesso (token) gerada pelo gateway de pagamento                       |
 
 
 ## Informações da Configuração de Cobrança
@@ -312,9 +318,9 @@ Cria uma nova Configuração de Cobrança, retornando as informações da mesma 
 | initial_number            | integer | **(requerido)** número inicial do nosso número, sendo atribuído automaticamente e sequencialmente às cobranças                                                                                                  |
 | end_number                | integer | (opcional) número final do nosso número, sendo o último número a ser atribuído, após isso a sequência é reiniciada                                                                                              |
 | next_number               | integer | (opcional) próximo nosso número a ser atribuído a uma cobrança criada a partir desta configuração de cobrança (por padrão inicia com o valor de `initial_number` e é incrementado automatica e sequencialmente) |
-| remittance_agreement_code | integer | **(requerido)** número do convênio com o banco (apenas para o Bradesco)                                                                                           |
-| remittance_cnab_pattern   | integer | **(requerido)** padrão utilizado no arquivo CNAB de remessa. Os valores permitidos são 240 ou 400                                                                 |
-| transmission_code         | string  | **(requerido)** código de transmissão (apenas para o Santander)                                                                                                   |
+| remittance_agreement_code | integer | **(requerido)** número do convênio com o banco (apenas para o Bradesco)                                                                                                                                         |
+| remittance_cnab_pattern   | integer | **(requerido)** padrão utilizado no arquivo CNAB de remessa. Os valores permitidos são 240 ou 400                                                                                                               |
+| transmission_code         | string  | **(requerido)** código de transmissão (apenas para o Santander)                                                                                                                                                 |
 | initial_remittance_number | integer | (opcional) número inicial de remessa, ou seja, qual foi o último número sequencial de remessa enviado para o banco (apenas para o Bradesco). Por padrão o valor é 1                                             |
 | pre_released_billet       | boolean | (opcional) caso a configuração de cobrança utilize boletos registrados, este atributo indica se os boletos podem ser acessados antes do registro no banco ser confirmado. Por padrão é `false`                  |
 | writing_off_deadline      | integer | (opcional) número de dias após o vencimento da cobrança para que seja feita a baixa automática do título no banco. Valor pode variar entre 7 e 90. (apenas para cobranças registradas com padrão 240)           |
@@ -332,7 +338,7 @@ Cria uma nova Configuração de Cobrança, retornando as informações da mesma 
 | type         | string  | **(requerido)** indica o tipo da configuração de cobrança. Neste caso deve ser informado "payment_gateway"                                            |
 | payee_id     | integer | **(requerido)** código de identificação do beneficiário ao qual a configuração de cobrança irá pertencer                                              |
 | name         | string  | **(requerido)** nome que identifica esta configuração de cobrança                                                                                     |
-| gateway_name | string  | **(requerido)** nome do gateway de pagamento ('cielo-ws15', 'cielo-api30', 'pjbank')*                                                                 |
+| gateway_name | string  | **(requerido)** nome do gateway de pagamento ('cielo-ws15', 'cielo-api30', 'pjbank', 'iugu')*                                                         |
 
 **Parâmetros para o gateway Cielo**
 
@@ -352,6 +358,12 @@ Cria uma nova Configuração de Cobrança, retornando as informações da mesma 
 | billet_gateway_id   | string  | **(requerido, somente quando o campo 'billet_gateway_key' estiver preenchido)** credencial do contrato com o gateway de pagamento para cobranças de **boleto**       |
 | billet_gateway_key  | string  | **(requerido, somente quando o campo 'billet_gateway_id' estiver preenchido)** chave de acesso atribuída pelo gateway de pagamento para cobranças de **boleto**      |
 
+**Parâmetros para o gateway Iugu**
+
+| Campo               | Tipo    | Comentário                                                                     |
+|---------------------|---------|--------------------------------------------------------------------------------|
+| gateway_key         | string  | **(requerido)** chave de acesso (token) gerada pelo gateway de pagamento       |
+
 
 <strong>*</strong> Os possíveis valores para o <code>gateway_name</code> são os seguintes:</p>
 
@@ -366,6 +378,10 @@ Cria uma nova Configuração de Cobrança, retornando as informações da mesma 
 <dl>
   <dt>pjbank</dt>
   <dd>PJBank</dd>
+</dl>
+<dl>
+  <dt>iugu</dt>
+  <dd>Iugu</dd>
 </dl>
 
 ## Atualização de Configuração de Cobrança
@@ -452,7 +468,7 @@ Atualiza a Configuração de Cobrança determinada, retornando as informações 
 |--------------|---------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
 | name         | string  | **(requerido)** nome que identifica esta configuração de cobrança                                                                                     |
 | payee_id     | integer | **(requerido)** código de identificação do beneficiário ao qual a configuração de cobrança irá pertencer                                              |
-| gateway_name | string  | **(requerido)** nome do gateway de pagamento ('cielo-ws15', 'cielo-api30', 'pjbank')*                                                                 |
+| gateway_name | string  | **(requerido)** nome do gateway de pagamento ('cielo-ws15', 'cielo-api30', 'pjbank', 'iugu')*                                                         |
 
 **Parâmetros para o gateway Cielo**
 
@@ -471,6 +487,12 @@ Atualiza a Configuração de Cobrança determinada, retornando as informações 
 | gateway_key         | string  | **(requerido, somente quando o campo 'gateway_id' estiver preenchido)** chave de acesso atribuída pelo gateway de pagamento para cobranças de **cartão de crédito**  |
 | billet_gateway_id   | string  | **(requerido, somente quando o campo 'billet_gateway_key' estiver preenchido)** credencial do contrato com o gateway de pagamento para cobranças de **boleto**       |
 | billet_gateway_key  | string  | **(requerido, somente quando o campo 'billet_gateway_id' estiver preenchido)** chave de acesso atribuída pelo gateway de pagamento para cobranças de **boleto**      |
+
+**Parâmetros para o gateway Iugu**
+
+| Campo               | Tipo    | Comentário                                                                     |
+|---------------------|---------|--------------------------------------------------------------------------------|
+| gateway_key         | string  | **(requerido)** chave de acesso (token) gerada pelo gateway de pagamento       |
 
 ## Exclusão de Configuração de Cobrança
 
