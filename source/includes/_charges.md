@@ -198,6 +198,7 @@ e tem suas respostas dadas em payloads via webhook.
 | email_text                     | string           | texto do email de notificação de cobrança                                                                                                     |
 | email_reply_to                 | string           | endereço de email a ser utilizado na resposta ao email de notificação de cobrança                                                             |
 | canceled_at                    | datetime         | data e horário em que a cobrança foi cancelada, se for o caso                                                                                 |
+| available_billet               | boolean          | indica se o boleto está disponível para download                                                                                                    |
 | _links                         | array of object  | links relacionados à cobrança                                                                                                                 |
 
 ## Informações da Cobrança
