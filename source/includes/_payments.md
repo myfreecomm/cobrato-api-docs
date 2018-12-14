@@ -275,7 +275,7 @@ Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros 
 O attributo <code>amount</code> nesse caso é opcional, pois ele é identificado a partir do código de barras.
 </aside>
 
-**Parâmetros quando payment_method é 'dealdership' ou 'tribute_with_barcode'**
+**Parâmetros quando payment_method é 'dealership' ou 'tribute_with_barcode'**
 
 | Campo                     | Tipo    | Comentário                                          |
 |---------------------------|---------|-----------------------------------------------------|
@@ -478,7 +478,7 @@ Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros 
 
 Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros espefíficos para o pagamento de boletos de concecionárias ou tributos.
 
-**Parâmetros quando payment_method é 'dealdership' ou 'tribute_with_barcode'**
+**Parâmetros quando payment_method é 'dealership' ou 'tribute_with_barcode'**
 
 | Campo                     | Tipo    | Comentário                                          |
 |---------------------------|---------|-----------------------------------------------------|
@@ -854,7 +854,7 @@ Retorna o [json schema](http://json-schema.org/) e o [json schema form](https://
 | ted_same_ownership                     |                   |                     |                      |                              |                                      | X                   |                    |                            |                            | X                |                    |
 | billet_other_bank                      |                   |                     |                      |                              |                                      | X                   |                    |                            |                            | X                |                    |
 | billet_same_bank                       |                   |                     |                      |                              |                                      | X                   |                    |                            |                            | X                |                    |
-| dealdership                            |                   |                     |                      |                              |                                      | X                   |                    |                            |                            | X                |                    |
+| dealership                             |                   |                     |                      |                              |                                      | X                   |                    |                            |                            | X                |                    |
 | tribute_with_barcode                   |                   |                     |                      |                              |                                      |                     |                    |                            |                            |                  | X                  |
 | fgts                                   |                   |                     |                      |                              |                                      |                     |                    |                            |                            |                  | X                  |
 | gps                                    |                   |                     |                      |                              |                                      |                     |                    |                            |                            |                  | X                  |
