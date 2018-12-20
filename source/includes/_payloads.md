@@ -50,6 +50,9 @@ Os eventos notificados são os seguintes:
 | charge          | destroyed             | quando a cobrança é excluída                      |
 | charge          | received              | quando a cobrança é recebida                      |
 | charge          | undone_receivement    | quando a cobrança tem seu recebimento desfeito    |
+| charge          | canceled              | quando a cobrança é cancelada                     |
+| charge          | receivement_error     | quando houve erro no recebimento                  |
+| charge          | cancellation_error    | quando houve erro no cancelamento                 |
 | charge_config   | created               | quando a configuração de cobrança é criada        |
 | charge_config   | updated               | quando a configuração de cobrança é atualizada    |
 | charge_config   | destroyed             | quando a configuração de cobrança é excluída      |
@@ -601,16 +604,16 @@ EXEMPLO DE PAYLOAD
 
 Informações enviadas quando um Pagamento é atualizado.
 
-## Pagamento Efetivado
+## Pagamento Cancelado
 
 ```shell
-Pagamento Efetivado
+Pagamento Cancelado
 
 EXEMPLO DE PAYLOAD
 
   {
     "created_at":"2015-05-21T16:13:33Z",
-    "event":"paid",
+    "event":"canceled",
     "object_type":"payment",
     "object_id":12,
     "_links":[{
@@ -622,7 +625,8 @@ EXEMPLO DE PAYLOAD
 
 ```
 
-Informações enviadas quando um Pagamento é efetivado.
+Informações enviadas quando um Pagamento é cancelado.
+
 
 ## Pagamento Excluído
 
@@ -670,6 +674,29 @@ EXEMPLO DE PAYLOAD
 
 Informações enviadas quando um Pagamento é marcado como Não Autorizado.
 
+## Pagamento Marcado com Erro no Registro
+
+```shell
+Pagamento Marcado com Erro no Registro
+
+EXEMPLO DE PAYLOAD
+
+  {
+    "created_at":"2015-05-21T16:13:33Z",
+    "event":"registered_with_error",
+    "object_type":"payment",
+    "object_id":12,
+    "_links":[{
+      "rel":"self",
+      "method":"GET",
+      "url":"https://app.cobrato.com/api/v1/payments/12"
+    }]
+  }
+
+```
+
+Informações enviadas quando um Pagamento é marcado com Erro no Registro.
+
 ## Pagamento registrado
 
 ```shell
@@ -692,6 +719,30 @@ EXEMPLO DE PAYLOAD
 ```
 
 Informações enviadas quando um Pagamento é registrado.
+
+## Pagamento reagendado
+
+```shell
+Pagamento reagendado
+
+EXEMPLO DE PAYLOAD
+
+  {
+    "created_at":"2015-05-21T16:13:33Z",
+    "event":"rescheduled",
+    "object_type":"payment",
+    "object_id":12,
+    "_links":[{
+      "rel":"self",
+      "method":"GET",
+      "url":"https://app.cobrato.com/api/v1/payments/12"
+    }]
+  }
+
+```
+
+Informações enviadas quando um Pagamento tem sua edição confirmada.
+
 
 ## Pagamento com edição confirmada
 
@@ -716,16 +767,16 @@ EXEMPLO DE PAYLOAD
 
 Informações enviadas quando um Pagamento tem sua edição confirmada.
 
-## Pagamento Marcado com Erro no Registro
+## Pagamento Efetivado
 
 ```shell
-Pagamento Marcado com Erro no Registro
+Pagamento Efetivado
 
 EXEMPLO DE PAYLOAD
 
   {
     "created_at":"2015-05-21T16:13:33Z",
-    "event":"registered_with_error",
+    "event":"paid",
     "object_type":"payment",
     "object_id":12,
     "_links":[{
@@ -737,7 +788,7 @@ EXEMPLO DE PAYLOAD
 
 ```
 
-Informações enviadas quando um Pagamento é marcado com Erro no Registro.
+Informações enviadas quando um Pagamento é efetivado.
 
 ## Arquivo de remessa Atualizado
 
