@@ -52,7 +52,8 @@ Os eventos notificados são os seguintes:
 | charge          | undone_receivement    | quando a cobrança tem seu recebimento desfeito    |
 | charge          | canceled              | quando a cobrança é cancelada                     |
 | charge          | receivement_error     | quando houve erro no recebimento                  |
-| charge          | cancellation_error    | quando houve erro no cancelamento                 |
+| charge          | cancellation_error    | quando houve erro no cancelamento (Deprecated)    |
+| charge          | cancelation_error     | quando houve erro no cancelamento                 |
 | charge_config   | created               | quando a configuração de cobrança é criada        |
 | charge_config   | updated               | quando a configuração de cobrança é atualizada    |
 | charge_config   | destroyed             | quando a configuração de cobrança é excluída      |
@@ -265,7 +266,7 @@ EXEMPLO DE PAYLOAD
 
   {
     "created_at":"2015-05-21T16:13:33Z",
-    "event":"cancellation_error",
+    "event":"cancelation_error",
     "object_type":"charge",
     "object_id":12,
     "_links":[{
