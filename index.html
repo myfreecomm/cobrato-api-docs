@@ -6318,7 +6318,7 @@ EXEMPLO
 <tr>
 <td>registration_status</td>
 <td>string</td>
-<td>status de registro do pagamento (&#39;without_remittance&rsquo;, &#39;remitted&rsquo;, &#39;registered&rsquo;, &#39;canceled&rsquo;, &#39;edit_amount_started&rsquo;, &#39;reschedule_started&rsquo;, &#39;registered_with_error&rsquo;, &#39;cancelation_started&rsquo;, &#39;canceled_awaiting_confirmation&rsquo;, &#39;amount_edited_awaiting_confirmation&rsquo;, &#39;rescheduled_awaiting_confirmation&rsquo;)</td>
+<td>status de registro do pagamento (&#39;without_remittance&rsquo;, &#39;remitted&rsquo;, &#39;registered&rsquo;, &#39;canceled&rsquo;, &#39;edit_amount_started&rsquo;, &#39;reschedule_started&rsquo;, &#39;registered_with_error&rsquo;, &#39;cancelation_started&rsquo;, &#39;canceled_awaiting_confirmation&rsquo;, &#39;amount_edited_awaiting_confirmation&rsquo;, &#39;rescheduled_awaiting_confirmation&rsquo;, &#39;unauthorized&rsquo;)</td>
 </tr>
 <tr>
 <td>note</td>
@@ -6646,7 +6646,7 @@ O attributo <code>amount</code> nesse caso é opcional, pois ele é identificado
 O attributo <code>amount</code> nesse caso é opcional, pois ele é identificado a partir do código de barras.
 </aside>
 
-<p><strong>Parâmetros quando payment_method é &#39;dealdership&rsquo; ou &#39;tribute_with_barcode&rsquo;</strong></p>
+<p><strong>Parâmetros quando payment_method é &#39;dealership&rsquo; ou &#39;tribute_with_barcode&rsquo;</strong></p>
 
 <table><thead>
 <tr>
@@ -7189,7 +7189,7 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
 <p>Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros espefíficos para o pagamento de boletos de concecionárias ou tributos.</p>
 
-<p><strong>Parâmetros quando payment_method é &#39;dealdership&rsquo; ou &#39;tribute_with_barcode&rsquo;</strong></p>
+<p><strong>Parâmetros quando payment_method é &#39;dealership&rsquo; ou &#39;tribute_with_barcode&rsquo;</strong></p>
 
 <table><thead>
 <tr>
@@ -7948,7 +7948,7 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <td style="text-align: center"></td>
 </tr>
 <tr>
-<td style="text-align: right">dealdership</td>
+<td style="text-align: right">dealership</td>
 <td style="text-align: center"></td>
 <td style="text-align: center"></td>
 <td style="text-align: center"></td>
@@ -8441,6 +8441,13 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <tr>
 <td>rescheduled_awaiting_confirmation</td>
 <td>Pagamento teve seu arquivo de remessa reagendamento criado e o usuário deve envia-lo para o banco. O pagamento pode ter sido efetivado pelo banco e não há a garantia que o reagendamento ocorra a tempo</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>unauthorized</td>
+<td>Pagamento foi registrado no banco porém não foi autorizado pelo administrador da conta. Portanto não será efetivado e foi marcado como não autorizado pelo usuário.</td>
 <td></td>
 <td></td>
 <td></td>
