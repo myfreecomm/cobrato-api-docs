@@ -275,6 +275,10 @@ Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros 
 O attributo <code>amount</code> nesse caso é opcional, pois ele é identificado a partir do código de barras.
 </aside>
 
+<aside class="info">
+O attributo <code>payment_type</code> é automaticamente definido como <code>"tribute"</code>.
+</aside>
+
 **Parâmetros quando payment_method é 'dealership' ou 'tribute_with_barcode'**
 
 | Campo                     | Tipo    | Comentário                                          |
