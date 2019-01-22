@@ -215,7 +215,6 @@ Cria um novo Pagamento, retornando as informações do mesmo em caso de sucesso.
 |---------------------------|---------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | payment_config_id         | integer | **(requerido)** código de identificação da configuração de pagamento à qual o pagamento irá pertencer                                                                                                                                                       |
 | payment_method            | string  | **(requerido)** forma de pagamento ('credit_other_ownership', 'credit_same_ownership', 'credit_savings_account', 'doc_other_ownership', 'doc_same_ownership', 'ted_other_ownership', 'ted_same_ownership', 'gps', 'darf', 'das', 'ipva', icms_sp', 'dpvat') |
-| payment_type              | string  | **(requerido)** tipo de pagamento. Os possíveis valores variam de acordo com o "payment_method" (vide tabela 1)                                                                                                                                             |
 | amount                    | decimal | **(requerido)** valor do pagamento                                                                                                                                                                                                                          |
 | date                      | date    | **(requerido)** data do pagamento                                                                                                                                                                                                                           |
 | note                      | string  | (opcional) oberservação do pagamento                                                                                                                                                                                                                        |
@@ -234,20 +233,23 @@ Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros 
 | agency        | string  | **(requerido)** número da agência da conta bancária para fazer o pagamento                                                                                                       |
 | payee_id      | string  | **(requerido, se não enviar payee)** identificador do beneficiário (caso seja fornecido, o parâmetro `payee` será ignorado)                                                      |
 | payee*        | object  | **(requerido, se não enviar payee_id)** atributos para a criação de um novo beneficiário ou atualização de um beneficiário existente com o mesmo documento (national_identifier) |
+| payment_type  | string  | **(requerido)** tipo de pagamento. Os possíveis valores variam de acordo com o "payment_method" (vide tabela 1)                                                                  |
 
 **Parâmetros quando payment_method é 'doc_other_ownership' ou 'doc_same_ownership'**
 
-| Campo                     | Tipo    | Comentário                                                                      |
-|---------------------------|---------|---------------------------------------------------------------------------------|
-| bank_code                 | string  | **(requerido)** código de 3 dígitos do banco da conta bancária para o pagamento |
-| doc_goal                  | string  | (opcional) código referente ao objetivo do DOC. Possíveis valores na tabela 2   |
+| Campo                     | Tipo    | Comentário                                                                                                       |
+|---------------------------|---------|------------------------------------------------------------------------------------------------------------------|
+| bank_code                 | string  | **(requerido)** código de 3 dígitos do banco da conta bancária para o pagamento                                  |
+| payment_type              | string  | **(requerido)** tipo de pagamento. Os possíveis valores variam de acordo com o "payment_method" (vide tabela 1)  |
+| doc_goal                  | string  | (opcional) código referente ao objetivo do DOC. Possíveis valores na tabela 2                                    |
 
 **Parâmetros quando payment_method é 'ted_other_ownership'**
 
-| Campo                     | Tipo    | Comentário                                                                      |
-|---------------------------|---------|---------------------------------------------------------------------------------|
-| bank_code                 | string  | **(requerido)** código de 3 dígitos do banco da conta bancária para o pagamento |
-| ted_goal                  | string  | (opcional) código referente ao objetivo do TED. Possíveis valores na tabela 3   |
+| Campo                     | Tipo    | Comentário                                                                                                       |
+|---------------------------|---------|------------------------------------------------------------------------------------------------------------------|
+| bank_code                 | string  | **(requerido)** código de 3 dígitos do banco da conta bancária para o pagamento                                  |
+| payment_type              | string  | **(requerido)** tipo de pagamento. Os possíveis valores variam de acordo com o "payment_method" (vide tabela 1)  |
+| ted_goal                  | string  | (opcional) código referente ao objetivo do TED. Possíveis valores na tabela 3                                    |
 
 ### Boleto Bancário (Boleto de mesmo banco, Boleto de outro Banco)
 
@@ -264,18 +266,23 @@ O attributo <code>amount</code> nesse caso é opcional, pois ele é identificado
 | barcode         | string  | **(requerido)** Código de barras do boleto bancário                                                                                                                              |
 | payee_id        | string  | **(requerido, se não enviar payee)** identificador do beneficiário (caso seja fornecido, o parâmetro `payee` será ignorado)                                                      |
 | payee*          | object  | **(requerido, se não enviar payee_id)** atributos para a criação de um novo beneficiário ou atualização de um beneficiário existente com o mesmo documento (national_identifier) |
+| payment_type    | string  | **(requerido)** tipo de pagamento. Os possíveis valores variam de acordo com o "payment_method" (vide tabela 1)                                                                  |
 | due_date        | date    | (opicional, já que é identificado no código de barras) Data de vencimento do boleto                                                                                              |
 | discount_amount | decimal | (opcional) valor do desconto                                                                                                                                                     |
 
-### Boleto de Tributo (Concecionárias, Tributo com código de barras, FGTS)
+### Boleto de Tributo (Tributo com código de barras, FGTS)
 
-Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros espefíficos para o pagamento de boletos de concecionárias ou tributos.
+Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros espefíficos para o pagamento de boletos de tributos.
 
 <aside class="info">
 O attributo <code>amount</code> nesse caso é opcional, pois ele é identificado a partir do código de barras.
 </aside>
 
-**Parâmetros quando payment_method é 'dealership' ou 'tribute_with_barcode'**
+<aside class="info">
+O attributo <code>payment_type</code> é automaticamente definido como <code>"tribute"</code>.
+</aside>
+
+**Parâmetros quando payment_method é 'tribute_with_barcode'**
 
 | Campo                     | Tipo    | Comentário                                          |
 |---------------------------|---------|-----------------------------------------------------|
@@ -289,6 +296,22 @@ O attributo <code>amount</code> nesse caso é opcional, pois ele é identificado
 | barcode                | string  | **(requerido)** Código de barras do boleto bancário                 |
 | taxpayer_document_type | string  | **(requerido)** Tipo do documento do contribuinte ("cnpj" ou "cei") |
 | taxpayer_document      | string  | **(requerido)** Número do documento do contribuinte                 |
+
+### Boleto de Concessionária
+
+Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros espefíficos para o pagamento de boletos de concessionárias.
+
+<aside class="info">
+O attributo <code>amount</code> nesse caso é opcional, pois ele é identificado a partir do código de barras.
+</aside>
+
+**Parâmetros quando payment_method é 'dealership'**
+
+| Campo                     | Tipo    | Comentário                                                                                                       |
+|---------------------------|---------|------------------------------------------------------------------------------------------------------------------|
+| barcode                   | string  | **(requerido)** Código de barras do boleto bancário                                                              |
+| due_date                  | date    | **(requerido)** Data de vencimento do boleto                                                                     |
+| payment_type              | string  | **(requerido)** tipo de pagamento. Os possíveis valores variam de acordo com o "payment_method" (vide tabela 1)  |
 
 ### Tributos sem código de barras (GPS, DARF, DAS, IPVA, ICMS-SP, DPVAT)
 
@@ -474,15 +497,15 @@ Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros 
 | due_date        | date    | **(requerido)** Data de vencimento do boleto                                                                                                                                     |
 | discount_amount | decimal | (opcional) valor do desconto                                                                                                                                                     |
 
-### Boleto de Tributo (Concecionárias, Tributo com código de barras, FGTS)
+### Boleto de Tributo (Tributo com código de barras, FGTS)
 
-Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros espefíficos para o pagamento de boletos de concecionárias ou tributos.
+Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros espefíficos para o pagamento de boletos de tributos.
 
-**Parâmetros quando payment_method é 'dealership' ou 'tribute_with_barcode'**
+**Parâmetros quando payment_method é 'tribute_with_barcode'**
 
-| Campo                     | Tipo    | Comentário                                          |
-|---------------------------|---------|-----------------------------------------------------|
-| due_date                  | date    | **(requerido)** Data de vencimento do boleto        |
+| Campo                     | Tipo    | Comentário                                                       |
+|---------------------------|---------|------------------------------------------------------------------|
+| due_date                  | date    | **(requerido)** Data de vencimento do boleto                     |
 
 **Parâmetros quando payment_method é 'fgts'**
 
@@ -490,6 +513,16 @@ Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros 
 |------------------------|---------|---------------------------------------------------------------------|
 | taxpayer_document_type | string  | **(requerido)** Tipo do documento do contribuinte ("cnpj" ou "cei") |
 | taxpayer_document      | string  | **(requerido)** Número do documento do contribuinte                 |
+
+### Boleto de Concessionária
+
+Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros espefíficos para o pagamento de boletos de concessionárias.
+
+**Parâmetros quando payment_method é 'dealership'**
+
+| Campo                     | Tipo    | Comentário                                                       |
+|---------------------------|---------|------------------------------------------------------------------|
+| due_date                  | date    | **(requerido)** Data de vencimento do boleto                     |
 
 ### Tributos sem código de barras (GPS, DARF, DAS, IPVA, ICMS-SP, DPVAT)
 
