@@ -272,7 +272,7 @@ O attributo <code>amount</code> nesse caso é opcional, pois ele é identificado
 
 ### Boleto de Tributo (Tributo com código de barras, FGTS)
 
-Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros espefíficos para o pagamento de boletos de concecionárias ou tributos.
+Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros espefíficos para o pagamento de boletos de tributos.
 
 <aside class="info">
 O attributo <code>amount</code> nesse caso é opcional, pois ele é identificado a partir do código de barras.
@@ -282,7 +282,7 @@ O attributo <code>amount</code> nesse caso é opcional, pois ele é identificado
 O attributo <code>payment_type</code> é automaticamente definido como <code>"tribute"</code>.
 </aside>
 
-**Parâmetros quando payment_method é 'dealership' ou 'tribute_with_barcode'**
+**Parâmetros quando payment_method é 'tribute_with_barcode'**
 
 | Campo                     | Tipo    | Comentário                                          |
 |---------------------------|---------|-----------------------------------------------------|
@@ -297,13 +297,15 @@ O attributo <code>payment_type</code> é automaticamente definido como <code>"tr
 | taxpayer_document_type | string  | **(requerido)** Tipo do documento do contribuinte ("cnpj" ou "cei") |
 | taxpayer_document      | string  | **(requerido)** Número do documento do contribuinte                 |
 
-### Boleto de Concecionárias
+### Boleto de Concessionária
 
-Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros espefíficos para o pagamento de boletos de concecionárias.
+Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros espefíficos para o pagamento de boletos de concessionárias.
 
 <aside class="info">
 O attributo <code>amount</code> nesse caso é opcional, pois ele é identificado a partir do código de barras.
 </aside>
+
+**Parâmetros quando payment_method é 'dealership'**
 
 | Campo                     | Tipo    | Comentário                                                                                                       |
 |---------------------------|---------|------------------------------------------------------------------------------------------------------------------|
@@ -495,15 +497,15 @@ Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros 
 | due_date        | date    | **(requerido)** Data de vencimento do boleto                                                                                                                                     |
 | discount_amount | decimal | (opcional) valor do desconto                                                                                                                                                     |
 
-### Boleto de Tributo (Concecionárias, Tributo com código de barras, FGTS)
+### Boleto de Tributo (Tributo com código de barras, FGTS)
 
-Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros espefíficos para o pagamento de boletos de concecionárias ou tributos.
+Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros espefíficos para o pagamento de boletos de tributos.
 
-**Parâmetros quando payment_method é 'dealership' ou 'tribute_with_barcode'**
+**Parâmetros quando payment_method é 'tribute_with_barcode'**
 
-| Campo                     | Tipo    | Comentário                                          |
-|---------------------------|---------|-----------------------------------------------------|
-| due_date                  | date    | **(requerido)** Data de vencimento do boleto        |
+| Campo                     | Tipo    | Comentário                                                       |
+|---------------------------|---------|------------------------------------------------------------------|
+| due_date                  | date    | **(requerido)** Data de vencimento do boleto                     |
 
 **Parâmetros quando payment_method é 'fgts'**
 
@@ -511,6 +513,16 @@ Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros 
 |------------------------|---------|---------------------------------------------------------------------|
 | taxpayer_document_type | string  | **(requerido)** Tipo do documento do contribuinte ("cnpj" ou "cei") |
 | taxpayer_document      | string  | **(requerido)** Número do documento do contribuinte                 |
+
+### Boleto de Concessionária
+
+Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros espefíficos para o pagamento de boletos de concessionárias.
+
+**Parâmetros quando payment_method é 'dealership'**
+
+| Campo                     | Tipo    | Comentário                                                       |
+|---------------------------|---------|------------------------------------------------------------------|
+| due_date                  | date    | **(requerido)** Data de vencimento do boleto                     |
 
 ### Tributos sem código de barras (GPS, DARF, DAS, IPVA, ICMS-SP, DPVAT)
 
