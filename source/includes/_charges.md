@@ -36,6 +36,7 @@ EXEMPLO
     "processing_date":"2015-01-30",
     "for_homologation":true,
     "registrable": true,
+    "automatic_registration": false,
     "payer_national_identifier_type": "cpf",
     "payer_national_identifier": "12345678909",
     "payer_name": "Jonh Doe",
@@ -105,6 +106,7 @@ validações e alguns comportamentos serão variáveis de acordo com o tipo de c
 | processing_date                | date             | data de geração do boleto                                                                                                                           |
 | for_homologation               | boolean          | indica se é uma cobrança que foi criada com o objetivo de homologar uma Configuração de cobrança                                                    |
 | registrable                    | boolean          | indica se a cobrança é registrável (do tipo que deve ser registrada no banco). Sendo sempre true para Cobranças criadas após 27/10/2018             |
+| automatic_registration         | boolean          | indica se a cobrança será registrada automaticamente. Atualmente esta opção será somente para cobranças feitas pelo banco Itaú.                     |
 | payer_id                       | integer          | identificador do pagador                                                                                                                            |
 | payer_national_identifier_type | string           | tipo do documento do pagador (cpf ou cnpj)                                                                                                          |
 | payer_national_identifier      | string           | documento do pagador                                                                                                                                |
@@ -255,6 +257,7 @@ EXEMPLO DE CORPO DA RESPOSTA (BOLETO)
     "processing_date":"2015-01-30",
     "for_homologation":true,
     "registrable": true,
+    "automatic_registration": false,
     "payer_national_identifier_type": "cpf",
     "payer_national_identifier": "12345678909",
     "payer_name": "Jonh Doe",
