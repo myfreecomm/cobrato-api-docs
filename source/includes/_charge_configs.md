@@ -269,7 +269,12 @@ EXEMPLO DE REQUISIÇÃO
           "remittance_agreement_code": "4576361",
           "remittance_cnab_pattern": "400",
           "initial_remittance_number": "1"
-          "transmission_code": "987655"
+          "transmission_code": "987655",
+          "logo": {
+            "content": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAM...",
+            "content_type": "image/png",
+            "filename": "logo.png",
+          }
         }'
 
 EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
@@ -351,6 +356,10 @@ Cria uma nova Configuração de Cobrança, retornando as informações da mesma 
 | gateway_key         | string  | **(requerido, somente quando o campo 'gateway_id' estiver preenchido)** chave de acesso atribuída pelo gateway de pagamento para cobranças de **cartão de crédito**  |
 | billet_gateway_id   | string  | **(requerido, somente quando o campo 'billet_gateway_key' estiver preenchido)** credencial do contrato com o gateway de pagamento para cobranças de **boleto**       |
 | billet_gateway_key  | string  | **(requerido, somente quando o campo 'billet_gateway_id' estiver preenchido)** chave de acesso atribuída pelo gateway de pagamento para cobranças de **boleto**      |
+| logo                | object  | (opcional) dados do logotipo que aparecerá nos boletos gerados                                                                                                       |
+| logo[content]       | string  | (opcional) conteúdo do arquivo do logotipo codificado em Base64                                                                                                      |
+| logo[content_type]  | string  | (opcional) *Content-Type* do arquivo do logotipo. Exemplo: "image/png" (deve ser imagem no formato png, gif ou jpg)                                                  |
+| logo[filename]      | string  | (opcional) Nome do arquivo do logotipo.                                                                                                                              |
 
 
 <strong>*</strong> Os possíveis valores para o <code>gateway_name</code> são os seguintes:</p>
@@ -471,6 +480,11 @@ Atualiza a Configuração de Cobrança determinada, retornando as informações 
 | gateway_key         | string  | **(requerido, somente quando o campo 'gateway_id' estiver preenchido)** chave de acesso atribuída pelo gateway de pagamento para cobranças de **cartão de crédito**  |
 | billet_gateway_id   | string  | **(requerido, somente quando o campo 'billet_gateway_key' estiver preenchido)** credencial do contrato com o gateway de pagamento para cobranças de **boleto**       |
 | billet_gateway_key  | string  | **(requerido, somente quando o campo 'billet_gateway_id' estiver preenchido)** chave de acesso atribuída pelo gateway de pagamento para cobranças de **boleto**      |
+| logo                | object  | (opcional) dados do logotipo que aparecerá nos boletos gerados                                                                                                       |
+| logo[content]       | string  | (opcional) conteúdo do arquivo do logotipo codificado em Base64                                                                                                      |
+| logo[content_type]  | string  | (opcional) *Content-Type* do arquivo do logotipo. Exemplo: "image/png" (deve ser imagem no formato png, gif ou jpg)                                                  |
+| logo[filename]      | string  | (opcional) Nome do arquivo do logotipo.                                                                                                                              |
+
 
 ## Exclusão de Configuração de Cobrança
 
