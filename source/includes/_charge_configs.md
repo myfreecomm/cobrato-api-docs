@@ -184,6 +184,33 @@ EXEMPLO DE CORPO DA RESPOSTA (BOLETO)
       ]
   }
 
+  EXEMPLO DE CORPO DA RESPOSTA (GATEWAY DE PAGAMENTO)
+
+    {
+      "id": 1,
+      "type": "payment_gateway",
+      "name": "Configuração de Cobrança - PJBank",
+      "payee_id": 1,
+      "gateway_name": "pjbank",
+      "gateway_key": "",
+      "gateway_id": "",
+      "billet_gateway_key": "ABC123",
+      "billet_gateway_id": "ABC123",
+      "account_holder": false,
+      "use_avs": false,
+      "available_charge_types": ["billet"],
+      "timezone": "Brasília",
+      "logo_url": https://cobrato-sandbox-uploads.s3.amazonaws.com/payment_gateway_configs/logos/114/logo.png?1549051243,
+      "_links":
+        [
+          {"rel":"self","method":"GET","href":"https://app.cobrato.com/api/v1/charge_configs/1"},
+          {"rel":"update","method":"PUT","href":"https://app.cobrato.com/api/v1/charge_configs/1"},
+          {"rel":"destroy","method":"DELETE","href":"https://app.cobrato.com/api/v1/charge_configs/1"},
+          {"rel":"bank_account","method":"GET","href":"https://app.cobrato.com/api/v1/bank_accounts/1"},
+          {"rel":"payee","method":"GET","href":"https://app.cobrato.com/api/v1/payees/1"}
+        ]
+    }
+
 ```
 
 Retorna as informações detalhadas da Configuração de Cobrança informada em JSON e também suas referências.
