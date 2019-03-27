@@ -2021,7 +2021,7 @@ EXEMPLO
 <tr>
 <td>initial_remittance_number</td>
 <td>integer</td>
-<td>número inicial de remessa, ou seja, qual foi o último número sequencial de remessa enviado para o banco (apenas para o Bradesco)</td>
+<td>número inicial de remessa, ou seja, qual foi o último número sequencial de remessa enviado para o banco</td>
 </tr>
 <tr>
 <td>transmission_code</td>
@@ -2231,6 +2231,33 @@ EXEMPLO DE CORPO DA RESPOSTA <span class="o">(</span>BOLETO<span class="o">)</sp
       <span class="o">]</span>
   <span class="o">}</span>
 
+  EXEMPLO DE CORPO DA RESPOSTA <span class="o">(</span>GATEWAY DE PAGAMENTO<span class="o">)</span>
+
+    <span class="o">{</span>
+      <span class="s2">"id"</span>: 1,
+      <span class="s2">"type"</span>: <span class="s2">"payment_gateway"</span>,
+      <span class="s2">"name"</span>: <span class="s2">"Configuração de Cobrança - PJBank"</span>,
+      <span class="s2">"payee_id"</span>: 1,
+      <span class="s2">"gateway_name"</span>: <span class="s2">"pjbank"</span>,
+      <span class="s2">"gateway_key"</span>: <span class="s2">""</span>,
+      <span class="s2">"gateway_id"</span>: <span class="s2">""</span>,
+      <span class="s2">"billet_gateway_key"</span>: <span class="s2">"ABC123"</span>,
+      <span class="s2">"billet_gateway_id"</span>: <span class="s2">"ABC123"</span>,
+      <span class="s2">"account_holder"</span>: <span class="nb">false</span>,
+      <span class="s2">"use_avs"</span>: <span class="nb">false</span>,
+      <span class="s2">"available_charge_types"</span>: <span class="o">[</span><span class="s2">"billet"</span><span class="o">]</span>,
+      <span class="s2">"timezone"</span>: <span class="s2">"Brasília"</span>,
+      <span class="s2">"logo_url"</span>: https://cobrato-sandbox-uploads.s3.amazonaws.com/payment_gateway_configs/logos/114/logo.png?1549051243,
+      <span class="s2">"_links"</span>:
+        <span class="o">[</span>
+          <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"self"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charge_configs/1"</span><span class="o">}</span>,
+          <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"update"</span>,<span class="s2">"method"</span>:<span class="s2">"PUT"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charge_configs/1"</span><span class="o">}</span>,
+          <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"destroy"</span>,<span class="s2">"method"</span>:<span class="s2">"DELETE"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/charge_configs/1"</span><span class="o">}</span>,
+          <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"bank_account"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/bank_accounts/1"</span><span class="o">}</span>,
+          <span class="o">{</span><span class="s2">"rel"</span>:<span class="s2">"payee"</span>,<span class="s2">"method"</span>:<span class="s2">"GET"</span>,<span class="s2">"href"</span>:<span class="s2">"https://app.cobrato.com/api/v1/payees/1"</span><span class="o">}</span>
+        <span class="o">]</span>
+    <span class="o">}</span>
+
 </code></pre>
 
 <p>Retorna as informações detalhadas da Configuração de Cobrança informada em JSON e também suas referências.</p>
@@ -2314,7 +2341,12 @@ EXEMPLO DE REQUISIÇÃO
           "remittance_agreement_code": "4576361",
           "remittance_cnab_pattern": "400",
           "initial_remittance_number": "1"
-          "transmission_code": "987655"
+          "transmission_code": "987655",
+          "logo": {
+            "content": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAM...",
+            "content_type": "image/png",
+            "filename": "logo.png",
+          }
         }'</span>
 
 EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
@@ -2420,7 +2452,7 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <tr>
 <td>initial_remittance_number</td>
 <td>integer</td>
-<td>(opcional) número inicial de remessa, ou seja, qual foi o último número sequencial de remessa enviado para o banco (apenas para o Bradesco). Por padrão o valor é 1</td>
+<td><strong>(requerido)</strong> número inicial de remessa, ou seja, qual foi o último número sequencial de remessa enviado para o banco. Por padrão o valor é 1</td>
 </tr>
 <tr>
 <td>pre_released_billet</td>
@@ -2530,6 +2562,26 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <td>billet_gateway_key</td>
 <td>string</td>
 <td><strong>(requerido, somente quando o campo &#39;billet_gateway_id&rsquo; estiver preenchido)</strong> chave de acesso atribuída pelo gateway de pagamento para cobranças de <strong>boleto</strong></td>
+</tr>
+<tr>
+<td>logo</td>
+<td>object</td>
+<td>(opcional) dados do logotipo que aparecerá nos boletos gerados</td>
+</tr>
+<tr>
+<td>logo[content]</td>
+<td>string</td>
+<td>(opcional) conteúdo do arquivo do logotipo codificado em Base64</td>
+</tr>
+<tr>
+<td>logo[content_type]</td>
+<td>string</td>
+<td>(opcional) <em>Content-Type</em> do arquivo do logotipo. Exemplo: &ldquo;image/png&rdquo; (deve ser imagem no formato png, gif ou jpg)</td>
+</tr>
+<tr>
+<td>logo[filename]</td>
+<td>string</td>
+<td>(opcional) Nome do arquivo do logotipo.</td>
 </tr>
 </tbody></table>
 
@@ -2653,22 +2705,22 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <tr>
 <td>remittance_agreement_code</td>
 <td>integer</td>
-<td>*<em>(requerido)</em> número do convênio com o banco (apenas para o Bradesco)</td>
+<td><strong>(requerido)</strong> número do convênio com o banco (apenas para o Bradesco)</td>
 </tr>
 <tr>
 <td>remittance_cnab_pattern</td>
 <td>integer</td>
-<td>*<em>(requerido)</em> padrão utilizado no arquivo CNAB de remessa. Os valores permitidos são 240 ou 400</td>
+<td><strong>(requerido)</strong> padrão utilizado no arquivo CNAB de remessa. Os valores permitidos são 240 ou 400</td>
 </tr>
 <tr>
 <td>transmission_code</td>
 <td>string</td>
-<td>*<em>(requerido)</em> código de transmissão (apenas para o Santander)</td>
+<td><strong>(requerido)</strong> código de transmissão (apenas para o Santander)</td>
 </tr>
 <tr>
 <td>initial_remittance_number</td>
 <td>integer</td>
-<td>(opcional) número inicial de remessa, ou seja, qual foi o último número sequencial de remessa enviado para o banco (apenas para o Bradesco). Por padrão o valor é 1</td>
+<td><strong>(requerido)</strong> número inicial de remessa, ou seja, qual foi o último número sequencial de remessa enviado para o banco. Por padrão o valor é 1</td>
 </tr>
 <tr>
 <td>pre_released_billet</td>
@@ -2773,6 +2825,26 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <td>billet_gateway_key</td>
 <td>string</td>
 <td><strong>(requerido, somente quando o campo &#39;billet_gateway_id&rsquo; estiver preenchido)</strong> chave de acesso atribuída pelo gateway de pagamento para cobranças de <strong>boleto</strong></td>
+</tr>
+<tr>
+<td>logo</td>
+<td>object</td>
+<td>(opcional) dados do logotipo que aparecerá nos boletos gerados</td>
+</tr>
+<tr>
+<td>logo[content]</td>
+<td>string</td>
+<td>(opcional) conteúdo do arquivo do logotipo codificado em Base64</td>
+</tr>
+<tr>
+<td>logo[content_type]</td>
+<td>string</td>
+<td>(opcional) <em>Content-Type</em> do arquivo do logotipo. Exemplo: &ldquo;image/png&rdquo; (deve ser imagem no formato png, gif ou jpg)</td>
+</tr>
+<tr>
+<td>logo[filename]</td>
+<td>string</td>
+<td>(opcional) Nome do arquivo do logotipo.</td>
 </tr>
 </tbody></table>
 
@@ -6486,11 +6558,6 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <td><strong>(requerido)</strong> forma de pagamento (&#39;credit_other_ownership&rsquo;, &#39;credit_same_ownership&rsquo;, &#39;credit_savings_account&rsquo;, &#39;doc_other_ownership&rsquo;, &#39;doc_same_ownership&rsquo;, &#39;ted_other_ownership&rsquo;, &#39;ted_same_ownership&rsquo;, &#39;gps&rsquo;, &#39;darf&rsquo;, &#39;das&rsquo;, &#39;ipva&rsquo;, icms_sp&rsquo;, &#39;dpvat&rsquo;)</td>
 </tr>
 <tr>
-<td>payment_type</td>
-<td>string</td>
-<td><strong>(requerido)</strong> tipo de pagamento. Os possíveis valores variam de acordo com o &ldquo;payment_method&rdquo; (vide tabela 1)</td>
-</tr>
-<tr>
 <td>amount</td>
 <td>decimal</td>
 <td><strong>(requerido)</strong> valor do pagamento</td>
@@ -6550,6 +6617,11 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <td>object</td>
 <td><strong>(requerido, se não enviar payee_id)</strong> atributos para a criação de um novo beneficiário ou atualização de um beneficiário existente com o mesmo documento (national_identifier)</td>
 </tr>
+<tr>
+<td>payment_type</td>
+<td>string</td>
+<td><strong>(requerido)</strong> tipo de pagamento. Os possíveis valores variam de acordo com o &ldquo;payment_method&rdquo; (vide tabela 1)</td>
+</tr>
 </tbody></table>
 
 <p><strong>Parâmetros quando payment_method é &#39;doc_other_ownership&rsquo; ou &#39;doc_same_ownership&rsquo;</strong></p>
@@ -6565,6 +6637,11 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <td>bank_code</td>
 <td>string</td>
 <td><strong>(requerido)</strong> código de 3 dígitos do banco da conta bancária para o pagamento</td>
+</tr>
+<tr>
+<td>payment_type</td>
+<td>string</td>
+<td><strong>(requerido)</strong> tipo de pagamento. Os possíveis valores variam de acordo com o &ldquo;payment_method&rdquo; (vide tabela 1)</td>
 </tr>
 <tr>
 <td>doc_goal</td>
@@ -6586,6 +6663,11 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <td>bank_code</td>
 <td>string</td>
 <td><strong>(requerido)</strong> código de 3 dígitos do banco da conta bancária para o pagamento</td>
+</tr>
+<tr>
+<td>payment_type</td>
+<td>string</td>
+<td><strong>(requerido)</strong> tipo de pagamento. Os possíveis valores variam de acordo com o &ldquo;payment_method&rdquo; (vide tabela 1)</td>
 </tr>
 <tr>
 <td>ted_goal</td>
@@ -6627,6 +6709,11 @@ O attributo <code>amount</code> nesse caso é opcional, pois ele é identificado
 <td><strong>(requerido, se não enviar payee_id)</strong> atributos para a criação de um novo beneficiário ou atualização de um beneficiário existente com o mesmo documento (national_identifier)</td>
 </tr>
 <tr>
+<td>payment_type</td>
+<td>string</td>
+<td><strong>(requerido)</strong> tipo de pagamento. Os possíveis valores variam de acordo com o &ldquo;payment_method&rdquo; (vide tabela 1)</td>
+</tr>
+<tr>
 <td>due_date</td>
 <td>date</td>
 <td>(opicional, já que é identificado no código de barras) Data de vencimento do boleto</td>
@@ -6638,15 +6725,19 @@ O attributo <code>amount</code> nesse caso é opcional, pois ele é identificado
 </tr>
 </tbody></table>
 
-<h3 id="boleto-de-tributo-concecion-rias-tributo-com-c-digo-de-barras-fgts">Boleto de Tributo (Concecionárias, Tributo com código de barras, FGTS)</h3>
+<h3 id="boleto-de-tributo-tributo-com-c-digo-de-barras-fgts">Boleto de Tributo (Tributo com código de barras, FGTS)</h3>
 
-<p>Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros espefíficos para o pagamento de boletos de concecionárias ou tributos.</p>
+<p>Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros espefíficos para o pagamento de boletos de tributos.</p>
 
 <aside class="info">
 O attributo <code>amount</code> nesse caso é opcional, pois ele é identificado a partir do código de barras.
 </aside>
 
-<p><strong>Parâmetros quando payment_method é &#39;dealership&rsquo; ou &#39;tribute_with_barcode&rsquo;</strong></p>
+<aside class="info">
+O attributo <code>payment_type</code> é automaticamente definido como <code>"tribute"</code>.
+</aside>
+
+<p><strong>Parâmetros quando payment_method é &#39;tribute_with_barcode&rsquo;</strong></p>
 
 <table><thead>
 <tr>
@@ -6690,6 +6781,40 @@ O attributo <code>amount</code> nesse caso é opcional, pois ele é identificado
 <td>taxpayer_document</td>
 <td>string</td>
 <td><strong>(requerido)</strong> Número do documento do contribuinte</td>
+</tr>
+</tbody></table>
+
+<h3 id="boleto-de-concession-ria">Boleto de Concessionária</h3>
+
+<p>Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros espefíficos para o pagamento de boletos de concessionárias.</p>
+
+<aside class="info">
+O attributo <code>amount</code> nesse caso é opcional, pois ele é identificado a partir do código de barras.
+</aside>
+
+<p><strong>Parâmetros quando payment_method é &#39;dealership&rsquo;</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>barcode</td>
+<td>string</td>
+<td><strong>(requerido)</strong> Código de barras do boleto bancário</td>
+</tr>
+<tr>
+<td>due_date</td>
+<td>date</td>
+<td><strong>(requerido)</strong> Data de vencimento do boleto</td>
+</tr>
+<tr>
+<td>payment_type</td>
+<td>string</td>
+<td><strong>(requerido)</strong> tipo de pagamento. Os possíveis valores variam de acordo com o &ldquo;payment_method&rdquo; (vide tabela 1)</td>
 </tr>
 </tbody></table>
 
@@ -7185,11 +7310,11 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 </tr>
 </tbody></table>
 
-<h3 id="boleto-de-tributo-concecion-rias-tributo-com-c-digo-de-barras-fgts">Boleto de Tributo (Concecionárias, Tributo com código de barras, FGTS)</h3>
+<h3 id="boleto-de-tributo-tributo-com-c-digo-de-barras-fgts">Boleto de Tributo (Tributo com código de barras, FGTS)</h3>
 
-<p>Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros espefíficos para o pagamento de boletos de concecionárias ou tributos.</p>
+<p>Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros espefíficos para o pagamento de boletos de tributos.</p>
 
-<p><strong>Parâmetros quando payment_method é &#39;dealership&rsquo; ou &#39;tribute_with_barcode&rsquo;</strong></p>
+<p><strong>Parâmetros quando payment_method é &#39;tribute_with_barcode&rsquo;</strong></p>
 
 <table><thead>
 <tr>
@@ -7223,6 +7348,26 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 <td>taxpayer_document</td>
 <td>string</td>
 <td><strong>(requerido)</strong> Número do documento do contribuinte</td>
+</tr>
+</tbody></table>
+
+<h3 id="boleto-de-concession-ria">Boleto de Concessionária</h3>
+
+<p>Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros espefíficos para o pagamento de boletos de concessionárias.</p>
+
+<p><strong>Parâmetros quando payment_method é &#39;dealership&rsquo;</strong></p>
+
+<table><thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Comentário</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>due_date</td>
+<td>date</td>
+<td><strong>(requerido)</strong> Data de vencimento do boleto</td>
 </tr>
 </tbody></table>
 
