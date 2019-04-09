@@ -1085,10 +1085,6 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
 Mostra o link da url do boleto de determinada cobrança via Boleto
 
-<aside class="warning">
-As URLs disponibilizadas são válidas por apenas 60 minutos. Sendo assim, não armazene o retorno e sempre que for necessário realize uma nova chamada à API.
-</aside>
-
 <aside class="notice">
 Para cobranças registradas, o boleto só ficará disponível após o registro da cobrança a não ser quando a configuração de cobrança tiver habilitada a opção de disponibilizar boleto antes de registrar.
 </aside>
