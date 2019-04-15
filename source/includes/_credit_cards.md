@@ -221,18 +221,14 @@ pode ser verificado no atributo `reusability_error_message`.
 
 **Parâmetros**
 
-<aside class="notice">
-  Para cobranças PJBank o token é sempre obrigatório.
-</aside>
-
 | Campo             | Tipo    | Comentário                                                                                                                                                               |
 |-------------------|---------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| token             | string  | **(requerido se não enviar number, expiration, holder_name e cvv)** token do cartão                                                                                      |
-| number            | string  | **(requerido se não enviar o token)** número do cartão                                                                                                                   |
-| expiration        | string  | **(requerido se não enviar o token)** expiração do cartão, no formato "mm/aa"                                                                                            |
-| holder_name       | string  | **(requerido se não enviar o token)** nome do dono do cartão                                                                                                             |
-| cvv               | string  | **(requerido se não enviar o token)** código de segurança do cartão                                                                                                      |
-| brand             | string  | **(requerido)** bandeira do cartão (visa, mastercard, amex, elo, diners, discover, jcb, aura)                                                      |
+| token             | string  | **(requerido para cobranças PJBank)** token do cartão                                                                                                                    |
+| number            | string  | **(requerido)** número do cartão                                                                                                                                         |
+| expiration        | string  | **(requerido)** expiração do cartão, no formato "mm/aa" ou "mm/aaaa"                                                                                                     |
+| holder_name       | string  | **(requerido)** nome do dono do cartão                                                                                                                                   |
+| cvv               | string  | **(requerido)** código de segurança do cartão                                                                                                                            |
+| brand             | string  | **(requerido)** bandeira do cartão (visa, mastercard, amex, elo, diners, discover, jcb, aura)                                                                            |
 | charge_config_id  | integer | **(requerido)** identificador da ChargeConfig à qual este cartão pertence                                                                                                |
 | payer_id          | integer | **(requerido, se não enviar payer_attributes )** identificador do pagador ao qual este cartão pertence (caso seja fornecido, o parâmetro payer_attributes será ignorado) |
 | payer_attributes* | object  | **(requerido, se não enviar payer_id )** atributos para a criação de um novo pagador ou atualização de um pagador existente com o mesmo documento (national_identifier)  |
