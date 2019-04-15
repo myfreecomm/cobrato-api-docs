@@ -8,6 +8,7 @@ EXEMPLO
   {
     "id": 8,
     "token": "kUzSKmYvKpGQTAZtXbgefPFUt/i1N+rNHb4UJGM0u2E=",
+    "national_identifier": "444.023.930-78",
     "number": "545301******6167",
     "holder_name": "John Doe",
     "brand": "amex",
@@ -34,6 +35,7 @@ Os Cartões de Crédito pertencem ao Pagador utilizado no momento de sua criaç�
 | Campo                     | Tipo            | Comentário                                                                                                                               |
 |---------------------------|-----------------|------------------------------------------------------------------------------------------------------------------------------------------|
 | token                     | string          | token do cartão gerado com o CobratoJS                                                                                                   |
+| national_identifier       | string          | cpf do portador do cartão                                                                                                                |
 | number                    | string          | números do cartão (incompleto, apenas para identificação)                                                                                |
 | expiration                | string          | expiração do cartão, no formato "mm/aa"                                                                                                  |
 | holder_name               | string          | nome do dono do cartão                                                                                                                   |
@@ -87,6 +89,7 @@ EXEMPLO DE CORPO DA RESPOSTA
   {
     "id": 8,
     "token": "kUzSKmYvKpGQTAZtXbgefPFUt/i1N+rNHb4UJGM0u2E=",
+    "national_identifier": "444.023.930-78",
     "number": "545301******6167",
     "holder_name": "John Doe",
     "brand": "amex",
@@ -169,6 +172,7 @@ EXEMPLO DE REQUISIÇÃO
     -X POST https://app.cobrato.com/api/v1/credit_cards \
     -d '{
         "token": "kUzSKmYvKpGQTAZtXbgefPFUt/i1N+rNHb4UJGM0u2E=",
+        "national_identifier": "444.023.930-78",
         "number": "5453010000066167",
         "holder_name": "John Doe",
         "brand": "mastercard",
@@ -221,23 +225,24 @@ pode ser verificado no atributo `reusability_error_message`.
 
 **Parâmetros**
 
-| Campo             | Tipo    | Comentário                                                                                                                                                               |
-|-------------------|---------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| token             | string  | **(requerido para cobranças PJBank)** token do cartão                                                                                                                    |
-| number            | string  | **(requerido)** número do cartão                                                                                                                                         |
-| expiration        | string  | **(requerido)** expiração do cartão, no formato "mm/aa" ou "mm/aaaa"                                                                                                     |
-| holder_name       | string  | **(requerido)** nome do dono do cartão                                                                                                                                   |
-| cvv               | string  | **(requerido)** código de segurança do cartão                                                                                                                            |
-| brand             | string  | **(requerido)** bandeira do cartão (visa, mastercard, amex, elo, diners, discover, jcb, aura)                                                                            |
-| charge_config_id  | integer | **(requerido)** identificador da ChargeConfig à qual este cartão pertence                                                                                                |
-| payer_id          | integer | **(requerido, se não enviar payer_attributes )** identificador do pagador ao qual este cartão pertence (caso seja fornecido, o parâmetro payer_attributes será ignorado) |
-| payer_attributes* | object  | **(requerido, se não enviar payer_id )** atributos para a criação de um novo pagador ou atualização de um pagador existente com o mesmo documento (national_identifier)  |
-| avs_address       | string  | (opcional) endereço de cobrança do cartão                                                                                                                                |
-| avs_number        | string  | (opcional) número do endereço de cobrança do cartão                                                                                                                      |
-| avs_complement    | string  | (opcional) complemento endereço de cobrança do cartão                                                                                                                    |
-| avs_district      | string  | (opcional) bairro do endereço de cobrança do cartão                                                                                                                      |
-| avs_zipcode       | string  | (opcional) cep do endereço de cobrança do cartão                                                                                                                         |
-| soft_descriptor   | string  | (opcional) descritor que irá aparecer na fatura do cartão referente à cobrança de homologação (no máximo 13 caracteres)                                                  |
+| Campo               | Tipo    | Comentário                                                                                                                                                               |
+|-------------------  |---------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| token               | string  | **(requerido para cobranças PJBank)** token do cartão                                                                                                                    |
+| national_identifier | string  | **(requerido para cobranças PJBank)** cpf do portador do cartão                                                                                                          |
+| number              | string  | **(requerido)** número do cartão                                                                                                                                         |
+| expiration          | string  | **(requerido)** expiração do cartão, no formato "mm/aa" ou "mm/aaaa"                                                                                                     |
+| holder_name         | string  | **(requerido)** nome do dono do cartão                                                                                                                                   |
+| cvv                 | string  | **(requerido)** código de segurança do cartão                                                                                                                            |
+| brand               | string  | **(requerido)** bandeira do cartão (visa, mastercard, amex, elo, diners, discover, jcb, aura)                                                                            |
+| charge_config_id    | integer | **(requerido)** identificador da ChargeConfig à qual este cartão pertence                                                                                                |
+| payer_id            | integer | **(requerido, se não enviar payer_attributes )** identificador do pagador ao qual este cartão pertence (caso seja fornecido, o parâmetro payer_attributes será ignorado) |
+| payer_attributes*   | object  | **(requerido, se não enviar payer_id )** atributos para a criação de um novo pagador ou atualização de um pagador existente com o mesmo documento (national_identifier)  |
+| avs_address         | string  | (opcional) endereço de cobrança do cartão                                                                                                                                |
+| avs_number          | string  | (opcional) número do endereço de cobrança do cartão                                                                                                                      |
+| avs_complement      | string  | (opcional) complemento endereço de cobrança do cartão                                                                                                                    |
+| avs_district        | string  | (opcional) bairro do endereço de cobrança do cartão                                                                                                                      |
+| avs_zipcode         | string  | (opcional) cep do endereço de cobrança do cartão                                                                                                                         |
+| soft_descriptor     | string  | (opcional) descritor que irá aparecer na fatura do cartão referente à cobrança de homologação (no máximo 13 caracteres)                                                  |
 
 **payer_attributes**
 
