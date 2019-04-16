@@ -8606,6 +8606,8 @@ EXEMPLO
 
   <span class="o">{</span>
     <span class="s2">"id"</span>: 8,
+    <span class="s2">"token"</span>: <span class="s2">"kUzSKmYvKpGQTAZtXbgefPFUt/i1N+rNHb4UJGM0u2E="</span>,
+    <span class="s2">"national_identifier"</span>: <span class="s2">"444.023.930-78"</span>,
     <span class="s2">"number"</span>: <span class="s2">"545301******6167"</span>,
     <span class="s2">"holder_name"</span>: <span class="s2">"John Doe"</span>,
     <span class="s2">"brand"</span>: <span class="s2">"amex"</span>,
@@ -8636,6 +8638,16 @@ EXEMPLO
 <th>Comentário</th>
 </tr>
 </thead><tbody>
+<tr>
+<td>token</td>
+<td>string</td>
+<td>token do cartão gerado com o CobratoJS</td>
+</tr>
+<tr>
+<td>national_identifier</td>
+<td>string</td>
+<td>cpf do portador do cartão</td>
+</tr>
 <tr>
 <td>number</td>
 <td>string</td>
@@ -8759,6 +8771,8 @@ EXEMPLO DE CORPO DA RESPOSTA
 
   <span class="o">{</span>
     <span class="s2">"id"</span>: 8,
+    <span class="s2">"token"</span>: <span class="s2">"kUzSKmYvKpGQTAZtXbgefPFUt/i1N+rNHb4UJGM0u2E="</span>,
+    <span class="s2">"national_identifier"</span>: <span class="s2">"444.023.930-78"</span>,
     <span class="s2">"number"</span>: <span class="s2">"545301******6167"</span>,
     <span class="s2">"holder_name"</span>: <span class="s2">"John Doe"</span>,
     <span class="s2">"brand"</span>: <span class="s2">"amex"</span>,
@@ -8835,13 +8849,15 @@ EXEMPLO DE REQUISIÇÃO
     -H <span class="s1">'Content-type: application/json'</span> <span class="se">\</span>
     -X POST https://app.cobrato.com/api/v1/credit_cards <span class="se">\</span>
     -d <span class="s1">'{
+        "token": "kUzSKmYvKpGQTAZtXbgefPFUt/i1N+rNHb4UJGM0u2E=",
+        "national_identifier": "444.023.930-78",
         "number": "5453010000066167",
         "holder_name": "John Doe",
         "brand": "mastercard",
         "expiration": "05/18",
         "cvv": "123",
         "avs_address": "Rua Julio de Castilhos",
-        "avs_number": "100",
+        "avs_number": "100", 
         "avs_complement": "Apto 103",
         "avs_district": "Centro",
         "avs_zipcode": "99000-750",
@@ -8895,6 +8911,16 @@ pode ser verificado no atributo <code class="prettyprint">reusability_error_mess
 </tr>
 </thead><tbody>
 <tr>
+<td>token</td>
+<td>string</td>
+<td><strong>(requerido para cobranças PJBank)</strong> token do cartão</td>
+</tr>
+<tr>
+<td>national_identifier</td>
+<td>string</td>
+<td><strong>(requerido para cobranças PJBank)</strong> cpf do portador do cartão</td>
+</tr>
+<tr>
 <td>number</td>
 <td>string</td>
 <td><strong>(requerido)</strong> número do cartão</td>
@@ -8902,7 +8928,7 @@ pode ser verificado no atributo <code class="prettyprint">reusability_error_mess
 <tr>
 <td>expiration</td>
 <td>string</td>
-<td><strong>(requerido)</strong> expiração do cartão, no formato &ldquo;mm/aa&rdquo;</td>
+<td><strong>(requerido)</strong> expiração do cartão, no formato &ldquo;mm/aa&rdquo; ou &ldquo;mm/aaaa&rdquo;</td>
 </tr>
 <tr>
 <td>holder_name</td>
@@ -8910,14 +8936,14 @@ pode ser verificado no atributo <code class="prettyprint">reusability_error_mess
 <td><strong>(requerido)</strong> nome do dono do cartão</td>
 </tr>
 <tr>
-<td>brand</td>
-<td>string</td>
-<td><strong>(requerido)</strong> bandeira do cartão (visa, mastercard, amex, elo, diners, discover, jcb, aura)</td>
-</tr>
-<tr>
 <td>cvv</td>
 <td>string</td>
 <td><strong>(requerido)</strong> código de segurança do cartão</td>
+</tr>
+<tr>
+<td>brand</td>
+<td>string</td>
+<td><strong>(requerido)</strong> bandeira do cartão (visa, mastercard, amex, elo, diners, discover, jcb, aura)</td>
 </tr>
 <tr>
 <td>charge_config_id</td>
