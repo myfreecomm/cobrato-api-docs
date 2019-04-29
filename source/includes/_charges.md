@@ -525,9 +525,11 @@ Caso exista um Pagador (Person) com o mesmo <code>national_identifier</code>, n�
 
 | Campo               | Tipo    | Comentário                                                                                                                                                                                  |
 |---------------------|---------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| number              | string  | **(requerido)** número do cartão                                                                                                                                                            |
+| token               | string  | **(requerido)** token do cartão                                                                                                                                                             |
+| national_identifier | string  | **(requerido)** cpf do portador do cartão                                                                                                                                                   |
+| number              | string  | **(requerido)** número mascarado do cartão                                                                                                                                                  |
 | cvv                 | string  | **(requerido)** código de segurança                                                                                                                                                         |
-| expiration          | string  | **(requerido)** expiração do cartão, no formato "mm/aa"                                                                                                                                     |
+| expiration          | string  | **(requerido)** expiração do cartão, no formato "mm/aa" ou "mm/aaaa"                                                                                                                        |
 | holder_name         | string  | **(requerido)** nome do dono do cartão                                                                                                                                                      |
 | brand               | string  | **(requerido)** bandeira do cartão (visa, mastercard, amex, elo, diners, discover, jcb, aura)                                                                                               |
 | avs_address         | string  | (opcional) endereço de cobrança do cartão                                                                                                                                                   |
@@ -688,6 +690,10 @@ Para cobranças do via <strong>Gateway de Pagamento</strong>, a atualização s�
 gateway de pagamento (atributo 'payment_gateway_status') seja de erro.
 </aside>
 
+<aside class="warning">
+Não é possível editar cobranças <strong>PJBank</strong>. Caso seja necessário corrigir algum campo deve-se criar uma nova cobrança.
+</aside>
+
 Uma cobrança com o status de erro no gateway de pagamento pode ser editada com o objetivo de corrigir este error
 (descrito no atributo 'payment_gateway_message'). Sendo atualizada com sucesso, é feita uma re-tentativa de efetivação
 da cobrança no gateway de pagamento.
@@ -735,9 +741,11 @@ No contexto de Cobrança utilizamos o nome 'Pagador' para referirmos à Pessoa (
 
 | Campo               | Tipo    | Comentário                                                                                                                                                                                  |
 |---------------------|---------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| number              | string  | **(requerido)** número do cartão                                                                                                                                                            |
+| token               | string  | **(requerido)** token do cartão                                                                                                                                                             |
+| national_identifier | string  | **(requerido)** cpf do portador do cartão                                                                                                                                                   |
+| number              | string  | **(requerido)** número mascarado do cartão                                                                                                                                                  |
 | cvv                 | string  | **(requerido)** código de segurança                                                                                                                                                         |
-| expiration          | string  | **(requerido)** expiração do cartão, no formato "mm/aa"                                                                                                                                     |
+| expiration          | string  | **(requerido)** expiração do cartão, no formato "mm/aa" ou "mm/aaaa"                                                                                                                        |
 | holder_name         | string  | **(requerido)** nome do dono do cartão                                                                                                                                                      |
 | brand               | string  | **(requerido)** bandeira do cartão (visa, mastercard, amex, elo, diners, discover, jcb, aura)                                                                                               |
 | avs_address         | string  | (opcional) endereço de cobrança do cartão                                                                                                                                                   |
