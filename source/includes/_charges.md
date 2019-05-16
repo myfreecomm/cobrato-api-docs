@@ -57,6 +57,7 @@ EXEMPLO
         {"rel":"deliver","method":"POST","href":"https://app.cobrato.com/api/v1/charges/1/deliver_billet"},
         {"rel":"charge_config","method":"GET","href":"https://app.cobrato.com/api/v1/charge_configs/1"},
         {"rel":"billet","method":"GET","href":"https://app.cobrato.com/api/v1/charges/1/billet"},
+        {"rel":"public_billet","method":"GET","href":"https://app.cobrato.com/public/billets/1dac03daed4ab93edd3bb2b25639d33f/download"},
         {"rel":"cancel","method":"POST","href":"https://app.cobrato.com/api/v1/charges/1/cancel"}
       ]
   }
@@ -277,6 +278,7 @@ EXEMPLO DE CORPO DA RESPOSTA (BOLETO)
         {"rel":"deliver","method":"POST","href":"https://app.cobrato.com/api/v1/charges/1/deliver_billet"},
         {"rel":"charge_config","method":"GET","href":"https://app.cobrato.com/api/v1/charge_configs/1"},
         {"rel":"billet","method":"GET","href":"https://app.cobrato.com/api/v1/charges/1/billet"},
+        {"rel":"public_billet","method":"GET","href":"https://app.cobrato.com/public/billets/1dac03daed4ab93edd3bb2b25639d33f/download"},
         {"rel":"cancel","method":"POST","href":"https://app.cobrato.com/api/v1/charges/1/cancel"}
       ]
   }
@@ -1092,10 +1094,6 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 ```
 
 Mostra o link da url do boleto de determinada cobrança via Boleto
-
-<aside class="warning">
-As URLs disponibilizadas são válidas por apenas 60 minutos. Sendo assim, não armazene o retorno e sempre que for necessário realize uma nova chamada à API.
-</aside>
 
 <aside class="notice">
 Para cobranças registradas, o boleto só ficará disponível após o registro da cobrança a não ser quando a configuração de cobrança tiver habilitada a opção de disponibilizar boleto antes de registrar.
