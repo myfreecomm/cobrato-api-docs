@@ -57,6 +57,7 @@ EXEMPLO
         {"rel":"deliver","method":"POST","href":"https://app.cobrato.com/api/v1/charges/1/deliver_billet"},
         {"rel":"charge_config","method":"GET","href":"https://app.cobrato.com/api/v1/charge_configs/1"},
         {"rel":"billet","method":"GET","href":"https://app.cobrato.com/api/v1/charges/1/billet"},
+        {"rel":"public_billet","method":"GET","href":"https://app.cobrato.com/public/billets/1dac03daed4ab93edd3bb2b25639d33f/download"},
         {"rel":"cancel","method":"POST","href":"https://app.cobrato.com/api/v1/charges/1/cancel"}
       ]
   }
@@ -277,6 +278,7 @@ EXEMPLO DE CORPO DA RESPOSTA (BOLETO)
         {"rel":"deliver","method":"POST","href":"https://app.cobrato.com/api/v1/charges/1/deliver_billet"},
         {"rel":"charge_config","method":"GET","href":"https://app.cobrato.com/api/v1/charge_configs/1"},
         {"rel":"billet","method":"GET","href":"https://app.cobrato.com/api/v1/charges/1/billet"},
+        {"rel":"public_billet","method":"GET","href":"https://app.cobrato.com/public/billets/1dac03daed4ab93edd3bb2b25639d33f/download"},
         {"rel":"cancel","method":"POST","href":"https://app.cobrato.com/api/v1/charges/1/cancel"}
       ]
   }
