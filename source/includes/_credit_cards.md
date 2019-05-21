@@ -228,6 +228,7 @@ pode ser verificado no atributo `reusability_error_message`.
 | Campo               | Tipo    | Comentário                                                                                                                                                               |
 |-------------------  |---------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | token               | string  | **(requerido para cobranças PJBank)** token do cartão                                                                                                                    |
+| national_identifier | string  | **(requerido para cobranças PJBank)** cpf do portador do cartão                                                                                                          |
 | number              | string  | **(requerido)** número do cartão                                                                                                                                         |
 | expiration          | string  | **(requerido)** expiração do cartão, no formato "mm/aa" ou "mm/aaaa"                                                                                                     |
 | holder_name         | string  | **(requerido)** nome do dono do cartão                                                                                                                                   |
@@ -236,7 +237,6 @@ pode ser verificado no atributo `reusability_error_message`.
 | charge_config_id    | integer | **(requerido)** identificador da ChargeConfig à qual este cartão pertence                                                                                                |
 | payer_id            | integer | **(requerido, se não enviar payer_attributes )** identificador do pagador ao qual este cartão pertence (caso seja fornecido, o parâmetro payer_attributes será ignorado) |
 | payer_attributes*   | object  | **(requerido, se não enviar payer_id )** atributos para a criação de um novo pagador ou atualização de um pagador existente com o mesmo documento (national_identifier)  |
-| national_identifier | string  | (opcional) cpf do portador do cartão                                                                                                                                     |
 | avs_address         | string  | (opcional) endereço de cobrança do cartão                                                                                                                                |
 | avs_number          | string  | (opcional) número do endereço de cobrança do cartão                                                                                                                      |
 | avs_complement      | string  | (opcional) complemento endereço de cobrança do cartão                                                                                                                    |
