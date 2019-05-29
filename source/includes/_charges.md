@@ -199,7 +199,8 @@ e tem suas respostas dadas em payloads via webhook.
 | email_text                     | string           | texto do email de notificação de cobrança                                                                                                     |
 | email_reply_to                 | string           | endereço de email a ser utilizado na resposta ao email de notificação de cobrança                                                             |
 | canceled_at                    | datetime         | data e horário em que a cobrança foi cancelada, se for o caso                                                                                 |
-| available_billet               | boolean          | indica se o boleto está disponível para download                                                                                                    |
+| available_billet               | boolean          | indica se o boleto está disponível para download                                                                                              |
+| instructions                   | string           | instruções que serão adicionadas à composição da cobrança                                                                                     |
 | _links                         | array of object  | links relacionados à cobrança                                                                                                                 |
 
 ## Informações da Cobrança
@@ -563,6 +564,7 @@ Caso exista um Pagador (Person) com o mesmo <code>national_identifier</code>, n�
 | email_subject             | string           | (opcional) Assunto do email de notificação de cobrança, caso a opção auto_send_billet estiver com valor 'true'                                                                                                    |
 | email_text                | string           | (opcional) Texto do email de notificação de cobrança, caso a opção auto_send_billet estiver com valor 'true'                                                                                                      |
 | email_reply_to            | string           | (opcional) Endereço de email a ser utilizado na resposta ao email de notificação de cobrança, caso a opção auto_send_billet estiver com valor 'true'                                                              |
+| instructions              | string           | (opcional) instruções que serão adicionadas à composição da cobrança. Devem ter no máximo 528 caracteres.                                                                                                         |
 
 **payer_attributes**
 
@@ -777,6 +779,7 @@ No contexto de Cobrança utilizamos o nome 'Pagador' para referirmos à Pessoa (
 | email_subject             | string           | (opcional) Assunto do email de notificação de cobrança, caso a opção auto_send_billet estiver com valor 'true'                                                                     |
 | email_text                | string           | (opcional) Texto do email de notificação de cobrança, caso a opção auto_send_billet estiver com valor 'true'                                                                       |
 | email_reply_to            | string           | (opcional) Endereço de email a ser utilizado na resposta ao email de notificação de cobrança, caso a opção auto_send_billet estiver com valor 'true'                               |
+| instructions              | string           | (opcional) instruções que serão adicionadas à composição da cobrança. Devem ter no máximo 528 caracteres.                                                                          |
 
 **payer_attributes**
 
