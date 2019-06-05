@@ -4033,6 +4033,11 @@ e tem suas respostas dadas em payloads via webhook.</p>
 <td>indica se o boleto está disponível para download</td>
 </tr>
 <tr>
+<td>instructions</td>
+<td>string</td>
+<td>instruções que serão adicionadas à composição da cobrança</td>
+</tr>
+<tr>
 <td>_links</td>
 <td>array of object</td>
 <td>links relacionados à cobrança</td>
@@ -4786,6 +4791,11 @@ Caso exista um Pagador (Person) com o mesmo <code>national_identifier</code>, n�
 <td>string</td>
 <td>(opcional) Endereço de email a ser utilizado na resposta ao email de notificação de cobrança, caso a opção auto_send_billet estiver com valor &#39;true&rsquo;</td>
 </tr>
+<tr>
+<td>instructions</td>
+<td>string</td>
+<td>(opcional) instruções que serão adicionadas à composição da cobrança. Devem ter no máximo 528 caracteres.</td>
+</tr>
 </tbody></table>
 
 <p><strong>payer_attributes</strong></p>
@@ -5387,6 +5397,11 @@ No contexto de Cobrança utilizamos o nome 'Pagador&rsquo; para referirmos à Pe
 <td>email_reply_to</td>
 <td>string</td>
 <td>(opcional) Endereço de email a ser utilizado na resposta ao email de notificação de cobrança, caso a opção auto_send_billet estiver com valor &#39;true&rsquo;</td>
+</tr>
+<tr>
+<td>instructions</td>
+<td>string</td>
+<td>(opcional) instruções que serão adicionadas à composição da cobrança. Devem ter no máximo 528 caracteres.</td>
 </tr>
 </tbody></table>
 
