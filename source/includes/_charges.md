@@ -488,7 +488,7 @@ mesma Configuração de Cobrança (parâmetro <code>charge_config_id</code>) uti
 | charge_config_id        | integer          | **(requerido)** código de identificação da configuração de cobrança da qual a cobrança irá pertencer                                                                          |
 | charged_amount          | decimal          | **(requerido)** valor cobrado                                                                                                                                                 |
 | payment_method          | string           | **(requerido)** método de pagamento ("credit_card_in_cash" pagamento à vista, "credit_card_financed" pagamento parcelado)                                                     |
-| type                    | string           | (opcional) tipo da cobrança, nesse caso "credit_card" é o valor padrão, por isso é opcional                                                                                   |
+| type                    | string           | **(requerido)** tipo da cobrança, nesse caso deve ser "credit_card"
 | description             | string           | (opcional) descrição da cobrança                                                                                                                                              |
 | soft_descriptor         | string           | (opcional) descritor que irá aparecer na fatura do cartão (no máximo 13 caracteres)                                                                                           |
 | installments            | integer          | (opcional) número de parcelas (1 por padrão)                                                                                                                                  |
