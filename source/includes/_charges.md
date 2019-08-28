@@ -206,6 +206,11 @@ e tem suas respostas dadas em payloads via webhook.
 
 ### Cobrança via Carteira Digital
 
+Atualmente a única Carteira Digital integrada é a da Ame Digital, que pode ser configurada através da configuração de cobrança, que posteriormente será informada na hora da criação da cobrança.
+
+As cobranças tem o comportamento assíncrono em relação à comunicação com a Carteira Digital. Ou seja, às ações que dependem de efetivação na Carteira Digital não tem resposta na mesma requisição,
+são feitas em um processo separado e tem suas respostas dadas em payloads via webhook.
+
 **Parâmetros**
 
 | Campo                          | Tipo             | Comentário                                                                                                                                    |
