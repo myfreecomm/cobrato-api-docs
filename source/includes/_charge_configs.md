@@ -39,10 +39,11 @@ EXEMPLO
 
 ```
 
-As Configurações de Cobrança podem ser de tipos diferentes. Sendo assim, os parâmetros e algums comportamentos irão variar de acordo com o tipo. Atualmente temos os tipos:
+As Configurações de Cobrança podem ser de tipos diferentes. Sendo assim, os parâmetros e alguns comportamentos irão variar de acordo com o tipo. Atualmente temos os tipos:
 
 - Conta Bancária (billet)
 - Gateway de pagamento (payment_gateway)
+- Carteira Digital (wallet)
 
 <aside class="warning">
   As Configurações de Cobrança <strong>precisam ser homologadas antes de serem utilizadas normalmente</strong>. Veja como homologar cada tipo de Configuração de Cobrança em suas informações específicas.
@@ -101,7 +102,7 @@ As Configurações de Cobrança do tipo **Conta bancária** (billet), pertencem 
 | Campo                   | Tipo             | Comentário                                                                                                                                                                             |
 |-------------------------|------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | id                      | integer          |                                                                                                                                                                                        |
-| type                    | string           | indica o tipo da configuração de cobrança. Nese caso 'payment_gateway'                                                                                                                 |
+| type                    | string           | indica o tipo da configuração de cobrança. Nesse caso 'payment_gateway'                                                                                                                 |
 | name                    | string           | nome que identifica esta configuração de cobrança                                                                                                                                      |
 | status                  | string           | indica o status, ou etapa, de homologação em que configuração de cobrança está ('pending', 'production_tests', 'ok')                                                                   |
 | payee_id                | integer          | identificador do beneficiário desta configuração de cobrança no Cobrato                                                                                                                |
@@ -127,6 +128,27 @@ As Configurações de Cobrança do tipo **Conta bancária** (billet), pertencem 
 | billet_gateway_id  | string          | credencial do contrato com o gateway de pagamento para cobranças de **boleto**                                  |
 | billet_gateway_key | string          | chave de acesso atribuída pelo gateway de pagamento para cobranças de **boleto**                                |
 
+
+### Carteira Digital
+
+<aside class="info">
+  Atualmente a Carteira Digital com integração via Cobrato é a da Ame Digital, ela é utilizada como padrão nesse tipo de configuração de cobrança e não necessita de homologação.
+  Após informar os dados corretos da carteira digital ela será criada com o status 'ok', sendo possível realizar cobranças reais.
+</aside>
+
+**Parâmetros**
+
+| Campo                   | Tipo             | Comentário                                                                                                                                                                             |
+|-------------------------|------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| id                      | integer          |                                                                                                                                                                                        |
+| type                    | string           | indica o tipo da configuração de cobrança. Nesse caso 'wallet'                                                                                                                          |
+| wallet_id               | string           | credencial atribuída pela carteira Ame Digital                                                                                                                                         |
+| wallet_key              | string           | chave de acesso atribuída pela carteira Ame Digital                                                                                                                                    |
+| name                    | string           | nome que identifica esta configuração de cobrança                                                                                                                                      |
+| status                  | string           | indica o status, ou etapa, de homologação em que configuração de cobrança está ('pending', 'ok')                                                                                       |
+| payee_id                | integer          | identificador do beneficiário desta configuração de cobrança no Cobrato                                                                                                                |
+| timezone                | string           | fuso horário utilizado pelo gateway. Utilize essa informação para converter e apresentar atributos do tipo "datetime" das cobranças dessa configuração de forma adequada               |
+| _links                  | array of object  | links da configuração de cobrança e de sua conta bancária                                                                                                                              |
 
 ## Informações da Configuração de Cobrança
 
@@ -258,7 +280,7 @@ Retorna uma lista em JSON contendo todas as Configurações de Cobrança que per
 É possível filtrar a lista através dos seguintes parâmetros:
 
 - `type`: Filtra pelo tipo de configuração de cobrança. O valor a ser informado é string com um dos tipos existentes de configuração de cobrança.
-- `charge_type`: Filtra pelo tipo de cobrança disponível para a configuração, ou seja retornará as configurações que suportam o tipo de cobrança informado. O valor a ser informado é a string com um dos tipos de cobrança disponíveis ("billet" ou "credit_card" até o momento).
+- `charge_type`: Filtra pelo tipo de cobrança disponível para a configuração, ou seja retornará as configurações que suportam o tipo de cobrança informado. O valor a ser informado é a string com um dos tipos de cobrança disponíveis ("billet", "credit_card" e "wallet" até o momento).
 - `bank_code`: Filtrar pelo código do banco da configuração de cobrança. O valor a ser informado é uma string com o código do banco. Por exemplo "341" para Itaú, "237" para Bradesco e etc.
 - `payee_ids`: Filtra pelos beneficiários informados. O valor informado é uma **lista\*** de ids dos beneficiários.
 - `payee_national_identifiers`: Filtra pelos beneficiários informados. O valor informado é uma **lista\*** de número de documentos dos beneficiários.
@@ -404,6 +426,18 @@ Cria uma nova Configuração de Cobrança, retornando as informações da mesma 
   <dd>PJBank</dd>
 </dl>
 
+### Carteira Digital
+
+**Parâmetros**
+
+| Campo        | Tipo    | Comentário                                                                                                                                            |
+|--------------|---------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
+| type         | string  | **(requerido)** indica o tipo da configuração de cobrança. Neste caso deve ser informado "wallet"                                                     |
+| payee_id     | integer | **(requerido)** código de identificação do beneficiário ao qual a configuração de cobrança irá pertencer                                              |
+| name         | string  | **(requerido)** nome que identifica esta configuração de cobrança                                                                                     |
+| wallet_id    | string  | **(requerido)** credencial atribuída pela carteira Ame Digital                                                                                        |
+| wallet_key   | string  | **(requerido)** chave de acesso atribuída pela carteira Ame Digital                                                                                   |
+
 ## Atualização de Configuração de Cobrança
 
 ```shell
@@ -511,6 +545,17 @@ Atualiza a Configuração de Cobrança determinada, retornando as informações 
 | logo[content]       | string  | (opcional) conteúdo do arquivo do logotipo codificado em Base64                                                                                                      |
 | logo[content_type]  | string  | (opcional) *Content-Type* do arquivo do logotipo. Exemplo: "image/png" (deve ser imagem no formato png, gif ou jpg)                                                  |
 | logo[filename]      | string  | (opcional) Nome do arquivo do logotipo.                                                                                                                              |
+
+### Carteira Digital
+
+**Parâmetros**
+
+| Campo        | Tipo    | Comentário                                                                                                                                            |
+|--------------|---------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
+| payee_id     | integer | **(requerido)** código de identificação do beneficiário ao qual a configuração de cobrança irá pertencer                                              |
+| name         | string  | **(requerido)** nome que identifica esta configuração de cobrança                                                                                     |
+| wallet_id    | string  | **(requerido)** credencial atribuída pela carteira Ame Digital                                                                                        |
+| wallet_key   | string  | **(requerido)** chave de acesso atribuída pela carteira Ame Digital                                                                                   |
 
 
 ## Exclusão de Configuração de Cobrança
