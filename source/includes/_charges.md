@@ -203,6 +203,38 @@ e tem suas respostas dadas em payloads via webhook.
 | instructions                   | string           | instruções que serão adicionadas à composição da cobrança                                                                                     |
 | _links                         | array of object  | links relacionados à cobrança                                                                                                                 |
 
+
+### Cobrança via Carteira Digital
+
+**Parâmetros**
+
+| Campo                          | Tipo             | Comentário                                                                                                                                    |
+|--------------------------------|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
+| id                             | integer          |                                                                                                                                               |
+| type                           | string           | indica o tipo da cobrança. Nesse caso, "wallet"                                                                                               |
+| charge_config_id               | integer          | identificador da configuração de cobrança a qual esta cobrança pertence                                                                       |
+| title                          | string           | título do pedido                                                                                                                              |
+| description                    | string           | descrição do pedido                                                                                                                           |
+| cashback_amount                | integer          | valor do cashback a ser concedido após a autorização                                                                                          |
+| qr_code_link                   | string           | url para renderizar o QRCode                                                                                                                  |
+| deepLink                       | string           | url utilizada para realizar o deep link entre aplicativos iOS ou Android                                                                      |
+| order_id                       | string           | identificador da cobrança na carteira digital                                                                                                 |
+| order_status                   | string           | status da cobrança em relação a carteira digital                                                                                              |
+| charged_amount                 | decimal          | valor cobrado no boleto                                                                                                                       |
+| payer_id                       | integer          | identificador do pagador                                                                                                                      |
+| payer_national_identifier_type | string           | tipo do documento do pagador (cpf ou cnpj)                                                                                                    |
+| payer_national_identifier      | string           | documento do pagador                                                                                                                          |
+| payer_name                     | string           | nome do pagador                                                                                                                               |
+| payer_number                   | string           | número do endereço do pagador                                                                                                                 |
+| payer_complement               | string           | complemento do endereço do pagador                                                                                                            |
+| payer_street                   | string           | rua do endereço do pagador                                                                                                                    |
+| payer_neighbourhood            | string           | bairro do endereço do pagador                                                                                                                 |
+| payer_zipcode                  | string           | cep do endereço do pagador                                                                                                                    |
+| payer_city                     | string           | cidade do endereço do pagador                                                                                                                 |
+| payer_state                    | string           | sigla do estado do endereço do pagador ("RJ" por exemplo)                                                                                     |
+| notification_emails            | array of strings | emails que receberão notificações sobre a cobrança                                                                                            |
+| _links                         | array of object  | links relacionados à cobrança                                                                                                                 |
+
 ## Informações da Cobrança
 
 ```shell
@@ -350,7 +382,7 @@ Retorna uma lista em JSON contendo todos as cobranças que pertencem a sua Conta
 
 É possível filtrar a lista através dos seguintes parâmetros:
 
-- `type`: Filtra pelo tipo de cobrança. O valor a ser informado é string com um dos tipos existentes de cobrança ("billet" e "credit_card", sendo que existe "payment_gateway" que está _deprecated_ retornando a mesma coisa que "credit_card") .
+- `type`: Filtra pelo tipo de cobrança. O valor a ser informado é string com um dos tipos existentes de cobrança ("billet", "credit_card" e "wallet", sendo que existe "payment_gateway" que está _deprecated_ retornando a mesma coisa que "credit_card") .
 - `remittable`: Filtra as cobranças remessáveis, ou seja, passíveis de geração de arquivo de remessa. É necessária apenas a presença do parâmetro, não importando seu valor.
 - `charge_config_ids`: Filtra pelas configurações de cobrança informadas. O valor informado é uma **lista\*** de ids das configurações de cobrança.
 - `payee_ids`: Filtra pelos beneficiários informados. O valor informado é uma **lista\*** de ids dos beneficiários.
@@ -584,6 +616,21 @@ Caso exista um Pagador (Payer) com o mesmo <code>national_identifier</code>, nã
 | zipcode                  | string | (opcional) cep do endereço do pagador                                |
 | city                     | string | (opcional) cidade do endereço do pagador                             |
 | state                    | string | (opcional) sigla do estado do endereço do pagador ("RJ" por exemplo) |
+
+
+### Carteira Digital
+
+**Parâmetros**
+
+| Campo                     | Tipo             | Comentário                                                                                                |
+|---------------------------|------------------|-----------------------------------------------------------------------------------------------------------|
+| type                      | string           | **(requerido)** tipo da cobrança, nesse caso deve ser "wallet"                                            |
+| charge_config_id          | integer          | **(requerido)** código de identificação da configuração de cobrança da qual a cobrança irá pertencer      |
+| charged_amount            | decimal          | **(requerido)** valor cobrado                                                                             |
+| title                     | string           | (opcional) título do pedido                                                                               |
+| description               | string           | (opcional) descrição do pedido                                                                            |
+| cashback_amount           | integer          | (opcional) valor do cashback a ser concedido após a autorização                                           |
+
 
 ## Atualização de Cobrança
 
