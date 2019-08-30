@@ -224,7 +224,7 @@ são feitas em um processo separado e tem suas respostas dadas em payloads via w
 | qr_code_link                   | string           | url para renderizar o QRCode                                                                                                                  |
 | deepLink                       | string           | url utilizada para realizar o deep link entre aplicativos iOS ou Android                                                                      |
 | order_id                       | string           | identificador da cobrança na carteira digital                                                                                                 |
-| order_status                   | string           | status da cobrança em relação a carteira digital                                                                                              |
+| order_status                   | string           | status da cobrança em relação a carteira digital (pending, created, error_on_creation)                                                        |
 | charged_amount                 | decimal          | valor cobrado no boleto                                                                                                                       |
 | payer_id                       | integer          | identificador do pagador                                                                                                                      |
 | payer_national_identifier_type | string           | tipo do documento do pagador (cpf ou cnpj)                                                                                                    |
