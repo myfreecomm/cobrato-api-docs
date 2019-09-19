@@ -43,10 +43,10 @@ EXEMPLO
 | account                   | string  | número da conta bancária para o pagamento                                                                                                                                                                                                                                                                                   |
 | account_digit             | string  | dígito da conta bancária para fazer o pagamento                                                                                                                                                                                                                                                                             |
 | agency                    | string  | número da agência da conta bancária para fazer o pagamento                                                                                                                                                                                                                                                                  |
-| payee_id                  | integer | identificador do beneficiário                                                                                                                                                                                                                                                                                               |
-| payee_name                | string  | nome do beneficiário                                                                                                                                                                                                                                                                                                        |
-| payee_document_type       | string  | tipo do documento do beneficiário                                                                                                                                                                                                                                                                                           |
-| payee_document            | string  | número do documento do beneficiário                                                                                                                                                                                                                                                                                         |
+| payee_id                  | integer | identificador do estabelecimento                                                                                                                                                                                                                                                                                               |
+| payee_name                | string  | nome do estabelecimento                                                                                                                                                                                                                                                                                                        |
+| payee_document_type       | string  | tipo do documento do estabelecimento                                                                                                                                                                                                                                                                                           |
+| payee_document            | string  | número do documento do estabelecimento                                                                                                                                                                                                                                                                                         |
 | doc_goal                  | string  | código referente ao objetivo do DOC. Possíveis valores na tabela 2                                                                                                                                                                                                                                                          |
 | ted_goal                  | string  | código referente ao objetivo do TED. Possíveis valores na tabela 3                                                                                                                                                                                                                                                          |
 | our_number                | string  | número que identifica o pagamento no banco                                                                                                                                                                                                                                                                                  |
@@ -218,7 +218,7 @@ Cria um novo Pagamento, retornando as informações do mesmo em caso de sucesso.
 | amount                    | decimal | **(requerido)** valor do pagamento                                                                                                                                                                                                                          |
 | date                      | date    | **(requerido)** data do pagamento                                                                                                                                                                                                                           |
 | note                      | string  | (opcional) oberservação do pagamento                                                                                                                                                                                                                        |
-| payee_name                | string  | (opcional) nome do beneficiário                                                                                                                                                                                                                             |
+| payee_name                | string  | (opcional) nome do estabelecimento                                                                                                                                                                                                                             |
 
 ### Transferências (DOC, TED, Crédito)
 
@@ -231,8 +231,8 @@ Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros 
 | account       | string  | **(requerido)** número da conta bancária para o pagamento                                                                                                                        |
 | account_digit | string  | **(requerido)** dígito da conta bancária para fazer o pagamento                                                                                                                  |
 | agency        | string  | **(requerido)** número da agência da conta bancária para fazer o pagamento                                                                                                       |
-| payee_id      | string  | **(requerido, se não enviar payee)** identificador do beneficiário (caso seja fornecido, o parâmetro `payee` será ignorado)                                                      |
-| payee*        | object  | **(requerido, se não enviar payee_id)** atributos para a criação de um novo beneficiário ou atualização de um beneficiário existente com o mesmo documento (national_identifier) |
+| payee_id      | string  | **(requerido, se não enviar payee)** identificador do estabelecimento (caso seja fornecido, o parâmetro `payee` será ignorado)                                                      |
+| payee*        | object  | **(requerido, se não enviar payee_id)** atributos para a criação de um novo estabelecimento ou atualização de um estabelecimento existente com o mesmo documento (national_identifier) |
 | payment_type  | string  | **(requerido)** tipo de pagamento. Os possíveis valores variam de acordo com o "payment_method" (vide tabela 1)                                                                  |
 
 **Parâmetros quando payment_method é 'doc_other_ownership' ou 'doc_same_ownership'**
@@ -264,8 +264,8 @@ O attributo <code>amount</code> nesse caso é opcional, pois ele é identificado
 | Campo           | Tipo    | Comentário                                                                                                                                                                       |
 |-----------------|---------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | barcode         | string  | **(requerido)** Código de barras do boleto bancário                                                                                                                              |
-| payee_id        | string  | **(requerido, se não enviar payee)** identificador do beneficiário (caso seja fornecido, o parâmetro `payee` será ignorado)                                                      |
-| payee*          | object  | **(requerido, se não enviar payee_id)** atributos para a criação de um novo beneficiário ou atualização de um beneficiário existente com o mesmo documento (national_identifier) |
+| payee_id        | string  | **(requerido, se não enviar payee)** identificador do estabelecimento (caso seja fornecido, o parâmetro `payee` será ignorado)                                                      |
+| payee*          | object  | **(requerido, se não enviar payee_id)** atributos para a criação de um novo estabelecimento ou atualização de um estabelecimento existente com o mesmo documento (national_identifier) |
 | payment_type    | string  | **(requerido)** tipo de pagamento. Os possíveis valores variam de acordo com o "payment_method" (vide tabela 1)                                                                  |
 | due_date        | date    | (opicional, já que é identificado no código de barras) Data de vencimento do boleto                                                                                              |
 | discount_amount | decimal | (opcional) valor do desconto                                                                                                                                                     |
@@ -398,9 +398,9 @@ O attributo <code>payment_type</code> é automaticamente definido como <code>"tr
 
 | Campo                    | Tipo   | Comentário                                                                                                |
 |--------------------------|--------|-----------------------------------------------------------------------------------------------------------|
-| national_identifier_type | string | **(requerido)** tipo do documento do beneficiário (cpf ou cnpj)                                           |
-| national_identifier      | string | **(requerido)** documento do beneficiário                                                                 |
-| name                     | string | **(requerido)** nome do beneficiário                                                                      |
+| national_identifier_type | string | **(requerido)** tipo do documento do estabelecimento (cpf ou cnpj)                                           |
+| national_identifier      | string | **(requerido)** documento do estabelecimento                                                                 |
+| name                     | string | **(requerido)** nome do estabelecimento                                                                      |
 
 
 ## Atualização de Pagamento
@@ -469,8 +469,8 @@ Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros 
 | account       | string  | **(requerido)** número da conta bancária para o pagamento                                                                                                                        |
 | account_digit | string  | **(requerido)** dígito da conta bancária para fazer o pagamento                                                                                                                  |
 | agency        | string  | **(requerido)** número da agência da conta bancária para fazer o pagamento                                                                                                       |
-| payee_id      | string  | **(requerido, se não enviar payee)** identificador do beneficiário (caso seja fornecido, o parâmetro `payee` será ignorado)                                                      |
-| payee*        | object  | **(requerido, se não enviar payee_id)** atributos para a criação de um novo beneficiário ou atualização de um beneficiário existente com o mesmo documento (national_identifier) |
+| payee_id      | string  | **(requerido, se não enviar payee)** identificador do estabelecimento (caso seja fornecido, o parâmetro `payee` será ignorado)                                                      |
+| payee*        | object  | **(requerido, se não enviar payee_id)** atributos para a criação de um novo estabelecimento ou atualização de um estabelecimento existente com o mesmo documento (national_identifier) |
 
 **Parâmetros quando payment_method é 'doc_other_ownership' ou 'doc_same_ownership'**
 
@@ -492,8 +492,8 @@ Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros 
 
 | Campo           | Tipo    | Comentário                                                                                                                                                                       |
 |-----------------|---------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| payee_id        | string  | **(requerido, se não enviar payee)** identificador do beneficiário (caso seja fornecido, o parâmetro `payee` será ignorado)                                                      |
-| payee*          | object  | **(requerido, se não enviar payee_id)** atributos para a criação de um novo beneficiário ou atualização de um beneficiário existente com o mesmo documento (national_identifier) |
+| payee_id        | string  | **(requerido, se não enviar payee)** identificador do estabelecimento (caso seja fornecido, o parâmetro `payee` será ignorado)                                                      |
+| payee*          | object  | **(requerido, se não enviar payee_id)** atributos para a criação de um novo estabelecimento ou atualização de um estabelecimento existente com o mesmo documento (national_identifier) |
 | due_date        | date    | **(requerido)** Data de vencimento do boleto                                                                                                                                     |
 | discount_amount | decimal | (opcional) valor do desconto                                                                                                                                                     |
 
@@ -604,9 +604,9 @@ Além dos parâmetros comuns à todas as formas de pagamento, temos parâmetros 
 
 | Campo                    | Tipo   | Comentário                                                      |
 |--------------------------|--------|-----------------------------------------------------------------|
-| national_identifier_type | string | **(requerido)** tipo do documento do beneficiário (cpf ou cnpj) |
-| national_identifier      | string | **(requerido)** documento do beneficiário                       |
-| name                     | string | **(requerido)** nome do beneficiário                            |
+| national_identifier_type | string | **(requerido)** tipo do documento do estabelecimento (cpf ou cnpj) |
+| national_identifier      | string | **(requerido)** documento do estabelecimento                       |
+| name                     | string | **(requerido)** nome do estabelecimento                            |
 
 ## Exclusão de Pagamento
 

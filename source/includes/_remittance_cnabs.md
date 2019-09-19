@@ -199,8 +199,8 @@ Um Arquivo de remessa sempre está associado à uma Configuração. Sendo assim,
 | charge_ids                 | array of integers | (DEPRECATED: use item_ids) **(requerido, veja a nota acima)** Lista com os ids das cobranças que devem estar incluídas no(s) arquivo(s) CNAB de Remessa                               |
 | config_ids                 | array of integers | **(requerido, veja a nota acima)** Lista com os ids das configurações para as quais devem ser criados os Arquivos CNAB de Remessa                                                     |
 | charge_config_ids          | array of integers | (DEPRECATED: use config_ids) **(requerido, veja a nota acima)** Lista com os ids das configurações de cobranças para as quais devem ser criados os Arquivos CNAB de Remessa           |
-| payee_ids                  | array of integers | **(requerido, veja a nota acima)** Lista com os ids dos beneficiários das configurações para as quais devem ser criados os Arquivos CNAB de Remessa                                   |
-| payee_national_identifiers | array of strings  | **(requerido, veja a nota acima)** Lista com os números de documento dos beneficiários das configurações para as quais devem ser criados os Arquivos CNAB de Remessa                  |
+| payee_ids                  | array of integers | **(requerido, veja a nota acima)** Lista com os ids dos estabelecimentos das configurações para as quais devem ser criados os Arquivos CNAB de Remessa                                   |
+| payee_national_identifiers | array of strings  | **(requerido, veja a nota acima)** Lista com os números de documento dos estabelecimentos das configurações para as quais devem ser criados os Arquivos CNAB de Remessa                  |
 
 ## Exclusão de CNAB de Remessa
 
