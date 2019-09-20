@@ -141,8 +141,8 @@ EXEMPLO DE REQUISIÇÃO
     -H 'Content-type: application/json' \
     -X POST https://app.cobrato.com/api/v1/bank_accounts \
     -d '{
-          "company_id": "1", # DEPRECATED
-          "payee_id": "1",
+          "company_id": "1",
+          "payee_id": "1", # DEPRECATED
           "bank_code": "001",
           "agency":"1606",
           "agency_digit":"3",
@@ -166,8 +166,8 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
         "bank_code": ["não pode ficar em branco","não possui o tamanho esperado (3 caracteres)"],
         "agency": ["não pode ficar em branco","não é um número"],
         "account": ["não pode ficar em branco","não é um número"],
-        "company_id":["não pode ficar em branco"], # DEPRECATED
-        "payee_id":["não pode ficar em branco"]
+        "company_id":["não pode ficar em branco"],
+        "payee_id":["não pode ficar em branco"] # DEPRECATED
       }
   }
 
