@@ -42,15 +42,15 @@ EXEMPLO
 | id                       | integer         |                                                                      |
 | national_identifier_type | string          | tipo de identificação nacional ('cpf' ou 'cnpj')                     |
 | national_identifier      | string          | número válido de cnpj ou cpf, de acordo com o campo anterior         |
-| name                     | string          | nome completo do estabelecimento                                        |
-| city                     | string          | nome da cidade do domicílio do estabelecimento                          |
-| state                    | string          | uf do estado do domicílio do estabelecimento (duas letras, p. ex. 'RJ') |
-| neighbourhood            | string          | bairro do domicílio do estabelecimento                                  |
-| street                   | string          | logradouro do estabelecimento                                           |
-| number                   | string          | número da logradouro do estabelecimento                                 |
-| zipcode                  | string          | cep do domicílio do estabelecimento                                     |
-| complement               | string          | complemento para o endereço de domicilio do estabelecimento             |
-| _links                   | array of object | links do estabelecimento                                                |
+| name                     | string          | nome completo do beneficiário                                        |
+| city                     | string          | nome da cidade do domicílio do beneficiário                          |
+| state                    | string          | uf do estado do domicílio do beneficiário (duas letras, p. ex. 'RJ') |
+| neighbourhood            | string          | bairro do domicílio do beneficiário                                  |
+| street                   | string          | logradouro do beneficiário                                           |
+| number                   | string          | número da logradouro do beneficiário                                 |
+| zipcode                  | string          | cep do domicílio do beneficiário                                     |
+| complement               | string          | complemento para o endereço de domicilio do beneficiário             |
+| _links                   | array of object | links do beneficiário                                                |
 
 ## Informações do Beneficiário
 
@@ -99,7 +99,7 @@ EXEMPLO DE CORPO DA RESPOSTA
   }
 ```
 
-Retorna as informações detalhadas do estabelecimento informado em JSON.
+Retorna as informações detalhadas do beneficiário informado em JSON.
 
 ## Lista de Todos os Beneficiários
 
@@ -128,10 +128,10 @@ EXEMPLO DE CORPO DA RESPOSTA
     "payees":
       [
         {
-          // informações estabelecimento 1
+          // informações beneficiário 1
         },
         {
-          // informações estabelecimento 2
+          // informações beneficiário 2
         },
         ...
       ]
@@ -193,7 +193,7 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
 ```
 
-Cria um novo estabelecimento, retornando as informações do mesmo caso haja sucesso. Se houverem erros eles serão informados no corpo da resposta.
+Cria um novo beneficiário, retornando as informações do mesmo caso haja sucesso. Se houverem erros eles serão informados no corpo da resposta.
 
 **Parâmetros**
 
@@ -201,14 +201,14 @@ Cria um novo estabelecimento, retornando as informações do mesmo caso haja suc
 |--------------------------|--------|--------------------------------------------------------------------------------------|
 | national_identifier_type | string | **(requerido)** tipo de identificação nacional ('cpf' ou 'cnpj')                     |
 | national_identifier      | string | **(requerido)** número válido de cnpj ou cpf, de acordo com o campo anterior         |
-| name                     | string | **(requerido)** nome completo do estabelecimento                                        |
-| city                     | string | **(requerido)** nome da cidade do domicílio do estabelecimento                          |
-| state                    | string | **(requerido)** uf do estado do domicílio do estabelecimento (duas letras, p. ex. 'RJ') |
-| neighbourhood            | string | **(requerido)** bairro do domicílio do estabelecimento                                  |
-| street                   | string | **(requerido)** logradouro do estabelecimento                                           |
-| number                   | string | **(requerido)** número da logradouro do estabelecimento                                 |
-| zipcode                  | string | **(requerido)** cep do domicílio do estabelecimento                                     |
-| complement               | string | (opcional)  complemento para o endereço de domicilio do estabelecimento                 |
+| name                     | string | **(requerido)** nome completo do beneficiário                                        |
+| city                     | string | **(requerido)** nome da cidade do domicílio do beneficiário                          |
+| state                    | string | **(requerido)** uf do estado do domicílio do beneficiário (duas letras, p. ex. 'RJ') |
+| neighbourhood            | string | **(requerido)** bairro do domicílio do beneficiário                                  |
+| street                   | string | **(requerido)** logradouro do beneficiário                                           |
+| number                   | string | **(requerido)** número da logradouro do beneficiário                                 |
+| zipcode                  | string | **(requerido)** cep do domicílio do beneficiário                                     |
+| complement               | string | (opcional)  complemento para o endereço de domicilio do beneficiário                 |
 
 ## Atualização de Beneficiário
 
@@ -254,7 +254,7 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
 
 ```
 
-Atualiza o estabelecimento determinado, retornando as informações do mesmo caso haja sucesso. Se houverem erros eles serão informados no corpo da resposta. A requisição não diferencia a utilização dos verbos PUT e PATCH.
+Atualiza o beneficiário determinado, retornando as informações do mesmo caso haja sucesso. Se houverem erros eles serão informados no corpo da resposta. A requisição não diferencia a utilização dos verbos PUT e PATCH.
 
 **Parâmetros**
 
@@ -262,14 +262,14 @@ Atualiza o estabelecimento determinado, retornando as informações do mesmo cas
 |--------------------------|--------|--------------------------------------------------------------------------------------|
 | national_identifier_type | string | **(requerido)** tipo de identificação nacional ('cpf' ou 'cnpj')                     |
 | national_identifier      | string | **(requerido)** número válido de cnpj ou cpf, de acordo com o campo anterior         |
-| name                     | string | **(requerido)** nome completo do estabelecimento                                        |
-| city                     | string | **(requerido)** nome da cidade do domicílio do estabelecimento                          |
-| state                    | string | **(requerido)** uf do estado do domicílio do estabelecimento (duas letras, p. ex. 'RJ') |
-| neighbourhood            | string | **(requerido)** bairro do domicílio do estabelecimento                                  |
-| street                   | string | **(requerido)** logradouro do estabelecimento                                           |
-| number                   | string | **(requerido)** número da logradouro do estabelecimento                                 |
-| zipcode                  | string | **(requerido)** cep do domicílio do estabelecimento                                     |
-| complement               | string | (opcional)  complemento para o endereço de domicilio do estabelecimento                 |
+| name                     | string | **(requerido)** nome completo do beneficiário                                        |
+| city                     | string | **(requerido)** nome da cidade do domicílio do beneficiário                          |
+| state                    | string | **(requerido)** uf do estado do domicílio do beneficiário (duas letras, p. ex. 'RJ') |
+| neighbourhood            | string | **(requerido)** bairro do domicílio do beneficiário                                  |
+| street                   | string | **(requerido)** logradouro do beneficiário                                           |
+| number                   | string | **(requerido)** número da logradouro do beneficiário                                 |
+| zipcode                  | string | **(requerido)** cep do domicílio do beneficiário                                     |
+| complement               | string | (opcional)  complemento para o endereço de domicilio do beneficiário                 |
 
 ## Exclusão de Beneficiário
 
@@ -297,5 +297,5 @@ EXEMPLO DE ESTADO DA RESPOSTA COM BENEFICIÁRIO INEXISTENTE
     404 Not Found
 ```
 
-Exclui determinado estabelecimento e junto a ele todas suas configurações de cobrança, contas bancárias e as cobranças. As mudanças são irreversíveis.
+Exclui determinado beneficiário e junto a ele todas suas configurações de cobrança, contas bancárias e as cobranças. As mudanças são irreversíveis.
 
