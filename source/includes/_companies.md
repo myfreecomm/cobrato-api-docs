@@ -19,9 +19,12 @@ EXEMPLO
     "complement": "Ao lado da lotérica.",
     "_links":
       [
-        {"rel":"self","method":"GET","href":"https://app.cobrato.com/api/v1/payees/1"},
-        {"rel":"update","method":"PUT","href":"https://app.cobrato.com/api/v1/payees/1"},
-        {"rel":"destroy","method":"DELETE","href":"https://app.cobrato.com/api/v1/payees/1"}
+        {"rel":"self","method":"GET","href":"https://app.cobrato.com/api/v1/companies/1"},
+        {"rel":"update","method":"PUT","href":"https://app.cobrato.com/api/v1/companies/1"},
+        {"rel":"destroy","method":"DELETE","href":"https://app.cobrato.com/api/v1/companies/1"},
+        {"rel":"self","method":"GET","href":"https://app.cobrato.com/api/v1/payees/1"},# DEPRECATED
+        {"rel":"update","method":"PUT","href":"https://app.cobrato.com/api/v1/payees/1"}, # DEPRECATED
+        {"rel":"destroy","method":"DELETE","href":"https://app.cobrato.com/api/v1/payees/1"} # DEPRECATED
       ]
   }
 ```
@@ -52,7 +55,7 @@ Mostrar Estabelecimento
 
 DEFINIÇÃO
 
-  GET https://app.cobrato.com/api/v1/payees/:payee_id
+  GET https://app.cobrato.com/api/v1/companies/:company_id
 
 EXEMPLO DE REQUISIÇÃO
 
@@ -60,7 +63,7 @@ EXEMPLO DE REQUISIÇÃO
     -H 'User-Agent: My App 1.0' \
     -H 'Accept: application/json' \
     -H 'Content-type: application/json' \
-    -X GET https://app.cobrato.com/api/v1/payees/:payee_id
+    -X GET https://app.cobrato.com/api/v1/companies/:company_id
 
 EXEMPLO DE ESTADO DA RESPOSTA
 
@@ -82,9 +85,12 @@ EXEMPLO DE CORPO DA RESPOSTA
     "complement": "Ao lado da lotérica.",
     "_links":
       [
-        {"rel":"self","method":"GET","href":"https://app.cobrato.com/api/v1/payees/1"},
-        {"rel":"update","method":"PUT","href":"https://app.cobrato.com/api/v1/payees/1"},
-        {"rel":"destroy","method":"DELETE","href":"https://app.cobrato.com/api/v1/payees/1"}
+        {"rel":"self","method":"GET","href":"https://app.cobrato.com/api/v1/companies/1"},
+        {"rel":"update","method":"PUT","href":"https://app.cobrato.com/api/v1/companies/1"},
+        {"rel":"destroy","method":"DELETE","href":"https://app.cobrato.com/api/v1/companies/1"},
+        {"rel":"self","method":"GET","href":"https://app.cobrato.com/api/v1/payees/1"}, # DEPRECATED
+        {"rel":"update","method":"PUT","href":"https://app.cobrato.com/api/v1/payees/1"}, # DEPRECATED
+        {"rel":"destroy","method":"DELETE","href":"https://app.cobrato.com/api/v1/payees/1"} # DEPRECATED
       ]
   }
 ```
@@ -98,7 +104,7 @@ Listar Estabelecimentos
 
 DEFINIÇÃO
 
-  GET https://app.cobrato.com/api/v1/payees
+  GET https://app.cobrato.com/api/v1/companies
 
 EXEMPLO DE REQUISIÇÃO
 
@@ -106,7 +112,7 @@ EXEMPLO DE REQUISIÇÃO
     -H 'User-Agent: My App 1.0' \
     -H 'Accept: application/json' \
     -H 'Content-type: application/json' \
-    -X GET https://app.cobrato.com/api/v1/payees
+    -X GET https://app.cobrato.com/api/v1/companies
 
 EXEMPLO DE ESTADO DA RESPOSTA
 
@@ -115,7 +121,7 @@ EXEMPLO DE ESTADO DA RESPOSTA
 EXEMPLO DE CORPO DA RESPOSTA
 
   {
-    "payees":
+    "companies":
       [
         {
           // informações estabelecimento 1
@@ -137,7 +143,7 @@ Criar Estabelecimento
 
 DEFINIÇÃO
 
-  POST https://app.cobrato.com/api/v1/payees
+  POST https://app.cobrato.com/api/v1/companies
 
 EXEMPLO DE REQUISIÇÃO
 
@@ -145,7 +151,7 @@ EXEMPLO DE REQUISIÇÃO
     -H 'User-Agent: My App 1.0' \
     -H 'Accept: application/json' \
     -H 'Content-type: application/json' \
-    -X POST https://app.cobrato.com/api/v1/payees \
+    -X POST https://app.cobrato.com/api/v1/companies \
     -d '{
         "name": "João Silva",
         "city": "Caxias do Sul",
@@ -207,8 +213,8 @@ Atualizar Estabelecimento
 
 DEFINIÇÃO
 
-  PUT https://app.cobrato.com/api/v1/payees/:payee_id
-  PATCH https://app.cobrato.com/api/v1/payees/:payee_id
+  PUT https://app.cobrato.com/api/v1/companies/:company_id
+  PATCH https://app.cobrato.com/api/v1/companies/:company_id
 
 EXEMPLO DE REQUISIÇÃO
 
@@ -216,7 +222,7 @@ EXEMPLO DE REQUISIÇÃO
     -H 'User-Agent: My App 1.0' \
     -H 'Accept: application/json' \
     -H 'Content-type: application/json' \
-    -X PATCH https://app.cobrato.com/api/v1/payees/:payee_id \
+    -X PATCH https://app.cobrato.com/api/v1/companies/:company_id \
     -d '{
         "city": "Farroupilha",
         "state": "RS"
@@ -268,7 +274,7 @@ Excluir Estabelecimento
 
 DEFINIÇÃO
 
-  DELETE https://app.cobrato.com/api/v1/payees/:payee_id
+  DELETE https://app.cobrato.com/api/v1/companies/:company_id
 
 EXEMPLO DE REQUISIÇÃO
 
@@ -276,7 +282,7 @@ EXEMPLO DE REQUISIÇÃO
     -H 'User-Agent: My App 1.0' \
     -H 'Accept: application/json' \
     -H 'Content-type: application/json' \
-    -X DELETE https://app.cobrato.com/api/v1/payees/:payee_id
+    -X DELETE https://app.cobrato.com/api/v1/companies/:company_id
 
 EXEMPLO DE ESTADO DA RESPOSTA COM SUCESSO
 
