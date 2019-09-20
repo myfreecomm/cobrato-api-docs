@@ -10,6 +10,7 @@ toc_footers:
 
 includes:
   - basic_information
+  - companies
   - payees
   - payers
   - people

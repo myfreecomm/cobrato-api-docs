@@ -1,5 +1,9 @@
 # Beneficiário
 
+<aside class="warning">
+  <strong>ATENÇÃO!</strong> Este endpoint será <strong>descontinuado</strong>, favor utilizar o endpoint de estabelecimento.
+</aside>
+
 ```shell
 Beneficiário
 
@@ -21,7 +25,10 @@ EXEMPLO
       [
         {"rel":"self","method":"GET","href":"https://app.cobrato.com/api/v1/payees/1"},
         {"rel":"update","method":"PUT","href":"https://app.cobrato.com/api/v1/payees/1"},
-        {"rel":"destroy","method":"DELETE","href":"https://app.cobrato.com/api/v1/payees/1"}
+        {"rel":"destroy","method":"DELETE","href":"https://app.cobrato.com/api/v1/payees/1"},
+        {"rel":"self","method":"GET","href":"https://app.cobrato.com/api/v1/companies/1"},
+        {"rel":"update","method":"PUT","href":"https://app.cobrato.com/api/v1/companies/1"},
+        {"rel":"destroy","method":"DELETE","href":"https://app.cobrato.com/api/v1/companies/1"}
       ]
   }
 ```
@@ -84,7 +91,10 @@ EXEMPLO DE CORPO DA RESPOSTA
       [
         {"rel":"self","method":"GET","href":"https://app.cobrato.com/api/v1/payees/1"},
         {"rel":"update","method":"PUT","href":"https://app.cobrato.com/api/v1/payees/1"},
-        {"rel":"destroy","method":"DELETE","href":"https://app.cobrato.com/api/v1/payees/1"}
+        {"rel":"destroy","method":"DELETE","href":"https://app.cobrato.com/api/v1/payees/1"},
+        {"rel":"self","method":"GET","href":"https://app.cobrato.com/api/v1/companies/1"},
+        {"rel":"update","method":"PUT","href":"https://app.cobrato.com/api/v1/companies/1"},
+        {"rel":"destroy","method":"DELETE","href":"https://app.cobrato.com/api/v1/companies/1"}
       ]
   }
 ```

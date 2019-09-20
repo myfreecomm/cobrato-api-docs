@@ -49,7 +49,7 @@ Os Cartões de Crédito pertencem ao Pagador utilizado no momento de sua criaç�
 | reusability_error_message | string          | informa o motivo do erro na configuração de reuso, apenas quando o atributo reusability_status tem o valor "error"                       |
 | payer_id                  | integer         | identificador do Payer ao qual este cartão pertence                                                                                      |
 | charge_config_id          | integer         | identificador da ChargeConfig à qual este cartão pertence                                                                                |
-| _links                    | array of object | links do beneficiário                                                                                                                    |
+| _links                    | array of object | links do estabelecimento                                                                                                                    |
 
 **reusability_status**
 

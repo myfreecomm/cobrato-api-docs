@@ -23,20 +23,21 @@ EXEMPLO
   }
 ```
 
-As Contas Bancárias, pertencem aos seus beneficiários, sendo assim é necessário que sempre haja ao menos um beneficiário para criação de conta bancária.
+As Contas Bancárias, pertencem aos seus estabelecimentos, sendo assim é necessário que sempre haja ao menos um estabelecimento para criação de conta bancária.
 
 **Parâmetros**
 
 | Campo         | Tipo            | Comentário                                                                        |
 |---------------|-----------------|-----------------------------------------------------------------------------------|
 | id            | integer         |                                                                                   |
-| payee_id      | integer         | identificador do beneficiários no Cobrato                                         |
+| company_id    | integer         | identificador do estabelecimentos no Cobrato                                         |
+| payee_id      | integer         | (DEPRECATED: use company_id) identificador do estabelecimentos no Cobrato            |
 | bank_code     | string          | código do banco no Febraban                                                       |
 | agency        | string          | agência da conta bancária                                                         |
 | agency_digit  | string          | dígito da agência da conta bancária (apenas utilizado pelo Banco do Brasil - 001) |
 | account       | string          | número da conta bancária                                                          |
 | account_digit | string          | dígito do número da conta bancária (apenas não utilizado pelo HSBC - 399)         |
-| _links        | array of object | links da conta bancária e de seu beneficiários                                    |
+| _links        | array of object | links da conta bancária e de seu estabelecimentos                                    |
 
 ## Informações da Conta Bancária
 
@@ -63,7 +64,8 @@ EXEMPLO DE CORPO DA RESPOSTA
 
   {
     "id":1,
-    "payee_id":"1",
+    "company_id":"1",
+    "payee_id":"1", # DEPRECATED
     "bank_code":"001",
     "agency":"1606",
     "agency_digit":"3",
@@ -74,13 +76,13 @@ EXEMPLO DE CORPO DA RESPOSTA
         {"rel":"self","method":"GET","href":"https://app.cobrato.com/api/v1/bank_accounts/1"},
         {"rel":"update","method":"PUT","href":"https://app.cobrato.com/api/v1/bank_accounts/1"},
         {"rel":"destroy","method":"DELETE","href":"https://app.cobrato.com/api/v1/bank_accounts/1"},
-        {"rel":"payee","method":"GET","href":"https://app.cobrato.com/api/v1/payees/1"}
+        {"rel":"companies","method":"GET","href":"https://app.cobrato.com/api/v1/companies/1"}
       ]
   }
 
 ```
 
-Retorna as informações detalhadas da conta bancária informada em JSON e também a referência ao seu beneficiário.
+Retorna as informações detalhadas da conta bancária informada em JSON e também a referência ao seu estabelecimento.
 
 ## Lista de Todas as Contas Bancárias
 
@@ -120,7 +122,7 @@ EXEMPLO DE CORPO DA RESPOSTA
 
 ```
 
-Retorna uma lista em JSON contendo todos as contas bancárias em que seus beneficiários pertencentem a sua Conta de Serviço.
+Retorna uma lista em JSON contendo todos as contas bancárias em que seus estabelecimentos pertencentem a sua Conta de Serviço.
 
 ## Criação de Conta Bancária
 
@@ -139,7 +141,8 @@ EXEMPLO DE REQUISIÇÃO
     -H 'Content-type: application/json' \
     -X POST https://app.cobrato.com/api/v1/bank_accounts \
     -d '{
-          "payee_id": "1",
+          "company_id": "1",
+          "payee_id": "1", # DEPRECATED
           "bank_code": "001",
           "agency":"1606",
           "agency_digit":"3",
@@ -163,7 +166,8 @@ EXEMPLO DE CORPO DA RESPOSTA COM INSUCESSO
         "bank_code": ["não pode ficar em branco","não possui o tamanho esperado (3 caracteres)"],
         "agency": ["não pode ficar em branco","não é um número"],
         "account": ["não pode ficar em branco","não é um número"],
-        "payee_id":["não pode ficar em branco"]
+        "company_id":["não pode ficar em branco"],
+        "payee_id":["não pode ficar em branco"] # DEPRECATED
       }
   }
 
@@ -174,14 +178,15 @@ Cria um nova conta bancária, retornando as informações da mesma caso haja suc
 
 **Parâmetros**
 
-| Campo         | Tipo    | Comentário                                                                                      |
-|---------------|---------|-------------------------------------------------------------------------------------------------|
-| payee_id      | integer | **(requerido)** identificador do beneficiário no Cobrato em que a conta bancária irá pertencer  |
-| bank_code     | string  | **(requerido)** código do banco no Febraban                                                     |
-| agency        | string  | **(requerido)** agência da conta bancária                                                       |
-| agency_digit  | string  | **(requerido apenas pelo Banco do Brasil - 001)** dígito da agência da conta bancária           |
-| account       | string  | **(requerido)** número da conta bancária                                                        |
-| account_digit | string  | **(requerido, com exceção do HSBC - 399)** dígito do número da conta bancária                   |
+| Campo         | Tipo    | Comentário                                                                                                                   |
+|---------------|---------|------------------------------------------------------------------------------------------------------------------------------|
+| company_id    | integer | **(requerido)** identificador do estabelecimento no Cobrato em que a conta bancária irá pertencer                               |
+| payee_id      | integer | (DEPRECATED: use company_id) **(requerido)** identificador do estabelecimento no Cobrato em que a conta bancária irá pertencer  |
+| bank_code     | string  | **(requerido)** código do banco no Febraban                                                                                  |
+| agency        | string  | **(requerido)** agência da conta bancária                                                                                    |
+| agency_digit  | string  | **(requerido apenas pelo Banco do Brasil - 001)** dígito da agência da conta bancária                                        |
+| account       | string  | **(requerido)** número da conta bancária                                                                                     |
+| account_digit | string  | **(requerido, com exceção do HSBC - 399)** dígito do número da conta bancária                                                |
 
 ## Atualização de Conta Bancária
 

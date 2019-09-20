@@ -8,7 +8,8 @@ EXEMPLO
   {
     "id": 1,
     "type": "billet",
-    "payee_id": 1,
+    "company_id": 1,
+    "payee_id": 1, # DEPRECATED
     "bank_account_id": 1,
     "portfolio_code": "17",
     "agreement_code": "12345678",
@@ -33,7 +34,7 @@ EXEMPLO
         {"rel":"update","method":"PUT","href":"https://app.cobrato.com/api/v1/charge_configs/1"},
         {"rel":"destroy","method":"DELETE","href":"https://app.cobrato.com/api/v1/charge_configs/1"},
         {"rel":"bank_account","method":"GET","href":"https://app.cobrato.com/api/v1/bank_accounts/1"},
-        {"rel":"payee","method":"GET","href":"https://app.cobrato.com/api/v1/payee/1"}
+        {"rel":"company","method":"GET","href":"https://app.cobrato.com/api/v1/company/1"}
       ]
   }
 
@@ -67,10 +68,11 @@ As Configurações de Cobrança do tipo **Conta bancária** (billet), pertencem 
 | type                      | string           | indica o tipo da configuração de cobrança. Nesse caso 'billet'                                                                                                            |
 | name                      | string           | nome que identifica esta configuração de cobrança                                                                                                                         |
 | status                    | string           | 'ok' ou 'pending' para indicar se configuração de cobrança está ou não homologada, respectivamente                                                                        |
-| payee_id                  | integer          | identificador do beneficiário desta configuração de cobrança no Cobrato                                                                                                   |
+| company_id                | integer          | identificador do estabelecimento desta configuração de cobrança no Cobrato                                                                                                |
+| payee_id                  | integer          | (DEPRECATED: use company_id) identificador do estabelecimento desta configuração de cobrança no Cobrato                                                                   |
 | bank_account_id           | integer          | identificador da conta bancária desta configuração de cobrança no Cobrato                                                                                                 |
 | portfolio_code            | string           | código de portfólio                                                                                                                                                       |
-| agreement_code            | string           | código de convênio ou do beneficiário, de acordo com o banco. No caso do Itaú deve ser igual ao campo 'account' da conta bancária                                         |
+| agreement_code            | string           | código de convênio ou do estabelecimento, de acordo com o banco. No caso do Itaú deve ser igual ao campo 'account' da conta bancária                                      |
 | agreement_code_digit      | string           | verificador do código de convênio, de acordo com o banco                                                                                                                  |
 | initial_number            | integer          | número inicial do nosso número, sendo atribuído automaticamente e sequencialmente as cobranças                                                                            |
 | next_number               | integer          | próximo nosso número a ser atribuído a uma cobrança criada a partir desta configuração de cobrança                                                                        |
@@ -104,7 +106,8 @@ As Configurações de Cobrança do tipo **Conta bancária** (billet), pertencem 
 | type                    | string           | indica o tipo da configuração de cobrança. Nese caso 'payment_gateway'                                                                                                                 |
 | name                    | string           | nome que identifica esta configuração de cobrança                                                                                                                                      |
 | status                  | string           | indica o status, ou etapa, de homologação em que configuração de cobrança está ('pending', 'production_tests', 'ok')                                                                   |
-| payee_id                | integer          | identificador do beneficiário desta configuração de cobrança no Cobrato                                                                                                                |
+| company_id              | integer          | identificador do estabelecimento desta configuração de cobrança no Cobrato                                                                                                             |
+| payee_id                | integer          | (DEPRECATED: use company_id)  identificador do estabelecimento desta configuração de cobrança no Cobrato                                                                               |
 | gateway_name            | string           | nome do gateway de pagamento ('cielo-ws15', 'cielo-api30', 'pjbank')                                                                                                                   |
 | available_charge_types  | array of strings | tipos de cobrança disponíveis. No caso de Configuração de Cobrança por Gateway de Pagamento, as opções possíveis são "billet" e "credit_card". Este campo será gerenciado pelo Cobrato |
 | timezone                | string           | fuso horário utilizado pelo gateway. Utilize essa informação para converter e apresentar atributos do tipo "datetime" das cobranças dessa configuração de forma adequada               |
@@ -154,7 +157,8 @@ EXEMPLO DE CORPO DA RESPOSTA (BOLETO)
   {
     "id": 1,
     "type": "billet",
-    "payee_id": 1,
+    "company_id": 1,
+    "payee_id": 1, # DEPRECATED
     "bank_account_id": 1,
     "portfolio_code": "17",
     "agreement_code": "12345678",
@@ -180,7 +184,7 @@ EXEMPLO DE CORPO DA RESPOSTA (BOLETO)
         {"rel":"update","method":"PUT","href":"https://app.cobrato.com/api/v1/charge_configs/1"},
         {"rel":"destroy","method":"DELETE","href":"https://app.cobrato.com/api/v1/charge_configs/1"},
         {"rel":"bank_account","method":"GET","href":"https://app.cobrato.com/api/v1/bank_accounts/1"},
-        {"rel":"payee","method":"GET","href":"https://app.cobrato.com/api/v1/payees/1"}
+        {"rel":"company","method":"GET","href":"https://app.cobrato.com/api/v1/companies/1"}
       ]
   }
 
@@ -190,7 +194,8 @@ EXEMPLO DE CORPO DA RESPOSTA (BOLETO)
       "id": 1,
       "type": "payment_gateway",
       "name": "Configuração de Cobrança - PJBank",
-      "payee_id": 1,
+      "company_id": 1,
+      "payee_id": 1, # DEPRECATED
       "gateway_name": "pjbank",
       "gateway_key": "",
       "gateway_id": "",
@@ -207,7 +212,7 @@ EXEMPLO DE CORPO DA RESPOSTA (BOLETO)
           {"rel":"update","method":"PUT","href":"https://app.cobrato.com/api/v1/charge_configs/1"},
           {"rel":"destroy","method":"DELETE","href":"https://app.cobrato.com/api/v1/charge_configs/1"},
           {"rel":"bank_account","method":"GET","href":"https://app.cobrato.com/api/v1/bank_accounts/1"},
-          {"rel":"payee","method":"GET","href":"https://app.cobrato.com/api/v1/payees/1"}
+          {"rel":"company","method":"GET","href":"https://app.cobrato.com/api/v1/companies/1"}
         ]
     }
 
@@ -260,11 +265,13 @@ Retorna uma lista em JSON contendo todas as Configurações de Cobrança que per
 - `type`: Filtra pelo tipo de configuração de cobrança. O valor a ser informado é string com um dos tipos existentes de configuração de cobrança.
 - `charge_type`: Filtra pelo tipo de cobrança disponível para a configuração, ou seja retornará as configurações que suportam o tipo de cobrança informado. O valor a ser informado é a string com um dos tipos de cobrança disponíveis ("billet" ou "credit_card" até o momento).
 - `bank_code`: Filtrar pelo código do banco da configuração de cobrança. O valor a ser informado é uma string com o código do banco. Por exemplo "341" para Itaú, "237" para Bradesco e etc.
-- `payee_ids`: Filtra pelos beneficiários informados. O valor informado é uma **lista\*** de ids dos beneficiários.
-- `payee_national_identifiers`: Filtra pelos beneficiários informados. O valor informado é uma **lista\*** de número de documentos dos beneficiários.
+- `company_ids`: Filtra pelos estabelecimentos informados. O valor informado é uma **lista\*** de ids dos estabelecimentos.
+- `company_national_identifiers`: Filtra pelos estabelecimentos informados. O valor informado é uma **lista\*** de número de documentos dos estabelecimentos.
+- `payee_ids`: (DEPRECATED: use company_ids) Filtra pelos estabelecimentos informados. O valor informado é uma **lista\*** de ids dos estabelecimentos.
+- `payee_national_identifiers`: (DEPRECATED: use company_national_identifiers) Filtra pelos estabelecimentos informados. O valor informado é uma **lista\*** de número de documentos dos estabelecimentos.
 - `active`: Filtra pelo estado da configuração de cobrança. O valor a ser informado é **true** para retornar somente as configurações ativas ou **false** para retornar somente as configurações de cobrança desativadas.
 
-**lista\*** Os valores em "lista" devem ser enviados da seguinte forma: `url?payee_ids[]=15&payee_ids[]=42`.
+**lista\*** Os valores em "lista" devem ser enviados da seguinte forma: `url?company_ids[]=15&company_ids[]=42`.
 
 ## Criação de Configuração de Cobrança
 
@@ -284,7 +291,8 @@ EXEMPLO DE REQUISIÇÃO
     -X POST https://app.cobrato.com/api/v1/charge_configs \
     -d '{
           "type": "billet",
-          "payee_id": "1",
+          "company_id": "1",
+          "payee_id": "1", # DEPRECATED
           "bank_account_id": "1",
           "portfolio_code": "17",
           "agreement_code": "12345678",
@@ -335,10 +343,11 @@ Cria uma nova Configuração de Cobrança, retornando as informações da mesma 
 | Campo                     | Tipo    | Comentário                                                                                                                                                                                                      |
 |---------------------------|---------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | type                      | string  | (opcional) indica o tipo da configuração de cobrança. Neste caso deve ser informado "billet" ou deixado em branco, pois este é o valor padrão                                                                   |
-| payee_id                  | integer | **(requerido)** código de identificação do beneficiário ao qual a configuração de cobrança irá pertencer                                                                                                        |
+| company_id                | integer | **(requerido)** código de identificação do estabelecimento ao qual a configuração de cobrança irá pertencer                                                                                                     |
+| payee_id                  | integer | (DEPRECATED: use company_id) **(requerido)** código de identificação do estabelecimento ao qual a configuração de cobrança irá pertencer                                                                        |
 | bank_account_id           | integer | **(requerido)** código de identificação da conta bancária em que a configuração de cobrança irá pertencer                                                                                                       |
 | portfolio_code            | string  | **(requerido)** código de portfólio, validação conforme o banco                                                                                                                                                 |
-| agreement_code            | string  | **(requerido, com exceção do Itaú onde é preenchido automaticamente)** código de convênio ou do beneficiário, de acordo com o banco                                                                             |
+| agreement_code            | string  | **(requerido, com exceção do Itaú onde é preenchido automaticamente)** código de convênio ou do estabelecimento, de acordo com o banco                                                                          |
 | agreement_code_digit      | string  | **(requerido, com exceção do HSBC e Itaú, sendo preenchido automaticamente para o último)** verificador do código de convênio, de acordo com o banco                                                            |
 | name                      | string  | **(requerido)** nome que identifica esta configuração de cobrança                                                                                                                                               |
 | initial_number            | integer | **(requerido)** número inicial do nosso número, sendo atribuído automaticamente e sequencialmente às cobranças                                                                                                  |
@@ -362,7 +371,8 @@ Cria uma nova Configuração de Cobrança, retornando as informações da mesma 
 | Campo        | Tipo    | Comentário                                                                                                                                            |
 |--------------|---------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
 | type         | string  | **(requerido)** indica o tipo da configuração de cobrança. Neste caso deve ser informado "payment_gateway"                                            |
-| payee_id     | integer | **(requerido)** código de identificação do beneficiário ao qual a configuração de cobrança irá pertencer                                              |
+| company_id   | integer | **(requerido)** código de identificação do estabelecimento ao qual a configuração de cobrança irá pertencer                                           |
+| payee_id     | integer | (DEPRECATED: use company_id) **(requerido)** código de identificação do estabelecimento ao qual a configuração de cobrança irá pertencer              |
 | name         | string  | **(requerido)** nome que identifica esta configuração de cobrança                                                                                     |
 | gateway_name | string  | **(requerido)** nome do gateway de pagamento ('cielo-ws15', 'cielo-api30', 'pjbank')*                                                                 |
 
@@ -461,9 +471,10 @@ Atualiza a Configuração de Cobrança determinada, retornando as informações 
 
 | Campo                     | Tipo    | Comentário                                                                                                                                                                                            |
 |---------------------------|---------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| payee_id                  | integer | **(requerido)** código de identificação do beneficiário ao qual a configuração de cobrança irá pertencer                                                                                              |
+| company_id                | integer | **(requerido)** código de identificação do estabelecimento ao qual a configuração de cobrança irá pertencer                                                                                           |
+| payee_id                  | integer | (DEPRECATED: use company_id) **(requerido)** código de identificação do estabelecimento ao qual a configuração de cobrança irá pertencer                                                              |
 | portfolio_code            | string  | **(requerido)** código de portfólio, validação conforme o banco                                                                                                                                       |
-| agreement_code            | string  | **(requerido, com exceção do Itaú onde é preenchido automaticamente)** código de convênio ou do beneficiário, de acordo com o banco                                                                   |
+| agreement_code            | string  | **(requerido, com exceção do Itaú onde é preenchido automaticamente)** código de convênio ou do estabelecimento, de acordo com o banco                                                                |
 | agreement_code_digit      | string  | **(requerido, com exceção do HSBC e Itaú, sendo preenchido automaticamente para o último)** verificador do código de convênio, de acordo com o banco                                                  |
 | name                      | string  | **(requerido)** nome que identifica esta configuração de cobrança                                                                                                                                     |
 | initial_number            | integer | **(requerido)** número inicial do nosso número, sendo atribuído automaticamente e sequencialmente às cobranças                                                                                        |
@@ -487,7 +498,8 @@ Atualiza a Configuração de Cobrança determinada, retornando as informações 
 | Campo        | Tipo    | Comentário                                                                                                                                            |
 |--------------|---------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
 | name         | string  | **(requerido)** nome que identifica esta configuração de cobrança                                                                                     |
-| payee_id     | integer | **(requerido)** código de identificação do beneficiário ao qual a configuração de cobrança irá pertencer                                              |
+| company_id   | integer | **(requerido)** código de identificação do estabelecimento ao qual a configuração de cobrança irá pertencer                                           |
+| payee_id     | integer | (DEPRECATED: use company_id) **(requerido)** código de identificação do estabelecimento ao qual a configuração de cobrança irá pertencer              |
 | gateway_name | string  | **(requerido)** nome do gateway de pagamento ('cielo-ws15', 'cielo-api30', 'pjbank')*                                                                 |
 
 **Parâmetros para o gateway Cielo**
