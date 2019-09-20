@@ -1,8 +1,8 @@
-<aside class="warning">
-  <strong>ATENÇÃO!</strong> Beneficiário está <strong>DEPRECATED</strong>, favor utilizar o end-point de [estabelecimento](/_companies.md).
-</aside>
-
 # Beneficiário
+
+<aside class="warning">
+  <strong>ATENÇÃO!</strong> Este endpoint será <strong>descontinuado</strong>, favor utilizar o endpoint de estabelecimento.
+</aside>
 
 ```shell
 Beneficiário

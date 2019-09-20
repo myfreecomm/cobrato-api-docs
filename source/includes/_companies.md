@@ -22,7 +22,7 @@ EXEMPLO
         {"rel":"self","method":"GET","href":"https://app.cobrato.com/api/v1/companies/1"},
         {"rel":"update","method":"PUT","href":"https://app.cobrato.com/api/v1/companies/1"},
         {"rel":"destroy","method":"DELETE","href":"https://app.cobrato.com/api/v1/companies/1"},
-        {"rel":"self","method":"GET","href":"https://app.cobrato.com/api/v1/payees/1"},# DEPRECATED
+        {"rel":"self","method":"GET","href":"https://app.cobrato.com/api/v1/payees/1"}, # DEPRECATED
         {"rel":"update","method":"PUT","href":"https://app.cobrato.com/api/v1/payees/1"}, # DEPRECATED
         {"rel":"destroy","method":"DELETE","href":"https://app.cobrato.com/api/v1/payees/1"} # DEPRECATED
       ]
