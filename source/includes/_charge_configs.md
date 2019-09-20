@@ -34,7 +34,7 @@ EXEMPLO
         {"rel":"update","method":"PUT","href":"https://app.cobrato.com/api/v1/charge_configs/1"},
         {"rel":"destroy","method":"DELETE","href":"https://app.cobrato.com/api/v1/charge_configs/1"},
         {"rel":"bank_account","method":"GET","href":"https://app.cobrato.com/api/v1/bank_accounts/1"},
-        {"rel":"payee","method":"GET","href":"https://app.cobrato.com/api/v1/payee/1"}
+        {"rel":"company","method":"GET","href":"https://app.cobrato.com/api/v1/company/1"}
       ]
   }
 
@@ -266,8 +266,9 @@ Retorna uma lista em JSON contendo todas as Configurações de Cobrança que per
 - `charge_type`: Filtra pelo tipo de cobrança disponível para a configuração, ou seja retornará as configurações que suportam o tipo de cobrança informado. O valor a ser informado é a string com um dos tipos de cobrança disponíveis ("billet" ou "credit_card" até o momento).
 - `bank_code`: Filtrar pelo código do banco da configuração de cobrança. O valor a ser informado é uma string com o código do banco. Por exemplo "341" para Itaú, "237" para Bradesco e etc.
 - `company_ids`: Filtra pelos estabelecimentos informados. O valor informado é uma **lista\*** de ids dos estabelecimentos.
+- `company_national_identifiers`: Filtra pelos estabelecimentos informados. O valor informado é uma **lista\*** de número de documentos dos estabelecimentos.
 - `payee_ids`: (DEPRECATED: use company_ids) Filtra pelos estabelecimentos informados. O valor informado é uma **lista\*** de ids dos estabelecimentos.
-- `payee_national_identifiers`: Filtra pelos estabelecimentos informados. O valor informado é uma **lista\*** de número de documentos dos estabelecimentos.
+- `payee_national_identifiers`: (DEPRECATED: use company_national_identifiers) Filtra pelos estabelecimentos informados. O valor informado é uma **lista\*** de número de documentos dos estabelecimentos.
 - `active`: Filtra pelo estado da configuração de cobrança. O valor a ser informado é **true** para retornar somente as configurações ativas ou **false** para retornar somente as configurações de cobrança desativadas.
 
 **lista\*** Os valores em "lista" devem ser enviados da seguinte forma: `url?company_ids[]=15&company_ids[]=42`.

@@ -353,8 +353,10 @@ Retorna uma lista em JSON contendo todos as cobranças que pertencem a sua Conta
 - `type`: Filtra pelo tipo de cobrança. O valor a ser informado é string com um dos tipos existentes de cobrança ("billet" e "credit_card", sendo que existe "payment_gateway" que está _deprecated_ retornando a mesma coisa que "credit_card") .
 - `remittable`: Filtra as cobranças remessáveis, ou seja, passíveis de geração de arquivo de remessa. É necessária apenas a presença do parâmetro, não importando seu valor.
 - `charge_config_ids`: Filtra pelas configurações de cobrança informadas. O valor informado é uma **lista\*** de ids das configurações de cobrança.
-- `payee_ids`: Filtra pelos estabelecimentos informados. O valor informado é uma **lista\*** de ids dos estabelecimentos.
-- `payee_national_identifiers`: Filtra pelos estabelecimentos informados. O valor informado é uma **lista\*** de número de documentos dos estabelecimentos.
+- `company_ids`: Filtra pelos estabelecimentos informados. O valor informado é uma **lista\*** de ids dos estabelecimentos.
+- `company_national_identifiers`: Filtra pelos estabelecimentos informados. O valor informado é uma **lista\*** de número de documentos dos estabelecimentos.
+- `payee_ids`: (DEPRECATED: use company_ids) Filtra pelos estabelecimentos informados. O valor informado é uma **lista\*** de ids dos estabelecimentos.
+- `payee_national_identifiers`: (DEPRECATED: use company_national_identifiers) Filtra pelos estabelecimentos informados. O valor informado é uma **lista\*** de número de documentos dos estabelecimentos.
 
 **lista\*** Os valores em "lista" devem ser enviados da seguinte forma: `url?charge_config_ids[]=15&charge_config_ids[]=42`.
 
